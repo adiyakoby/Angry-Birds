@@ -361,3 +361,23 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# cmake and cache and temp Files/.vs/cmake.db
+*.vs
+.vs
+/.vs
+/out/build/x64-Debug/CMakeFiles/CMakeOutput.log
+/out/build/x64-Debug/CMakeFiles/ShowIncludes/main.obj
+*.ipch
+*.suo
+*.User
+*.user
+*.sbr
+*.ncb
+*.vs
+*.wsuo
+*.MAIN.ipch
+*/MAIN.ipch
+
+*.log
+**/build
