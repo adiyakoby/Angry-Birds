@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Macro.h"
 #include "GameResources.h"
 
 
@@ -16,7 +17,7 @@ public:
 
 private:
 	std::vector<sf::Sprite> m_buttons;
-	sf::Sprite m_backGround;
+	sf::RectangleShape m_backGround;
 	menuCommand m_menu_state;
 
 	bool m_helpScreen;
