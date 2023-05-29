@@ -7,8 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 
-
-enum class menuCommand { PLAY, HELP, EXIT, BACK, SOUND };
+enum class menuCommand { PLAY, HELP, BACK, EXIT, SOUND, MUTE };
 
 
 #include <SFML/audio.hpp>
@@ -20,8 +19,8 @@ public:
 	GameResources operator=(const GameResources&) = delete;//disable assimenget operator
 	sf::Texture& getMenuTexture(int index);
 	/*sf::Texture& getObjectTexture(int index);
-	sf::Texture& getDataButtuns(int index);
-	sf::Texture& getTransitionScreens(int index);*/
+	sf::Texture& getDataButtuns(int index);*/
+	sf::Texture& getTransitionScreens(int index);
 	/*sf::Font& getFont(int index);
 	sf::Sound& Playaffect(int index);
 	sf::Text& createText(std::string, sf::Vector2f, sf::Color, int);*/
@@ -31,10 +30,10 @@ private:
 	~GameResources() = default;
 
 	//members
-	std::vector <sf::Texture > m_menuTexture;
-	std::vector <sf::Texture > m_objectTexture;
-	std::vector <sf::Texture > m_transitionScreens;
-	std::vector <sf::Texture > m_databuttons;
+	std::vector <sf::Texture> m_menuTexture;
+	std::vector <sf::Texture> m_objectTexture;
+	std::vector <sf::Texture> m_transitionScreens;
+	std::vector <sf::Texture> m_databuttons;
 	std::vector <sf::Font> m_font;
 	std::vector <sf::SoundBuffer> m_affects;
 

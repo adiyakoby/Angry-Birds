@@ -15,8 +15,8 @@ public:
 	menuCommand handleClick(const sf::Vector2f &mouse_loc);
 
 private:
-	std::vector<sf::Sprite> m_buttons;
-	sf::Sprite m_backGround;
+	std::vector<sf::RectangleShape> m_buttons;
+	sf::RectangleShape m_backGround;
 	menuCommand m_menu_state;
 
 	bool m_helpScreen;

@@ -21,7 +21,7 @@ sf::Texture& GameResources::getMenuTexture(int index)
 {
    /* if (index < 9 && index >= 0)
         return m_menuTexture[index];*/
-    return m_menuTexture.at(0);
+    return m_menuTexture.at(index);
 }
 
 ////get the textures for the game objects
@@ -38,13 +38,12 @@ sf::Texture& GameResources::getMenuTexture(int index)
 //        return m_databuttons[index];*/
 //}
 //
-////get the textures for the transitions screens
-//sf::Texture& GameResources::getTransitionScreens(int index)
-//{
-//  /*  if (index < 4 && index >= 0)
-//        return m_transitionScreens[index];*/
-//}
-//
+//get the textures for the transitions screens
+sf::Texture& GameResources::getTransitionScreens(int index)
+{
+    return m_transitionScreens.at(index);
+}
+
 ////get font
 //sf::Font& GameResources::getFont(int index)
 //{
@@ -86,7 +85,12 @@ void GameResources::initTextures()
     //all the texture images names for menu
     //char menuTextureNames[9][20] = { "pacmanTitle.png", "pacmanEmoji.png", "playButton.png", "helpButton.png",
       //  "exitButton.png","musicButton.png", "help.png", "backButton.png","MenuBackground.png" };
-    std::array<std::string, 10> menuTextureNames;
+    std::array<std::string, 10> menuTextureNames{ "play.png", "help.png", "back.png", "exit.png", "sound.png", "mute.png" };
+    for (size_t i = 0; i < menuTextureNames.size(); i++)
+    {
+        m_menuTexture.emplace_back();
+        m_menuTexture.back().loadFromFile(menuTextureNames.at(i));
+    }
 
     //init texture vector for menu
     //for (int i = 0; i < 9; i++)
@@ -100,7 +104,8 @@ void GameResources::initTextures()
  /*   char objectTextureNames[12][30] = { "pacman.png", "ghost.png", "wall.png", "key.png", "door.png",
                                         "gift.png", "cookie.png", "Life.png", "freeze.png", "time.png", "superPacman.png","smartDemon.png" };*/
     
-    std::array<std::string, 10> objectTextureNames;
+    std::array<std::string, 6> objectTextureNames{};
+  
 
     //init texture vector for menu
     //for (int i = 0; i < 12; i++)
@@ -109,13 +114,16 @@ void GameResources::initTextures()
     //    name.loadFromFile(objectTextureNames[i]);
     //    m_objectTexture.push_back(name);
     //}
+    
+
+    
     //---------------------------screens textures-----------------------------
     //all the texture images names for transition screens
     //char screenTextureNames[4][30] = { "pacmanBackground.png", "GameOver.png", "NextLevel.png", "endGame.png" };
 
     std::array<std::string, 1> screenTextureNames{"MenuBackground.png"};
-    m_menuTexture.emplace_back();
-    m_menuTexture.back().loadFromFile(screenTextureNames.at(0));
+    m_transitionScreens.emplace_back();
+    m_transitionScreens.back().loadFromFile(screenTextureNames.at(0));
     
     //init texture vector for menu
     //for (int i = 0; i < 4; i++)
