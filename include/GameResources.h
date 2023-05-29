@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 
 
-enum class menuCommand { PLAY, HELP, EXIT, SOUND };
+enum class menuCommand { PLAY, HELP, EXIT, BACK, SOUND };
 
 
 #include <SFML/audio.hpp>

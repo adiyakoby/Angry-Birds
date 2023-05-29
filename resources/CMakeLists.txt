@@ -1,2 +1,6 @@
 ﻿configure_file ("MenuBackground.png" ${CMAKE_BINARY_DIR} COPYONLY)
-#configure_file ("Wall.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("play.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("help.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("exit.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("sound.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("mute.png" ${CMAKE_BINARY_DIR} COPYONLY)
