@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 
-enum class menuCommand { PLAY, HELP, BACK, EXIT, SOUND, MUTE };
+enum class menuCommand { PLAY, HELP, EXIT, BACK, SOUND, MUTE, DEFAULT};
 
 
 #include <SFML/audio.hpp>
@@ -34,6 +34,9 @@ private:
 	std::vector <sf::Texture> m_objectTexture;
 	std::vector <sf::Texture> m_transitionScreens;
 	std::vector <sf::Texture> m_databuttons;
+	std::vector <sf::Texture> m_helpTexture;
+
+
 	std::vector <sf::Font> m_font;
 	std::vector <sf::SoundBuffer> m_affects;
 

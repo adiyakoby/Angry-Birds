@@ -11,6 +11,7 @@ public:
 	Menu();
 	~Menu() = default;
 
+	void setSound(const menuCommand& cmd);
 	void setHelp(const bool &x);
 	void drawMenu(sf::RenderWindow& window);
 	menuCommand handleClick(const sf::Vector2f &mouse_loc);

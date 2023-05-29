@@ -85,7 +85,7 @@ void GameResources::initTextures()
     //all the texture images names for menu
     //char menuTextureNames[9][20] = { "pacmanTitle.png", "pacmanEmoji.png", "playButton.png", "helpButton.png",
       //  "exitButton.png","musicButton.png", "help.png", "backButton.png","MenuBackground.png" };
-    std::array<std::string, 10> menuTextureNames{ "play.png", "help.png", "back.png", "exit.png", "sound.png", "mute.png" };
+    std::array<std::string, 6> menuTextureNames{ "play.png", "help.png", "exit.png", "back.png", "sound.png", "mute.png" };
     for (size_t i = 0; i < menuTextureNames.size(); i++)
     {
         m_menuTexture.emplace_back();
