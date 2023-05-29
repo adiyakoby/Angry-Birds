@@ -363,7 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # cmake and cache and temp Files/.vs/cmake.db
-*.vs
 .vs
 /.vs
 /out/build/x64-Debug/CMakeFiles/CMakeOutput.log
