@@ -5,7 +5,7 @@ Window::Window()
 {}
 
 
-sf::RenderWindow* Window::getWindow()
+sf::RenderWindow& Window::getWindow() 
 {
-	return &m_window;
+	return m_window;
 }
