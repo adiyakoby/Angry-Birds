@@ -6,6 +6,7 @@
 #include <array>
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 enum class menuCommand { PLAY, HELP, EXIT, BACK, SOUND, MUTE, DEFAULT};
 
@@ -21,8 +22,9 @@ public:
 	/*sf::Texture& getObjectTexture(int index);
 	sf::Texture& getDataButtuns(int index);*/
 	sf::Texture& getTransitionScreens(int index);
+	sf::SoundBuffer& Playaffect(int index);
 	/*sf::Font& getFont(int index);
-	sf::Sound& Playaffect(int index);
+	
 	sf::Text& createText(std::string, sf::Vector2f, sf::Color, int);*/
 private:
 	//constructor/ distructor
@@ -45,5 +47,5 @@ private:
 	//func
 	void initTextures();
 	//void initFonts();
-	//void initSounds();
+	void initSounds();
 };

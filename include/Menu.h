@@ -20,7 +20,7 @@ private:
 	std::vector<sf::RectangleShape> m_buttons;
 	sf::RectangleShape m_backGround;
 	menuCommand m_menu_state;
-
+	sf::Sound m_music;
 	bool m_helpScreen;
 
 	/* init funcs */

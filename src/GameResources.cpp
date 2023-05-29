@@ -5,7 +5,7 @@ GameResources::GameResources()
 {
    initTextures();
   //  initFonts();
-  //  initSounds();
+    initSounds();
 }
 
 //static func - singelton class
@@ -52,15 +52,10 @@ sf::Texture& GameResources::getTransitionScreens(int index)
 //}
 //
 ////play a wanted affect
-//sf::Sound& GameResources::Playaffect(int index)
-//{
-//    //if (index < 14 && index >= 0)
-//    //{
-//    //    m_affect.setBuffer(m_affects[index]);
-//    //    m_affect.play();
-//    //    return m_affect;
-//    //}
-//}
+sf::SoundBuffer& GameResources::Playaffect(int index)
+{
+    return m_affects.at(index);
+}
 //
 ////create the text 
 //sf::Text& GameResources::createText(std::string dataName, sf::Vector2f position, sf::Color color, int font)
@@ -121,9 +116,13 @@ void GameResources::initTextures()
     //all the texture images names for transition screens
     //char screenTextureNames[4][30] = { "pacmanBackground.png", "GameOver.png", "NextLevel.png", "endGame.png" };
 
-    std::array<std::string, 1> screenTextureNames{"MenuBackground.png"};
-    m_transitionScreens.emplace_back();
-    m_transitionScreens.back().loadFromFile(screenTextureNames.at(0));
+    std::array<std::string, 2> screenTextureNames{"MenuBackground.png", "helpScreen.png"};
+    for (size_t i = 0; i < screenTextureNames.size(); i++)
+    {
+        m_transitionScreens.emplace_back();
+        m_transitionScreens.back().loadFromFile(screenTextureNames.at(i));
+    }
+
     
     //init texture vector for menu
     //for (int i = 0; i < 4; i++)
@@ -160,15 +159,9 @@ void GameResources::initTextures()
 //}
 //
 ////load the sounds for the game
-//void GameResources::initSounds()
-//{
-//    //char affectsNames[14][50] = { "pacmanEatingCookie.wav" ,"pacmanGameOver.wav" ,"pacmanGetingLife.wav" ,"pacmanOpening.wav",
-//    //                              "door.wav" ,"key.wav", "NextLevel.wav","superGift.wav" ,"timeGift.wav","wall.wav", "freezeTime.wav" ,
-//    //                               "playerColideWithDemon.wav","superColideWithDemon.wav" ,"superColideWithDoor.wav" };
-//    //for (int i = 0; i < 14; i++)
-//    //{
-//    //    sf::SoundBuffer temp;
-//    //    temp.loadFromFile(affectsNames[i]);
-//    //    m_affects.push_back(temp);
-//    //}
-//}
+void GameResources::initSounds()
+{
+    std::array<std::string, 1> music { "menuThemeSong.opus" };
+    m_affects.emplace_back();
+    m_affects.back().loadFromFile(music.at(0));
+}

@@ -1,8 +1,12 @@
 #include "Menu.h"
 
 Menu::Menu()
-	:m_helpScreen(false)
+	:m_helpScreen(false) 
 {
+	m_music.setBuffer(GameResources::getInstance().Playaffect(0));
+	m_music.setLoop(true);
+	m_music.play();
+	
 	initButtons();
 };
 
@@ -25,16 +29,18 @@ void Menu::drawMenu(sf::RenderWindow& window)
 void Menu::setHelp(const bool& x)
 {
 	m_helpScreen = x;
+
 	if (x) 
-		m_backGround.setTexture(&GameResources::getInstance().getTransitionScreens(1));
-	else m_backGround.setTexture(&GameResources::getInstance().getTransitionScreens(0));
+		m_backGround.setTexture(&GameResources::getInstance().getTransitionScreens(1), true);
+	else m_backGround.setTexture(&GameResources::getInstance().getTransitionScreens(0) , true);
 }
 
-menuCommand Menu::handleClick(const sf::Vector2f& mouse_loc)
+menuCommand Menu::handleClick(const sf::Vector2f& mouse_loc) // getStatus() == sf::Music::Paused
 { 
-	if (m_helpScreen) return (m_buttons.back().getGlobalBounds().contains(mouse_loc) ? menuCommand::BACK : menuCommand::DEFAULT);
+	if (m_buttons.at(4).getGlobalBounds().contains(mouse_loc)) return (m_music.getStatus() == sf::Music::Paused ? menuCommand::SOUND : menuCommand::MUTE);
+	if (m_helpScreen) return (m_buttons.at(3).getGlobalBounds().contains(mouse_loc) ? menuCommand::BACK : menuCommand::DEFAULT);
 	
-	for (size_t i = 0; i < m_buttons.size()-1 ; i++)
+	for (size_t i = 0; i < m_buttons.size()-2 ; i++)
 		if (m_buttons.at(i).getGlobalBounds().contains(mouse_loc))
 			return static_cast<menuCommand>(i);
 
@@ -57,7 +63,7 @@ void Menu::initButtons()
 		m_buttons.back().setSize(m_backGround.getSize() * 0.2f);
 		m_buttons.back().setOrigin(m_buttons.back().getSize() * 0.5f);
 		m_buttons.back().setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT * 0.4 + delta);
-		delta += m_backGround.getSize().x * 0.15f;
+		delta += m_backGround.getSize().x * 0.12f;
 	}
 
 	m_buttons.at(3).setPosition(m_buttons.at(2).getPosition());
@@ -68,8 +74,14 @@ void Menu::initButtons()
 
 void Menu::setSound(const menuCommand& cmd)
 {
-	int index{ 3 };
-	if (cmd == menuCommand::MUTE) index = 5;
-	m_buttons.at(3).setTexture(&GameResources::getInstance().getMenuTexture(index));
+	int index{ 4 };
+	if (cmd == menuCommand::MUTE)
+	{
+		m_music.pause();
+		index = 5;
+	}
+	else
+		m_music.play();
+	m_buttons.at(4).setTexture(&GameResources::getInstance().getMenuTexture(index));
 
 }
