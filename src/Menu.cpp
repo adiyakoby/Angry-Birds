@@ -7,11 +7,18 @@ Menu::Menu()
 
 void Menu::drawMenu(sf::RenderWindow& window)
 {
-	window.draw(m_backGround);
-	for (auto& ea : m_buttons)
-		window.draw(ea);
+	if (m_helpScreen); // PRINT HELP
+	else {
+		window.draw(m_backGround);
+		for (auto& ea : m_buttons)
+			window.draw(ea);
+	}
+	
 }
-
+void Menu::setHelp(const bool& x;)
+{
+	m_helpScreen = x;
+}
 menuCommand Menu::handleClick(const sf::Vector2f& mouse_loc)
 { 
 	for (size_t i = 0; i < 3; i++)
