@@ -1,23 +1,29 @@
 #pragma once
 
-#pragma once
-
+#include <iostream>
 #include <vector>
+#include <array>
+
 #include <SFML/Graphics.hpp>
 #include <SFML/audio.hpp>
+
+
+enum class menuCommand { PLAY, HELP, EXIT, SOUND };
+
+
 class GameResources
 {
 public:
-	static GameResources& getGameResources();
+	static GameResources& getInstance();
 	GameResources(const GameResources&) = delete;//disable copy constructor
 	GameResources operator=(const GameResources&) = delete;//disable assimenget operator
 	sf::Texture& getMenuTexture(int index);
-	sf::Texture& getObjectTexture(int index);
+	/*sf::Texture& getObjectTexture(int index);
 	sf::Texture& getDataButtuns(int index);
-	sf::Texture& getTransitionScreens(int index);
-	sf::Font& getFont(int index);
+	sf::Texture& getTransitionScreens(int index);*/
+	/*sf::Font& getFont(int index);
 	sf::Sound& Playaffect(int index);
-	sf::Text& createText(std::string, sf::Vector2f, sf::Color, int);
+	sf::Text& createText(std::string, sf::Vector2f, sf::Color, int);*/
 private:
 	//constructor/ distructor
 	GameResources();
@@ -35,6 +41,6 @@ private:
 	sf::Text m_text;
 	//func
 	void initTextures();
-	void initFonts();
-	void initSounds();
+	//void initFonts();
+	//void initSounds();
 };
