@@ -5,8 +5,19 @@ Menu::Menu()
 	initButtons();
 };
 
-void Menu::handleClick(const unsigned int& x, const unsigned int& y)
-{ }
+void Menu::drawMenu(sf::RenderWindow& window)
+{
+	window.draw(m_backGround);
+	for (auto& ea : m_buttons)
+		window.draw(ea);
+}
+
+menuCommand Menu::handleClick(const sf::Vector2f& mouse_loc)
+{ 
+	for (size_t i = 0; i < 3; i++)
+		if (m_buttons.at(i).getGlobalBounds().contains(mouse_loc))
+			return static_cast<menuCommand>(i);
+}
 
 void Menu::initButtons()
 { 
