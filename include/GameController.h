@@ -1,25 +1,27 @@
 #pragma once
 
 #include "Window.h"
-#include "SFML/Graphics.hpp"
+#include "Menu.h"
 #include "GameResources.h"
 
 class GameController
 {
 public:
 	GameController();
-	~GameController();
+	~GameController() = default;
 
 	//methods
 	void runGame();
-	void menuManeger();
+	void menuManeger(const menuCommand&);
+	void drawGame();
 	//void lvlManeger();
 
 
 
 private:
 	Window m_window;
-	//Menu m_menu;
+	bool m_menuMode;
+	Menu m_menu;
 	//LevelManeger m_lvlmng;
 	//std::vector<StaticObject> m_staticObjects;
 	//std::vector<Birds> m_staticObjects;
