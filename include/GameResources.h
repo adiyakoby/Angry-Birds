@@ -1,10 +1,9 @@
 #pragma once
 
-#pragma once
-
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/audio.hpp>
+
 class GameResources
 {
 public:
