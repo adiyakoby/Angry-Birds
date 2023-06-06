@@ -26,6 +26,9 @@ sf::Texture& GameResources::getMenuTexture(int index)
 sf::Texture& GameResources::getBirdTexture(int index) {
     return m_birdsTexture.at(index);
 }
+sf::Texture& GameResources::getWoodsTexture(int index) {
+    return m_woodsTexture.at(index);
+}
 
 ////get the textures for the game objects
 //sf::Texture& GameResources::getObjectTexture(int index)
@@ -96,6 +99,13 @@ void GameResources::initTextures()
     {
         m_birdsTexture.emplace_back();
         m_birdsTexture.back().loadFromFile(birdNames.at(i));
+    }
+
+    std::array<std::string, 6> woodsNames{ "wood1.png" };
+    for (size_t i = 0; i < woodsNames.size(); i++)
+    {
+        m_woodsTexture.emplace_back();
+        m_woodsTexture.back().loadFromFile(woodsNames.at(i));
     }
 
     //init texture vector for menu

@@ -15,7 +15,7 @@ void Bird::initPhysicBody(b2World& world) {
     bodyDef.position.Set(100.f / SCALE, 100.f / SCALE);
     bodyDef.linearDamping = 0.5f;
     m_body = world.CreateBody(&bodyDef);
-
+   
     // Create Box2D circle shape
     b2CircleShape shape;
     shape.m_radius = 20.0f / SCALE;

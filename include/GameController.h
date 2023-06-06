@@ -6,7 +6,9 @@
 #include "Bird.h"
 #include <memory>
 #include "Ground.h"
-
+#include <box2d/box2d.h>
+#include "World.h"
+#include "Wood.h"
 
 class GameController
 {
@@ -27,7 +29,7 @@ private:
 	bool m_menuMode;
 	Menu m_menu;
 	//Try temporary world
-	std::unique_ptr<b2World> m_world;
+	std::unique_ptr<World> m_world;
 
 	//LevelManeger m_lvlmng;
 	//std::vector<StaticObject> m_staticObjects;

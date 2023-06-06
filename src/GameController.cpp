@@ -7,18 +7,35 @@ GameController::GameController()
 }
 
 void GameController::initWorld() {
-    
+   
     b2Vec2 gravity(0.f, 10.8f);
-    m_world = std::make_unique<b2World>(gravity);
-    m_world->SetGravity(gravity);
+    m_world = std::make_unique<World>(gravity);
+    
 }
 void GameController::runGame()
 {
     
+    
     //TEMPORARY SECTION TO CHECK BIRD.
     
-    Bird bird(*m_world.get());
-    Ground ground(*m_world.get());
+    Bird bird(*m_world->getWorld());
+    Ground ground(*m_world->getWorld());
+
+    std::vector<Wood> woods;
+    
+    for (int i = 0; i < 3; i++)
+    {
+        //b2World& world, const b2Vec2 bodypostion, const sf::Vector2f position, const sf::Vector2f size
+        if (i == 1)//left
+            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(500.f, 300.f), sf::Vector2f(500.f, 300.f), sf::Vector2f(30.f, 100.f));
+        else if (i == 2)//right
+        {
+            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(700.f, 300.f), sf::Vector2f(700.f, 300.f), sf::Vector2f(30.f, 100.f));
+        }
+        else {//top
+            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f));
+        }
+    }
     //###############################
     m_window.getWindow().setFramerateLimit(60);
 
@@ -33,6 +50,10 @@ void GameController::runGame()
             if (bird.isDragged()) {
                 sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_window.getWindow());
                 bird.setRangeVector(mouseLocation);
+            }
+            for (auto& ea : woods) {
+                ea.objectUpdate();
+                ea.drawObject(m_window.getWindow());
             }
 
         }
@@ -110,8 +131,8 @@ void GameController::menuManeger(const menuCommand& command)
 
 void GameController::drawGame()
 {
-    m_world->Step(1.f / 60.f, 8, 3);
-    ;
+    m_world->step(1.f / 60.f, 8, 3);
+    
 }
 
 

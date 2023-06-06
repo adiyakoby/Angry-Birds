@@ -20,6 +20,8 @@ public:
 	GameResources operator=(const GameResources&) = delete;//disable assimenget operator
 	sf::Texture& getMenuTexture(int index);
 	sf::Texture& getBirdTexture(int index);
+	sf::Texture& getWoodsTexture(int index);
+
 	/*sf::Texture& getObjectTexture(int index);
 	sf::Texture& getDataButtuns(int index);*/
 	sf::Texture& getTransitionScreens(int index);
@@ -39,6 +41,7 @@ private:
 	std::vector <sf::Texture> m_databuttons;
 	std::vector <sf::Texture> m_helpTexture;
 	std::vector <sf::Texture> m_birdsTexture;
+	std::vector <sf::Texture> m_woodsTexture;
 
 	std::vector <sf::Font> m_font;
 	std::vector <sf::SoundBuffer> m_affects;

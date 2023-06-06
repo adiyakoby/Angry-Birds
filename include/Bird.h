@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Objects.h"
-const float SCALE = 100.0f; // Scale factor between Box2D and SFML
+#include "DynmamicObjects.h"
 
 
 
-class Bird //public Objects
+class Bird: public DynamicObjects
 {
+    //public Objects
 public:
 	Bird(b2World& world);
     virtual ~Bird() = default;
@@ -20,7 +20,7 @@ public:
     sf::Vector2f calculateThrow();
 private:
     sf::CircleShape m_bird;
-    b2Body* m_body;
+    //b2Body* m_body;
    
     bool m_dragging;
     sf::Vector2f dragStartPosition;

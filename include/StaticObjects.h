@@ -2,15 +2,18 @@
 #include "Objects.h"
 
 
-class StaicObjects //: public Objects
+
+class StaticObjects : public Objects
 {
 public:
-	StaicObjects() = default;
-	virtual ~StaicObjects() = default;
+	StaticObjects() = default;
+	virtual ~StaticObjects() = default;
 
-	
+	virtual void drawObject(sf::RenderWindow& window) = 0;
+protected:
+	b2Body* m_body;
 
 private:
-
+	
 };
 

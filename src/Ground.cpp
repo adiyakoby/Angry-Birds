@@ -32,6 +32,7 @@ void Ground::initGraphicBody() {
     m_ground.setOrigin(m_ground.getSize().x / 2.f, m_ground.getSize().y / 2.f);
     m_ground.setPosition(position.x * SCALE, position.y * SCALE);
     m_ground.setRotation(angle * 180.0f / b2_pi);
+    
 }
 
 void Ground::drawObject(sf::RenderWindow &window) {
