@@ -37,7 +37,7 @@ void GameController::runGame()
             ground.drawObject(m_window.getWindow());
             if (static_cast<Bird*>(m_birds[0].get())->isDragged()) {
                 sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_window.getWindow());
-                static_cast<Bird*>(m_birds[0].get())->setRangeVector(mouseLocation);
+                static_cast<Bird*>(m_birds[0].get())->setRangeVector(mouseLocation,m_window.getWindow());
                 rogatka.ignoreRogatka();
             }
             for (auto& ea : m_building) {
