@@ -1,18 +1,18 @@
 
 #include "Bird.h"
 
-Bird::Bird(b2World& world) : m_dragging{ false } {
+Bird::Bird(b2World& world, const sf::Vector2f& position) : m_dragging{ false } {
 
-    initPhysicBody(world);
+    initPhysicBody(world,position);
     initGraphicBody();
 }
 
 
-void Bird::initPhysicBody(b2World& world) {
+void Bird::initPhysicBody(b2World& world, const sf::Vector2f& position) {
     // Create Box2D body definition
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(100.f / SCALE, 100.f / SCALE);
+    bodyDef.position.Set(position.x / SCALE, position.y / SCALE);
     bodyDef.linearDamping = 0.5f;
     m_body = world.CreateBody(&bodyDef);
    
@@ -35,7 +35,7 @@ void Bird::initGraphicBody() {
     float size = 20.f;
     m_bird.setRadius(size);
     m_bird.setOrigin(size, size);
-    m_bird.setPosition(sf::Vector2f(m_body->GetPosition().x, m_body->GetPosition().y));
+    m_bird.setPosition(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE));
     
 }
 

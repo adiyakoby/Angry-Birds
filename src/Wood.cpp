@@ -1,7 +1,7 @@
 #include "Wood.h"
 
-Wood::Wood(b2World& world, const sf::Vector2f bodypostion, const sf::Vector2f position, const sf::Vector2f size) {
-    initPhysicBody(world, bodypostion, size);
+Wood::Wood(b2World& world, const sf::Vector2f position, const sf::Vector2f size) {
+    initPhysicBody(world, position, size);
     initGraphicBody(size);
 }
 

@@ -8,7 +8,7 @@ class Bird: public DynamicObjects
 {
     //public Objects
 public:
-	Bird(b2World& world);
+	Bird(b2World& world,const sf::Vector2f &position);
     virtual ~Bird() = default;
     
     virtual void objectUpdate();
@@ -27,7 +27,7 @@ private:
     sf::Vector2f dragEndPosition;
      
     //private functions
-    void initPhysicBody(b2World& world);
+    void initPhysicBody(b2World& world, const sf::Vector2f& position);
     void initGraphicBody();
 };
 

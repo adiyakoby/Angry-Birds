@@ -18,7 +18,7 @@ void GameController::runGame()
     
     //TEMPORARY SECTION TO CHECK BIRD.
     
-    Bird bird(*m_world->getWorld());
+    Bird bird(*m_world->getWorld(),sf::Vector2f(0,0));
     Ground ground(*m_world->getWorld());
 
     std::vector<Wood> woods;
@@ -27,13 +27,13 @@ void GameController::runGame()
     {
         //b2World& world, const b2Vec2 bodypostion, const sf::Vector2f position, const sf::Vector2f size
         if (i == 1)//left
-            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(500.f, 300.f), sf::Vector2f(500.f, 300.f), sf::Vector2f(30.f, 100.f));
+            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(500.f, 300.f), sf::Vector2f(30.f, 100.f));
         else if (i == 2)//right
         {
-            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(700.f, 300.f), sf::Vector2f(700.f, 300.f), sf::Vector2f(30.f, 100.f));
+            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(700.f, 300.f), sf::Vector2f(30.f, 100.f));
         }
         else {//top
-            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f));
+            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f));
         }
     }
     //###############################
