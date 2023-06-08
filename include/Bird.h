@@ -17,6 +17,8 @@ public:
     void handleThrow(const float x, const float y);
     void setRangeVector(const sf::Vector2i&mouseLocation);
     bool isDragged() { return m_dragging; };
+    void setPosition(const sf::Vector2f& pos);
+
     sf::Vector2f calculateThrow();
 
 private:

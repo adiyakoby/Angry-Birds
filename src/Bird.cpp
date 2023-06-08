@@ -1,6 +1,6 @@
 
 #include "Bird.h"
-
+#include <cmath>
 Bird::Bird(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) : m_dragging{ false }
 {
     initPhysicBody(world,position, size);
@@ -51,17 +51,16 @@ void Bird::objectUpdate()
 
 void Bird::applyForce(const sf::Vector2f &force)
 {
-    
     // Finished the drag
     m_dragging = false;
     // Apply impulse force to the Box2D body
     m_body->ApplyLinearImpulse(b2Vec2(force.x / SCALE, force.y / SCALE), m_body->GetWorldCenter(), true);
+;
 }
 
 
 void Bird::drawObject(sf::RenderWindow& window) 
 {
-
     //first is updating
     this->objectUpdate();
     window.draw(m_bird);
@@ -84,5 +83,14 @@ void Bird::setRangeVector(const sf::Vector2i &mouseLocation)
 }
 sf::Vector2f Bird::calculateThrow()
 {
-    return (dragStartPosition - dragEndPosition);
+    sf::Vector2f t{ std::abs(dragStartPosition.x - dragEndPosition.x), std::abs(dragStartPosition.y - dragEndPosition.y) };
+    std::cout << t.x << " " << t.y << std::endl;
+    return sf::Vector2f( std::abs(dragStartPosition.x - dragEndPosition.x), std::abs(dragStartPosition.y - dragEndPosition.y));
+}
+
+void Bird::setPosition(const sf::Vector2f &pos) {
+    
+    b2Vec2 temp{ pos.x / SCALE , pos.y / SCALE };
+    m_body->SetTransform(temp, 0.f);
+    m_bird.setPosition(pos);
 }

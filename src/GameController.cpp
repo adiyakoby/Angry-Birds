@@ -17,25 +17,14 @@ void GameController::runGame()
     //TEMPORARY SECTION TO CHECK BIRD.
     
     createBirds();
+    createBuilding();
     Ground ground(*m_world.getWorld(), sf::Vector2f(0,0));
 
-    std::vector<Wood> woods;
+   
     
-    for (int i = 0; i < 3; i++)
-    {
-        //b2World& world, const b2Vec2 bodypostion, const sf::Vector2f position, const sf::Vector2f size
-        if (i == 1)//left
-            woods.emplace_back(*m_world.getWorld(), sf::Vector2f(500.f, 300.f), sf::Vector2f(30.f, 100.f));
-        else if (i == 2)//right
-        {
-            woods.emplace_back(*m_world.getWorld(), sf::Vector2f(700.f, 300.f), sf::Vector2f(30.f, 100.f));
-        }
-        else {//top
-            woods.emplace_back(*m_world.getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f));
-        }
-    }
-    Rogatka rogatka(*m_world->getWorld(), sf::Vector2f(300.f, ground.getPosition().y  - 80.f));
-    Bird bird(*m_world->getWorld(), sf::Vector2f(rogatka.getPostion().x, rogatka.getPostion().y  - 100.f));
+
+    Rogatka rogatka( *m_world.getWorld(), sf::Vector2f(300.f,ground.getPosition().y - 80.f));
+    static_cast<Bird*>(m_birds[0].get())->setPosition(sf::Vector2f(rogatka.getPostion().x, rogatka.getPostion().y - 100.f));
     //###############################
 
     while (m_window.getWindow().isOpen())
@@ -44,18 +33,19 @@ void GameController::runGame()
         if (m_menuMode) m_menu.drawMenu(m_window.getWindow());
         else {
             drawGame();
-            m_birds[0] -> drawObject(m_window.getWindow());
+           
             ground.drawObject(m_window.getWindow());
             if (static_cast<Bird*>(m_birds[0].get())->isDragged()) {
                 sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_window.getWindow());
                 static_cast<Bird*>(m_birds[0].get())->setRangeVector(mouseLocation);
+                rogatka.ignoreRogatka();
             }
-            for (auto& ea : woods) {
-                ea.objectUpdate();
-                ea.drawObject(m_window.getWindow());
+            for (auto& ea : m_building) {
+                ea->objectUpdate();
+                ea->drawObject(m_window.getWindow());
             }
-            bird.drawObject(m_window.getWindow());
-            
+          
+            m_birds[0]->drawObject(m_window.getWindow());
             rogatka.drawObject(m_window.getWindow());
             ground.drawObject(m_window.getWindow());
 
@@ -101,6 +91,7 @@ void GameController::runGame()
                     if (static_cast<Bird*>(m_birds[0].get())->isDragged()) {
                         sf::Vector2f force = static_cast<Bird*>(m_birds[0].get()) -> calculateThrow();
                         static_cast<Bird*>(m_birds[0].get())-> applyForce(force);
+                       
                     }
                   
                     break;
@@ -143,6 +134,30 @@ void GameController::createBirds()
 {
     m_birds.emplace_back();
     m_birds.back() = std::move(ObjectFactory<DynamicObjects>::instance().create("Bird", *m_world.getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f)));
+}
+
+void GameController::createBuilding()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        //b2World& world, const b2Vec2 bodypostion, const sf::Vector2f position, const sf::Vector2f size
+        if (i == 1)//left
+        {
+            m_building.emplace_back();
+            m_building.back() = std::move(ObjectFactory<DynamicObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(500.f, 300.f), sf::Vector2f(30.f, 100.f)));
+        }
+        else if (i == 2)//right
+        {
+            m_building.emplace_back();
+            m_building.back() = std::move(ObjectFactory<DynamicObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(700.f, 300.f), sf::Vector2f(30.f, 100.f)));
+            
+        }
+        else {//top
+            m_building.emplace_back();
+            m_building.back() = std::move(ObjectFactory<DynamicObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f)));
+
+        }
+    }
 }
 
 
