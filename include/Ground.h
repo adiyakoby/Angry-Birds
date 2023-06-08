@@ -9,6 +9,8 @@ public:
 
 	
 	virtual void drawObject(sf::RenderWindow& window);
+	sf::Vector2f getPosition() { return m_ground.getPosition(); };
+	
 private:
 	sf::RectangleShape m_ground;
 

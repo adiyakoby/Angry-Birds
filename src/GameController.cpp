@@ -18,7 +18,7 @@ void GameController::runGame()
     
     //TEMPORARY SECTION TO CHECK BIRD.
     
-    Bird bird(*m_world->getWorld(),sf::Vector2f(0,0));
+   
     Ground ground(*m_world->getWorld());
 
     std::vector<Wood> woods;
@@ -36,6 +36,8 @@ void GameController::runGame()
             woods.emplace_back(*m_world->getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f));
         }
     }
+    Rogatka rogatka(*m_world->getWorld(), sf::Vector2f(300.f, ground.getPosition().y  - 80.f));
+    Bird bird(*m_world->getWorld(), sf::Vector2f(rogatka.getPostion().x, rogatka.getPostion().y  - 100.f));
     //###############################
     m_window.getWindow().setFramerateLimit(60);
 
@@ -45,8 +47,8 @@ void GameController::runGame()
         if (m_menuMode) m_menu.drawMenu(m_window.getWindow());
         else {
             drawGame();
-            bird.drawObject(m_window.getWindow());
-            ground.drawObject(m_window.getWindow());
+            
+            
             if (bird.isDragged()) {
                 sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_window.getWindow());
                 bird.setRangeVector(mouseLocation);
@@ -55,6 +57,10 @@ void GameController::runGame()
                 ea.objectUpdate();
                 ea.drawObject(m_window.getWindow());
             }
+            bird.drawObject(m_window.getWindow());
+            
+            rogatka.drawObject(m_window.getWindow());
+            ground.drawObject(m_window.getWindow());
 
         }
         m_window.getWindow().display();
@@ -72,6 +78,7 @@ void GameController::runGame()
                     { event.mouseButton.x, event.mouseButton.y });
                 if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
                 {
+                   
                     bird.handleThrow(location.x, location.y);
                 }
                 break;
@@ -97,8 +104,10 @@ void GameController::runGame()
                 {
                     if (bird.isDragged()) {
                         sf::Vector2f force = bird.calculateThrow();
+                        rogatka.ignoreRogatka();
                         bird.applyForce(force);
                     }
+                  
                     break;
                 }
                 else
