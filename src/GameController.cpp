@@ -34,6 +34,8 @@ void GameController::runGame()
             woods.emplace_back(*m_world.getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f));
         }
     }
+    Rogatka rogatka(*m_world->getWorld(), sf::Vector2f(300.f, ground.getPosition().y  - 80.f));
+    Bird bird(*m_world->getWorld(), sf::Vector2f(rogatka.getPostion().x, rogatka.getPostion().y  - 100.f));
     //###############################
 
     while (m_window.getWindow().isOpen())
@@ -52,6 +54,10 @@ void GameController::runGame()
                 ea.objectUpdate();
                 ea.drawObject(m_window.getWindow());
             }
+            bird.drawObject(m_window.getWindow());
+            
+            rogatka.drawObject(m_window.getWindow());
+            ground.drawObject(m_window.getWindow());
 
         }
         m_window.getWindow().display();
@@ -96,6 +102,7 @@ void GameController::runGame()
                         sf::Vector2f force = static_cast<Bird*>(m_birds[0].get()) -> calculateThrow();
                         static_cast<Bird*>(m_birds[0].get())-> applyForce(force);
                     }
+                  
                     break;
                 }
                 else

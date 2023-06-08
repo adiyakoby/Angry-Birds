@@ -9,6 +9,7 @@
 #include <box2d/box2d.h>
 #include "World.h"
 #include "Wood.h"
+#include "Rogatka.h"
 
 class GameController
 {

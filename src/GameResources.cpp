@@ -29,7 +29,9 @@ sf::Texture& GameResources::getBirdTexture(int index) {
 sf::Texture& GameResources::getWoodsTexture(int index) {
     return m_woodsTexture.at(index);
 }
-
+sf::Texture& GameResources::getRogatkaTexture(int index) {
+    return m_rogatkaTexture.at(index);
+}
 ////get the textures for the game objects
 //sf::Texture& GameResources::getObjectTexture(int index)
 //{
@@ -106,6 +108,13 @@ void GameResources::initTextures()
     {
         m_woodsTexture.emplace_back();
         m_woodsTexture.back().loadFromFile(woodsNames.at(i));
+    }
+
+    std::array<std::string, 6> rogatkaNames{ "rogatka.png" };
+    for (size_t i = 0; i < woodsNames.size(); i++)
+    {
+        m_rogatkaTexture.emplace_back();
+        m_rogatkaTexture.back().loadFromFile(rogatkaNames.at(i));
     }
 
     //init texture vector for menu
