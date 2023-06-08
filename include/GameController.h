@@ -21,7 +21,9 @@ public:
 	void menuManeger(const menuCommand&);
 	void drawGame();
 	//void lvlManeger();
-
+	void createBirds();
+	void createBuilding();
+	void createGround();
 
 
 private:
@@ -29,11 +31,12 @@ private:
 	bool m_menuMode;
 	Menu m_menu;
 	//Try temporary world
-	std::unique_ptr<World> m_world;
+	World m_world;
 
 	//LevelManeger m_lvlmng;
-	//std::vector<StaticObject> m_staticObjects;
-	//std::vector<Birds> m_staticObjects;
+	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
+	std::vector<std::unique_ptr<DynamicObjects>> m_birds;
+	std::vector<std::unique_ptr<DynamicObjects>> m_building;
 	//std::vector<sf::Music> m_gameMusic;
 
 	//init functions

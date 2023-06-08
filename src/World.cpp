@@ -2,8 +2,9 @@
 #include <iostream>
 
 
-World::World(const b2Vec2 graviry) {
-	m_world = std::make_unique<b2World>(graviry);
+World::World(/*const b2Vec2 graviry*/) {
+
+	m_world = std::make_unique<b2World>(b2Vec2(0.f, 10.8f));
     setFrame();
 }
 
@@ -27,7 +28,8 @@ b2Body* World::setCorner(Position position) {
     b2Body* body;
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
-    // Create Box2D ground shape
+    
+
     b2PolygonShape boxshape;
     switch (position) {
     case Left :

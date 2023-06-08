@@ -1,22 +1,25 @@
 #include "Wood.h"
 
-Wood::Wood(b2World& world, const sf::Vector2f position, const sf::Vector2f size) {
+Wood::Wood(b2World& world, const sf::Vector2f position, const sf::Vector2f& size) {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
 }
 
-void Wood::objectUpdate() {
+void Wood::objectUpdate()
+{
     b2Vec2 position = m_body->GetPosition();
     float angle = m_body->GetAngle();
     m_wood.setPosition(position.x * SCALE, position.y * SCALE);
     m_wood.setRotation(angle * 180.0f / b2_pi);
 }
-void Wood::drawObject(sf::RenderWindow& window) {
+
+void Wood::drawObject(sf::RenderWindow& window)
+{
     window.draw(m_wood);
 }
-void Wood::initPhysicBody(b2World& world, sf::Vector2f position, const sf::Vector2f size) {
 
-   
+void Wood::initPhysicBody(b2World& world, sf::Vector2f position, const sf::Vector2f size)
+{
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(position.x / SCALE, position.y / SCALE);
@@ -37,7 +40,8 @@ void Wood::initPhysicBody(b2World& world, sf::Vector2f position, const sf::Vecto
 	
 }
 
-void Wood::initGraphicBody(const sf::Vector2f size) {
+void Wood::initGraphicBody(const sf::Vector2f size) 
+{
 
     m_wood.setTexture(&GameResources::getInstance().getWoodsTexture(0));
     m_wood.setSize(sf::Vector2f(size.x, size.y));

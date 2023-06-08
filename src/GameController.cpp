@@ -3,23 +3,21 @@
 GameController::GameController()
     :m_menuMode(true){
 
-    initWorld();
+    //initWorld();
 }
 
-void GameController::initWorld() {
-   
-    b2Vec2 gravity(0.f, 10.8f);
-    m_world = std::make_unique<World>(gravity);
-    
-}
+//void GameController::initWorld() {
+//   
+//    b2Vec2 gravity(0.f, 10.8f);
+//    m_world = std::make_unique<World>(gravity);
+//    
+//}
 void GameController::runGame()
 {
-    
-    
     //TEMPORARY SECTION TO CHECK BIRD.
     
-    Bird bird(*m_world->getWorld(),sf::Vector2f(0,0));
-    Ground ground(*m_world->getWorld());
+    createBirds();
+    Ground ground(*m_world.getWorld(), sf::Vector2f(0,0));
 
     std::vector<Wood> woods;
     
@@ -27,17 +25,16 @@ void GameController::runGame()
     {
         //b2World& world, const b2Vec2 bodypostion, const sf::Vector2f position, const sf::Vector2f size
         if (i == 1)//left
-            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(500.f, 300.f), sf::Vector2f(30.f, 100.f));
+            woods.emplace_back(*m_world.getWorld(), sf::Vector2f(500.f, 300.f), sf::Vector2f(30.f, 100.f));
         else if (i == 2)//right
         {
-            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(700.f, 300.f), sf::Vector2f(30.f, 100.f));
+            woods.emplace_back(*m_world.getWorld(), sf::Vector2f(700.f, 300.f), sf::Vector2f(30.f, 100.f));
         }
         else {//top
-            woods.emplace_back(*m_world->getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f));
+            woods.emplace_back(*m_world.getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f));
         }
     }
     //###############################
-    m_window.getWindow().setFramerateLimit(60);
 
     while (m_window.getWindow().isOpen())
     {
@@ -45,11 +42,11 @@ void GameController::runGame()
         if (m_menuMode) m_menu.drawMenu(m_window.getWindow());
         else {
             drawGame();
-            bird.drawObject(m_window.getWindow());
+            m_birds[0] -> drawObject(m_window.getWindow());
             ground.drawObject(m_window.getWindow());
-            if (bird.isDragged()) {
+            if (static_cast<Bird*>(m_birds[0].get())->isDragged()) {
                 sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_window.getWindow());
-                bird.setRangeVector(mouseLocation);
+                static_cast<Bird*>(m_birds[0].get())->setRangeVector(mouseLocation);
             }
             for (auto& ea : woods) {
                 ea.objectUpdate();
@@ -72,7 +69,7 @@ void GameController::runGame()
                     { event.mouseButton.x, event.mouseButton.y });
                 if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
                 {
-                    bird.handleThrow(location.x, location.y);
+                    static_cast<Bird*>(m_birds[0].get())->handleThrow(location.x, location.y);
                 }
                 break;
             }
@@ -95,9 +92,9 @@ void GameController::runGame()
                 }
                 else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
                 {
-                    if (bird.isDragged()) {
-                        sf::Vector2f force = bird.calculateThrow();
-                        bird.applyForce(force);
+                    if (static_cast<Bird*>(m_birds[0].get())->isDragged()) {
+                        sf::Vector2f force = static_cast<Bird*>(m_birds[0].get()) -> calculateThrow();
+                        static_cast<Bird*>(m_birds[0].get())-> applyForce(force);
                     }
                     break;
                 }
@@ -131,8 +128,14 @@ void GameController::menuManeger(const menuCommand& command)
 
 void GameController::drawGame()
 {
-    m_world->step(1.f / 60.f, 8, 3);
+    m_world.step(1.f / 60.f, 8, 3);
     
+}
+
+void GameController::createBirds()
+{
+    m_birds.emplace_back();
+    m_birds.back() = std::move(ObjectFactory<DynamicObjects>::instance().create("Bird", *m_world.getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f)));
 }
 
 

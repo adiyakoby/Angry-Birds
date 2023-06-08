@@ -4,11 +4,11 @@
 class Ground : public StaticObjects
 {
 public:
-	Ground(b2World& world);
+	Ground(b2World& world, const sf::Vector2f& position);
 	 ~Ground() = default;
 
 	
-	virtual void drawObject(sf::RenderWindow& window);
+	void drawObject(sf::RenderWindow& window) override;
 private:
 	sf::RectangleShape m_ground;
 
@@ -17,3 +17,11 @@ private:
 	void initGraphicBody();
 	
 };
+
+//static auto registerItGround = ObjectFactory<StaticObjects>::instance().registerType(
+//	"ground",
+//	[](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+//	{
+//		return std::make_unique<Ground>(world, position, size);
+//	}
+//);

@@ -8,7 +8,7 @@ enum  Position { Left, Top, Right };
 class World
 {
 public:
-	World(const b2Vec2 graviry);
+	World(/*const b2Vec2 graviry*/);
 	~World() = default;
 
 	b2World* getWorld(){ return m_world.get();}

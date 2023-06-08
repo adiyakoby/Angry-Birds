@@ -1,7 +1,7 @@
 #include "Ground.h"
 
 
-Ground::Ground(b2World& world) {
+Ground::Ground(b2World& world, const sf::Vector2f& position) {
     initPhysicBody(world);
     initGraphicBody();
 }
@@ -35,6 +35,7 @@ void Ground::initGraphicBody() {
     
 }
 
-void Ground::drawObject(sf::RenderWindow &window) {
+void Ground::drawObject(sf::RenderWindow &window)
+{
     window.draw(m_ground);
 }

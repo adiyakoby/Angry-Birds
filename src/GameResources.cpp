@@ -94,14 +94,14 @@ void GameResources::initTextures()
     }
 
     //vector string for the bird's names
-    std::array<std::string, 6> birdNames{ "redbird.png" };
+    std::array<std::string, 1> birdNames{ "redbird.png" };
     for (size_t i = 0; i < birdNames.size(); i++)
     {
         m_birdsTexture.emplace_back();
         m_birdsTexture.back().loadFromFile(birdNames.at(i));
     }
 
-    std::array<std::string, 6> woodsNames{ "wood1.png" };
+    std::array<std::string, 1> woodsNames{ "wood1.png" };
     for (size_t i = 0; i < woodsNames.size(); i++)
     {
         m_woodsTexture.emplace_back();
