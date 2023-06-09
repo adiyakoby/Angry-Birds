@@ -14,7 +14,7 @@ void Bird::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(position.x / SCALE, position.y / SCALE);
-    bodyDef.linearDamping = 0.5f;
+    bodyDef.linearDamping = 0.7f;
     m_body = world.CreateBody(&bodyDef);
 
     // Create Box2D circle shape
@@ -26,7 +26,7 @@ void Bird::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf
     fixtureDef.shape = &shape;
     fixtureDef.density = 0.5f;
     fixtureDef.friction = 0.3f;
-    fixtureDef.restitution = 0.5f;
+    fixtureDef.restitution = 0.4f;
     m_body->CreateFixture(&fixtureDef);
 
 }
@@ -47,17 +47,19 @@ void Bird::objectUpdate()
     float angle = m_body->GetAngle();
     m_bird.setPosition(position.x * SCALE, position.y * SCALE);
     m_bird.setRotation(angle * 180.0f / b2_pi);
-}
+}   
+
 
 void Bird::applyForce(const sf::Vector2f& force)
 {
     // Finished the drag
     m_dragging = false;
     // Apply impulse force to the Box2D body
-    b2Vec2 temp{ force.x / SCALE, force.y / SCALE };
+    b2Vec2 forceScaled{ force.x / SCALE, force.y / SCALE };
     //temp.Normalize();
-    m_body->ApplyLinearImpulse(temp, m_body->GetWorldCenter(), true);
-    //m_body->ApplyForceToCenter(temp, true);
+    m_body->SetLinearVelocity(forceScaled);
+    m_body->ApplyLinearImpulse(forceScaled , m_body->GetWorldCenter() , true);
+
 }
 
 
@@ -83,18 +85,14 @@ void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w
     line[1] = sf::Vertex(dragEndPosition, sf::Color::Green);
     w.draw(line);
     m_bird.setPosition(mouseLocation.x, mouseLocation.y);
-    m_body->SetTransform(b2Vec2(mouseLocation.x / SCALE, mouseLocation.y / SCALE), 0.0f);
+    m_body->SetTransform(b2Vec2(mouseLocation.x / SCALE, mouseLocation.y / SCALE),  (dragStartPosition.y-mouseLocation.y) / SCALE);
     dragEndPosition.x = mouseLocation.x;
     dragEndPosition.y = mouseLocation.y;
 }
 sf::Vector2f Bird::calculateThrow()
 {
-    sf::VertexArray line(sf::Lines, 2);
-    line[0] = sf::Vertex(dragStartPosition, sf::Color::Green);
-    line[1] = sf::Vertex(dragEndPosition, sf::Color::Green);
-
-    sf::Vector2f t{ dragStartPosition - dragEndPosition };
-    std::cout << t.x << " " << t.y << std::endl;
+    /*sf::Vector2f t{ dragStartPosition - dragEndPosition };
+    std::cout << t.x << " " << t.y << std::endl;*/
 
     return sf::Vector2f(dragStartPosition - dragEndPosition);
 }
