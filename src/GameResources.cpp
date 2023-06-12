@@ -36,6 +36,10 @@ sf::Texture& GameResources::getRogatkaTexture(int index) {
 sf::Texture& GameResources::getGroundTexture(int index) {
     return m_groundTexture.at(index);
 }
+
+sf::Texture& GameResources::getPigsTexture(int index) {
+    return m_pigsTexture.at(index);
+}
 ////get the textures for the game objects
 //sf::Texture& GameResources::getObjectTexture(int index)
 //{
@@ -108,6 +112,14 @@ void GameResources::initTextures()
         m_birdsTexture.emplace_back();
         m_birdsTexture.back().loadFromFile("Angry-Birds.png", birdLocation.at(i));
         //m_birdsTexture.back().loadFromFile("Angry-Birds.png", );
+    }
+
+    //vector string for the pig's names
+    std::array<sf::IntRect, 1> pigsLocation{ sf::IntRect{549,924,50,50} };
+    for (size_t i = 0; i < pigsLocation.size(); i++)
+    {
+        m_pigsTexture.emplace_back();
+        m_pigsTexture.back().loadFromFile("Angry-Birds.png", pigsLocation.at(i));
     }
 
     std::array<sf::IntRect, 2> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{233,643,82,42} };

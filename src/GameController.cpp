@@ -16,7 +16,7 @@ void GameController::runGame()
     createBirds();
     createBuilding();
     createGroundAndRogatka();
-    
+    createPigs();
     m_birds[0]->setPosition(sf::Vector2f(m_staticObjects[1]->getPosition().x, m_staticObjects[1]->getPosition().y - 100.f));
      auto view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
     //view.setViewport(sf::FloatRect(0, 0, 1, 1));
@@ -104,7 +104,10 @@ void GameController::drawGame()
         ea->objectUpdate();
         ea->drawObject(m_window.getWindow());
     }
-
+   for (auto& ea : m_pigs) {
+        ea->objectUpdate();
+        ea->drawObject(m_window.getWindow());
+    }
     m_birds[0]->drawObject(m_window.getWindow());
     m_staticObjects[1]->drawObject(m_window.getWindow());
     //m_staticObjects[0]->drawObject(m_window.getWindow());
@@ -125,17 +128,17 @@ void GameController::createBuilding()
         if (i == 1)//left
         {
             m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(500.f, 300.f), sf::Vector2f(30.f, 100.f)));
+            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(500.f, WINDOW_HEIGHT - 50.f), sf::Vector2f(30.f, 100.f)));
         }
         else if (i == 2)//right
         {
             m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(700.f, 300.f), sf::Vector2f(30.f, 100.f)));
+            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(700.f, WINDOW_HEIGHT - 50.f), sf::Vector2f(30.f, 100.f)));
             
         }
         else {//top
             m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f)));
+            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(600.f, WINDOW_HEIGHT - 100.f), sf::Vector2f(300.f, 20.f)));
 
         }
     }
@@ -154,4 +157,7 @@ void GameController::initBackground()
     m_background.setPosition(0,0);
 }
 
-
+void GameController::createPigs() {
+    m_pigs.emplace_back();
+    m_pigs.back() = std::move(ObjectFactory<StaticObjects>::instance().create("Pigs", *m_world.getWorld(), sf::Vector2f(620, WINDOW_HEIGHT - 50.f), sf::Vector2f(20.f, 0.f)));
+}
