@@ -6,6 +6,9 @@ GameController::GameController()
 
 void GameController::runGame()
 {
+
+    std::unique_ptr<MyContactListener> contactListener = std::make_unique<MyContactListener>();
+    m_world.getWorld()->SetContactListener(contactListener.get());
     //TEMPORARY SECTION TO CHECK BIRD.
     
     createBirds();

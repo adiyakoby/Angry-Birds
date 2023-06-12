@@ -12,6 +12,7 @@
 #include "World.h"
 #include "Wood.h"
 #include "Rogatka.h"
+#include "MyContactListener.h"
 
 class GameController
 {
@@ -23,6 +24,7 @@ public:
 	void runGame();
 	void menuManeger(const menuCommand&);
 	void drawGame();
+
 	//void lvlManeger();
 	void createBirds();
 	void createBuilding();
