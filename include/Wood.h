@@ -1,9 +1,9 @@
 #pragma once
 
-#include "DynmamicObjects.h"
+#include "StaticObjects.h"
 
 
-class Wood:public DynamicObjects
+class Wood:public StaticObjects
 {
 public:
 	Wood(b2World& world, const sf::Vector2f position, const sf::Vector2f& size);
@@ -17,9 +17,9 @@ private:
 	void initGraphicBody(const sf::Vector2f size);
 };
 
-static auto registerItWood = ObjectFactory<DynamicObjects>::instance().registerType(
+static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerType(
 	"wood",
-	[](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<DynamicObjects>
+	[](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
 	{
 		return std::make_unique<Wood>(world, position,size);
 	}

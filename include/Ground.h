@@ -4,7 +4,7 @@
 class Ground : public StaticObjects
 {
 public:
-	Ground(b2World& world, const sf::Vector2f& position);
+	Ground(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size = sf::Vector2f{ WINDOW_WIDTH, WINDOW_HEIGHT});
 	 ~Ground() = default;
 
 	
@@ -14,8 +14,8 @@ private:
 	sf::RectangleShape m_ground;
 
 	//init functions
-	void initPhysicBody(b2World& world);
-	void initGraphicBody();
+	void initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size);
+	void initGraphicBody()override;
 	
 };
 

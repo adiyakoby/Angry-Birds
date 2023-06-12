@@ -8,7 +8,6 @@ class StaticObjects : public Objects
 public:
 	StaticObjects() = default;
 	virtual ~StaticObjects() = default;
-	//virtual void drawObject(sf::RenderWindow& window) = 0;
 
 
 

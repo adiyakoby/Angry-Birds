@@ -42,7 +42,7 @@ void Wood::initPhysicBody(b2World& world, sf::Vector2f position, const sf::Vecto
 
 void Wood::initGraphicBody(const sf::Vector2f size) 
 {
-
+    
     m_wood.setTexture(&GameResources::getInstance().getWoodsTexture(0));
     m_wood.setSize(sf::Vector2f(size.x, size.y));
     m_wood.setOrigin(size.x / 2, size.y / 2);
