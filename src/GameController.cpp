@@ -2,7 +2,9 @@
 
 GameController::GameController()
     :m_menuMode(true)
-{}
+{
+    initBackground();
+}
 
 void GameController::runGame()
 {
@@ -16,17 +18,14 @@ void GameController::runGame()
     createGroundAndRogatka();
     
     m_birds[0]->setPosition(sf::Vector2f(m_staticObjects[1]->getPosition().x, m_staticObjects[1]->getPosition().y - 100.f));
-    auto view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+     auto view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+    //view.setViewport(sf::FloatRect(0, 0, 1, 1));
+    //view.zoom(0.5);
     m_window.getWindow().setView(view);
     //###############################
 
     while (m_window.getWindow().isOpen())
     {
-        //if (!m_menuMode)
-        //{
-        //    view.setCenter(sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
-        //    m_window.getWindow().setView(view);
-        //}
         m_window.getWindow().clear();
      
         if (m_menuMode) m_menu.drawMenu(m_window.getWindow());
@@ -67,15 +66,20 @@ void GameController::runGame()
                 { event.mouseButton.x, event.mouseButton.y });
             for (auto& ea : m_birds)
                 ea->handleEvent(event, location);
- /*           if (!m_menuMode)
-            {
-                view.setCenter(m_birds[0]->getPosition()/2.f);
-                view.move(m_birds[0]->getPosition().x, 0);
-                m_window.getWindow().setView(view);
-            }*/
+       
                 
         }
-       
+        if (!m_menuMode)
+        {
+            if (m_birds[0]->getPosition().x - view.getSize().x / 2 <= 0)
+                view.setCenter(view.getSize() / 2.f);
+            else if(m_birds[0]->getPosition().x + view.getSize().x / 2 >= m_background.getSize().x)
+                view.setCenter(m_background.getSize().x - view.getSize().x/2, WINDOW_HEIGHT / 2);
+            else
+                view.setCenter(m_birds[0]->getPosition().x, WINDOW_HEIGHT / 2);
+
+            m_window.getWindow().setView(view);
+        }
     }
 
 }
@@ -96,7 +100,7 @@ void GameController::menuManeger(const menuCommand& command)
 
 void GameController::drawGame()
 {
-    m_world.step(1.f / 60.f, 8, 3);
+    m_window.getWindow().draw(m_background);
     for (auto& ea : m_building) {
         ea->objectUpdate();
         ea->drawObject(m_window.getWindow());
@@ -104,7 +108,8 @@ void GameController::drawGame()
 
     m_birds[0]->drawObject(m_window.getWindow());
     m_staticObjects[1]->drawObject(m_window.getWindow());
-    m_staticObjects[0]->drawObject(m_window.getWindow());
+    //m_staticObjects[0]->drawObject(m_window.getWindow());
+    m_world.step(1.f / 60.f, 8, 3);
 }
 
 void GameController::createBirds()
@@ -139,8 +144,15 @@ void GameController::createBuilding()
 
 void GameController::createGroundAndRogatka()
 {
-    m_staticObjects[0]= std::make_unique<Ground>(*m_world.getWorld(), sf::Vector2f(0, 0));//ground
-    m_staticObjects[1] = std::make_unique <Rogatka> (*m_world.getWorld(), sf::Vector2f(300.f,m_staticObjects[0]->getPosition().y - 80.f));
+    m_staticObjects[0]= std::make_unique<Ground>(*m_world.getWorld(), sf::Vector2f(0, 0), m_background.getSize());//ground
+    m_staticObjects[1] = std::make_unique <Rogatka> (*m_world.getWorld(), sf::Vector2f(300.f,m_staticObjects[0]->getPosition().y - 80.f));//rogatka
+}
+
+void GameController::initBackground()
+{
+    m_background.setTexture(&GameResources::getInstance().getGroundTexture(0));
+    m_background.setSize(sf::Vector2f( m_background.getTexture()->getSize().x * 3 , m_background.getTexture()->getSize().y));
+    m_background.setPosition(0,0);
 }
 
 

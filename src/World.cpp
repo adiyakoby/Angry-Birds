@@ -1,6 +1,6 @@
 #include "World.h"
 #include <iostream>
-
+#include"GameResources.h"
 
 World::World(/*const b2Vec2 graviry*/) {
 
@@ -17,7 +17,7 @@ void World::setFrame() {
 
     m_worldFrame.emplace_back(setCorner(Left));
     m_worldFrame.emplace_back(setCorner(Top));
-   // m_worldFrame.emplace_back(setCorner(Right));
+    m_worldFrame.emplace_back(setCorner(Right));
 	
 }
 
@@ -42,7 +42,7 @@ b2Body* World::setCorner(Position position) {
         break;
     case Right:
 
-        bodyDef.position.Set((WINDOW_WIDTH + width) / SCALE, (WINDOW_HEIGHT) / 2.f / SCALE);
+        bodyDef.position.Set((GameResources::getInstance().getGroundTexture(0).getSize().x*3 + width) / SCALE, (WINDOW_HEIGHT) / 2.f / SCALE);
         boxshape.SetAsBox(width / 2 / SCALE, WINDOW_HEIGHT / SCALE);
         break;
     default:
