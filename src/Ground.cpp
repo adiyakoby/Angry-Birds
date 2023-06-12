@@ -30,7 +30,8 @@ void Ground::initGraphicBody(const sf::Vector2f& size) {
 
 
     // IRRELEVENT -> Will read complete texture 
-    m_ground.setFillColor(sf::Color::Blue);
+    m_ground.setFillColor(sf::Color::Green);
+    //m_ground.setTexture(&GameResources::getInstance().getGroundTexture(0));
     m_ground.setSize(sf::Vector2f(size.x, 50.f));
     m_ground.setOrigin(m_ground.getSize().x / 2.f, m_ground.getSize().y / 2.f);
     m_ground.setPosition(position.x * SCALE, position.y * SCALE);
