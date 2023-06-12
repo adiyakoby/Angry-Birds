@@ -7,7 +7,7 @@ public:
 	Ground(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size = sf::Vector2f{WINDOW_WIDTH, WINDOW_HEIGHT});
 	 ~Ground() = default;
 
-	
+	void objectUpdate()override {}
 	void drawObject(sf::RenderWindow& window) override;
 	sf::Vector2f getPosition() { return m_ground.getPosition(); };
 private:
