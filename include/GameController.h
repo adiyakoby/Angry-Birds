@@ -36,7 +36,7 @@ private:
 
 	//LevelManeger m_lvlmng;
 	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
-	std::vector<std::unique_ptr<DynamicObjects>> m_birds;
+	std::vector<std::unique_ptr<Bird>> m_birds;
 	std::vector<std::unique_ptr<DynamicObjects>> m_building;
 	//std::vector<sf::Music> m_gameMusic;
 

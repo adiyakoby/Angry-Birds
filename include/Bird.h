@@ -1,10 +1,10 @@
 #pragma once
 
-#include "DynmamicObjects.h"
+#include "Objects.h"
 
 
 
-class Bird: public DynamicObjects
+class Bird: public Objects
 {
     //public Objects
 public:
@@ -33,9 +33,9 @@ private:
     void initGraphicBody();
 };
 
- static auto registerItBird = ObjectFactory<DynamicObjects>::instance().registerType(
+ static auto registerItBird = ObjectFactory<Bird>::instance().registerType(
      "Bird",
-     [](b2World& world, const sf::Vector2f& position,const sf::Vector2f& size) -> std::unique_ptr<DynamicObjects>
+     [](b2World& world, const sf::Vector2f& position,const sf::Vector2f& size) -> std::unique_ptr<Bird>
      {
          return std::make_unique<Bird>(world, position, size);
      }

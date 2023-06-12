@@ -22,9 +22,9 @@ void GameController::runGame()
 
    
     
-
+    
     Rogatka rogatka( *m_world.getWorld(), sf::Vector2f(300.f,ground.getPosition().y - 80.f));
-    static_cast<Bird*>(m_birds[0].get())->setPosition(sf::Vector2f(rogatka.getPostion().x, rogatka.getPostion().y - 100.f));
+    m_birds[0].get()->setPosition(sf::Vector2f(rogatka.getPostion().x, rogatka.getPostion().y - 100.f));
     //###############################
 
     while (m_window.getWindow().isOpen())
@@ -35,9 +35,9 @@ void GameController::runGame()
             drawGame();
            
             ground.drawObject(m_window.getWindow());
-            if (static_cast<Bird*>(m_birds[0].get())->isDragged()) {
+            if (m_birds[0].get()->isDragged()) {
                 sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_window.getWindow());
-                static_cast<Bird*>(m_birds[0].get())->setRangeVector(mouseLocation,m_window.getWindow());
+                m_birds[0].get()->setRangeVector(mouseLocation,m_window.getWindow());
                 rogatka.ignoreRogatka();
             }
             for (auto& ea : m_building) {
@@ -65,7 +65,7 @@ void GameController::runGame()
                     { event.mouseButton.x, event.mouseButton.y });
                 if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
                 {
-                    static_cast<Bird*>(m_birds[0].get())->handleThrow(location.x, location.y);
+                    m_birds[0].get()->handleThrow(location.x, location.y);
                 }
                 break;
             }
@@ -88,9 +88,9 @@ void GameController::runGame()
                 }
                 else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
                 {
-                    if (static_cast<Bird*>(m_birds[0].get())->isDragged()) {
-                        sf::Vector2f force = static_cast<Bird*>(m_birds[0].get()) -> calculateThrow();
-                        static_cast<Bird*>(m_birds[0].get())-> applyForce(force);
+                    if (m_birds[0].get()->isDragged()) {
+                        sf::Vector2f force = m_birds[0].get() -> calculateThrow();
+                       m_birds[0].get()-> applyForce(force);
                        
                     }
                   
@@ -133,7 +133,7 @@ void GameController::drawGame()
 void GameController::createBirds()
 {
     m_birds.emplace_back();
-    m_birds.back() = std::move(ObjectFactory<DynamicObjects>::instance().create("Bird", *m_world.getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f)));
+    m_birds.back() = std::move(ObjectFactory<Bird>::instance().create("Bird", *m_world.getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f)));
 }
 
 void GameController::createBuilding()
