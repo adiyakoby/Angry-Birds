@@ -84,6 +84,8 @@ sf::SoundBuffer& GameResources::Playaffect(int index)
 //load the texture for the game
 void GameResources::initTextures()
 {
+    //m_spriteSheet.loadFromFile("Angry-Birds.png");
+
     //---------------------------menu textures-----------------------------
     //all the texture images names for menu
     //char menuTextureNames[9][20] = { "pacmanTitle.png", "pacmanEmoji.png", "playButton.png", "helpButton.png",
@@ -96,22 +98,23 @@ void GameResources::initTextures()
     }
 
     //vector string for the bird's names
-    std::array<std::string, 1> birdNames{ "redbird.png" };
-    for (size_t i = 0; i < birdNames.size(); i++)
+    std::array<sf::IntRect, 1> birdLocation{ sf::IntRect{915,867,50,50} };
+    for (size_t i = 0; i < birdLocation.size(); i++)
     {
         m_birdsTexture.emplace_back();
-        m_birdsTexture.back().loadFromFile(birdNames.at(i));
+        m_birdsTexture.back().loadFromFile("Angry-Birds.png", birdLocation.at(i));
+        //m_birdsTexture.back().loadFromFile("Angry-Birds.png", );
     }
 
-    std::array<std::string, 1> woodsNames{ "wood1.png" };
-    for (size_t i = 0; i < woodsNames.size(); i++)
+    std::array<sf::IntRect, 2> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{233,643,82,42} };
+    for (size_t i = 0; i < WoodLocation.size(); i++)
     {
         m_woodsTexture.emplace_back();
-        m_woodsTexture.back().loadFromFile(woodsNames.at(i));
+        m_woodsTexture.back().loadFromFile("StaticObjects.png", WoodLocation.at(i));
     }
 
-    std::array<std::string, 6> rogatkaNames{ "rogatka.png" };
-    for (size_t i = 0; i < woodsNames.size(); i++)
+    std::array<std::string, 1> rogatkaNames{ "rogatka.png" };
+    for (size_t i = 0; i < rogatkaNames.size(); i++)
     {
         m_rogatkaTexture.emplace_back();
         m_rogatkaTexture.back().loadFromFile(rogatkaNames.at(i));

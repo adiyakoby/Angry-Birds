@@ -35,6 +35,7 @@ private:
 	~GameResources() = default;
 
 	//members
+	sf::Texture m_spriteSheet;
 	std::vector <sf::Texture> m_menuTexture;
 	std::vector <sf::Texture> m_objectTexture;
 	std::vector <sf::Texture> m_transitionScreens;
