@@ -106,14 +106,14 @@ void GameResources::initTextures()
         //m_birdsTexture.back().loadFromFile("Angry-Birds.png", );
     }
 
-    std::array<sf::IntRect, 1> WoodLocation{ sf::IntRect{526,625,165,20} };
+    std::array<sf::IntRect, 2> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{233,643,82,42} };
     for (size_t i = 0; i < WoodLocation.size(); i++)
     {
         m_woodsTexture.emplace_back();
         m_woodsTexture.back().loadFromFile("StaticObjects.png", WoodLocation.at(i));
     }
 
-    std::array<std::string, 6> rogatkaNames{ "rogatka.png" };
+    std::array<std::string, 1> rogatkaNames{ "rogatka.png" };
     for (size_t i = 0; i < rogatkaNames.size(); i++)
     {
         m_rogatkaTexture.emplace_back();
