@@ -45,9 +45,11 @@ private:
 	std::vector<std::unique_ptr<Bird>> m_birds;
 	std::vector<std::unique_ptr<StaticObjects>> m_building;
 	std::vector<std::unique_ptr<StaticObjects>> m_pigs;
+	sf::RectangleShape m_background;
 	//std::vector<sf::Music> m_gameMusic;
 	//init functions
 	//void initObjects();
+	void initBackground();
 
 };
 
