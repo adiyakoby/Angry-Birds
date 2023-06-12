@@ -13,8 +13,8 @@ public:
 	void drawObject(sf::RenderWindow& window) override;
 private:
 	sf::RectangleShape m_wood;
-	void initPhysicBody(b2World& world,const  sf::Vector2f postion, const sf::Vector2f size);
-	void initGraphicBody(const sf::Vector2f size);
+	void initPhysicBody(b2World& world,const sf::Vector2f& postion, const sf::Vector2f& size)override;
+	void initGraphicBody(const sf::Vector2f& size)override;
 };
 
 static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerType(

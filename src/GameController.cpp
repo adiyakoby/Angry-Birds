@@ -1,17 +1,9 @@
 #include "GameController.h"
 
 GameController::GameController()
-    :m_menuMode(true){
+    :m_menuMode(true)
+{}
 
-    //initWorld();
-}
-
-//void GameController::initWorld() {
-//   
-//    b2Vec2 gravity(0.f, 10.8f);
-//    m_world = std::make_unique<World>(gravity);
-//    
-//}
 void GameController::runGame()
 {
     //TEMPORARY SECTION TO CHECK BIRD.
@@ -144,17 +136,17 @@ void GameController::createBuilding()
         if (i == 1)//left
         {
             m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<DynamicObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(500.f, 300.f), sf::Vector2f(30.f, 100.f)));
+            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(500.f, 300.f), sf::Vector2f(30.f, 100.f)));
         }
         else if (i == 2)//right
         {
             m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<DynamicObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(700.f, 300.f), sf::Vector2f(30.f, 100.f)));
+            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(700.f, 300.f), sf::Vector2f(30.f, 100.f)));
             
         }
         else {//top
             m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<DynamicObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f)));
+            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(600.f, 0.f), sf::Vector2f(300.f, 20.f)));
 
         }
     }

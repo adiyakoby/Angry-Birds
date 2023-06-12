@@ -24,14 +24,14 @@ void Ground::initPhysicBody(b2World& world, const sf::Vector2f& position, const 
     fixtureDef.friction = 0.5f;
     m_body->CreateFixture(&fixtureDef);
 }
-void Ground::initGraphicBody() {
+void Ground::initGraphicBody(const sf::Vector2f& size) {
     b2Vec2 position = m_body->GetPosition();
     float angle = m_body->GetAngle();
 
 
     // IRRELEVENT -> Will read complete texture 
     m_ground.setFillColor(sf::Color::Blue);
-    m_ground.setSize(sf::Vector2f(WINDOW_WIDTH, 50.f));
+    m_ground.setSize(sf::Vector2f(size.x, 50.f));
     m_ground.setOrigin(m_ground.getSize().x / 2.f, m_ground.getSize().y / 2.f);
     m_ground.setPosition(position.x * SCALE, position.y * SCALE);
     m_ground.setRotation(angle * 180.0f / b2_pi);

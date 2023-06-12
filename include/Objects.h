@@ -20,7 +20,7 @@ public:
 protected:
 	b2Body* m_body;
 	virtual void initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) = 0;
-	virtual void initGraphicBody(const sf::Vector2f size) = 0;
+	virtual void initGraphicBody(const sf::Vector2f& size) = 0;
 
 private:
 	int m_hp;

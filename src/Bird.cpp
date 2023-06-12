@@ -30,7 +30,7 @@ void Bird::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf
     m_body->CreateFixture(&fixtureDef);
 
 }
-void Bird::initGraphicBody(const sf::Vector2f size)
+void Bird::initGraphicBody(const sf::Vector2f& size)
 {
 
     m_bird.setTexture(&GameResources::getInstance().getBirdTexture(0));

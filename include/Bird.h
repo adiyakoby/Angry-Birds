@@ -30,7 +30,7 @@ private:
      
     //private functions
     void initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size)override;
-    void initGraphicBody(const sf::Vector2f size = {20.f, 0.f}) override;
+    void initGraphicBody(const sf::Vector2f& size = {20.f, 0.f}) override;
 };
 
  static auto registerItBird = ObjectFactory<Bird>::instance().registerType(
