@@ -37,7 +37,6 @@ void GameController::runGame()
                 static_cast<Rogatka*>(m_staticObjects[1].get())->ignoreRogatka();
             }
             drawGame();
-
         }
         
         m_window.getWindow().display();
@@ -63,7 +62,7 @@ void GameController::runGame()
             }
             }
             auto location = m_window.getWindow().mapPixelToCoords(
-                { event.mouseButton.x, event.mouseButton.y });
+                { event.mouseButton.x, event.mouseButton.y }, view);
             for (auto& ea : m_birds)
                 ea->handleEvent(event, location);
        
