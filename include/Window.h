@@ -12,9 +12,7 @@ class Window
 public:
 	Window();
 	~Window() = default;
-
 	sf::RenderWindow& getWindow();
-
 private:
 	sf::RenderWindow m_window;
 

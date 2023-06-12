@@ -11,3 +11,4 @@ sf::RenderWindow& Window::getWindow()
 {
 	return m_window;
 }
+

@@ -16,7 +16,8 @@ void GameController::runGame()
     
     
     Rogatka rogatka( *m_world.getWorld(), sf::Vector2f(300.f,ground.getPosition().y - 80.f));
-    m_birds[0].get()->setPosition(sf::Vector2f(rogatka.getPostion().x, rogatka.getPostion().y - 100.f));
+    m_birds[0]->setPosition(sf::Vector2f(rogatka.getPostion().x, rogatka.getPostion().y - 100.f));
+    
     //###############################
 
     while (m_window.getWindow().isOpen())
@@ -50,7 +51,6 @@ void GameController::runGame()
             case sf::Event::Closed:
                 m_window.getWindow().close();
                 break;
-    
             case sf::Event::MouseButtonPressed:
             {
                 auto location = m_window.getWindow().mapPixelToCoords(
@@ -85,7 +85,6 @@ void GameController::runGame()
                        m_birds[0].get()-> applyForce(force);
                        
                     }
-                  
                     break;
                 }
                 else
@@ -119,7 +118,6 @@ void GameController::menuManeger(const menuCommand& command)
 void GameController::drawGame()
 {
     m_world.step(1.f / 60.f, 8, 3);
-    
 }
 
 void GameController::createBirds()

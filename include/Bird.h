@@ -18,7 +18,6 @@ public:
     void setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w);
     bool isDragged() { return m_dragging; };
     void setPosition(const sf::Vector2f& pos);
-
     sf::Vector2f calculateThrow();
 
 private:

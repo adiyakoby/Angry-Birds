@@ -103,6 +103,7 @@ void Bird::setPosition(const sf::Vector2f& pos) {
     m_bird.setPosition(pos);
 }
 
+
 /*
 
    sf::VertexArray line(sf::Lines, 2);
