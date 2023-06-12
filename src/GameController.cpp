@@ -48,30 +48,14 @@ void GameController::runGame()
         m_window.getWindow().display();
         if (auto event = sf::Event{}; m_window.getWindow().pollEvent(event))
         {
+
             switch (event.type)
             {
             case sf::Event::Closed:
                 m_window.getWindow().close();
                 break;
-    
-            case sf::Event::MouseButtonPressed:
-            {
-                auto location = m_window.getWindow().mapPixelToCoords(
-                    { event.mouseButton.x, event.mouseButton.y });
-                if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-                {
-                    m_birds[0].get()->handleThrow(location.x, location.y);
-                }
-                break;
-            }
-            //in this case when mouse is not move the bird falls down maybe later.
-             /* case sf::Event::MouseMoved:
-            {
-                sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_window.getWindow());
-                if (bird.isDragged())
-                    bird.setRangeVector(mouseLocation);
-                break;
-            }*/
+
+           
             case sf::Event::MouseButtonReleased:
             {
                 auto location = m_window.getWindow().mapPixelToCoords(
@@ -81,25 +65,20 @@ void GameController::runGame()
                     auto mode = m_menu.handleClick(location);
                     menuManeger(mode);
                 }
-                else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
-                {
-                    if (m_birds[0].get()->isDragged()) {
-                        sf::Vector2f force = m_birds[0].get() -> calculateThrow();
-                       m_birds[0].get()-> applyForce(force);
-                       
-                    }
-                  
-                    break;
-                }
+              
                 else
                 {
                     ;
                 }
-                    
+
 
                 break;
             }
             }
+            auto location = m_window.getWindow().mapPixelToCoords(
+                { event.mouseButton.x, event.mouseButton.y });
+            for (auto& ea : m_birds)
+                ea->handleEvent(event, location);
         }
     }
 
