@@ -1,12 +1,14 @@
 #pragma once
 
+#include <memory>
+#include <box2d/box2d.h>
+#include <array>
+
 #include "Window.h"
 #include "Menu.h"
 #include "GameResources.h"
 #include "Bird.h"
-#include <memory>
 #include "Ground.h"
-#include <box2d/box2d.h>
 #include "World.h"
 #include "Wood.h"
 #include "Rogatka.h"
@@ -35,9 +37,9 @@ private:
 	World m_world;
 
 	//LevelManeger m_lvlmng;
-	std::vector<std::unique_ptr<StaticObjects>> m_staticObjects;
+	std::array<std::unique_ptr<StaticObjects, 2>> m_staticObjects;
 	std::vector<std::unique_ptr<Bird>> m_birds;
-	std::vector<std::unique_ptr<DynamicObjects>> m_building;
+	std::vector<std::unique_ptr<StaticObjects>> m_building;
 	//std::vector<sf::Music> m_gameMusic;
 
 	//init functions
