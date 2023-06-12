@@ -13,43 +13,37 @@ void GameController::runGame()
     
     createBirds();
     createBuilding();
-    Ground ground(*m_world.getWorld(), sf::Vector2f(0,0));
-
-   
+    createGroundAndRogatka();
     
-    
-    Rogatka rogatka( *m_world.getWorld(), sf::Vector2f(300.f,ground.getPosition().y - 80.f));
-    m_birds[0]->setPosition(sf::Vector2f(rogatka.getPostion().x, rogatka.getPostion().y - 100.f));
-    
+    m_birds[0]->setPosition(sf::Vector2f(m_staticObjects[1]->getPosition().x, m_staticObjects[1]->getPosition().y - 100.f));
+    auto view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+    m_window.getWindow().setView(view);
     //###############################
 
     while (m_window.getWindow().isOpen())
     {
+        //if (!m_menuMode)
+        //{
+        //    view.setCenter(sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
+        //    m_window.getWindow().setView(view);
+        //}
         m_window.getWindow().clear();
+     
         if (m_menuMode) m_menu.drawMenu(m_window.getWindow());
-        else {
-            drawGame();
-           
-            ground.drawObject(m_window.getWindow());
+        else 
+        {
             if (m_birds[0].get()->isDragged()) {
                 sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_window.getWindow());
                 m_birds[0].get()->setRangeVector(mouseLocation,m_window.getWindow());
-                rogatka.ignoreRogatka();
+                static_cast<Rogatka*>(m_staticObjects[1].get())->ignoreRogatka();
             }
-            for (auto& ea : m_building) {
-                ea->objectUpdate();
-                ea->drawObject(m_window.getWindow());
-            }
-          
-            m_birds[0]->drawObject(m_window.getWindow());
-            rogatka.drawObject(m_window.getWindow());
-            ground.drawObject(m_window.getWindow());
+            drawGame();
 
         }
+        
         m_window.getWindow().display();
         if (auto event = sf::Event{}; m_window.getWindow().pollEvent(event))
         {
-
             switch (event.type)
             {
             case sf::Event::Closed:
@@ -66,13 +60,6 @@ void GameController::runGame()
                     auto mode = m_menu.handleClick(location);
                     menuManeger(mode);
                 }
-              
-                else
-                {
-                    ;
-                }
-
-
                 break;
             }
             }
@@ -80,7 +67,15 @@ void GameController::runGame()
                 { event.mouseButton.x, event.mouseButton.y });
             for (auto& ea : m_birds)
                 ea->handleEvent(event, location);
+ /*           if (!m_menuMode)
+            {
+                view.setCenter(m_birds[0]->getPosition()/2.f);
+                view.move(m_birds[0]->getPosition().x, 0);
+                m_window.getWindow().setView(view);
+            }*/
+                
         }
+       
     }
 
 }
@@ -102,6 +97,14 @@ void GameController::menuManeger(const menuCommand& command)
 void GameController::drawGame()
 {
     m_world.step(1.f / 60.f, 8, 3);
+    for (auto& ea : m_building) {
+        ea->objectUpdate();
+        ea->drawObject(m_window.getWindow());
+    }
+
+    m_birds[0]->drawObject(m_window.getWindow());
+    m_staticObjects[1]->drawObject(m_window.getWindow());
+    m_staticObjects[0]->drawObject(m_window.getWindow());
 }
 
 void GameController::createBirds()
@@ -132,6 +135,12 @@ void GameController::createBuilding()
 
         }
     }
+}
+
+void GameController::createGroundAndRogatka()
+{
+    m_staticObjects[0]= std::make_unique<Ground>(*m_world.getWorld(), sf::Vector2f(0, 0));//ground
+    m_staticObjects[1] = std::make_unique <Rogatka> (*m_world.getWorld(), sf::Vector2f(300.f,m_staticObjects[0]->getPosition().y - 80.f));
 }
 
 

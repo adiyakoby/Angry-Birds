@@ -100,8 +100,8 @@ void Bird::setPosition(const sf::Vector2f& pos) {
     m_bird.setPosition(pos);
 }
 
-void Bird::handleEvent(sf::Event& event,const sf::Vector2f & mouse) {
-
+void Bird::handleEvent(sf::Event& event,const sf::Vector2f & mouse) 
+{
     switch (event.type) {
 
     case sf::Event::MouseButtonPressed:
@@ -121,4 +121,9 @@ void Bird::handleEvent(sf::Event& event,const sf::Vector2f & mouse) {
 
 
     }
+}
+
+sf::Vector2f Bird::getPosition() const
+{
+    return m_bird.getPosition();
 }

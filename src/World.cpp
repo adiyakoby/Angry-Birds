@@ -17,7 +17,7 @@ void World::setFrame() {
 
     m_worldFrame.emplace_back(setCorner(Left));
     m_worldFrame.emplace_back(setCorner(Top));
-    m_worldFrame.emplace_back(setCorner(Right));
+   // m_worldFrame.emplace_back(setCorner(Right));
 	
 }
 

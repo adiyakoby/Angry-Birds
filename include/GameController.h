@@ -28,13 +28,14 @@ public:
 	//void lvlManeger();
 	void createBirds();
 	void createBuilding();
-	void createGround();
+	void createGroundAndRogatka();
 
 
 private:
 	Window m_window;
 	bool m_menuMode;
 	Menu m_menu;
+
 	//Try temporary world
 	World m_world;
 

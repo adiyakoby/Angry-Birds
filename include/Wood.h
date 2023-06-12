@@ -11,6 +11,7 @@ public:
 	
 	void objectUpdate() override;
 	void drawObject(sf::RenderWindow& window) override;
+	sf::Vector2f getPosition() const override { return m_wood.getPosition(); }
 private:
 	sf::RectangleShape m_wood;
 	void initPhysicBody(b2World& world,const sf::Vector2f& postion, const sf::Vector2f& size)override;

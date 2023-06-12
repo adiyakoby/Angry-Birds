@@ -9,7 +9,7 @@ public:
 
 	void objectUpdate()override {}
 	void drawObject(sf::RenderWindow& window) override;
-	sf::Vector2f getPosition() { return m_ground.getPosition(); };
+	sf::Vector2f getPosition() const override{ return m_ground.getPosition(); };
 private:
 	sf::RectangleShape m_ground;
 
@@ -19,10 +19,10 @@ private:
 	
 };
 
-//static auto registerItGround = ObjectFactory<StaticObjects>::instance().registerType(
-//	"ground",
-//	[](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
-//	{
-//		return std::make_unique<Ground>(world, position, size);
-//	}
-//);
+static auto registerItGround = ObjectFactory<StaticObjects>::instance().registerType(
+	"ground",
+	[](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+	{
+		return std::make_unique<Ground>(world, position, size);
+	}
+);

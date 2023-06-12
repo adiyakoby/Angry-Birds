@@ -13,7 +13,7 @@ public:
 
 	virtual void objectUpdate() = 0;
 	virtual void drawObject(sf::RenderWindow& window) = 0;
-
+	virtual sf::Vector2f getPosition() const = 0;
 	int getHp() const { return m_hp; }
 	void setHp(int damage) { m_hp -= damage; }
 
