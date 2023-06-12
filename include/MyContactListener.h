@@ -1,6 +1,10 @@
 #pragma once
 #include <box2d/box2d.h>
 #include <iostream>
+#include "Objects.h"
+
+
+void handleCollision(Objects& obj_1, Objects& obj_2);
 
 class MyContactListener : public b2ContactListener
 {

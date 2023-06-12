@@ -32,6 +32,10 @@ sf::Texture& GameResources::getWoodsTexture(int index) {
 sf::Texture& GameResources::getRogatkaTexture(int index) {
     return m_rogatkaTexture.at(index);
 }
+
+sf::Texture& GameResources::getGroundTexture(int index) {
+    return m_groundTexture.at(index);
+}
 ////get the textures for the game objects
 //sf::Texture& GameResources::getObjectTexture(int index)
 //{
@@ -120,6 +124,12 @@ void GameResources::initTextures()
         m_rogatkaTexture.back().loadFromFile(rogatkaNames.at(i));
     }
 
+    std::array<std::string, 1> groundNames{ "ground.png" };
+    for (size_t i = 0; i < groundNames.size(); i++)
+    {
+        m_groundTexture.emplace_back();
+        m_groundTexture.back().loadFromFile(groundNames.at(i));
+    }
     //init texture vector for menu
     //for (int i = 0; i < 9; i++)
     //{
