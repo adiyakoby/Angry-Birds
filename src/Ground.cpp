@@ -11,7 +11,7 @@ void Ground::initPhysicBody(b2World& world, const sf::Vector2f& position, const 
     /* NEED TO CHANGE TO CHAIN*/
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
-    bodyDef.position.Set(size.x/2.f/SCALE, size.y / SCALE);
+    bodyDef.position.Set(size.x/2.f/SCALE, (size.y - 60.f)/ SCALE);
     m_body = world.CreateBody(&bodyDef);
 
     // Create Box2D ground shape
