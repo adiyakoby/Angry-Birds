@@ -90,9 +90,6 @@ void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w
 }
 sf::Vector2f Bird::calculateThrow()
 {
-    /*sf::Vector2f t{ dragStartPosition - dragEndPosition };
-    std::cout << t.x << " " << t.y << std::endl;*/
-
     return sf::Vector2f(dragStartPosition - dragEndPosition);
 }
 
@@ -103,9 +100,25 @@ void Bird::setPosition(const sf::Vector2f& pos) {
     m_bird.setPosition(pos);
 }
 
-/*
+void Bird::handleEvent(sf::Event& event,const sf::Vector2f & mouse) {
 
-   sf::VertexArray line(sf::Lines, 2);
-    line[0] = sf::Vertex(dragStartPosition, sf::Color::Green);
-    line[1] = sf::Vertex(dragEndPosition, sf::Color::Green);
-*/
+    switch (event.type) {
+
+    case sf::Event::MouseButtonPressed:
+        if (event.mouseButton.button == sf::Mouse::Left) {
+            this->handleThrow(mouse.x, mouse.y);
+            break;
+
+        }
+
+    case sf::Event::MouseButtonReleased:
+        if (event.mouseButton.button == sf::Mouse::Left && isDragged()) {
+            sf::Vector2f force = this->calculateThrow();
+            this->applyForce(force);
+        }
+
+        break;
+
+
+    }
+}
