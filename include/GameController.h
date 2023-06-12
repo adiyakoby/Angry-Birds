@@ -13,6 +13,7 @@
 #include "Wood.h"
 #include "Rogatka.h"
 #include "MyContactListener.h"
+#include "Pig.h"
 
 class GameController
 {
@@ -29,7 +30,7 @@ public:
 	void createBirds();
 	void createBuilding();
 	void createGroundAndRogatka();
-
+	void createPigs();
 
 private:
 	Window m_window;
@@ -43,6 +44,7 @@ private:
 	std::array<std::unique_ptr<StaticObjects>, 2> m_staticObjects;
 	std::vector<std::unique_ptr<Bird>> m_birds;
 	std::vector<std::unique_ptr<StaticObjects>> m_building;
+	std::vector<std::unique_ptr<StaticObjects>> m_pigs;
 	//std::vector<sf::Music> m_gameMusic;
 	//init functions
 	//void initObjects();
