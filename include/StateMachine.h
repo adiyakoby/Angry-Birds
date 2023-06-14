@@ -14,7 +14,7 @@ public:
 	void checkForUpdates();
 	std::unique_ptr<State>& getCurrentState();
 private:
-	std::unique_ptr<State> m_gameState;
+	std::unique_ptr<State> m_newGameState;
 	std::stack<std::unique_ptr<State>> m_states;
 	bool m_adding;
 	bool m_removing;

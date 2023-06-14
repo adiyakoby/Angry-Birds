@@ -8,7 +8,7 @@ void StateMachine::addState(std::unique_ptr<State>& newState, bool replacing)
 {
 	m_adding = true;
 	m_replacing = replacing;
-	m_gameState = std::move(newState);
+	m_newGameState = std::move(newState);
 }
 
 void StateMachine::removeState()
@@ -27,7 +27,7 @@ void StateMachine::checkForUpdates()
 			else//pause the current state and add new state to run
 				;//m_states.top()->pause();
 		}
-		m_states.push(std::move(m_gameState));
+		m_states.push(std::move(m_newGameState));
 		m_adding = false;
 	}
 
