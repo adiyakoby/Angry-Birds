@@ -12,8 +12,8 @@ void Game::runGame()
 	while (m_gameTools->m_window.isOpen())
 	{
 		//m_gameTools->stateMachine.checkForUpdates();
-		//m_gameTools->stateMachine.getCurrentState.processManeger();
-		//m_gameTools->stateMachine.getCurrentState.update();
-		//m_gameTools->stateMachine.getCurrentState.Draw();
+		//m_gameTools->stateMachine.getCurrentState().processManeger();
+		//m_gameTools->stateMachine.getCurrentState().update();
+		//m_gameTools->stateMachine.getCurrentState().Draw();
 	}
 }
