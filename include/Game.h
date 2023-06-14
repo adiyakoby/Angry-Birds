@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Macro.h"
+#include "StateMachine.h"
 #include <SFML/Graphics.hpp>
 
 struct GameTools
 {
 	//members
-	//StateMachine m_gameStates;
+	StateMachine m_gameStates;
 	sf::RenderWindow m_window;
 
 	//constructor

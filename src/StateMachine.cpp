@@ -4,7 +4,7 @@ StateMachine::StateMachine()
 	:m_adding(false), m_removing(false), m_replacing(false)
 {}
 
-void StateMachine::addState(std::unique_ptr<State>& newState, bool replacing)
+void StateMachine::addState(std::unique_ptr<State> newState, bool replacing)
 {
 	m_adding = true;
 	m_replacing = replacing;
