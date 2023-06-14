@@ -83,14 +83,28 @@ void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w
     line[0] = sf::Vertex(dragStartPosition, sf::Color::Green);
     line[1] = sf::Vertex(dragEndPosition, sf::Color::Green);
     w.draw(line);
-    m_bird.setPosition(mouseLocation.x, mouseLocation.y);
-    m_body->SetTransform(b2Vec2(mouseLocation.x / SCALE, mouseLocation.y / SCALE),  (dragStartPosition.y-mouseLocation.y) / SCALE);
-    dragEndPosition.x = mouseLocation.x;
-    dragEndPosition.y = mouseLocation.y;
+    
+    sf::Vector2f mouseLastLocation(mouseLocation.x, mouseLocation.y);
+    float distance = std::sqrt(std::pow(dragStartPosition.x - mouseLastLocation.x, 2) + std::pow(dragStartPosition.y - mouseLastLocation.y, 2));
+
+    if (distance > MAX_DISTANCE) {
+        sf::Vector2f direction = mouseLastLocation - dragStartPosition;
+        direction /= distance;
+        dragEndPosition = dragStartPosition + direction * MAX_DISTANCE;
+        m_bird.setPosition(dragEndPosition);
+        m_body->SetTransform(b2Vec2(dragEndPosition.x / SCALE, dragEndPosition.y / SCALE), (dragStartPosition.y - dragEndPosition.y) / SCALE);
+    }
+    else {
+        m_bird.setPosition(mouseLocation.x, mouseLocation.y);
+        m_body->SetTransform(b2Vec2(mouseLocation.x / SCALE, mouseLocation.y / SCALE), (dragStartPosition.y - mouseLocation.y) / SCALE);
+        dragEndPosition.x = mouseLocation.x;
+        dragEndPosition.y = mouseLocation.y;
+    }
+
 }
 sf::Vector2f Bird::calculateThrow()
 {
-    return sf::Vector2f(dragStartPosition - dragEndPosition);
+    return sf::Vector2f(dragStartPosition - dragEndPosition) * 1.3f;
 }
 
 void Bird::setPosition(const sf::Vector2f& pos) {
@@ -127,3 +141,22 @@ sf::Vector2f Bird::getPosition() const
 {
     return m_bird.getPosition();
 }
+
+
+
+
+//################################################
+/* OLDER SETRANGE
+
+void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w)
+{
+    sf::VertexArray line(sf::Lines, 2);
+    line[0] = sf::Vertex(dragStartPosition, sf::Color::Green);
+    line[1] = sf::Vertex(dragEndPosition, sf::Color::Green);
+    w.draw(line);
+    m_bird.setPosition(mouseLocation.x, mouseLocation.y);
+    m_body->SetTransform(b2Vec2(mouseLocation.x / SCALE, mouseLocation.y / SCALE),  (dragStartPosition.y-mouseLocation.y) / SCALE);
+    dragEndPosition.x = mouseLocation.x;
+    dragEndPosition.y = mouseLocation.y;
+}
+*/
