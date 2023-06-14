@@ -12,6 +12,7 @@ void Ground::initPhysicBody(b2World& world, const sf::Vector2f& position, const 
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(size.x/2.f/SCALE, (size.y - 60.f)/ SCALE);
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
     m_body = world.CreateBody(&bodyDef);
 
     // Create Box2D ground shape

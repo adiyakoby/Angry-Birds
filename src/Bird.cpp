@@ -15,6 +15,7 @@ void Bird::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(position.x / SCALE, position.y / SCALE);
     bodyDef.linearDamping = 0.7f;
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
     m_body = world.CreateBody(&bodyDef);
 
     // Create Box2D circle shape
@@ -28,6 +29,7 @@ void Bird::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf
     fixtureDef.friction = 0.3f;
     fixtureDef.restitution = 0.4f;
     m_body->CreateFixture(&fixtureDef);
+
 
 }
 void Bird::initGraphicBody(const sf::Vector2f& size)

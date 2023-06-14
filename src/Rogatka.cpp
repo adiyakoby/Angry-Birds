@@ -10,6 +10,7 @@ void Rogatka::initPhysicBody(b2World& world, const sf::Vector2f& position, const
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(position.x  /  SCALE, (position.y) / SCALE);
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
     m_body = world.CreateBody(&bodyDef);
 
     b2PolygonShape groundshape;

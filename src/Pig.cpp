@@ -14,6 +14,7 @@ void Pig::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf:
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(position.x / SCALE, position.y / SCALE);
     bodyDef.linearDamping = 0.9f;
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
     m_body = world.CreateBody(&bodyDef);
 
     // Create Box2D circle shape

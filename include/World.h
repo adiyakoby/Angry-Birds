@@ -3,9 +3,9 @@
 #include <box2d/box2d.h>
 #include "Macro.h"
 #include <vector>
-
+#include "Objects.h"
 enum  Position { Left, Top, Right };
-class World
+class World 
 {
 public:
 	World(/*const b2Vec2 graviry*/);

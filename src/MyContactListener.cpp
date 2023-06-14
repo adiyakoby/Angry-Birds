@@ -1,6 +1,16 @@
 #include "MyContactListener.h"
-
-
+#include <functional>
+#include <iostream>
+#include <map>
+#include <string>
+#include <typeinfo>
+#include <typeindex>
+#include "Bird.h"
+#include "Ground.h"
+#include "Wood.h"
+#include "Rogatka.h"
+#include "Pig.h"
+#include "World.h"
 void MyContactListener::BeginContact(b2Contact* contact)
 {
     b2Fixture* fixtureA = contact->GetFixtureA();
@@ -10,6 +20,9 @@ void MyContactListener::BeginContact(b2Contact* contact)
     b2Body* bodyA = fixtureA->GetBody();
     b2Body* bodyB = fixtureB->GetBody();
 
+    if (reinterpret_cast<World*>(bodyA->GetUserData().pointer) == nullptr ||
+        reinterpret_cast<World*>(bodyB->GetUserData().pointer) == nullptr)
+        return;
 
     Objects* first = reinterpret_cast<Objects*>(bodyA->GetUserData().pointer);
     Objects* second = reinterpret_cast<Objects*>(bodyB->GetUserData().pointer);
@@ -17,13 +30,61 @@ void MyContactListener::BeginContact(b2Contact* contact)
     handleCollision(*first, *second);
 }
 
+namespace {//begin namespace
 
-void handleCollision(Objects& obj_1, Objects& obj_2) {
+void birdPig(Objects& bird, Objects& pig) {
 
 
-    ;
+    Bird& getbird = dynamic_cast<Bird&>(bird);
+    Pig& getpig = dynamic_cast<Pig&>(pig);
+
+    std::cout << "a collision\n";
 }
 
-void MyContactListener::EndContact(b2Contact* contact)
+void pigBird(Objects& pig, Objects& bird) {
+
+    birdPig(bird, pig);
+}
+
+using HitFunctionPtr = std::function<void(Objects&, Objects&)>;
+// typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
+using Key = std::pair<std::type_index, std::type_index>;
+// std::unordered_map is better, but it requires defining good hash function for pair
+using HitMap = std::map<Key, HitFunctionPtr>;
+
+HitMap initializeCollisionMap()
 {
+    HitMap phm;
+    phm[Key(typeid(Bird), typeid(Pig))] = &birdPig;
+    phm[Key(typeid(Pig), typeid(Bird))] = &pigBird;
+    //...
+    return phm;
 }
+HitFunctionPtr lookup(const std::type_index& class1, const std::type_index& class2)
+{
+    static HitMap collisionMap = initializeCollisionMap();
+    auto mapEntry = collisionMap.find(std::make_pair(class1, class2));
+    if (mapEntry == collisionMap.end())
+    {
+        return nullptr;
+    }
+    return mapEntry->second;
+}
+
+
+
+}//end namespace
+
+void handleCollision(Objects& object1, Objects& object2) {
+
+    auto collisionFunc = lookup(typeid(object1), typeid(object2));
+    if (!collisionFunc)
+    {
+        return;
+    }
+    collisionFunc(object1, object2);
+}
+
+//void MyContactListener::EndContact(b2Contact* contact)
+//{
+//}

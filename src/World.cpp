@@ -29,6 +29,8 @@ b2Body* World::setCorner(Position position) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(nullptr);
+    
 
     b2PolygonShape boxshape;
     switch (position) {
@@ -49,7 +51,7 @@ b2Body* World::setCorner(Position position) {
         // Code for default case (if index does not match any of the above cases)
         break;
     }
-
+   
     body = m_world->CreateBody(&bodyDef);
     //// Create Box2D fixture definition
     b2FixtureDef fixtureDef;
