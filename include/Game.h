@@ -2,21 +2,17 @@
 
 #include "Macro.h"
 #include "StateMachine.h"
+#include "Window.h"
+
 #include <SFML/Graphics.hpp>
+#include <memory>
+#include <vector>
 
 struct GameTools
 {
 	//members
 	StateMachine m_gameStates;
-	sf::RenderWindow m_window;
-
-	//constructor
-	GameTools()
-		:m_window{ sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Angry Birds" }
-	{
-		m_window.setFramerateLimit(40);
-	}
-
+	Window m_window;
 };
 
 class Game
