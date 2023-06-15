@@ -27,9 +27,9 @@ void GameController::runGame()
     while (m_window.getWindow().isOpen())
     {
         m_window.getWindow().clear();
-     
+
         if (m_menuMode) m_menu.drawMenu(m_window.getWindow());
-        else 
+        else
         {
             if (m_birds[0].get()->isDragged()) {
                 sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_window.getWindow());
@@ -37,12 +37,12 @@ void GameController::runGame()
                 mouseLocation.x = worldPosition.x;
                 mouseLocation.y = worldPosition.y;
 
-                m_birds[0].get()->setRangeVector(mouseLocation,m_window.getWindow());
+                m_birds[0].get()->setRangeVector(mouseLocation, m_window.getWindow());
                 static_cast<Rogatka*>(m_staticObjects[1].get())->ignoreRogatka();
             }
             drawGame();
         }
-        
+
         m_window.getWindow().display();
         if (auto event = sf::Event{}; m_window.getWindow().pollEvent(event))
         {
@@ -52,7 +52,7 @@ void GameController::runGame()
                 m_window.getWindow().close();
                 break;
 
-           
+
             case sf::Event::MouseButtonReleased:
             {
                 auto location = m_window.getWindow().mapPixelToCoords(
@@ -69,20 +69,22 @@ void GameController::runGame()
                 { event.mouseButton.x, event.mouseButton.y }, view);
             for (auto& ea : m_birds)
                 ea->handleEvent(event, location);
-       
-                
+
+
         }
         if (!m_menuMode)
         {
             if (m_birds[0]->getPosition().x - view.getSize().x / 2 <= 0)
                 view.setCenter(view.getSize() / 2.f);
-            else if(m_birds[0]->getPosition().x + view.getSize().x / 2 >= m_background.getSize().x)
-                view.setCenter(m_background.getSize().x - view.getSize().x/2, WINDOW_HEIGHT / 2);
+            else if (m_birds[0]->getPosition().x + view.getSize().x / 2 >= m_background.getSize().x)
+                view.setCenter(m_background.getSize().x - view.getSize().x / 2, WINDOW_HEIGHT / 2);
             else
                 view.setCenter(m_birds[0]->getPosition().x, WINDOW_HEIGHT / 2);
 
             m_window.getWindow().setView(view);
         }
+
+        std::erase_if(m_pigs, [&](auto& ea) {return ea->getHp() <= 0;  });
     }
 
 }

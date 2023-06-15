@@ -4,6 +4,8 @@ Pig::Pig(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size)
 {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
+    setHp(2);
+    
 }
 
 
@@ -51,4 +53,14 @@ void Pig::objectUpdate()
 void Pig::drawObject(sf::RenderWindow& window)
 {
     window.draw(m_pig);
+}
+
+void Pig::hitState() {
+    
+    static bool hit{ false };
+    if (this->getHp() < 2 && !hit) {
+        m_pig.setTexture(&GameResources::getInstance().getPigsTexture(1));
+        hit = true;
+    }
+    //else if (this->getHp() <= 0)
 }

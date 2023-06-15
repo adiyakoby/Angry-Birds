@@ -32,12 +32,15 @@ void MyContactListener::BeginContact(b2Contact* contact)
 
 namespace {//begin namespace
 
+//-------------HIT FUNCTIONS-----------
 void birdPig(Objects& bird, Objects& pig) {
 
 
     Bird& getbird = dynamic_cast<Bird&>(bird);
     Pig& getpig = dynamic_cast<Pig&>(pig);
 
+    getpig.setDamage(2);
+    getpig.hitState();
     std::cout << "a collision\n";
 }
 
@@ -45,6 +48,32 @@ void pigBird(Objects& pig, Objects& bird) {
 
     birdPig(bird, pig);
 }
+
+void birdWood(Objects& bird, Objects& wood) {
+
+    Bird& getbird = dynamic_cast<Bird&>(bird);
+    Wood& getwood = dynamic_cast<Wood&>(wood);
+
+    getwood.setDamage(1);
+
+}
+void woodBird(Objects& wood, Objects& bird) {
+    birdWood(bird, wood);
+}
+
+void pigWood(Objects& pig, Objects& wood) {
+
+    Pig& getpig = dynamic_cast<Pig&>(pig);
+    Wood& getwood = dynamic_cast<Wood&>(wood);
+    getpig.setDamage(1);
+    getpig.hitState();
+    getwood.setDamage(1);
+}
+
+void woodPig(Objects& wood, Objects& pig) {
+    pigWood(pig, wood);
+}
+//-----------END HIT FUNCTION------------
 
 using HitFunctionPtr = std::function<void(Objects&, Objects&)>;
 // typedef void (*HitFunctionPtr)(GameObject&, GameObject&);
@@ -57,6 +86,11 @@ HitMap initializeCollisionMap()
     HitMap phm;
     phm[Key(typeid(Bird), typeid(Pig))] = &birdPig;
     phm[Key(typeid(Pig), typeid(Bird))] = &pigBird;
+    phm[Key(typeid(Bird), typeid(Wood))] = &birdWood;
+    phm[Key(typeid(Wood), typeid(Bird))] = &woodBird;
+    phm[Key(typeid(Pig), typeid(Wood))] = &pigWood;
+    phm[Key(typeid(Wood), typeid(Pig))] = &woodPig;
+
     //...
     return phm;
 }
