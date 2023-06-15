@@ -40,7 +40,7 @@ private:
 	Menu m_menu;
 
 	//Try temporary world
-	std::shared_ptr<World> m_world;
+	World m_world;
 
 	//LevelManager m_lvlsMngr;
 
