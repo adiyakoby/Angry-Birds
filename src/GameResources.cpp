@@ -23,6 +23,21 @@ sf::Texture& GameResources::getMenuTexture(int index)
         return m_menuTexture[index];*/
     return m_menuTexture.at(index);
 }
+
+sf::Texture& GameResources::getHelpTexture(int index)
+{
+    /* if (index < 9 && index >= 0)
+         return m_menuTexture[index];*/
+    return m_helpScreenTexture.at(index);
+}
+
+sf::Texture& GameResources::getSoundTexture(int index)
+{
+    /* if (index < 9 && index >= 0)
+         return m_menuTexture[index];*/
+    return m_soundTexture.at(index);
+}
+
 sf::Texture& GameResources::getBirdTexture(int index) {
     return m_birdsTexture.at(index);
 }
@@ -72,6 +87,8 @@ sf::SoundBuffer& GameResources::Playaffect(int index)
 {
     return m_affects.at(index);
 }
+
+
 //
 ////create the text 
 //sf::Text& GameResources::createText(std::string dataName, sf::Vector2f position, sf::Color color, int font)
@@ -96,8 +113,7 @@ void GameResources::initTextures()
 
     //---------------------------menu textures-----------------------------
     //all the texture images names for menu
-    //char menuTextureNames[9][20] = { "pacmanTitle.png", "pacmanEmoji.png", "playButton.png", "helpButton.png",
-      //  "exitButton.png","musicButton.png", "help.png", "backButton.png","MenuBackground.png" };
+
     std::array<std::string, 6> menuTextureNames{ "play.png", "help.png", "exit.png", "back.png", "sound.png", "mute.png" };
     for (size_t i = 0; i < menuTextureNames.size(); i++)
     {
@@ -105,6 +121,26 @@ void GameResources::initTextures()
         m_menuTexture.back().loadFromFile(menuTextureNames.at(i));
     }
 
+    //std::array<std::string, 3> menuTextureNames{ "play.png", "help.png", "exit.png" };
+    //for (size_t i = 0; i < menuTextureNames.size(); i++)
+    //{
+    //    m_menuTexture.emplace_back();
+    //    m_menuTexture.back().loadFromFile(menuTextureNames.at(i));
+    //}
+
+    //std::array<std::string, 1> helpScreen { "back.png" };
+    //for (size_t i = 0; i < helpScreen.size(); i++)
+    //{
+    //    m_helpScreenTexture.emplace_back();
+    //    m_helpScreenTexture.back().loadFromFile(helpScreen.at(i));
+    //}
+
+    //std::array<std::string, 2> soundButton{ "sound.png", "mute.png" };
+    //for (size_t i = 0; i < soundButton.size(); i++)
+    //{
+    //    m_soundTexture.emplace_back();
+    //    m_soundTexture.back().loadFromFile(soundButton.at(i));
+    //}
     //vector string for the bird's names
     std::array<sf::IntRect, 2> birdLocation{ sf::IntRect{915,867,50,50}, sf::IntRect{551,665,50,50} };
     for (size_t i = 0; i < birdLocation.size(); i++)

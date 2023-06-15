@@ -1,16 +1,18 @@
 #include "Game.h"
-#include "HelpScreenState.h"
-#include<memory>
+#include "MainMenuState.h"
+
+
+
 Game::Game()
 	:m_gameTools(std::make_shared<GameTools>())
 {
-	m_gameTools->m_gameStates.addState(std::make_unique<HelpScreenState>(this -> m_gameTools), true);//create the first state of the game - the menu
+	m_gameTools->m_gameStates.addState(std::make_unique<MainMenuState>(this -> m_gameTools), true);//create the first state of the game - the menu
 }
 
 void Game::runGame()
 {
 	//in each iteration process according to the state
-	while (m_gameTools->m_window.isOpen())
+	while (m_gameTools->m_window.getWindow().isOpen())
 	{
 		m_gameTools->m_gameStates.checkForUpdates();
 		m_gameTools->m_gameStates.getCurrentState()->processManeger();
