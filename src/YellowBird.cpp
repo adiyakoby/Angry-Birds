@@ -57,8 +57,6 @@ static auto registerItYellowBird = ObjectFactory<YellowBird>::instance().registe
         return std::make_unique<YellowBird>(world, position, size);
     }
 );
-
-
 //void YellowBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
 //{
 //    switch (event.type) {

@@ -16,7 +16,7 @@ void RedBird::initGraphicBody(const sf::Vector2f& size)
 }
 
 //to "register" the object in the Factory
-static auto registerItRedBird = ObjectFactory<RedBird>::instance().registerType(
+static auto registerItYellowBird = ObjectFactory<RedBird>::instance().registerType(
     "RedBird",
     [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<RedBird>
     {
