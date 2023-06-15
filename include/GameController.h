@@ -5,6 +5,7 @@
 #include <array>
 #include <algorithm>
 
+#include "LevelManager.h"
 #include "Window.h"
 #include "Menu.h"
 #include "GameResources.h"
