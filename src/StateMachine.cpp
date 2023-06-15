@@ -23,7 +23,10 @@ void StateMachine::checkForUpdates()
 		if (!m_states.empty())//check the states not empty
 		{
 			if (m_replacing)//replace the current state with the new one
+			{
+				m_states.top().release();
 				m_states.pop();
+			}
 			else//pause the current state and add new state to run
 				;//m_states.top()->pause();
 		}

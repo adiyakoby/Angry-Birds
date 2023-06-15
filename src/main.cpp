@@ -3,7 +3,7 @@
 
 int main()
 {
-	GameController game;
-	//Game game;
+	//GameController game;
+	Game game;
 	game.runGame();
 }

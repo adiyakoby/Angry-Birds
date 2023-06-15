@@ -13,6 +13,7 @@ public:
 	Window();
 	~Window() = default;
 	sf::RenderWindow& getWindow();
+	void setView(float x, float y);
 private:
 	sf::RenderWindow m_window;
 
