@@ -18,14 +18,16 @@ public:
     void setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w);
     bool isDragged() { return m_dragging; };
     void setPosition(const sf::Vector2f& pos);
-    void handleEvent(sf::Event& event, const sf::Vector2f& mouse);
+    virtual void handleEvent(sf::Event& event, const sf::Vector2f& mouse);
     sf::Vector2f getPosition() const override;
     sf::Vector2f calculateThrow();
 
+protected:
+    sf::CircleShape m_bird;
     virtual void rotate(const int& x) {};
 
 private:
-    sf::CircleShape m_bird;
+   
    
     bool m_dragging;
     sf::Vector2f dragStartPosition;
