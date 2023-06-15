@@ -97,6 +97,5 @@ void PlayState::createGroundAndRogatka()
 
 void PlayState::createGameObjs()
 {
-    std::cout << "CREASTED OBJS\n";
     m_gameObjects = m_lvlsMngr.GetLevel();
 }
