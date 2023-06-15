@@ -3,6 +3,7 @@
 #include <memory>
 #include <box2d/box2d.h>
 #include <array>
+#include <algorithm>
 
 #include "Window.h"
 #include "Menu.h"

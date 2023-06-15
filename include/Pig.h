@@ -12,7 +12,7 @@ public:
 	void objectUpdate()override;
 	void drawObject(sf::RenderWindow& window)override;
 	sf::Vector2f getPosition() const override { return m_pig.getPosition(); }
-
+	void hitState();
 private:
 	sf::CircleShape m_pig;
 	void initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size)override;
