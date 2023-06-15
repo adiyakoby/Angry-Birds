@@ -16,7 +16,8 @@ class LevelManager
 public:
 	LevelManager(std::shared_ptr<World> world);
 	~LevelManager() = default;
-	std::vector<std::shared_ptr<Objects>> GetLevel();
+
+	std::vector<std::unique_ptr<StaticObjects>> GetLevel();
 	
 private:
 	std::ifstream m_lvlsFile;
@@ -24,7 +25,7 @@ private:
 
 	/* private funcs */
 	std::deque<std::string> ReadLevel();
-	std::vector<std::shared_ptr<Objects>> CreateObj(std::deque<std::string> &objDeq);
+	std::vector<std::unique_ptr<StaticObjects>> CreateObj(std::deque<std::string> &objDeq);
 	
 
 };

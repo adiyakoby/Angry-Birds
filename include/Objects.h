@@ -20,6 +20,7 @@ public:
 	void setDamage(int damage) { m_hp -= damage; }
 	void setHp(int hp) { m_hp = hp; };
 	virtual void rotate(const int& x) = 0;
+	void rotateBody() { m_body->SetTransform(m_body->GetPosition(), m_body->GetAngle() + b2_pi / 2.0f); };
 
 protected:
 	b2Body* m_body;
