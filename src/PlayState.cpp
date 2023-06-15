@@ -74,9 +74,12 @@ void PlayState::initilaize()
     m_background.setPosition(0, 0);
 
     //init objects
-    createBirds();
+    // 
+    //createBirds();      -> Dont need becasue of lvl manager
+    //createGameObjs(); -> Dont need becasue of lvl manager
+
     createGroundAndRogatka();
-    createGameObjs();
+    m_lvlsMngr.getNextLevel(m_birds, m_gameObjects);
 
     m_birds[0]->setPosition(sf::Vector2f(m_worldObjects[1]->getPosition().x, m_worldObjects[1]->getPosition().y - 100.f));
 }
@@ -84,8 +87,7 @@ void PlayState::initilaize()
 
 void PlayState::createBirds()
 {
-    m_birds.emplace_back();
-    m_birds.back() = std::move(ObjectFactory<YellowBird>::instance().create("YellowBird", *m_world->getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f)));
+    m_birds.emplace_back(std::move(ObjectFactory<RedBird>::instance().create("RedBird", *m_world->getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));
 }
 
 
