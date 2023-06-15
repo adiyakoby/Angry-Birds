@@ -144,7 +144,14 @@ sf::Vector2f Bird::getPosition() const
     return m_bird.getPosition();
 }
 
-
+//to "register" the object in the Factory
+static auto registerItBird = ObjectFactory<Bird>::instance().registerType(
+    "Bird",
+    [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<Bird>
+    {
+        return std::make_unique<Bird>(world, position, size);
+    }
+);
 
 
 //################################################

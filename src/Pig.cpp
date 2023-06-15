@@ -64,3 +64,12 @@ void Pig::hitState() {
     }
     //else if (this->getHp() <= 0)
 }
+
+//to "register" the object in the Factory
+static auto registerItPig = ObjectFactory<StaticObjects>::instance().registerType(
+    "Pigs",
+    [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+    {
+        return std::make_unique<Pig>(world, position, size);
+    }
+);
