@@ -22,6 +22,8 @@ public:
     sf::Vector2f getPosition() const override;
     sf::Vector2f calculateThrow();
 
+    virtual void rotate(const int& x) {};
+
 private:
     sf::CircleShape m_bird;
    

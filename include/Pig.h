@@ -12,6 +12,8 @@ public:
 	void objectUpdate()override;
 	void drawObject(sf::RenderWindow& window)override;
 	sf::Vector2f getPosition() const override { return m_pig.getPosition(); }
+	void rotate(const int& x) override { ; };
+
 	void hitState();
 private:
 	sf::CircleShape m_pig;

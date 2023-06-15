@@ -20,11 +20,12 @@ public:
 	
 private:
 	std::ifstream m_lvlsFile;
+	std::shared_ptr<World> m_world;
 
 	/* private funcs */
 	std::deque<std::string> ReadLevel();
-	std::shared_ptr<Objects> CreateObj(const char &x);
-	std::shared_ptr<World> m_world;
+	std::vector<std::shared_ptr<Objects>> CreateObj(std::deque<std::string> &objDeq);
+	
 
 };
 

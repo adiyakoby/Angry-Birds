@@ -1,7 +1,7 @@
 #include "GameController.h"
 
 GameController::GameController()
-    :m_menuMode(true), m_lvlsMngr(m_world)
+    :m_menuMode(true)//, m_lvlsMngr(m_world)
 {
     initBackground();
 }

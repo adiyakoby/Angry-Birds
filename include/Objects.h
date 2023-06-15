@@ -19,6 +19,8 @@ public:
 	int getHp() const { return m_hp; }
 	void setDamage(int damage) { m_hp -= damage; }
 	void setHp(int hp) { m_hp = hp; };
+	virtual void rotate(const int& x) = 0;
+
 protected:
 	b2Body* m_body;
 	virtual void initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) = 0;

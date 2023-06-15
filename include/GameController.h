@@ -5,7 +5,7 @@
 #include <array>
 #include <algorithm>
 
-#include "LevelManager.h"
+//#include "LevelManager.h"
 #include "Window.h"
 #include "Menu.h"
 #include "GameResources.h"
@@ -42,7 +42,7 @@ private:
 	//Try temporary world
 	std::shared_ptr<World> m_world;
 
-	LevelManager m_lvlsMngr;
+	//LevelManager m_lvlsMngr;
 
 	std::array<std::unique_ptr<StaticObjects>, 2> m_staticObjects;
 	std::vector<std::unique_ptr<Bird>> m_birds;

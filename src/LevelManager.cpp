@@ -4,16 +4,37 @@ LevelManager::LevelManager(std::shared_ptr<World> world) : m_lvlsFile(), m_world
 	m_lvlsFile.open("GameLevels.txt", std::ifstream::in);
 }
 
-std::shared_ptr<Objects> LevelManager::CreateObj(const char& x)
+std::vector<std::shared_ptr<Objects>> LevelManager::CreateObj(std::deque<std::string> & objDeq)
 {
-	switch (x)
+	int xPos = 500;
+	int yPos = WINDOW_HEIGHT;
+	std::vector<std::shared_ptr<Objects>> tempVec;
+
+	while (!objDeq.empty())
 	{
-	case '@': ObjectFactory<StaticObjects>::instance().create("Pigs", *m_world->getWorld(), sf::Vector2f(620, WINDOW_HEIGHT - 110.f), sf::Vector2f(20.f, 0.f)); break;
-	case '-': break;
-	default:
-		break;
+		std::string line = objDeq.front();
+		for (size_t i = 0; i < line.size(); i++)
+		{
+			switch (line.at(i))
+			{
+			case '@': tempVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
+						*m_world->getWorld(), sf::Vector2f(xPos+=30, yPos), sf::Vector2f(20.f, 0.f))));                     break;
+			case '!':
+			case '-': tempVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood", 
+						*m_world->getWorld(), sf::Vector2f(xPos += 300, yPos), sf::Vector2f(300.f, 20.f))));
+				if (line.at(i) == '!') tempVec.back()->rotate(90);
+																														break;
+
+			default:
+				break;
+			}
+			
+		}
+		
+		objDeq.pop_front();
 	}
-	return std::shared_ptr<Objects>();
+	
+	return tempVec;
 }
 
 std::vector<std::shared_ptr<Objects>> LevelManager::GetLevel()
@@ -21,17 +42,15 @@ std::vector<std::shared_ptr<Objects>> LevelManager::GetLevel()
 	std::cout << " GetLevel() \n";
 
 	std::deque<std::string> objDeq{ ReadLevel()};
-	std::vector<std::shared_ptr<Objects>> objVec{};
+	std::vector<std::shared_ptr<Objects>> objVec{ CreateObj(objDeq)};
 
-	while (!objDeq.empty())
-	{
-		std::string temp = objDeq.front();
-		objVec.emplace_back();
-		objDeq.pop_front();
-	}
-
-
-	return std::vector<std::shared_ptr<Objects>>();
+	return objVec;
+	//while (!objDeq.empty())
+	//{
+	//	std::string temp = objDeq.front();
+	//	objVec.emplace_back();
+	//	objDeq.pop_front();
+	//}	
 }
 
 
