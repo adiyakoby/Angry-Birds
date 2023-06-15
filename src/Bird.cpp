@@ -5,8 +5,8 @@
 Bird::Bird(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) : m_dragging{ false }
 {
     initPhysicBody(world, position, size);
-    initGraphicBody();
-   
+    initGraphicBody(size);
+    
 }
 
 

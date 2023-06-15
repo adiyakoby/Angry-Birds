@@ -84,7 +84,7 @@ void GameController::runGame()
             m_window.getWindow().setView(view);
         }
 
-        std::erase_if(m_pigs, [&](auto& ea) {return ea->getHp() <= 0;  });
+        //std::erase_if(m_pigs, [&](auto& ea) {return ea->getHp() <= 0;  });
     }
 
 }
@@ -123,7 +123,7 @@ void GameController::drawGame()
 void GameController::createBirds()
 {
     m_birds.emplace_back();
-    m_birds.back() = std::move(ObjectFactory<Bird>::instance().create("Bird", *m_world.getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f)));
+    m_birds.back() = std::move(ObjectFactory<YellowBird>::instance().create("YellowBird", *m_world.getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f)));
 }
 
 void GameController::createBuilding()

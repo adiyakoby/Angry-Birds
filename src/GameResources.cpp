@@ -106,7 +106,7 @@ void GameResources::initTextures()
     }
 
     //vector string for the bird's names
-    std::array<sf::IntRect, 1> birdLocation{ sf::IntRect{915,867,50,50} };
+    std::array<sf::IntRect, 2> birdLocation{ sf::IntRect{915,867,50,50}, sf::IntRect{551,665,50,50} };
     for (size_t i = 0; i < birdLocation.size(); i++)
     {
         m_birdsTexture.emplace_back();

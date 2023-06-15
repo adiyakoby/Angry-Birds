@@ -15,6 +15,8 @@
 #include "Rogatka.h"
 #include "MyContactListener.h"
 #include "Pig.h"
+#include "YellowBird.h"
+#include "RedBird.h"
 
 class GameController
 {
