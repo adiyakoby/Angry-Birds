@@ -1,9 +1,9 @@
 #include "PlayState.h"
 
 PlayState::PlayState(std::shared_ptr<GameTools> gameTools)
-	:m_gameTools(gameTools), m_contactListener(std::make_unique<MyContactListener>())
+    :m_gameTools(gameTools), m_contactListener(std::make_unique<MyContactListener>()),m_world{std::make_shared<World>()}, m_lvlsMngr{m_world}
 {
-    m_world.getWorld()->SetContactListener(m_contactListener.get());
+    m_world->getWorld()->SetContactListener(m_contactListener.get());
 	initilaize();
 }
 
@@ -16,7 +16,7 @@ void PlayState::processManeger()
         mouseLocation.y = worldPosition.y;
 
         m_birds[0].get()->setRangeVector(mouseLocation, m_gameTools->m_window.getWindow());
-        static_cast<Rogatka*>(m_staticObjects[1].get())->ignoreRogatka();
+        static_cast<Rogatka*>(m_worldObjects[1].get())->ignoreRogatka();
     }
 
     if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event))
@@ -50,22 +50,18 @@ void PlayState::Draw()
     m_gameTools->m_window.getWindow().clear();
     drawGame();
     m_gameTools->m_window.getWindow().display();
-    m_world.step(1.f / 60.f, 8, 3);
+    m_world->step(1.f / 60.f, 8, 3);
 }
 
 void PlayState::drawGame()
 {
     m_gameTools->m_window.getWindow().draw(m_background);
-    for (auto& ea : m_building) {
-        ea->objectUpdate();
-        ea->drawObject(m_gameTools->m_window.getWindow());
-    }
-    for (auto& ea : m_pigs) {
+    for (auto& ea : m_gameObjects) {
         ea->objectUpdate();
         ea->drawObject(m_gameTools->m_window.getWindow());
     }
     m_birds[0]->drawObject(m_gameTools->m_window.getWindow());
-    m_staticObjects[1]->drawObject(m_gameTools->m_window.getWindow());
+    m_worldObjects[1]->drawObject(m_gameTools->m_window.getWindow());
     //m_staticObjects[0]->drawObject(m_window.getWindow());
    
 }
@@ -79,52 +75,28 @@ void PlayState::initilaize()
 
     //init objects
     createBirds();
-    createBuilding();
     createGroundAndRogatka();
-    createPigs();
+    createGameObjs();
 
-    m_birds[0]->setPosition(sf::Vector2f(m_staticObjects[1]->getPosition().x, m_staticObjects[1]->getPosition().y - 100.f));
+    m_birds[0]->setPosition(sf::Vector2f(m_worldObjects[1]->getPosition().x, m_worldObjects[1]->getPosition().y - 100.f));
 }
 
 
 void PlayState::createBirds()
 {
     m_birds.emplace_back();
-    m_birds.back() = std::move(ObjectFactory<YellowBird>::instance().create("YellowBird", *m_world.getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f)));
+    m_birds.back() = std::move(ObjectFactory<YellowBird>::instance().create("YellowBird", *m_world->getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f)));
 }
 
-void PlayState::createBuilding()
-{
-    for (int i = 0; i < 3; i++)
-    {
-        //b2World& world, const b2Vec2 bodypostion, const sf::Vector2f position, const sf::Vector2f size
-        if (i == 1)//left
-        {
-            m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(500.f, WINDOW_HEIGHT - 110.f), sf::Vector2f(30.f, 100.f)));
-        }
-        else if (i == 2)//right
-        {
-            m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(700.f, WINDOW_HEIGHT - 110.f), sf::Vector2f(30.f, 100.f)));
-
-        }
-        else {//top
-            m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(600.f, WINDOW_HEIGHT - 160.f), sf::Vector2f(300.f, 20.f)));
-
-        }
-    }
-}
 
 void PlayState::createGroundAndRogatka()
 {
-    m_staticObjects[0] = std::make_unique<Ground>(*m_world.getWorld(), sf::Vector2f(0, 0), m_background.getSize());//ground
-    m_staticObjects[1] = std::make_unique <Rogatka>(*m_world.getWorld(), sf::Vector2f(300.f, m_staticObjects[0]->getPosition().y - 80.f));//rogatka
+    m_worldObjects[0] = std::make_unique<Ground>(*m_world->getWorld(), sf::Vector2f(0, 0), m_background.getSize());//ground
+    m_worldObjects[1] = std::make_unique <Rogatka>(*m_world->getWorld(), sf::Vector2f(300.f, m_worldObjects[0]->getPosition().y - 80.f));//rogatka
 }
 
-void PlayState::createPigs()
+void PlayState::createGameObjs()
 {
-    m_pigs.emplace_back();
-    m_pigs.back() = std::move(ObjectFactory<StaticObjects>::instance().create("Pigs", *m_world.getWorld(), sf::Vector2f(620, WINDOW_HEIGHT - 110.f), sf::Vector2f(20.f, 0.f)));
+    std::cout << "CREASTED OBJS\n";
+    m_gameObjects = m_lvlsMngr.GetLevel();
 }

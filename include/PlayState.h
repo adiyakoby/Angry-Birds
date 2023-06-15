@@ -10,6 +10,7 @@
 #include "Pig.h"
 #include "YellowBird.h"
 #include "RedBird.h"
+#include "LevelManager.h"
 
 class PlayState :public State
 {
@@ -23,9 +24,8 @@ public:
 
 	void drawGame();
 	void createBirds();
-	void createBuilding();
 	void createGroundAndRogatka();
-	void createPigs();
+	void createGameObjs();
 protected:
 	void initilaize();
 
@@ -37,18 +37,18 @@ private:
 	bool m_event;
 	sf::Sound m_music;
 
-	//Try temporary world
-	World m_world;
-
 	//LevelManeger m_lvlmng;
-	std::array<std::unique_ptr<StaticObjects>, 2> m_staticObjects;
+	std::array<std::unique_ptr<StaticObjects>, 2> m_worldObjects;
 	std::vector<std::unique_ptr<Bird>> m_birds;
-	std::vector<std::unique_ptr<StaticObjects>> m_building;
-	std::vector<std::unique_ptr<StaticObjects>> m_pigs;
+	std::vector<std::unique_ptr<StaticObjects>> m_gameObjects;
 	sf::RectangleShape m_background;
 	std::unique_ptr<MyContactListener> m_contactListener;
 	//std::vector<sf::Music> m_gameMusic;
 	//init functions
+	std::shared_ptr<World> m_world;
+
+	LevelManager m_lvlsMngr;
+	
 };
 
 
