@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "MainMenuState.h"
-#include "HelpScreenState.h"
-#include<memory>
+
+
 
 Game::Game()
 	:m_gameTools(std::make_shared<GameTools>())

@@ -8,8 +8,8 @@
 #include "Macro.h"
 #include "State.h"
 #include "Game.h"
-#include "GameResources.h"
-#include "HelpScreenState.h"
+
+
 
 class MainMenuState : public State
 {

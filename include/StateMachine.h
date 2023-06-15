@@ -12,7 +12,7 @@ public:
 	void addState(std::unique_ptr<State>, bool);
 	void removeState();
 	void checkForUpdates();
-	std::unique_ptr<State>& getCurrentState();
+	std::unique_ptr<State>& getCurrentState() const;
 private:
 	std::unique_ptr<State> m_newGameState;
 	std::stack<std::unique_ptr<State>> m_states;

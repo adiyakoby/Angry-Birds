@@ -3,6 +3,8 @@
 #include "Macro.h"
 #include "StateMachine.h"
 #include "Window.h"
+#include "GameResources.h"
+
 
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -23,5 +25,6 @@ public:
 	void runGame();
 private:
 	std::shared_ptr<GameTools> m_gameTools;
+
 };
 
