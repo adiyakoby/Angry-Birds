@@ -33,14 +33,14 @@ void StateMachine::checkForUpdates()
 
 	if (m_removing && !m_states.empty())
 	{
+		m_states.top().release();
 		m_states.pop();
-		//if (!m_states.empty())
-			;//m_states.top()->resume();
+
 		m_removing = false;
 	}
 }
 
-std::unique_ptr<State>& StateMachine::getCurrentState()
+std::unique_ptr<State>& StateMachine::getCurrentState() 
 {
 	return m_states.top();
 }

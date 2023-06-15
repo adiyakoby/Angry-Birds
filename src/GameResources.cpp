@@ -87,6 +87,8 @@ sf::SoundBuffer& GameResources::Playaffect(int index)
 {
     return m_affects.at(index);
 }
+
+
 //
 ////create the text 
 //sf::Text& GameResources::createText(std::string dataName, sf::Vector2f position, sf::Color color, int font)

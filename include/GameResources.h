@@ -55,7 +55,7 @@ private:
 
 	std::vector <sf::Font> m_font;
 	std::vector <sf::SoundBuffer> m_affects;
-
+	sf::Sound m_gameMusic;
 	sf::Sound m_affect;
 	sf::Text m_text;
 	//func
