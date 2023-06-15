@@ -10,6 +10,7 @@ public:
 	void objectUpdate()override {}
 	void drawObject(sf::RenderWindow& window) override;
 	sf::Vector2f getPosition() const override{ return m_ground.getPosition(); };
+	void rotate(const int& x) override { ; };
 private:
 	sf::RectangleShape m_ground;
 

@@ -24,6 +24,8 @@ public:
 
 protected:
     sf::CircleShape m_bird;
+    virtual void rotate(const int& x) {};
+
 private:
    
    

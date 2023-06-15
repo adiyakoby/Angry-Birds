@@ -5,6 +5,7 @@
 #include <array>
 #include <algorithm>
 
+#include "LevelManager.h"
 #include "Window.h"
 #include "Menu.h"
 #include "GameResources.h"
@@ -34,6 +35,7 @@ public:
 	void createBuilding();
 	void createGroundAndRogatka();
 	void createPigs();
+	void createGameObjs();
 
 private:
 	Window m_window;
@@ -41,13 +43,14 @@ private:
 	Menu m_menu;
 
 	//Try temporary world
-	World m_world;
+	std::shared_ptr<World> m_world;
 
-	//LevelManeger m_lvlmng;
-	std::array<std::unique_ptr<StaticObjects>, 2> m_staticObjects;
+	LevelManager m_lvlsMngr;
+
+	std::array<std::unique_ptr<StaticObjects>, 2> m_worldObjects;
 	std::vector<std::unique_ptr<Bird>> m_birds;
-	std::vector<std::unique_ptr<StaticObjects>> m_building;
-	std::vector<std::unique_ptr<StaticObjects>> m_pigs;
+	std::vector<std::unique_ptr<StaticObjects>> m_gameObjects;
+	//std::vector<std::unique_ptr<StaticObjects>> m_pigs;
 	sf::RectangleShape m_background;
 	//std::vector<sf::Music> m_gameMusic;
 	//init functions
