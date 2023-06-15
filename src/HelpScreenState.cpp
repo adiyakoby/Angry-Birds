@@ -8,7 +8,7 @@ HelpScreenState::HelpScreenState(std::shared_ptr<GameTools> gameTools)
 
 void HelpScreenState::processManeger()
 {
-	if (auto event = sf::Event{}; m_gameTools->m_window.pollEvent(event))
+	if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event))
 	{
 		;
 	}
