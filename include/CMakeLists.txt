@@ -1,3 +1,3 @@
 ﻿target_include_directories (${CMAKE_PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 file (GLOB MY_HEADER_FILES CONFIGURE_DEPENDS LIST_DIRECTORIES false RELATIVE ${CMAKE_CURRENT_LIST_DIR} *.h)
-target_sources (${CMAKE_PROJECT_NAME} PRIVATE ${MY_HEADER_FILES} "../src/Menu.cpp" "Bird.h" "../src/Bird.cpp" "StaticObjects.h" "Objects.h" "Ground.h" "../src/Ground.cpp" "DynamicObject.h" "MyContactListener.h" "../src/MyContactListener.cpp" "Game.h" "../src/Game.cpp" "State.h" "HelpScreenState.h" "../src/HelpScreenState.cpp" "StateMachine.h" "../src/StateMachine.cpp" "MainMenuState.h" "../src/MainMenuState.cpp" "PlayState.h" "../src/PlayState.cpp")
+target_sources (${CMAKE_PROJECT_NAME} PRIVATE ${MY_HEADER_FILES}  )
