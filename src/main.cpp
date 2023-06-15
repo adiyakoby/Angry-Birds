@@ -3,8 +3,6 @@
 
 int main()
 {
-	//GameController game;
-	//game.runGame();
-	LevelManager mg;
-	mg.GetLevel();
+	GameController game;
+	game.runGame();
 }

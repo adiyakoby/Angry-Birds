@@ -1,8 +1,8 @@
 #pragma once	
 
 #include <memory>
-#include<string>
-#include<unordered_map>
+#include <string>
+#include <unordered_map>
 #include <SFML/Graphics.hpp>
 
 template <typename OBJTYPE>

@@ -1,7 +1,7 @@
 #include "GameController.h"
 
 GameController::GameController()
-    :m_menuMode(true)
+    :m_menuMode(true), m_lvlsMngr(m_world)
 {
     initBackground();
 }
@@ -10,7 +10,7 @@ void GameController::runGame()
 {
 
     std::unique_ptr<MyContactListener> contactListener = std::make_unique<MyContactListener>();
-    m_world.getWorld()->SetContactListener(contactListener.get());
+    m_world->getWorld()->SetContactListener(contactListener.get());
     //TEMPORARY SECTION TO CHECK BIRD.
     
     createBirds();
@@ -117,13 +117,13 @@ void GameController::drawGame()
     m_birds[0]->drawObject(m_window.getWindow());
     m_staticObjects[1]->drawObject(m_window.getWindow());
     //m_staticObjects[0]->drawObject(m_window.getWindow());
-    m_world.step(1.f / 60.f, 8, 3);
+    m_world->step(1.f / 60.f, 8, 3);
 }
 
 void GameController::createBirds()
 {
     m_birds.emplace_back();
-    m_birds.back() = std::move(ObjectFactory<Bird>::instance().create("Bird", *m_world.getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f)));
+    m_birds.back() = std::move(ObjectFactory<Bird>::instance().create("Bird", *m_world->getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f)));
 }
 
 void GameController::createBuilding()
@@ -134,17 +134,17 @@ void GameController::createBuilding()
         if (i == 1)//left
         {
             m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(500.f, WINDOW_HEIGHT - 110.f), sf::Vector2f(30.f, 100.f)));
+            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world->getWorld(), sf::Vector2f(500.f, WINDOW_HEIGHT - 110.f), sf::Vector2f(30.f, 100.f)));
         }
         else if (i == 2)//right
         {
             m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(700.f, WINDOW_HEIGHT - 110.f), sf::Vector2f(30.f, 100.f)));
+            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world->getWorld(), sf::Vector2f(700.f, WINDOW_HEIGHT - 110.f), sf::Vector2f(30.f, 100.f)));
             
         }
         else {//top
             m_building.emplace_back();
-            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world.getWorld(), sf::Vector2f(600.f, WINDOW_HEIGHT - 160.f), sf::Vector2f(300.f, 20.f)));
+            m_building.back() = std::move(ObjectFactory<StaticObjects>::instance().create("wood", *m_world->getWorld(), sf::Vector2f(600.f, WINDOW_HEIGHT - 160.f), sf::Vector2f(300.f, 20.f)));
 
         }
     }
@@ -152,8 +152,8 @@ void GameController::createBuilding()
 
 void GameController::createGroundAndRogatka()
 {
-    m_staticObjects[0]= std::make_unique<Ground>(*m_world.getWorld(), sf::Vector2f(0, 0), m_background.getSize());//ground
-    m_staticObjects[1] = std::make_unique <Rogatka> (*m_world.getWorld(), sf::Vector2f(300.f,m_staticObjects[0]->getPosition().y - 80.f));//rogatka
+    m_staticObjects[0]= std::make_unique<Ground>(*m_world->getWorld(), sf::Vector2f(0, 0), m_background.getSize());//ground
+    m_staticObjects[1] = std::make_unique <Rogatka> (*m_world->getWorld(), sf::Vector2f(300.f,m_staticObjects[0]->getPosition().y - 80.f));//rogatka
 }
 
 void GameController::initBackground()
@@ -165,5 +165,5 @@ void GameController::initBackground()
 
 void GameController::createPigs() {
     m_pigs.emplace_back();
-    m_pigs.back() = std::move(ObjectFactory<StaticObjects>::instance().create("Pigs", *m_world.getWorld(), sf::Vector2f(620, WINDOW_HEIGHT - 110.f), sf::Vector2f(20.f, 0.f)));
+    m_pigs.back() = std::move(ObjectFactory<StaticObjects>::instance().create("Pigs", *m_world->getWorld(), sf::Vector2f(620, WINDOW_HEIGHT - 110.f), sf::Vector2f(20.f, 0.f)));
 }

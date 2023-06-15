@@ -40,9 +40,10 @@ private:
 	Menu m_menu;
 
 	//Try temporary world
-	World m_world;
+	std::shared_ptr<World> m_world;
 
-	//LevelManeger m_lvlmng;
+	LevelManager m_lvlsMngr;
+
 	std::array<std::unique_ptr<StaticObjects>, 2> m_staticObjects;
 	std::vector<std::unique_ptr<Bird>> m_birds;
 	std::vector<std::unique_ptr<StaticObjects>> m_building;
