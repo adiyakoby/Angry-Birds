@@ -40,7 +40,7 @@ void StateMachine::checkForUpdates()
 	}
 }
 
-std::unique_ptr<State>& StateMachine::getCurrentState()
+std::unique_ptr<State>& StateMachine::getCurrentState() 
 {
 	return m_states.top();
 }
