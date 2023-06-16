@@ -11,6 +11,7 @@
 #include "Rogatka.h"
 #include "Pig.h"
 #include "World.h"
+
 void MyContactListener::BeginContact(b2Contact* contact)
 {
     b2Fixture* fixtureA = contact->GetFixtureA();

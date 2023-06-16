@@ -21,6 +21,7 @@ public:
 	void setHp(int hp) { m_hp = hp; };
 	virtual void rotate(const int& x) = 0;
 	void rotateBody() { m_body->SetTransform(m_body->GetPosition(), m_body->GetAngle() + b2_pi / 2.0f); };
+	const b2Vec2& getBodyVelocity() { return m_body->GetLinearVelocity(); };
 
 protected:
 	b2Body* m_body;

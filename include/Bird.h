@@ -22,6 +22,7 @@ public:
     sf::Vector2f getPosition() const override;
     sf::Vector2f calculateThrow();
     void setOnRogatka(const bool& is) { m_onRogatka = is; };
+    bool isOnRogatka() const { return m_onRogatka; };
 
 protected:
     sf::CircleShape m_bird;

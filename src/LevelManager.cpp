@@ -7,6 +7,7 @@ LevelManager::LevelManager(std::shared_ptr<World> world) : m_lvlsFile(), m_world
 
 void LevelManager::getNextLevel(std::vector<std::unique_ptr<Bird>> &birdsVec, std::vector<std::unique_ptr<StaticObjects>> &objVec)
 {
+	std::cout << " in  getNextLevel()" << std::endl;
 	std::deque<std::string> objDeq{ ReadBirds() };
 	birdsVec = std::move(CreateBirds(objDeq));
 
@@ -17,6 +18,7 @@ void LevelManager::getNextLevel(std::vector<std::unique_ptr<Bird>> &birdsVec, st
 
 std::deque<std::string> LevelManager::ReadBirds()
 {
+	std::cout << " in  ReadBirds()" << std::endl;
 	std::deque<std::string> objDeq;
 	std::string temp;
 
@@ -63,6 +65,7 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 
 std::vector<std::unique_ptr<StaticObjects>> LevelManager::CreateObj(std::deque<std::string> & objDeq)
 {
+	std::cout << " in  CreateObj()" << std::endl;
 	int xPos = WINDOW_WIDTH * 0.5;
 	int yPos = 740-150;
 	std::vector<std::unique_ptr<StaticObjects>> tempVec;
@@ -110,6 +113,7 @@ std::vector<std::unique_ptr<StaticObjects>> LevelManager::GetLevel()
 
 std::deque<std::string> LevelManager::ReadLevel()
 {
+	std::cout << " in  ReadLevel()" << std::endl;
 	std::deque<std::string> objDeq;
 	std::string temp;
 	while (m_lvlsFile.is_open() && m_lvlsFile.good())

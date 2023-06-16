@@ -28,6 +28,7 @@ public:
 	void createGameObjs();
 
 	void birdsPosition();
+	void setNextBird();
 protected:
 	void initilaize();
 
