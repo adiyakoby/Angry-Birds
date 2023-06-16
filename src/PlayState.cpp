@@ -4,6 +4,7 @@ PlayState::PlayState(std::shared_ptr<GameTools> gameTools)
     :m_gameTools(gameTools), m_contactListener(std::make_unique<MyContactListener>()),m_world{std::make_shared<World>()}, m_lvlsMngr{m_world}
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
+
 	initilaize();
 }
 
@@ -60,8 +61,13 @@ void PlayState::drawGame()
         ea->objectUpdate();
         ea->drawObject(m_gameTools->m_window.getWindow());
     }
-    m_birds[0]->drawObject(m_gameTools->m_window.getWindow());
+
+    std::for_each(m_birds.begin(), m_birds.end(), [this](auto& bird) {bird->drawObject(m_gameTools->m_window.getWindow()); });
+
     m_worldObjects[1]->drawObject(m_gameTools->m_window.getWindow());
+
+
+    //m_birds[0]->drawObject(m_gameTools->m_window.getWindow());
     //m_staticObjects[0]->drawObject(m_window.getWindow());
    
 }
@@ -80,10 +86,25 @@ void PlayState::initilaize()
 
     createGroundAndRogatka();
     m_lvlsMngr.getNextLevel(m_birds, m_gameObjects);
+    birdsPosition(); 
 
-    m_birds[0]->setPosition(sf::Vector2f(m_worldObjects[1]->getPosition().x, m_worldObjects[1]->getPosition().y - 100.f));
+    //m_birds[0]->setPosition(sf::Vector2f(m_worldObjects[1]->getPosition().x, m_worldObjects[1]->getPosition().y - 100.f)); 
 }
 
+void PlayState::birdsPosition()
+{
+    sf::Vector2f rogatkaPos{ m_worldObjects[1]->getPosition().x, m_worldObjects[1]->getPosition().y - 100.f };
+    std::cout << "Birds vec size is : " << m_birds.size()  << std::endl;
+
+    for (size_t i = 0; i < m_birds.size() ; i++)
+    {
+        if (i == 0)
+            m_birds[i]->setPosition(rogatkaPos);
+        else
+            m_birds[i]->setPosition(std::move(sf::Vector2f(rogatkaPos.x - 100.f, rogatkaPos.y - 100.f )));
+
+    }
+}
 
 void PlayState::createBirds()
 {

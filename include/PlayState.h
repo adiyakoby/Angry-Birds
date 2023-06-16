@@ -26,6 +26,8 @@ public:
 	void createBirds();
 	void createGroundAndRogatka();
 	void createGameObjs();
+
+	void birdsPosition();
 protected:
 	void initilaize();
 
