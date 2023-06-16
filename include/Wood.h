@@ -20,10 +20,3 @@ private:
 	void initGraphicBody(const sf::Vector2f& size)override;
 };
 
-static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerType(
-	"wood",
-	[](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
-	{
-		return std::make_unique<Wood>(world, position,size);
-	}
-);

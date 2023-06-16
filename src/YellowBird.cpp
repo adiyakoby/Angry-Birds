@@ -48,6 +48,15 @@ void YellowBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
     }
 }
 
+
+//to "register" the object in the Factory
+static auto registerItYellowBird = ObjectFactory<Bird>::instance().registerType(
+    "YellowBird",
+    [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<Bird>
+    {
+        return std::make_unique<YellowBird>(world, position, size);
+    }
+);
 //void YellowBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
 //{
 //    switch (event.type) {

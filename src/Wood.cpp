@@ -48,3 +48,12 @@ void Wood::initGraphicBody(const sf::Vector2f& size)
     m_wood.setOrigin(size.x / 2, size.y / 2);
     m_wood.setPosition(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE));
 }
+
+//to "register" the object in the Factory
+static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerType(
+    "wood",
+    [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+    {
+        return std::make_unique<Wood>(world, position, size);
+    }
+);

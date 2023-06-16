@@ -44,3 +44,12 @@ void Ground::drawObject(sf::RenderWindow &window)
 {
     window.draw(m_ground);
 }
+
+//to "register" the object in the Factory
+static auto registerItGround = ObjectFactory<StaticObjects>::instance().registerType(
+    "ground",
+    [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+    {
+        return std::make_unique<Ground>(world, position, size);
+    }
+);

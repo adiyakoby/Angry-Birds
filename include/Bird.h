@@ -38,10 +38,4 @@ private:
     void initGraphicBody(const sf::Vector2f& size = {20.f, 0.f}) override;
 };
 
- static auto registerItBird = ObjectFactory<Bird>::instance().registerType(
-     "Bird",
-     [](b2World& world, const sf::Vector2f& position,const sf::Vector2f& size) -> std::unique_ptr<Bird>
-     {
-         return std::make_unique<Bird>(world, position, size);
-     }
- );
+
