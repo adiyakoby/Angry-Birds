@@ -43,7 +43,7 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 
 		for (size_t i = 0; i < line.size(); i++)
 		{
-			switch (line.at(i))
+			switch (line.at(line.size()-i-1))
 			{
 			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", *m_world->getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));     break;
 			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", *m_world->getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));  break;

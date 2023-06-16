@@ -10,13 +10,13 @@ PlayState::PlayState(std::shared_ptr<GameTools> gameTools)
 
 void PlayState::processManeger()
 {
-    if (m_birds[0].get()->isDragged()) {
+    if (m_birds.back().get()->isDragged()) {
         sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_gameTools->m_window.getWindow());
         sf::Vector2f worldPosition = m_gameTools->m_window.getWindow().mapPixelToCoords(mouseLocation, m_gameTools->m_window.getWindow().getView()); // Convert to world coordinates
         mouseLocation.x = worldPosition.x;
         mouseLocation.y = worldPosition.y;
 
-        m_birds[0].get()->setRangeVector(mouseLocation, m_gameTools->m_window.getWindow());
+        m_birds.back().get()->setRangeVector(mouseLocation, m_gameTools->m_window.getWindow());
         static_cast<Rogatka*>(m_worldObjects[1].get())->ignoreRogatka();
     }
 
@@ -38,12 +38,13 @@ void PlayState::processManeger()
 
 void PlayState::update()
 {
-    if (m_birds[0]->getPosition().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2 <= 0)
+    
+    if (m_birds.back()->getPosition().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2 <= 0)
         m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getSize().x / 2.f, m_gameTools->m_window.getWindow().getView().getSize().y / 2.f);
-    else if (m_birds[0]->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_background.getSize().x)
+    else if (m_birds.back()->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_background.getSize().x)
         m_gameTools->m_window.setView(m_background.getSize().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2, WINDOW_HEIGHT / 2);
     else
-        m_gameTools->m_window.setView(m_birds[0]->getPosition().x, WINDOW_HEIGHT / 2);
+        m_gameTools->m_window.setView(m_birds.back()->getPosition().x, WINDOW_HEIGHT / 2);
 }
 
 void PlayState::Draw()
@@ -98,8 +99,12 @@ void PlayState::birdsPosition()
 
     for (size_t i = 0; i < m_birds.size() ; i++)
     {
-        if (i == 0)
+        if (i == m_birds.size()-1)
+        {
             m_birds[i]->setPosition(rogatkaPos);
+            m_birds[i]->setOnRogatka(true);
+        }
+            
         else
             m_birds[i]->setPosition(std::move(sf::Vector2f(rogatkaPos.x - 100.f, rogatkaPos.y - 100.f )));
 

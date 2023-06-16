@@ -21,14 +21,15 @@ public:
     virtual void handleEvent(sf::Event& event, const sf::Vector2f& mouse);
     sf::Vector2f getPosition() const override;
     sf::Vector2f calculateThrow();
+    void setOnRogatka(const bool& is) { m_onRogatka = is; };
 
 protected:
     sf::CircleShape m_bird;
     virtual void rotate(const int& x) {};
 
 private:
-   
-   
+
+    bool m_onRogatka;
     bool m_dragging;
     sf::Vector2f dragStartPosition;
     sf::Vector2f dragEndPosition;

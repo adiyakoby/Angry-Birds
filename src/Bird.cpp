@@ -2,7 +2,7 @@
 #include "Bird.h"
 #include <cmath>
 
-Bird::Bird(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) : m_dragging{ false }
+Bird::Bird(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) : m_dragging{ false }, m_onRogatka{false}
 {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
@@ -53,8 +53,10 @@ void Bird::objectUpdate()
 
 void Bird::applyForce(const sf::Vector2f& force)
 {
-    // Finished the drag
-    m_dragging = false;
+    
+    m_dragging = false; // Finished the drag
+    m_onRogatka = false; //cannot fire again
+
     // Apply impulse force to the Box2D body
     b2Vec2 forceScaled{ force.x / SCALE, force.y / SCALE };
     //temp.Normalize();
@@ -73,7 +75,7 @@ void Bird::drawObject(sf::RenderWindow& window)
 
 void Bird::handleThrow(const float x, const float y)
 {
-    if (m_bird.getGlobalBounds().contains(sf::Vector2f(x, y)))
+    if (m_onRogatka && m_bird.getGlobalBounds().contains(sf::Vector2f(x, y)))
     {
         m_dragging = true;
         dragStartPosition = sf::Vector2f(x, y);
@@ -104,6 +106,7 @@ void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w
     }
 
 }
+
 sf::Vector2f Bird::calculateThrow()
 {
     return sf::Vector2f(dragStartPosition - dragEndPosition) * 1.3f;
@@ -128,7 +131,7 @@ void Bird::handleEvent(sf::Event& event,const sf::Vector2f & mouse)
         }
 
     case sf::Event::MouseButtonReleased:
-        if (event.mouseButton.button == sf::Mouse::Left && isDragged()) {
+        if (event.mouseButton.button == sf::Mouse::Left && isDragged() && m_onRogatka) {
             sf::Vector2f force = this->calculateThrow();
             this->applyForce(force);
         }
