@@ -36,13 +36,8 @@ namespace {//begin namespace
 //-------------HIT FUNCTIONS-----------
 void birdPig(Objects& bird, Objects& pig) {
 
-
-    Bird& getbird = dynamic_cast<Bird&>(bird);
-    Pig& getpig = dynamic_cast<Pig&>(pig);
-
-    getpig.setDamage(2);
-    getpig.hitState();
-    std::cout << "a collision\n";
+    pig.setDamage(2);
+    static_cast<Pig&>(pig).hitState();
 }
 
 void pigBird(Objects& pig, Objects& bird) {
@@ -51,24 +46,19 @@ void pigBird(Objects& pig, Objects& bird) {
 }
 
 void birdWood(Objects& bird, Objects& wood) {
-
-    Bird& getbird = dynamic_cast<Bird&>(bird);
-    Wood& getwood = dynamic_cast<Wood&>(wood);
-
-    getwood.setDamage(1);
-
+    wood.setDamage(1);
 }
+
 void woodBird(Objects& wood, Objects& bird) {
     birdWood(bird, wood);
 }
 
 void pigWood(Objects& pig, Objects& wood) {
 
-    Pig& getpig = dynamic_cast<Pig&>(pig);
-    Wood& getwood = dynamic_cast<Wood&>(wood);
-    getpig.setDamage(1);
-    getpig.hitState();
-    getwood.setDamage(1);
+
+    pig.setDamage(1);
+    static_cast<Pig&>(pig).hitState();
+    wood.setDamage(1);
 }
 
 void woodPig(Objects& wood, Objects& pig) {
@@ -114,12 +104,8 @@ void handleCollision(Objects& object1, Objects& object2) {
 
     auto collisionFunc = lookup(typeid(object1), typeid(object2));
     if (!collisionFunc)
-    {
         return;
-    }
+    
     collisionFunc(object1, object2);
 }
 
-//void MyContactListener::EndContact(b2Contact* contact)
-//{
-//}
