@@ -35,8 +35,7 @@ namespace {//begin namespace
 
 //-------------HIT FUNCTIONS-----------
 void birdPig(Objects& bird, Objects& pig) {
-
-    pig.setDamage(2);
+    pig.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
     static_cast<Pig&>(pig).hitState();
 }
 
@@ -46,7 +45,7 @@ void pigBird(Objects& pig, Objects& bird) {
 }
 
 void birdWood(Objects& bird, Objects& wood) {
-    wood.setDamage(1);
+    wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
 }
 
 void woodBird(Objects& wood, Objects& bird) {
