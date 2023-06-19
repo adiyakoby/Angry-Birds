@@ -57,33 +57,3 @@ static auto registerItYellowBird = ObjectFactory<Bird>::instance().registerType(
         return std::make_unique<YellowBird>(world, position, size);
     }
 );
-//void YellowBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
-//{
-//    switch (event.type) {
-//
-//    case sf::Event::MouseButtonPressed:
-//
-//        /*if (event.mouseButton.button == sf::Mouse::Left&& m_secondclick && !isDragged()) {
-//
-//            sf::Vector2f force{ this->getPosition() };
-//            this->applyForce(force);
-//            m_secondclick = false;
-//        }*/
-//        if (event.mouseButton.button == sf::Mouse::Left && !m_secondclick) {
-//            this->handleThrow(mouse.x, mouse.y);
-//            m_secondclick = true;
-//            break;
-//
-//        }
-//
-//    case sf::Event::MouseButtonReleased:
-//        if (event.mouseButton.button == sf::Mouse::Left && isDragged()) {
-//            sf::Vector2f force = this->calculateThrow();
-//            this->applyForce(force);
-//        }
-//
-//        break;
-//
-//
-//    }
-//}

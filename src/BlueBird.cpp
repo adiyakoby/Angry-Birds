@@ -17,12 +17,14 @@ void BlueBird::initGraphicBody(const sf::Vector2f& size ) {
 }
 
 void BlueBird::objectUpdate() {
-
+    
+   
     if (m_state == normal) {
         b2Vec2 position = m_body->GetPosition();
         float angle = m_body->GetAngle();
         m_bird.setPosition(position.x * SCALE, position.y * SCALE);
         m_bird.setRotation(angle * 180.0f / b2_pi);
+        std::cout << m_body->GetPosition().y << std::endl;
     }
     else if (m_state == split) {
         for (auto& ea : m_split)
@@ -33,10 +35,16 @@ void BlueBird::objectUpdate() {
 void BlueBird::drawObject(sf::RenderWindow& w) {
     
     if (m_state == normal)
+    {
+        this->objectUpdate();
         w.draw(m_bird);
+    }
+     
     else if (m_state == split) {
-        for (auto& ea : m_split)
+        for (auto& ea : m_split) {
+            ea->objectUpdate();
             ea->drawObject(w);
+        }
     }
 }
 
@@ -46,21 +54,26 @@ void BlueBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse) {
 
     case sf::Event::MouseButtonPressed:
 
-        
-        if (event.mouseButton.button == sf::Mouse::Left && !isSplit) {
-            this->handleThrow(mouse.x, mouse.y);
-            isSplit = true;
-        }
-        else if (event.mouseButton.button == sf::Mouse::Left && isSplit) {
+        if (event.mouseButton.button == sf::Mouse::Left && isSplit) {
 
+            b2Vec2 force{ m_body->GetLinearVelocity() };
+           // force.Normalize();
+            force *= 3.f;
             sf::Vector2f location = this->getPosition();
             location.y -= 50.f;
+            m_world->getWorld()->DestroyBody(m_body);
             for (auto& ea : m_split) {
-                ea = std::make_unique<BlueBird>(m_world, location, sf::Vector2f(15.f, 0.f));
+                ea = std::make_unique<BlueBird>(m_world, location, sf::Vector2f(30.f, 0.f));
+                ea->createForce(force);
                 location.y += 50.f;
             }
             isSplit = false;
             m_state = split;
+           
+        }
+
+        if (event.mouseButton.button == sf::Mouse::Left) {
+            this->handleThrow(mouse.x, mouse.y);
         }
 
         break;
@@ -69,6 +82,7 @@ void BlueBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse) {
         if (event.mouseButton.button == sf::Mouse::Left && isDragged()) {
             sf::Vector2f force = this->calculateThrow();
             this->applyForce(force);
+            isSplit = true;
         }
         break;
 
@@ -76,3 +90,36 @@ void BlueBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse) {
     }
 
 }
+
+//void BlueBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
+//{
+//    switch (event.type) {
+//
+//    case sf::Event::MouseButtonPressed:
+//        if (event.mouseButton.button == sf::Mouse::Left) {
+//            this->handleThrow(mouse.x, mouse.y);
+//            break;
+//
+//        }
+//
+//    case sf::Event::MouseButtonReleased:
+//        if (event.mouseButton.button == sf::Mouse::Left && isDragged()) {
+//            sf::Vector2f force = this->calculateThrow();
+//            this->applyForce(force);
+//        }
+//
+//        break;
+//
+//
+//    }
+//}
+
+
+static auto registerItYBlueBird = ObjectFactory<Bird>::instance().registerType(
+    "BlueBird",
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<Bird>
+    {
+        return std::make_unique<BlueBird>(world, position, size);
+    }
+);
+

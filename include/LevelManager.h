@@ -4,6 +4,7 @@
 #include "StaticObjects.h"
 #include "RedBird.h"
 #include "YellowBird.h"
+#include "BlueBird.h"
 #include "World.h"
 #include "Macro.h"
 

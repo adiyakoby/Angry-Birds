@@ -12,6 +12,7 @@
 #include "YellowBird.h"
 #include "RedBird.h"
 #include "LevelManager.h"
+#include "BlueBird.h"
 
 class PlayState :public State
 {

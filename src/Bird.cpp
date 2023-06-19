@@ -65,6 +65,21 @@ void Bird::applyForce(const sf::Vector2f& force)
 
 }
 
+void Bird::createForce(const b2Vec2& force)
+{
+    m_onRogatka = false; //cannot fire again
+
+    m_body->SetEnabled(true);
+    // Apply impulse force to the Box2D body
+    b2Vec2 forceScaled{ force.x*3.f / SCALE, force.y*3.f / SCALE };
+    
+    m_body->SetLinearVelocity(forceScaled);
+    //m_body->ApplyLinearImpulseToCenter(forceScaled, true);
+    m_body->ApplyLinearImpulse(forceScaled, m_body->GetWorldCenter(), true);
+    //m_body->ApplyLinearImpulse(forceScaled, m_body->GetWorldCenter(), true);
+
+}
+
 
 void Bird::drawObject(sf::RenderWindow& window)
 {

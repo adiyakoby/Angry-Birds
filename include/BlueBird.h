@@ -15,8 +15,8 @@ public:
 	virtual ~BlueBird() = default;
 
 	void handleEvent(sf::Event& event, const sf::Vector2f& mouse);
-	void objectUpdate();
-	void drawObject(sf::RenderWindow& w);
+	virtual void objectUpdate();
+	virtual void drawObject(sf::RenderWindow& window);
 private:
 	std::array<std::unique_ptr<BlueBird>,3> m_split;
 	void initGraphicBody(const sf::Vector2f& size = { 15.f, 0.f }) override;

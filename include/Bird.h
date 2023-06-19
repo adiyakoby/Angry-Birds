@@ -8,11 +8,14 @@ class Bird: public Objects
 {
     //public Objects
 public:
+
 	Bird(std::shared_ptr<World> world,const sf::Vector2f &position, const sf::Vector2f& size);
     virtual ~Bird() = default;
     
     virtual void objectUpdate();
     void applyForce(const sf::Vector2f& force);
+    void createForce(const b2Vec2& force);
+
     virtual void drawObject(sf::RenderWindow& window);
     void handleThrow(const float x, const float y);
     void setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w);
