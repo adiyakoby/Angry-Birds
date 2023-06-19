@@ -39,8 +39,7 @@ void PlayState::processManeger()
         }
         auto location = m_gameTools->m_window.getWindow().mapPixelToCoords(
             { event.mouseButton.x, event.mouseButton.y }, m_gameTools->m_window.getWindow().getView());
-        //for (auto& ea : m_birds)
-            //ea->handleEvent(event, location);    <- dont need if we only play with one bird at a time, meaning we only send event to the last bird at the vec.
+
         m_birds.back()->handleEvent(event, location);
     }
 
@@ -121,7 +120,7 @@ void PlayState::initilaize()
 
     //init objects
     createGroundAndRogatka();
-    m_lvlsMngr.getNextLevel(m_birds, m_gameObjects);
+    m_lvlsMngr.getNextLevel(m_birds, m_pigs , m_gameObjects);
     setNextBird(false);
 }
 
@@ -132,9 +131,4 @@ void PlayState::createGroundAndRogatka()
 {
     m_worldObjects[0] = std::make_unique<Ground>(m_world, sf::Vector2f(0, 0), m_background.getSize());//ground
     m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));//rogatka
-}
-
-void PlayState::createGameObjs()
-{
-    m_gameObjects = m_lvlsMngr.GetLevel();
 }

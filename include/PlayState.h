@@ -25,7 +25,6 @@ public:
 
 	void drawGame();
 	void createGroundAndRogatka();
-	void createGameObjs();
 
 	void setNextBird(const bool &x);
 
