@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Macro.h"
 #include "Game.h"
 #include "Bird.h"
 #include "Ground.h"
@@ -23,12 +24,13 @@ public:
 	void Draw();
 
 	void drawGame();
-	void createBirds();
 	void createGroundAndRogatka();
 	void createGameObjs();
 
-	void birdsPosition();
-	void setNextBird();
+	void setNextBird(const bool &x);
+
+	bool isFinishedMoving();
+
 protected:
 	void initilaize();
 
@@ -47,6 +49,7 @@ private:
 	sf::RectangleShape m_background;
 	std::unique_ptr<MyContactListener> m_contactListener;
 	//std::vector<sf::Music> m_gameMusic;
+	
 	//init functions
 	std::shared_ptr<World> m_world;
 

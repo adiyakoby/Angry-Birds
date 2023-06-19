@@ -47,10 +47,8 @@ void pigBird(Objects& pig, Objects& bird) {
 }
 
 void birdWood(Objects& bird, Objects& wood) {
-    std::cout << "BIRD DMG:" << bird.getBodyMass() * bird.getBodyVelocity().LengthSquared() << std::endl;
     std::cout << wood.getHp() << std::endl;
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
-    std::cout << "AFTER HP: " << wood.getHp() << std::endl;
 
 }
 

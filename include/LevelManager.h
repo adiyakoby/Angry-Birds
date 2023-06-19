@@ -5,11 +5,13 @@
 #include "RedBird.h"
 #include "YellowBird.h"
 #include "World.h"
+#include "Macro.h"
 
 #include <fstream>
 #include <vector>
 #include <deque>
 #include <algorithm>
+#include <unordered_map>
 
 class Objects;
 

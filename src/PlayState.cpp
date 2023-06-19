@@ -5,6 +5,7 @@ PlayState::PlayState(std::shared_ptr<GameTools> gameTools)
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
 
+
 	initilaize();
 }
 
@@ -14,7 +15,7 @@ void PlayState::processManeger()
         return;
     
 
-    if (m_birds.back().get()->isDragged()) {
+    if (m_birds.back()->isDragged()) {
         sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_gameTools->m_window.getWindow());
         sf::Vector2f worldPosition = m_gameTools->m_window.getWindow().mapPixelToCoords(mouseLocation, m_gameTools->m_window.getWindow().getView()); // Convert to world coordinates
         mouseLocation.x = worldPosition.x;
@@ -23,6 +24,10 @@ void PlayState::processManeger()
         m_birds.back().get()->setRangeVector(mouseLocation, m_gameTools->m_window.getWindow());
         static_cast<Rogatka*>(m_worldObjects[1].get())->ignoreRogatka();
     }
+
+    if(m_birds.back()->isOnRogatka() && !m_birds.back()->isDragged())
+        static_cast<Rogatka*>(m_worldObjects[1].get())->resetRogatka();
+
 
     if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event))
     {
@@ -43,15 +48,12 @@ void PlayState::processManeger()
 
 void PlayState::update()
 {
-    if (m_birds.size() == 0)
+    if (m_gameObjects.size() == 0)
     {
-        m_world->getWorld()->SetContactListener(nullptr);
-        m_world = std::make_shared<World>();
         initilaize();
-        m_world->getWorld()->SetContactListener(m_contactListener.get());
         return;
     }
-
+    
     
     std::erase_if(m_gameObjects, [](const auto& x) {return x->getHp() <= 0; });
  
@@ -63,16 +65,26 @@ void PlayState::update()
     else
         m_gameTools->m_window.setView(m_birds.back()->getPosition().x, WINDOW_HEIGHT / 2);
 
-    if (!m_birds.back()->isOnRogatka() && m_birds.back()->getBodyVelocity().LengthSquared() == 0) setNextBird();
+    if (!(m_birds.back()->isOnRogatka()) && isFinishedMoving())
+        setNextBird(true);
+
     
 }
 
-void PlayState::setNextBird()
+bool PlayState::isFinishedMoving()
 {
-    m_birds.pop_back();
+    if (m_birds.back()->getBodyVelocity().LengthSquared() >= 0.05) return false;
+    return std::all_of(m_gameObjects.begin(), m_gameObjects.end(), [](const auto& obj) {return obj->getBodyVelocity().LengthSquared() <= 0.01f; });
+}
+
+void PlayState::setNextBird(const bool& x)
+{
+    if(x) m_birds.pop_back();
+    
     if (m_birds.size() > 0)
     {
-        m_birds.back()->setPosition(std::move(sf::Vector2f(m_worldObjects[1]->getPosition().x, m_worldObjects[1]->getPosition().y - 100.f)));
+        static_cast<Rogatka*>(m_worldObjects[1].get())->resetRogatka();
+        m_birds.back()->setPosition(std::move(sf::Vector2f(ROGATKA_X, ROGATKA_Y - 50.f)));
         m_birds.back()->setOnRogatka(true);
     }
 }
@@ -97,66 +109,29 @@ void PlayState::drawGame()
 
     m_worldObjects[1]->drawObject(m_gameTools->m_window.getWindow());
 
-
-    //m_birds[0]->drawObject(m_gameTools->m_window.getWindow());
-    //m_staticObjects[0]->drawObject(m_window.getWindow());
-   
 }
 
 void PlayState::initilaize()
-{
-   
-    std::cout << " in  initilaize()" << std::endl;
+{ 
     //init background
     m_background.setTexture(&GameResources::getInstance().getGroundTexture(0));
     m_background.setSize(sf::Vector2f(m_background.getTexture()->getSize().x * 3, m_background.getTexture()->getSize().y));
     m_background.setPosition(0, 0);
 
     //init objects
-    // 
-    //createBirds();      -> Dont need becasue of lvl manager
-    //createGameObjs(); -> Dont need becasue of lvl manager
-    std::cout << " got here \n";
     createGroundAndRogatka();
     m_lvlsMngr.getNextLevel(m_birds, m_gameObjects);
-    birdsPosition(); 
-    std::cout << "finished making new lvl" << std::endl;
-    //m_birds[0]->setPosition(sf::Vector2f(m_worldObjects[1]->getPosition().x, m_worldObjects[1]->getPosition().y - 100.f));
- 
+    setNextBird(false);
+    //birdsPosition(); 
 }
 
-void PlayState::birdsPosition()
-{
-    sf::Vector2f rogatkaPos{ m_worldObjects[1]->getPosition().x, m_worldObjects[1]->getPosition().y - 100.f };
 
-    for (size_t i = 0; i < m_birds.size() ; i++)
-    {
-        if (i == m_birds.size()-1)
-        {
-            m_birds[i]->setPosition(std::move(sf::Vector2f(m_worldObjects[1]->getPosition().x, m_worldObjects[1]->getPosition().y - 100.f)));
-            m_birds[i]->setOnRogatka(true);
-        }
-            
-        else
-        {
-            m_birds[i]->setPosition(std::move(sf::Vector2f(rogatkaPos.x - 100.f, rogatkaPos.y - 100.f)));
-            rogatkaPos.x -= 100;
-
-        }
-
-    }
-}
-
-void PlayState::createBirds()
-{
-    m_birds.emplace_back(std::move(ObjectFactory<RedBird>::instance().create("RedBird", m_world, sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));
-}
 
 
 void PlayState::createGroundAndRogatka()
 {
     m_worldObjects[0] = std::make_unique<Ground>(m_world, sf::Vector2f(0, 0), m_background.getSize());//ground
-    m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(300.f, m_worldObjects[0]->getPosition().y - 80.f));//rogatka
+    m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));//rogatka
 }
 
 void PlayState::createGameObjs()

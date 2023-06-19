@@ -8,10 +8,11 @@ LevelManager::LevelManager(std::shared_ptr<World> world) : m_lvlsFile(), m_world
 void LevelManager::getNextLevel(std::vector<std::unique_ptr<Bird>> &birdsVec, std::vector<std::unique_ptr<StaticObjects>> &objVec)
 {
 	std::cout << " in  getNextLevel()" << std::endl;
+
 	std::deque<std::string> objDeq{ ReadBirds() };
 	birdsVec = std::move(CreateBirds(objDeq));
-
-	objDeq = ReadLevel() ;
+	 
+	objDeq = ReadLevel();
 	objVec = std::move(CreateObj(objDeq));
 
 }
@@ -35,8 +36,7 @@ std::deque<std::string> LevelManager::ReadBirds()
 
 std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::string>& objDeq)
 {
-	int xPos = WINDOW_WIDTH * 0.5;
-	int yPos = 740 - 150;
+	float deltaX{ 100.f };
 	std::vector<std::unique_ptr<Bird>> tempVec;
 
 	while (!objDeq.empty())
@@ -47,16 +47,15 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 		{
 			switch (line.at(line.size()-i-1))
 			{
-			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", m_world, sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));     break;
-			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", m_world, sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));  break;
+			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, ROGATKA_Y - 100.f), sf::Vector2f(20.f, 0.f))));     break;
+			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, ROGATKA_Y - 100.f), sf::Vector2f(20.f, 0.f))));  break;
 
 			default: break;
 			}
-
+			deltaX += 50.f;
 
 		}
-		yPos -= 300;
-		xPos = WINDOW_WIDTH * 0.5;
+
 		objDeq.pop_back();
 	}
 
