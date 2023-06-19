@@ -174,3 +174,8 @@ void PlayState::updateDataPosition()
         yPos += 50.f;
     }
 }
+
+void PlayState::setScore()
+{
+    
+}
