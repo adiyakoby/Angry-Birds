@@ -5,6 +5,7 @@ PlayState::PlayState(std::shared_ptr<GameTools> gameTools)
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
 	initilaize();
+    
 }
 
 void PlayState::processManeger()
@@ -47,7 +48,16 @@ void PlayState::update()
 {
     if (m_pigs.size() == 0)
     {
-        initilaize();
+        m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
+        m_level++;
+        setNextBird(false);
+        
+        return;
+    }
+    else if (m_birds.size() == 0)
+    {
+        m_lvlsMngr.getSpecificLevel(m_level, m_birds, m_pigs, m_gameObjects);
+        setNextBird(false);
         return;
     }
     deleteObj();
@@ -143,10 +153,6 @@ void PlayState::drawGame()
 
 void PlayState::initilaize()
 { 
-    if (m_birds.size() != 0) m_birds.clear();
-    if (m_gameObjects.size() != 0) m_gameObjects.clear();
-    if (m_pigs.size() != 0) m_pigs.clear();
-
     //init background
     m_background.setTexture(&GameResources::getInstance().getGroundTexture(0));
     m_background.setSize(sf::Vector2f(m_background.getTexture()->getSize().x * 3, m_background.getTexture()->getSize().y));
@@ -165,6 +171,15 @@ void PlayState::createGroundAndRogatka()
 {
     m_worldObjects[0] = std::make_unique<Ground>(m_world, sf::Vector2f(0, 0), m_background.getSize());//ground
     m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));//rogatka
+}
+
+    m_gameObjects = m_lvlsMngr.GetLevel();
+}
+
+    m_gameObjects = m_lvlsMngr.GetLevel();
+}
+
+    m_gameObjects = m_lvlsMngr.GetLevel();
 }
 
 void PlayState::createLevelData()
