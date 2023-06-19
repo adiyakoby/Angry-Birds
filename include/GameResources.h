@@ -7,10 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-//enum class menuCommand { PLAY, HELP, EXIT, BACK, SOUND, MUTE, DEFAULT};
 
-
-#include <SFML/audio.hpp>
 class GameResources
 {
 public:

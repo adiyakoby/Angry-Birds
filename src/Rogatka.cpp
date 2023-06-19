@@ -1,17 +1,17 @@
 #include "Rogatka.h"
 
-Rogatka::Rogatka(b2World& world,const sf::Vector2f& position, const sf::Vector2f& size ) {
+Rogatka::Rogatka(std::shared_ptr<World> world,const sf::Vector2f& position, const sf::Vector2f& size ) : StaticObjects(world) {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
     m_rogatkaSize = m_rogatka.getSize();
 }
 
-void Rogatka::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) {
+void Rogatka::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) {
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(position.x  /  SCALE, (position.y) / SCALE);
     bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-    m_body = world.CreateBody(&bodyDef);
+    m_body = world->getWorld()->CreateBody(&bodyDef);
 
     b2PolygonShape groundshape;
     groundshape.SetAsBox(size.x/2 / SCALE, size.y / 2.f / SCALE);

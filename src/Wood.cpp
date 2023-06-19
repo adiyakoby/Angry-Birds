@@ -1,6 +1,6 @@
 #include "Wood.h"
 
-Wood::Wood(b2World& world, const sf::Vector2f position, const sf::Vector2f& size) {
+Wood::Wood(std::shared_ptr<World> world, const sf::Vector2f position, const sf::Vector2f& size) : StaticObjects(world, 40) {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
 }
@@ -18,14 +18,14 @@ void Wood::drawObject(sf::RenderWindow& window)
     window.draw(m_wood);
 }
 
-void Wood::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size)
+void Wood::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size)
 {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(position.x / SCALE, position.y / SCALE);
     bodyDef.linearDamping = 0.5f;
     bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-    m_body = world.CreateBody(&bodyDef);
+    m_body = world->getWorld()->CreateBody(&bodyDef);
 
     // Create Box2D rect shape
     b2PolygonShape shape;
@@ -52,7 +52,7 @@ void Wood::initGraphicBody(const sf::Vector2f& size)
 //to "register" the object in the Factory
 static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerType(
     "wood",
-    [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
     {
         return std::make_unique<Wood>(world, position, size);
     }

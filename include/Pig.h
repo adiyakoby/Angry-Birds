@@ -6,7 +6,7 @@ class Pig : public StaticObjects
 {
 
 public:
-	Pig(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size);
+	Pig(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size);
 	virtual ~Pig() = default;
 
 	void objectUpdate()override;
@@ -17,7 +17,7 @@ public:
 	void hitState();
 private:
 	sf::CircleShape m_pig;
-	void initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size)override;
+	void initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size)override;
 	void initGraphicBody(const sf::Vector2f& size = { 20.f, 0.f }) override;
 };
 

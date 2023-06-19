@@ -2,15 +2,14 @@
 #include "Bird.h"
 #include <cmath>
 
-Bird::Bird(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) : m_dragging{ false }, m_onRogatka{false}
+Bird::Bird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) : Objects(world, 100), m_dragging{false}, m_onRogatka{false}
 {
     initPhysicBody(world, position, size);
-    initGraphicBody(size);
-    
+    initGraphicBody(size);   
 }
 
 
-void Bird::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size)
+void Bird::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size)
 {
     // Create Box2D body definition
     b2BodyDef bodyDef;
@@ -18,7 +17,7 @@ void Bird::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf
     bodyDef.position.Set(position.x / SCALE, position.y / SCALE);
     bodyDef.linearDamping = 0.7f;
     bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-    m_body = world.CreateBody(&bodyDef);
+    m_body = world->getWorld()->CreateBody(&bodyDef);
 
     // Create Box2D circle shape
     b2CircleShape shape;

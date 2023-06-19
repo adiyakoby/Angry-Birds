@@ -52,6 +52,10 @@ void PlayState::update()
         return;
     }
 
+    
+    std::erase_if(m_gameObjects, [](const auto& x) {return x->getHp() <= 0; });
+ 
+
     if (m_birds.back()->getPosition().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2 <= 0)
         m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getSize().x / 2.f, m_gameTools->m_window.getWindow().getView().getSize().y / 2.f);
     else if (m_birds.back()->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_background.getSize().x)
@@ -145,14 +149,14 @@ void PlayState::birdsPosition()
 
 void PlayState::createBirds()
 {
-    m_birds.emplace_back(std::move(ObjectFactory<RedBird>::instance().create("RedBird", *m_world->getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));
+    m_birds.emplace_back(std::move(ObjectFactory<RedBird>::instance().create("RedBird", m_world, sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));
 }
 
 
 void PlayState::createGroundAndRogatka()
 {
-    m_worldObjects[0] = std::make_unique<Ground>(*m_world->getWorld(), sf::Vector2f(0, 0), m_background.getSize());//ground
-    m_worldObjects[1] = std::make_unique <Rogatka>(*m_world->getWorld(), sf::Vector2f(300.f, m_worldObjects[0]->getPosition().y - 80.f));//rogatka
+    m_worldObjects[0] = std::make_unique<Ground>(m_world, sf::Vector2f(0, 0), m_background.getSize());//ground
+    m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(300.f, m_worldObjects[0]->getPosition().y - 80.f));//rogatka
 }
 
 void PlayState::createGameObjs()

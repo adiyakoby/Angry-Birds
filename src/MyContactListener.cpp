@@ -5,12 +5,14 @@
 #include <string>
 #include <typeinfo>
 #include <typeindex>
-#include "Bird.h"
+
 #include "Ground.h"
 #include "Wood.h"
 #include "Rogatka.h"
 #include "Pig.h"
 #include "World.h"
+#include "RedBird.h"
+#include "YellowBird.h"
 
 void MyContactListener::BeginContact(b2Contact* contact)
 {
@@ -35,14 +37,8 @@ namespace {//begin namespace
 
 //-------------HIT FUNCTIONS-----------
 void birdPig(Objects& bird, Objects& pig) {
-
-
-    Bird& getbird = dynamic_cast<Bird&>(bird);
-    Pig& getpig = dynamic_cast<Pig&>(pig);
-
-    getpig.setDamage(2);
-    getpig.hitState();
-    std::cout << "a collision\n";
+    pig.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
+    static_cast<Pig&>(pig).hitState();
 }
 
 void pigBird(Objects& pig, Objects& bird) {
@@ -51,24 +47,23 @@ void pigBird(Objects& pig, Objects& bird) {
 }
 
 void birdWood(Objects& bird, Objects& wood) {
-
-    Bird& getbird = dynamic_cast<Bird&>(bird);
-    Wood& getwood = dynamic_cast<Wood&>(wood);
-
-    getwood.setDamage(1);
+    std::cout << "BIRD DMG:" << bird.getBodyMass() * bird.getBodyVelocity().LengthSquared() << std::endl;
+    std::cout << wood.getHp() << std::endl;
+    wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
+    std::cout << "AFTER HP: " << wood.getHp() << std::endl;
 
 }
+
 void woodBird(Objects& wood, Objects& bird) {
     birdWood(bird, wood);
 }
 
 void pigWood(Objects& pig, Objects& wood) {
 
-    Pig& getpig = dynamic_cast<Pig&>(pig);
-    Wood& getwood = dynamic_cast<Wood&>(wood);
-    getpig.setDamage(1);
-    getpig.hitState();
-    getwood.setDamage(1);
+
+    pig.setDamage(wood.getBodyMass() * wood.getBodyVelocity().LengthSquared());
+    wood.setDamage(wood.getBodyMass() * wood.getBodyVelocity().LengthSquared());
+    static_cast<Pig&>(pig).hitState();
 }
 
 void woodPig(Objects& wood, Objects& pig) {
@@ -87,8 +82,10 @@ HitMap initializeCollisionMap()
     HitMap phm;
     phm[Key(typeid(Bird), typeid(Pig))] = &birdPig;
     phm[Key(typeid(Pig), typeid(Bird))] = &pigBird;
-    phm[Key(typeid(Bird), typeid(Wood))] = &birdWood;
-    phm[Key(typeid(Wood), typeid(Bird))] = &woodBird;
+    phm[Key(typeid(RedBird), typeid(Wood))] = &birdWood;
+    phm[Key(typeid(Wood), typeid(RedBird))] = &woodBird;
+    phm[Key(typeid(YellowBird), typeid(Wood))] = &birdWood;
+    phm[Key(typeid(Wood), typeid(YellowBird))] = &woodBird;
     phm[Key(typeid(Pig), typeid(Wood))] = &pigWood;
     phm[Key(typeid(Wood), typeid(Pig))] = &woodPig;
 
@@ -114,12 +111,8 @@ void handleCollision(Objects& object1, Objects& object2) {
 
     auto collisionFunc = lookup(typeid(object1), typeid(object2));
     if (!collisionFunc)
-    {
         return;
-    }
+    
     collisionFunc(object1, object2);
 }
 
-//void MyContactListener::EndContact(b2Contact* contact)
-//{
-//}

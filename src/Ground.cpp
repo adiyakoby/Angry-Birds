@@ -1,19 +1,19 @@
 #include "Ground.h"
 
 
-Ground::Ground(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) {
+Ground::Ground(std::shared_ptr<World> world , const sf::Vector2f& position, const sf::Vector2f& size) : StaticObjects(world) {
     initPhysicBody(world, position, size);
     initGraphicBody();
 }
 
 
-void Ground::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) {
+void Ground::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) {
     /* NEED TO CHANGE TO CHAIN*/
     b2BodyDef bodyDef;
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(size.x/2.f/SCALE, (size.y - 60.f)/ SCALE);
     bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-    m_body = world.CreateBody(&bodyDef);
+    m_body = world->getWorld()->CreateBody(&bodyDef);
 
     // Create Box2D ground shape
     b2PolygonShape groundshape;
@@ -48,7 +48,7 @@ void Ground::drawObject(sf::RenderWindow &window)
 //to "register" the object in the Factory
 static auto registerItGround = ObjectFactory<StaticObjects>::instance().registerType(
     "ground",
-    [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
     {
         return std::make_unique<Ground>(world, position, size);
     }

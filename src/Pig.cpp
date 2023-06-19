@@ -1,6 +1,6 @@
 #include "Pig.h"
 
-Pig::Pig(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) 
+Pig::Pig(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) : StaticObjects(world,30)
 {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
@@ -9,7 +9,7 @@ Pig::Pig(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size)
 }
 
 
-void Pig::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size)
+void Pig::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size)
 {
     // Create Box2D body definition
     b2BodyDef bodyDef;
@@ -17,7 +17,7 @@ void Pig::initPhysicBody(b2World& world, const sf::Vector2f& position, const sf:
     bodyDef.position.Set(position.x / SCALE, position.y / SCALE);
     bodyDef.linearDamping = 0.9f;
     bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-    m_body = world.CreateBody(&bodyDef);
+    m_body = world->getWorld()->CreateBody(&bodyDef);
 
     // Create Box2D circle shape
     b2CircleShape shape;
@@ -68,7 +68,7 @@ void Pig::hitState() {
 //to "register" the object in the Factory
 static auto registerItPig = ObjectFactory<StaticObjects>::instance().registerType(
     "Pigs",
-    [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
     {
         return std::make_unique<Pig>(world, position, size);
     }
