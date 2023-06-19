@@ -23,11 +23,7 @@ public:
 	void Draw();
 
 	void drawGame();
-	void createBirds();
-	void createGroundAndRogatka();
-	void createGameObjs();
 
-	void birdsPosition();
 	void setNextBird();
 protected:
 	void initilaize();
@@ -44,6 +40,7 @@ private:
 	std::array<std::unique_ptr<StaticObjects>, 2> m_worldObjects;
 	std::vector<std::unique_ptr<Bird>> m_birds;
 	std::vector<std::unique_ptr<StaticObjects>> m_gameObjects;
+	std::vector<std::pair<sf::Text, sf::Text>> m_levelData;
 	sf::RectangleShape m_background;
 	std::unique_ptr<MyContactListener> m_contactListener;
 	//std::vector<sf::Music> m_gameMusic;
@@ -52,6 +49,13 @@ private:
 
 	LevelManager m_lvlsMngr;
 	
+
+	//init funcs
+	void createBirds();
+	void createGroundAndRogatka();
+	void createGameObjs();
+	void createLevelData();
+	void birdsPosition();
 };
 
 

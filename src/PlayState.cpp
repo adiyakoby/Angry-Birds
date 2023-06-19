@@ -94,7 +94,14 @@ void PlayState::drawGame()
     }
 
     std::for_each(m_birds.begin(), m_birds.end(), [this](auto& bird) {bird->drawObject(m_gameTools->m_window.getWindow()); });
-
+    
+    for (auto& string : m_levelData)
+    {
+        m_gameTools->m_window.getWindow().draw(string.first);
+        m_gameTools->m_window.getWindow().draw(string.second);
+    }
+       
+        
     m_worldObjects[1]->drawObject(m_gameTools->m_window.getWindow());
 
 
@@ -122,7 +129,7 @@ void PlayState::initilaize()
     birdsPosition(); 
     std::cout << "finished making new lvl" << std::endl;
     //m_birds[0]->setPosition(sf::Vector2f(m_worldObjects[1]->getPosition().x, m_worldObjects[1]->getPosition().y - 100.f));
- 
+    createLevelData();
 }
 
 void PlayState::birdsPosition()
@@ -162,4 +169,12 @@ void PlayState::createGroundAndRogatka()
 void PlayState::createGameObjs()
 {
     m_gameObjects = m_lvlsMngr.GetLevel();
+}
+
+void PlayState::createLevelData()
+{
+    m_levelData.emplace_back().first = GameResources::getInstance().createText("Level: ", sf::Vector2f(WINDOW_WIDTH - 150, 50), sf::Color::White, 1);
+    m_levelData.back().second = GameResources::getInstance().createText("0", sf::Vector2f(WINDOW_WIDTH - 50, 50), sf::Color::White, 1);
+    m_levelData.emplace_back().first = GameResources::getInstance().createText("Score: ", sf::Vector2f(WINDOW_WIDTH - 150, 100), sf::Color::White, 1);
+    m_levelData.back().second = GameResources::getInstance().createText("0", sf::Vector2f(WINDOW_WIDTH - 50, 100), sf::Color::White, 1);
 }
