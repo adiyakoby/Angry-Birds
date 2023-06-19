@@ -50,6 +50,7 @@ void PlayState::update()
     {
         m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
         m_level++;
+        m_levelData[static_cast<int>(GameData::LEVEL)].second.setString(std::to_string(m_level));
         setNextBird(false);
         
         return;
@@ -173,15 +174,6 @@ void PlayState::createGroundAndRogatka()
     m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));//rogatka
 }
 
-    m_gameObjects = m_lvlsMngr.GetLevel();
-}
-
-    m_gameObjects = m_lvlsMngr.GetLevel();
-}
-
-    m_gameObjects = m_lvlsMngr.GetLevel();
-}
-
 void PlayState::createLevelData()
 {
     m_levelData.emplace_back().first = GameResources::getInstance().createText("Level: ", sf::Color::White, 1);
@@ -196,8 +188,8 @@ void PlayState::updateDataPosition()
     float yPos = 50.f;
     for (auto& string : m_levelData)
     {
-        string.first.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x + WINDOW_WIDTH/2 - 150, yPos));
-        string.second.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x+ WINDOW_WIDTH / 2 - 50, yPos));
+        string.first.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x + WINDOW_WIDTH/2 - 155, yPos));
+        string.second.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x+ WINDOW_WIDTH/2 - 65, yPos));
         yPos += 50.f;
     }
 }
