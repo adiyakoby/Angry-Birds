@@ -8,7 +8,7 @@ class Bird: public Objects
 {
     //public Objects
 public:
-	Bird(b2World& world,const sf::Vector2f &position, const sf::Vector2f& size);
+	Bird(std::shared_ptr<World> world,const sf::Vector2f &position, const sf::Vector2f& size);
     virtual ~Bird() = default;
     
     virtual void objectUpdate();
@@ -36,7 +36,7 @@ private:
     sf::Vector2f dragEndPosition;
      
     //private functions
-    void initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size)override;
+    void initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size)override;
     void initGraphicBody(const sf::Vector2f& size = {20.f, 0.f}) override;
 };
 

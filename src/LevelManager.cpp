@@ -47,8 +47,8 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 		{
 			switch (line.at(line.size()-i-1))
 			{
-			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", *m_world->getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));     break;
-			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", *m_world->getWorld(), sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));  break;
+			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", m_world, sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));     break;
+			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", m_world, sf::Vector2f(0, 0), sf::Vector2f(20.f, 0.f))));  break;
 
 			default: break;
 			}
@@ -79,15 +79,15 @@ std::vector<std::unique_ptr<StaticObjects>> LevelManager::CreateObj(std::deque<s
 			{
 			case ' ': xPos += 100; break;
 			case '@': tempVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
-						*m_world->getWorld(), sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f))));     
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f))));
 				xPos += 22;																							break;
 
 			case '!': tempVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
-				*m_world->getWorld(), sf::Vector2f(xPos, yPos), sf::Vector2f(300.f, 40.f))));			
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(300.f, 40.f))));
 				tempVec.back()->rotate(90); xPos += 44;																break;
 
 			case '-': tempVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood", 
-						*m_world->getWorld(), sf::Vector2f(xPos , yPos), sf::Vector2f(300.f, 20.f))));   
+						m_world, sf::Vector2f(xPos , yPos), sf::Vector2f(300.f, 20.f))));   
 				xPos += 303;																						break;
 
 			default: break;

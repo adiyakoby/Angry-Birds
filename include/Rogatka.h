@@ -6,7 +6,7 @@
 class Rogatka:public StaticObjects
 {
 public:
-	Rogatka(b2World& world,const sf::Vector2f &position, const sf::Vector2f& size = sf::Vector2f{ 10.f, 60.f });
+	Rogatka(std::shared_ptr<World> world,const sf::Vector2f &position, const sf::Vector2f& size = sf::Vector2f{ 10.f, 60.f });
 	virtual ~Rogatka() = default;
 
 	void objectUpdate()override {}
@@ -25,7 +25,7 @@ private:
 	//void initPhysicRogatka(b2World& world,  const sf::Vector2f& position);
 	//void initGraphicRogatka();
 
-	virtual void initPhysicBody(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) ;
+	virtual void initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) ;
 	virtual void initGraphicBody(const sf::Vector2f& size) ;
 };
 

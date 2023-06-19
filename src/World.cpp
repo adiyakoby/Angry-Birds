@@ -1,10 +1,8 @@
 #include "World.h"
-#include <iostream>
-#include"GameResources.h"
 
-World::World(/*const b2Vec2 graviry*/) {
 
-	m_world = std::make_unique<b2World>(b2Vec2(0.f, 10.8f));
+World::World() : m_world{ std::make_unique<b2World>(b2Vec2(0.f, 10.8f)) } {
+
     setFrame();
 }
 
@@ -14,10 +12,10 @@ void World::step(const float timestep,const int32 velocity,const int32 positionI
 }
 
 void World::setFrame() {
+    m_worldFrame[0] = setCorner(Left);
+    m_worldFrame[1] = setCorner(Top);
+    m_worldFrame[2] = setCorner(Right);
 
-    m_worldFrame.emplace_back(setCorner(Left));
-    m_worldFrame.emplace_back(setCorner(Top));
-    m_worldFrame.emplace_back(setCorner(Right));
 	
 }
 
@@ -58,6 +56,5 @@ b2Body* World::setCorner(Position position) {
     fixtureDef.shape = &boxshape;
     fixtureDef.friction = 0.5f;
     body->CreateFixture(&fixtureDef);
-    m_worldFrame.emplace_back(body);
     return body;
 }

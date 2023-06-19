@@ -6,7 +6,7 @@
 class StaticObjects : public Objects
 {
 public:
-	StaticObjects() = default;
+	StaticObjects(std::shared_ptr<World> world, const int& hp = 50) : Objects(world, hp) {};
 	virtual ~StaticObjects() = default;
 
 	

@@ -5,7 +5,7 @@
 class RedBird: public Bird
 {
 public:
-	RedBird(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size);
+	RedBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size);
 	virtual ~RedBird() = default;
 
 private:
