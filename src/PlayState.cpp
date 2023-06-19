@@ -1,7 +1,7 @@
 #include "PlayState.h"
 
 PlayState::PlayState(std::shared_ptr<GameTools> gameTools)
-    :m_gameTools(gameTools), m_contactListener(std::make_unique<MyContactListener>()), m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }, m_level{0}
+    :m_gameTools(gameTools), m_contactListener(std::make_unique<MyContactListener>()), m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }, m_level{1}
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
 	initilaize();
@@ -50,8 +50,6 @@ void PlayState::update()
         initilaize();
         return;
     }
-
-
     deleteObj();
    
     if (m_birds.back()->getPosition().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2 <= 0)
@@ -104,6 +102,18 @@ void PlayState::Draw()
 
 void PlayState::deleteObj()
 {
+    for (const auto& pig : m_pigs)
+    {
+        if (pig->getHp() <= 0)
+            setScore(pig->getScore());
+    }
+    std::erase_if(m_pigs, [](const auto& x) {return x->getHp() <= 0; });
+
+    for (const auto& obj : m_gameObjects)
+    {
+        if (obj->getHp() <= 0)
+            setScore(obj->getScore());
+    }
     std::erase_if(m_gameObjects, [](const auto& x) {return x->getHp() <= 0; });
 }
 
@@ -148,7 +158,6 @@ void PlayState::initilaize()
     //init objects
     createGroundAndRogatka();
     m_lvlsMngr.getNextLevel(m_birds, m_pigs , m_gameObjects);
-    m_level++;
     setNextBird(false);
 }
 
@@ -158,15 +167,10 @@ void PlayState::createGroundAndRogatka()
     m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));//rogatka
 }
 
-void PlayState::createGameObjs()
-{
-    m_gameObjects = m_lvlsMngr.GetLevel();
-}
-
 void PlayState::createLevelData()
 {
     m_levelData.emplace_back().first = GameResources::getInstance().createText("Level: ", sf::Color::White, 1);
-    m_levelData.back().second = GameResources::getInstance().createText("0", sf::Color::White, 1);
+    m_levelData.back().second = GameResources::getInstance().createText(std::to_string(m_level), sf::Color::White, 1);
     m_levelData.emplace_back().first = GameResources::getInstance().createText("Score: ", sf::Color::White, 1);
     m_levelData.back().second = GameResources::getInstance().createText("0", sf::Color::White, 1);
     updateDataPosition();
@@ -183,7 +187,11 @@ void PlayState::updateDataPosition()
     }
 }
 
-void PlayState::setScore()
+void PlayState::setScore(int toAdd)
 {
-    
+    std::string temp = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
+    auto toSet = std::stoi(temp);
+    toSet += toAdd;
+    m_levelData[static_cast<int>(GameData::SCORE)].second.setString(std::to_string(toSet));
+
 }

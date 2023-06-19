@@ -31,7 +31,7 @@ public:
 
 	bool isFinishedMoving();
 	void updateDataPosition();
-	void setScore();
+	void setScore(int);
 	
 protected:
 	void initilaize();
