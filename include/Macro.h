@@ -14,3 +14,7 @@ const float MAX_DISTANCE = 150.f;
 //enum classes
 enum class menuCommand { PLAY, HELP, EXIT, BACK, SOUND, MUTE, DEFAULT };
 enum class helpScreenCommand { BACK, SOUND, MUTE, DEFAULT };
+
+/* POSITIONS :*/
+const float ROGATKA_X{ 300.f };
+const float ROGATKA_Y{ 660.f };

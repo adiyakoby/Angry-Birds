@@ -6,6 +6,7 @@ Bird::Bird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf:
 {
     initPhysicBody(world, position, size);
     initGraphicBody(size);   
+    m_body->SetEnabled(false);
 }
 
 

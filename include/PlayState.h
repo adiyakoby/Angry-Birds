@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Macro.h"
 #include "Game.h"
 #include "Bird.h"
 #include "Ground.h"
@@ -23,8 +24,14 @@ public:
 	void Draw();
 
 	void drawGame();
+	void createBirds();
+	void createGroundAndRogatka();
+	void createGameObjs();
 
-	void setNextBird();
+	void setNextBird(const bool &x);
+
+	bool isFinishedMoving();
+
 protected:
 	void initilaize();
 
@@ -39,11 +46,13 @@ private:
 	//LevelManeger m_lvlmng;
 	std::array<std::unique_ptr<StaticObjects>, 2> m_worldObjects;
 	std::vector<std::unique_ptr<Bird>> m_birds;
+	std::vector<std::unique_ptr<StaticObjects>> m_pigs;
 	std::vector<std::unique_ptr<StaticObjects>> m_gameObjects;
 	std::vector<std::pair<sf::Text, sf::Text>> m_levelData;
 	sf::RectangleShape m_background;
 	std::unique_ptr<MyContactListener> m_contactListener;
 	//std::vector<sf::Music> m_gameMusic;
+	
 	//init functions
 	std::shared_ptr<World> m_world;
 
