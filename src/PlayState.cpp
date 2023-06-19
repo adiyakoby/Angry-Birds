@@ -1,7 +1,7 @@
 #include "PlayState.h"
 
 PlayState::PlayState(std::shared_ptr<GameTools> gameTools)
-    :m_gameTools(gameTools), m_contactListener(std::make_unique<MyContactListener>()),m_world{std::make_shared<World>()}, m_lvlsMngr{m_world}
+    :m_gameTools(gameTools), m_contactListener(std::make_unique<MyContactListener>()), m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }, m_level{0}
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
 	initilaize();
@@ -37,8 +37,7 @@ void PlayState::processManeger()
         }
         auto location = m_gameTools->m_window.getWindow().mapPixelToCoords(
             { event.mouseButton.x, event.mouseButton.y }, m_gameTools->m_window.getWindow().getView());
-        //for (auto& ea : m_birds)
-            //ea->handleEvent(event, location);    <- dont need if we only play with one bird at a time, meaning we only send event to the last bird at the vec.
+
         m_birds.back()->handleEvent(event, location);
     }
 
@@ -46,7 +45,7 @@ void PlayState::processManeger()
 
 void PlayState::update()
 {
-    if (m_birds.size() == 0)
+    if (m_pigs.size() == 0)
     {
         initilaize();
         return;
@@ -115,7 +114,10 @@ void PlayState::drawGame()
         ea->objectUpdate();
         ea->drawObject(m_gameTools->m_window.getWindow());
     }
-
+    for (auto& ea : m_pigs) {
+        ea->objectUpdate();
+        ea->drawObject(m_gameTools->m_window.getWindow());
+    }
     std::for_each(m_birds.begin(), m_birds.end(), [this](auto& bird) {bird->drawObject(m_gameTools->m_window.getWindow()); });
     
     for (auto& string : m_levelData)
@@ -131,6 +133,10 @@ void PlayState::drawGame()
 
 void PlayState::initilaize()
 { 
+    if (m_birds.size() != 0) m_birds.clear();
+    if (m_gameObjects.size() != 0) m_gameObjects.clear();
+    if (m_pigs.size() != 0) m_pigs.clear();
+
     //init background
     m_background.setTexture(&GameResources::getInstance().getGroundTexture(0));
     m_background.setSize(sf::Vector2f(m_background.getTexture()->getSize().x * 3, m_background.getTexture()->getSize().y));
@@ -141,7 +147,8 @@ void PlayState::initilaize()
 
     //init objects
     createGroundAndRogatka();
-    m_lvlsMngr.getNextLevel(m_birds, m_gameObjects);
+    m_lvlsMngr.getNextLevel(m_birds, m_pigs , m_gameObjects);
+    m_level++;
     setNextBird(false);
 }
 

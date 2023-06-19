@@ -41,7 +41,7 @@ private:
 	std::vector<sf::RectangleShape> m_buttons;
 	sf::RectangleShape m_backGround;
 	menuCommand m_mode;
-	bool m_event;
+	int m_level;
 	sf::Sound m_music;
 
 	//LevelManeger m_lvlmng;

@@ -5,21 +5,21 @@ LevelManager::LevelManager(std::shared_ptr<World> world) : m_lvlsFile(), m_world
 }
 
 
-void LevelManager::getNextLevel(std::vector<std::unique_ptr<Bird>> &birdsVec, std::vector<std::unique_ptr<StaticObjects>> &objVec)
+void LevelManager::getNextLevel(std::vector<std::unique_ptr<Bird>> &birdsVec, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>> &objVec)
 {
-	std::cout << " in  getNextLevel()" << std::endl;
+	if (!m_lvlsFile.is_open() || !m_lvlsFile.good()) exit(0);  // <- EXIT GAME IF LVLS FINISHED / ENDED
+
 
 	std::deque<std::string> objDeq{ ReadBirds() };
 	birdsVec = std::move(CreateBirds(objDeq));
 	 
 	objDeq = ReadLevel();
-	objVec = std::move(CreateObj(objDeq));
+	CreateObj(objDeq, pigsVec, objVec);
 
 }
 
 std::deque<std::string> LevelManager::ReadBirds()
 {
-	std::cout << " in  ReadBirds()" << std::endl;
 	std::deque<std::string> objDeq;
 	std::string temp;
 
@@ -62,12 +62,10 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 	return tempVec;
 }
 
-std::vector<std::unique_ptr<StaticObjects>> LevelManager::CreateObj(std::deque<std::string> & objDeq)
+void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>>& objVec)
 {
-	std::cout << " in  CreateObj()" << std::endl;
 	int xPos = WINDOW_WIDTH * 0.5;
 	int yPos = 740-150;
-	std::vector<std::unique_ptr<StaticObjects>> tempVec;
 
 	while (!objDeq.empty())
 	{
@@ -77,15 +75,15 @@ std::vector<std::unique_ptr<StaticObjects>> LevelManager::CreateObj(std::deque<s
 			switch (line.at(i))
 			{
 			case ' ': xPos += 100; break;
-			case '@': tempVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
+			case '@': pigsVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f))));
 				xPos += 22;																							break;
 
-			case '!': tempVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
+			case '!': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(300.f, 40.f))));
-				tempVec.back()->rotate(90); xPos += 44;																break;
+				objVec.back()->rotate(90); xPos += 44;																break;
 
-			case '-': tempVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood", 
+			case '-': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
 						m_world, sf::Vector2f(xPos , yPos), sf::Vector2f(300.f, 20.f))));   
 				xPos += 303;																						break;
 
@@ -99,20 +97,11 @@ std::vector<std::unique_ptr<StaticObjects>> LevelManager::CreateObj(std::deque<s
 		objDeq.pop_back();
 	}
 	
-	return tempVec;
-}
-
-std::vector<std::unique_ptr<StaticObjects>> LevelManager::GetLevel()
-{
-	std::deque<std::string> objDeq{ ReadLevel()};
-	std::vector<std::unique_ptr<StaticObjects>> objVec{ CreateObj(objDeq)};
-	return objVec;
 }
 
 
 std::deque<std::string> LevelManager::ReadLevel()
 {
-	std::cout << " in  ReadLevel()" << std::endl;
 	std::deque<std::string> objDeq;
 	std::string temp;
 	while (m_lvlsFile.is_open() && m_lvlsFile.good())
