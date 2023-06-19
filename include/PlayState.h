@@ -23,12 +23,16 @@ public:
 	void update();
 	void Draw();
 
+	//update func
+	void deleteObj();
 	void drawGame();
 
 	void setNextBird(const bool &x);
 
 	bool isFinishedMoving();
 	void updateDataPosition();
+	void setScore();
+	
 protected:
 	void initilaize();
 

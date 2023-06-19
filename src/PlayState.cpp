@@ -4,9 +4,6 @@ PlayState::PlayState(std::shared_ptr<GameTools> gameTools)
     :m_gameTools(gameTools), m_contactListener(std::make_unique<MyContactListener>()), m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }, m_level{1}
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
-
-    //init Text Data
-    createLevelData();
 	initilaize();
     
 }
@@ -67,12 +64,15 @@ void PlayState::update()
     std::erase_if(m_gameObjects, [](const auto& x) {return x->getHp() <= 0; });
     std::erase_if(m_pigs, [](const auto& x) {return x->getHp() <= 0; });
 
+
+
+    deleteObj();
+   
     if (m_birds.back()->getPosition().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2 <= 0)
     {
         m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getSize().x / 2.f, m_gameTools->m_window.getWindow().getView().getSize().y / 2.f);
         updateDataPosition();
     }
-
     else if (m_birds.back()->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_background.getSize().x)
     {
         m_gameTools->m_window.setView(m_background.getSize().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2, WINDOW_HEIGHT / 2);
@@ -85,8 +85,6 @@ void PlayState::update()
     }
     if (!(m_birds.back()->isOnRogatka()) && isFinishedMoving())
         setNextBird(true);
-
-    
 }
 
 bool PlayState::isFinishedMoving()
@@ -116,6 +114,11 @@ void PlayState::Draw()
     drawGame();
     m_gameTools->m_window.getWindow().display();
     m_world->step(1.f / 60.f, 8, 3);
+}
+
+void PlayState::deleteObj()
+{
+    std::erase_if(m_gameObjects, [](const auto& x) {return x->getHp() <= 0; });
 }
 
 void PlayState::drawGame()
@@ -149,6 +152,9 @@ void PlayState::initilaize()
     m_background.setSize(sf::Vector2f(m_background.getTexture()->getSize().x * 3, m_background.getTexture()->getSize().y));
     m_background.setPosition(0, 0);
 
+    //init Text Data
+    createLevelData();
+
     //init objects
     createGroundAndRogatka();
 }
@@ -179,4 +185,9 @@ void PlayState::updateDataPosition()
         string.second.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x+ WINDOW_WIDTH / 2 - 50, yPos));
         yPos += 50.f;
     }
+}
+
+void PlayState::setScore()
+{
+    
 }
