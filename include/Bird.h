@@ -13,7 +13,7 @@ public:
     
     virtual void objectUpdate();
     void applyForce(const sf::Vector2f& force);
-    void drawObject(sf::RenderWindow& window);
+    virtual void drawObject(sf::RenderWindow& window);
     void handleThrow(const float x, const float y);
     void setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w);
     bool isDragged() { return m_dragging; };
