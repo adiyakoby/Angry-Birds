@@ -50,11 +50,19 @@ void PlayState::update()
 {
     if (m_pigs.size() == 0)
     {
-        initilaize();
+        m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
+        m_level++;
+        setNextBird(false);
+        
         return;
     }
-    if (m_birds.size() == 0) return;
-    
+    else if (m_birds.size() == 0)
+    {
+        m_lvlsMngr.getSpecificLevel(m_level, m_birds, m_pigs, m_gameObjects);
+        setNextBird(false);
+        std::cout << "NEW SIZE of birds is : " << m_birds.size() << std::endl;
+        return;
+    }
     
     std::erase_if(m_gameObjects, [](const auto& x) {return x->getHp() <= 0; });
     std::erase_if(m_pigs, [](const auto& x) {return x->getHp() <= 0; });
@@ -136,10 +144,6 @@ void PlayState::drawGame()
 
 void PlayState::initilaize()
 { 
-    if (m_birds.size() != 0) m_birds.clear();
-    if (m_gameObjects.size() != 0) m_gameObjects.clear();
-    if (m_pigs.size() != 0) m_pigs.clear();
-
     //init background
     m_background.setTexture(&GameResources::getInstance().getGroundTexture(0));
     m_background.setSize(sf::Vector2f(m_background.getTexture()->getSize().x * 3, m_background.getTexture()->getSize().y));
@@ -147,9 +151,6 @@ void PlayState::initilaize()
 
     //init objects
     createGroundAndRogatka();
-    m_lvlsMngr.getNextLevel(m_birds, m_pigs , m_gameObjects);
-    m_level++;
-    setNextBird(false);
 }
 
 void PlayState::createGroundAndRogatka()
@@ -158,10 +159,7 @@ void PlayState::createGroundAndRogatka()
     m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));//rogatka
 }
 
-void PlayState::createGameObjs()
-{
-    m_gameObjects = m_lvlsMngr.GetLevel();
-}
+
 
 void PlayState::createLevelData()
 {

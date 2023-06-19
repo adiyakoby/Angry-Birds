@@ -9,7 +9,6 @@ void LevelManager::getNextLevel(std::vector<std::unique_ptr<Bird>> &birdsVec, st
 {
 	if (!m_lvlsFile.is_open() || !m_lvlsFile.good()) exit(0);  // <- EXIT GAME IF LVLS FINISHED / ENDED
 
-
 	std::deque<std::string> objDeq{ ReadBirds() };
 	birdsVec = std::move(CreateBirds(objDeq));
 	 
@@ -18,6 +17,22 @@ void LevelManager::getNextLevel(std::vector<std::unique_ptr<Bird>> &birdsVec, st
 
 }
 
+void LevelManager::getSpecificLevel(const int& lvl, std::vector<std::unique_ptr<Bird>>& birdsVec, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>>& objVec)
+{
+	birdsVec.clear();
+	pigsVec.clear();
+	objVec.clear();
+
+	m_lvlsFile.clear();
+	m_lvlsFile.seekg(0);
+	std::string temp{};
+	while (m_lvlsFile.is_open() && m_lvlsFile.good())
+	{
+		std::getline(m_lvlsFile, temp);
+		if (temp.find("Level " + std::to_string(lvl)) != std::string::npos)
+			getNextLevel(birdsVec, pigsVec, objVec);
+	}
+}
 std::deque<std::string> LevelManager::ReadBirds()
 {
 	std::deque<std::string> objDeq;
@@ -29,7 +44,7 @@ std::deque<std::string> LevelManager::ReadBirds()
 
 		if (std::all_of(temp.begin(), temp.end(), [](const char& c) {return c == ' '; }))
 			break;
-		objDeq.push_back(temp.substr(temp.find("Birds: ") + 7));
+		if(temp.find("Birds") != std::string::npos )objDeq.push_back(temp.substr(temp.find("Birds: ") + 7));
 	}
 	return objDeq;
 }
@@ -53,6 +68,7 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 			default: break;
 			}
 			deltaX += 50.f;
+
 
 		}
 
