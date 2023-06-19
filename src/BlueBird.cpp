@@ -24,7 +24,6 @@ void BlueBird::objectUpdate() {
         float angle = m_body->GetAngle();
         m_bird.setPosition(position.x * SCALE, position.y * SCALE);
         m_bird.setRotation(angle * 180.0f / b2_pi);
-        std::cout << m_body->GetPosition().y << std::endl;
     }
     else if (m_state == split) {
         for (auto& ea : m_split)
@@ -45,6 +44,8 @@ void BlueBird::drawObject(sf::RenderWindow& w) {
             ea->objectUpdate();
             ea->drawObject(w);
         }
+        Bird::objectUpdate();
+        Bird::drawObject(w);
     }
 }
 
@@ -57,16 +58,22 @@ void BlueBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse) {
         if (event.mouseButton.button == sf::Mouse::Left && isSplit) {
 
             b2Vec2 force{ m_body->GetLinearVelocity() };
-           // force.Normalize();
+            //force.Normalize();
             force *= 3.f;
             sf::Vector2f location = this->getPosition();
-            location.y -= 50.f;
-            m_world->getWorld()->DestroyBody(m_body);
+            //m_body->SetTransform(b2Vec2(0.f, WINDOW_HEIGHT + 500.f), 0.f);
+            int initialize{};
             for (auto& ea : m_split) {
-                ea = std::make_unique<BlueBird>(m_world, location, sf::Vector2f(30.f, 0.f));
-                ea->createForce(force);
-                location.y += 50.f;
+                if(initialize == 0)
+                    ea = std::make_unique<BlueBird>(m_world, sf::Vector2f(location.x,location.y - BLUE_BIRDS_DISTANCE), sf::Vector2f(15.f, 0.f));
+                else if(initialize == 1)
+                    ea = std::make_unique<BlueBird>(m_world, sf::Vector2f(location.x, location.y + BLUE_BIRDS_DISTANCE), sf::Vector2f(15.f, 0.f));
+                ea->setEnable();
+                ea->applyForce(sf::Vector2f(force.x, force.y));
+                //ea->createForce(force);
+                initialize++;
             }
+            m_bird.setRadius(15.f);
             isSplit = false;
             m_state = split;
            

@@ -46,3 +46,12 @@ void Rogatka::ignoreRogatka() {
 void Rogatka::resetRogatka() {
     m_body->SetEnabled(true);
 }
+
+//to "register" the object in the Factory
+static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerType(
+    "rogatka",
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+    {
+        return std::make_unique<Rogatka>(world, position, size);
+    }
+);

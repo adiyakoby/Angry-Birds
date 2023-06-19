@@ -18,7 +18,7 @@ enum class GameData {LEVEL, SCORE}; //Game Data - (level num , Score)
 /* POSITIONS :*/
 const float ROGATKA_X{ 300.f };
 const float ROGATKA_Y{ 660.f };
-
+const float BLUE_BIRDS_DISTANCE = 100.f;
 
 
 // Game Score
