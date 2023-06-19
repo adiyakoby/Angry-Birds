@@ -60,11 +60,7 @@ void PlayState::update()
         setNextBird(false);
         return;
     }
-    
-    std::erase_if(m_gameObjects, [](const auto& x) {return x->getHp() <= 0; });
-    std::erase_if(m_pigs, [](const auto& x) {return x->getHp() <= 0; });
-
-
+   
 
     deleteObj();
    
