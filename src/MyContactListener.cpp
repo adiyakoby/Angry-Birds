@@ -78,14 +78,21 @@ using HitMap = std::map<Key, HitFunctionPtr>;
 HitMap initializeCollisionMap()
 {
     HitMap phm;
-    phm[Key(typeid(Bird), typeid(Pig))] = &birdPig;
-    phm[Key(typeid(Pig), typeid(Bird))] = &pigBird;
+
     phm[Key(typeid(RedBird), typeid(Wood))] = &birdWood;
     phm[Key(typeid(Wood), typeid(RedBird))] = &woodBird;
-    phm[Key(typeid(YellowBird), typeid(Wood))] = &birdWood;
-    phm[Key(typeid(Wood), typeid(YellowBird))] = &woodBird;
+
+    phm[Key(typeid(RedBird), typeid(Pig))] = &birdPig;
+    phm[Key(typeid(Pig), typeid(RedBird))] = &pigBird;
+
     phm[Key(typeid(Pig), typeid(Wood))] = &pigWood;
     phm[Key(typeid(Wood), typeid(Pig))] = &woodPig;
+
+    phm[Key(typeid(YellowBird), typeid(Pig))] = &birdPig;
+    phm[Key(typeid(Pig), typeid(YellowBird))] = &pigBird;
+
+    phm[Key(typeid(YellowBird), typeid(Wood))] = &birdWood;
+    phm[Key(typeid(Wood), typeid(YellowBird))] = &woodBird;
 
     //...
     return phm;
