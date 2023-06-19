@@ -1,13 +1,14 @@
 #include "PlayState.h"
 
 PlayState::PlayState(std::shared_ptr<GameTools> gameTools)
-    :m_gameTools(gameTools), m_contactListener(std::make_unique<MyContactListener>()), m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }, m_level{0}
+    :m_gameTools(gameTools), m_contactListener(std::make_unique<MyContactListener>()), m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }, m_level{1}
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
 
     //init Text Data
     createLevelData();
 	initilaize();
+    
 }
 
 void PlayState::processManeger()
@@ -60,7 +61,6 @@ void PlayState::update()
     {
         m_lvlsMngr.getSpecificLevel(m_level, m_birds, m_pigs, m_gameObjects);
         setNextBird(false);
-        std::cout << "NEW SIZE of birds is : " << m_birds.size() << std::endl;
         return;
     }
     

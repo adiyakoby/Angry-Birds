@@ -30,8 +30,12 @@ void LevelManager::getSpecificLevel(const int& lvl, std::vector<std::unique_ptr<
 	{
 		std::getline(m_lvlsFile, temp);
 		if (temp.find("Level " + std::to_string(lvl)) != std::string::npos)
+		{
 			getNextLevel(birdsVec, pigsVec, objVec);
+			return;
+		}
 	}
+
 }
 std::deque<std::string> LevelManager::ReadBirds()
 {
@@ -90,7 +94,7 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 		{
 			switch (line.at(i))
 			{
-			case ' ': xPos += 100; break;
+			case ' ': xPos += 60; break;
 			case '@': pigsVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f))));
 				xPos += 22;																							break;
@@ -125,8 +129,10 @@ std::deque<std::string> LevelManager::ReadLevel()
 		std::getline(m_lvlsFile, temp);
 		if (temp.find("=") != std::string::npos) break;
 
-		if (!std::all_of(temp.begin(), temp.end(), [](const char &c) {return c == ' ' || isalnum(c) || isalnum(c); }))
+		if (!std::all_of(temp.begin(), temp.end(), [](const char& c) {return c == ' ' || isalnum(c); }))
 			objDeq.push_back(temp);
+
+			
 	}
 	return objDeq;
 }
