@@ -27,9 +27,9 @@ public:
 	sf::Texture& getDataButtuns(int index);*/
 	sf::Texture& getTransitionScreens(int index);
 	sf::SoundBuffer& Playaffect(int index);
-	/*sf::Font& getFont(int index);
-	
-	sf::Text& createText(std::string, sf::Vector2f, sf::Color, int);*/
+	sf::Font& getFont(int index);
+	sf::Text& createText(std::string, sf::Color, int);
+
 private:
 	//constructor/ distructor
 	GameResources();
@@ -55,8 +55,9 @@ private:
 	sf::Sound m_gameMusic;
 	sf::Sound m_affect;
 	sf::Text m_text;
+	
 	//func
 	void initTextures();
-	//void initFonts();
+	void initFonts();
 	void initSounds();
 };
