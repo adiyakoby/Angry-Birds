@@ -26,8 +26,10 @@ public:
 	//update func
 	void deleteObj();
 	void drawGame();
-
+	void updateView();
 	void setNextBird(const bool &x);
+	void setUpForNextLevel();
+	void setUpForGameOver();
 
 	bool isFinishedMoving();
 	void updateDataPosition();

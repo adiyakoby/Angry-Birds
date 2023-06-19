@@ -48,36 +48,16 @@ void PlayState::update()
 {
     if (m_pigs.size() == 0)
     {
-        m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
-        m_level++;
-        m_levelData[static_cast<int>(GameData::LEVEL)].second.setString(std::to_string(m_level));
-        setNextBird(false);
-        
+        setUpForNextLevel();
         return;
     }
     else if (m_birds.size() == 0)
     {
-        m_lvlsMngr.getSpecificLevel(m_level, m_birds, m_pigs, m_gameObjects);
-        setNextBird(false);
+        setUpForGameOver();
         return;
     }
     deleteObj();
-   
-    if (m_birds.back()->getPosition().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2 <= 0)
-    {
-        m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getSize().x / 2.f, m_gameTools->m_window.getWindow().getView().getSize().y / 2.f);
-        updateDataPosition();
-    }
-    else if (m_birds.back()->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_background.getSize().x)
-    {
-        m_gameTools->m_window.setView(m_background.getSize().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2, WINDOW_HEIGHT / 2);
-        updateDataPosition();
-    }
-    else
-    {
-        m_gameTools->m_window.setView(m_birds.back()->getPosition().x, WINDOW_HEIGHT / 2);
-        updateDataPosition();
-    }
+    updateView();
     if (!(m_birds.back()->isOnRogatka()) && isFinishedMoving())
         setNextBird(true);
 }
@@ -101,6 +81,20 @@ void PlayState::setNextBird(const bool& x)
         m_birds.back()->setPosition(std::move(sf::Vector2f(ROGATKA_X, ROGATKA_Y - 50.f)));
         m_birds.back()->setOnRogatka(true);
     }
+}
+
+void PlayState::setUpForNextLevel()
+{
+    m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
+    m_level++;
+    m_levelData[static_cast<int>(GameData::LEVEL)].second.setString(std::to_string(m_level));
+    setNextBird(false);
+}
+
+void PlayState::setUpForGameOver()
+{
+    m_lvlsMngr.getSpecificLevel(m_level, m_birds, m_pigs, m_gameObjects);
+    setNextBird(false);
 }
 
 void PlayState::Draw()
@@ -150,6 +144,26 @@ void PlayState::drawGame()
         
     m_worldObjects[1]->drawObject(m_gameTools->m_window.getWindow());
 
+}
+
+void PlayState::updateView()
+{
+
+    if (m_birds.back()->getPosition().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2 <= 0)
+    {
+        m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getSize().x / 2.f, m_gameTools->m_window.getWindow().getView().getSize().y / 2.f);
+        updateDataPosition();
+    }
+    else if (m_birds.back()->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_background.getSize().x)
+    {
+        m_gameTools->m_window.setView(m_background.getSize().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2, WINDOW_HEIGHT / 2);
+        updateDataPosition();
+    }
+    else
+    {
+        m_gameTools->m_window.setView(m_birds.back()->getPosition().x, WINDOW_HEIGHT / 2);
+        updateDataPosition();
+    }
 }
 
 void PlayState::initilaize()
