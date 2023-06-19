@@ -52,6 +52,10 @@ void PlayState::update()
         return;
     }
 
+    
+    std::erase_if(m_gameObjects, [](const auto& x) {return x->getHp() <= 0; });
+ 
+
     if (m_birds.back()->getPosition().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2 <= 0)
         m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getSize().x / 2.f, m_gameTools->m_window.getWindow().getView().getSize().y / 2.f);
     else if (m_birds.back()->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_background.getSize().x)
