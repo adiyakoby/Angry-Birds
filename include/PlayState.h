@@ -45,6 +45,7 @@ private:
 	//LevelManeger m_lvlmng;
 	std::array<std::unique_ptr<StaticObjects>, 2> m_worldObjects;
 	std::vector<std::unique_ptr<Bird>> m_birds;
+	std::vector<std::unique_ptr<StaticObjects>> m_pigs;
 	std::vector<std::unique_ptr<StaticObjects>> m_gameObjects;
 	sf::RectangleShape m_background;
 	std::unique_ptr<MyContactListener> m_contactListener;

@@ -48,7 +48,7 @@ void PlayState::processManeger()
 
 void PlayState::update()
 {
-    if (m_gameObjects.size() == 0)
+    if (m_birds.size() == 0)
     {
         initilaize();
         return;
@@ -73,7 +73,8 @@ void PlayState::update()
 
 bool PlayState::isFinishedMoving()
 {
-    if (m_birds.back()->getBodyVelocity().LengthSquared() >= 0.05) return false;
+    if (m_birds.back()->getBodyVelocity().LengthSquared() >= 0.05) 
+        return false;
     return std::all_of(m_gameObjects.begin(), m_gameObjects.end(), [](const auto& obj) {return obj->getBodyVelocity().LengthSquared() <= 0.01f; });
 }
 
@@ -122,7 +123,6 @@ void PlayState::initilaize()
     createGroundAndRogatka();
     m_lvlsMngr.getNextLevel(m_birds, m_gameObjects);
     setNextBird(false);
-    //birdsPosition(); 
 }
 
 
