@@ -78,11 +78,10 @@ sf::SoundBuffer& GameResources::Playaffect(int index)
 
 
 //create the text 
-sf::Text& GameResources::createText(std::string dataName, sf::Vector2f position, sf::Color color, int font)
+sf::Text& GameResources::createText(std::string dataName, sf::Color color, int font)
 {
     m_text.setString(dataName);
     m_text.setFont(getFont(font));
-    m_text.setPosition(position);
     const auto rect = m_text.getLocalBounds();
     m_text.setOrigin(rect.width / 2, rect.height / 2);
     m_text.setCharacterSize(30);

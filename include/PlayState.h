@@ -24,14 +24,11 @@ public:
 	void Draw();
 
 	void drawGame();
-	void createBirds();
-	void createGroundAndRogatka();
-	void createGameObjs();
 
 	void setNextBird(const bool &x);
 
 	bool isFinishedMoving();
-
+	void updateDataPosition();
 protected:
 	void initilaize();
 
@@ -60,11 +57,9 @@ private:
 	
 
 	//init funcs
-	void createBirds();
 	void createGroundAndRogatka();
 	void createGameObjs();
 	void createLevelData();
-	void birdsPosition();
 };
 
 

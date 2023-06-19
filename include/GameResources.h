@@ -28,7 +28,7 @@ public:
 	sf::Texture& getTransitionScreens(int index);
 	sf::SoundBuffer& Playaffect(int index);
 	sf::Font& getFont(int index);
-	sf::Text& createText(std::string, sf::Vector2f, sf::Color, int);
+	sf::Text& createText(std::string, sf::Color, int);
 
 private:
 	//constructor/ distructor

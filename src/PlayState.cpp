@@ -5,7 +5,8 @@ PlayState::PlayState(std::shared_ptr<GameTools> gameTools)
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
 
-
+    //init Text Data
+    createLevelData();
 	initilaize();
 }
 
@@ -53,22 +54,27 @@ void PlayState::update()
         initilaize();
         return;
     }
-    
-    
+
+
     std::erase_if(m_gameObjects, [](const auto& x) {return x->getHp() <= 0; });
- 
+
 
     if (m_birds.back()->getPosition().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2 <= 0)
     {
         m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getSize().x / 2.f, m_gameTools->m_window.getWindow().getView().getSize().y / 2.f);
-
+        updateDataPosition();
     }
-        
-    else if (m_birds.back()->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_background.getSize().x)
-        m_gameTools->m_window.setView(m_background.getSize().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2, WINDOW_HEIGHT / 2);
-    else
-        m_gameTools->m_window.setView(m_birds.back()->getPosition().x, WINDOW_HEIGHT / 2);
 
+    else if (m_birds.back()->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_background.getSize().x)
+    {
+        m_gameTools->m_window.setView(m_background.getSize().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2, WINDOW_HEIGHT / 2);
+        updateDataPosition();
+    }
+    else
+    {
+        m_gameTools->m_window.setView(m_birds.back()->getPosition().x, WINDOW_HEIGHT / 2);
+        updateDataPosition();
+    }
     if (!(m_birds.back()->isOnRogatka()) && isFinishedMoving())
         setNextBird(true);
 
@@ -81,6 +87,8 @@ bool PlayState::isFinishedMoving()
         return false;
     return std::all_of(m_gameObjects.begin(), m_gameObjects.end(), [](const auto& obj) {return obj->getBodyVelocity().LengthSquared() <= 0.01f; });
 }
+
+
 
 void PlayState::setNextBird(const bool& x)
 {
@@ -136,9 +144,6 @@ void PlayState::initilaize()
     setNextBird(false);
 }
 
-
-
-
 void PlayState::createGroundAndRogatka()
 {
     m_worldObjects[0] = std::make_unique<Ground>(m_world, sf::Vector2f(0, 0), m_background.getSize());//ground
@@ -152,8 +157,20 @@ void PlayState::createGameObjs()
 
 void PlayState::createLevelData()
 {
-    m_levelData.emplace_back().first = GameResources::getInstance().createText("Level: ", sf::Vector2f(WINDOW_WIDTH - 150, 50), sf::Color::White, 1);
-    m_levelData.back().second = GameResources::getInstance().createText("0", sf::Vector2f(WINDOW_WIDTH - 50, 50), sf::Color::White, 1);
-    m_levelData.emplace_back().first = GameResources::getInstance().createText("Score: ", sf::Vector2f(WINDOW_WIDTH - 150, 100), sf::Color::White, 1);
-    m_levelData.back().second = GameResources::getInstance().createText("0", sf::Vector2f(WINDOW_WIDTH - 50, 100), sf::Color::White, 1);
+    m_levelData.emplace_back().first = GameResources::getInstance().createText("Level: ", sf::Color::White, 1);
+    m_levelData.back().second = GameResources::getInstance().createText("0", sf::Color::White, 1);
+    m_levelData.emplace_back().first = GameResources::getInstance().createText("Score: ", sf::Color::White, 1);
+    m_levelData.back().second = GameResources::getInstance().createText("0", sf::Color::White, 1);
+    updateDataPosition();
+}
+
+void PlayState::updateDataPosition()
+{
+    float yPos = 50.f;
+    for (auto& string : m_levelData)
+    {
+        string.first.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x + WINDOW_WIDTH/2 - 150, yPos));
+        string.second.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x+ WINDOW_WIDTH / 2 - 50, yPos));
+        yPos += 50.f;
+    }
 }
