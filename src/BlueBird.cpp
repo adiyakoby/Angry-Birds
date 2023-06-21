@@ -58,10 +58,9 @@ void BlueBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse) {
         if (event.mouseButton.button == sf::Mouse::Left && isSplit) {
 
             b2Vec2 force{ m_body->GetLinearVelocity() };
-            //force.Normalize();
             force *= 3.f;
             sf::Vector2f location = this->getPosition();
-            //m_body->SetTransform(b2Vec2(0.f, WINDOW_HEIGHT + 500.f), 0.f);
+            this->setBodySize();
             int initialize{};
             for (auto& ea : m_split) {
                 if(initialize == 0)
@@ -70,10 +69,10 @@ void BlueBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse) {
                     ea = std::make_unique<BlueBird>(m_world, sf::Vector2f(location.x, location.y + BLUE_BIRDS_DISTANCE), sf::Vector2f(15.f, 0.f));
                 ea->setEnable();
                 ea->applyForce(sf::Vector2f(force.x, force.y));
-                //ea->createForce(force);
                 initialize++;
             }
-            m_bird.setRadius(15.f);
+            this->applyForce(sf::Vector2f(force.x, force.y));
+           
             isSplit = false;
             m_state = split;
            
@@ -98,29 +97,12 @@ void BlueBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse) {
 
 }
 
-//void BlueBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
-//{
-//    switch (event.type) {
-//
-//    case sf::Event::MouseButtonPressed:
-//        if (event.mouseButton.button == sf::Mouse::Left) {
-//            this->handleThrow(mouse.x, mouse.y);
-//            break;
-//
-//        }
-//
-//    case sf::Event::MouseButtonReleased:
-//        if (event.mouseButton.button == sf::Mouse::Left && isDragged()) {
-//            sf::Vector2f force = this->calculateThrow();
-//            this->applyForce(force);
-//        }
-//
-//        break;
-//
-//
-//    }
-//}
-
+void BlueBird::setBodySize() {
+    b2CircleShape* circleShape = static_cast<b2CircleShape*>(m_body->GetFixtureList()->GetShape());
+    circleShape->m_radius = BLUE_BIRD_SPLIT_RADIUS / SCALE;
+    m_bird.setRadius(BLUE_BIRD_SPLIT_RADIUS);
+    m_body->ResetMassData();
+}
 
 static auto registerItYBlueBird = ObjectFactory<Bird>::instance().registerType(
     "BlueBird",

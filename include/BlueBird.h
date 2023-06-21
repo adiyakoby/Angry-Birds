@@ -24,4 +24,5 @@ private:
 	std::shared_ptr<World> m_world;
 	bool isSplit;
 	BirdState m_state;
+	void setBodySize();
 };

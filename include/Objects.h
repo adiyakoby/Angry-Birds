@@ -13,7 +13,9 @@ class Objects
 {
 public:
 	Objects(std::shared_ptr<World> world, const int& hp = 100) : m_hp{ hp }, m_body{ nullptr }, m_world{world} {}
-	virtual ~Objects() { m_world->getWorld()->DestroyBody(m_body); };
+	virtual ~Objects() {
+		if(m_body)
+			m_world->getWorld()->DestroyBody(m_body); };
 
 	virtual void objectUpdate() = 0;
 	virtual void drawObject(sf::RenderWindow& window) = 0;
