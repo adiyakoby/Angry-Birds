@@ -38,7 +38,11 @@ namespace {//begin namespace
 //-------------HIT FUNCTIONS-----------
 void birdPig(Objects& bird, Objects& pig) {
     pig.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
-    static_cast<Pig&>(pig).hitState();
+    if (pig.getHp() <= 10)
+        static_cast<Pig&>(pig).hitState();
+
+    std::cout << pig.getHp()  <<std::endl;
+
 }
 
 void pigBird(Objects& pig, Objects& bird) {
@@ -60,8 +64,9 @@ void pigWood(Objects& pig, Objects& wood) {
     float dmg{ wood.getBodyMass() * wood.getBodyVelocity().LengthSquared() + pig.getBodyMass() * pig.getBodyVelocity().LengthSquared() };
     pig.setDamage(dmg);
     wood.setDamage(dmg);
-    if(pig.getHp() <= 15)
+    if(pig.getHp() <= 10)
         static_cast<Pig&>(pig).hitState();
+    std::cout << pig.getHp() << std::endl;
 }
 
 void woodPig(Objects& wood, Objects& pig) {
