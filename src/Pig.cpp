@@ -1,10 +1,10 @@
 #include "Pig.h"
 
-Pig::Pig(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) : StaticObjects(world,30, PIG_SCORE)
+Pig::Pig(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) : StaticObjects(world,20, PIG_SCORE)
 {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
-    setHp(2);
+    //setHp(2);
     
 }
 

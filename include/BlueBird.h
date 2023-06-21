@@ -20,7 +20,6 @@ public:
 	void setEnable() { m_body->SetEnabled(true); };
 private:
 	std::array<std::unique_ptr<BlueBird>,2> m_split;
-	void initGraphicBody(const sf::Vector2f& size = { 15.f, 0.f }) override;
 	std::shared_ptr<World> m_world;
 	bool isSplit;
 	BirdState m_state;

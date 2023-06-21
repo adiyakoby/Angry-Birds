@@ -121,7 +121,7 @@ void GameResources::initTextures()
         m_soundTexture.back().loadFromFile(soundButton.at(i));
     }
     //vector string for the bird's names
-    std::array<sf::IntRect, 3> birdLocation{ sf::IntRect{915, 867, 50, 50}, sf::IntRect{551, 665, 50, 50}, sf::IntRect{0 ,448,35,35} }; // 1 448
+    std::array<sf::IntRect, 3> birdLocation{ sf::IntRect{915, 867, 50, 50}, sf::IntRect{551, 658, 65, 55}, sf::IntRect{0 ,448,35,35} }; // 1 448
     for (size_t i = 0; i < birdLocation.size(); i++)
     {
         m_birdsTexture.emplace_back();

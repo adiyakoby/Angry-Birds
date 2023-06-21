@@ -9,7 +9,6 @@ public:
 
 private:
     bool m_secondclick;
-	void initGraphicBody(const sf::Vector2f& size = { 15.f, 0.f }) override;
 };
 
 

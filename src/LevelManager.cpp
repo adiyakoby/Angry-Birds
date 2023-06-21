@@ -86,36 +86,39 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 
 void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>>& objVec)
 {
-	int xPos = WINDOW_WIDTH * 0.5;
-	int yPos = 740-150;
+	int xPos = WINDOW_WIDTH * 0.7;
+	int yPos = 740-75;
+	
 
 	while (!objDeq.empty())
 	{
+		bool insideLine{ false };
 		std::string line = objDeq.back();
 		for (size_t i = 0; i < line.size(); i++)
 		{
+			insideLine = true;
 			switch (line.at(i))
 			{
-			case ' ': xPos += 60; break;
+			case '/':  break;
+			case ' ': if(insideLine) xPos += 30; break;
 			case '@': pigsVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f))));
 				xPos += 22;																							break;
 
 			case '!': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
-				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(300.f, 40.f))));
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(150.f, 40.f))));
 				objVec.back()->rotate(90); xPos += 44;																break;
 
 			case '-': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
-						m_world, sf::Vector2f(xPos , yPos), sf::Vector2f(300.f, 20.f))));   
-				xPos += 303;																						break;
+						m_world, sf::Vector2f(xPos , yPos), sf::Vector2f(200.f, 20.f))));   
+				xPos += 202;																						break;
 
 			default: break;
-			}
-			
-			
+			}	
 		}
-		yPos -= 300;
-		xPos = WINDOW_WIDTH * 0.5;
+
+		yPos -= 86;
+		xPos = WINDOW_WIDTH * 0.7;
 		objDeq.pop_back();
 	}
 	

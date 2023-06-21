@@ -2,7 +2,7 @@
 #include "Bird.h"
 #include <cmath>
 
-Bird::Bird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) : Objects(world, 100), m_dragging{false}, m_onRogatka{false}
+Bird::Bird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& BirdType) : Objects(world, 100), m_dragging{ false }, m_onRogatka{ false }, m_BirdType{BirdType}
 {
     initPhysicBody(world, position, size);
     initGraphicBody(size);   
@@ -36,7 +36,7 @@ void Bird::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& posi
 }
 void Bird::initGraphicBody(const sf::Vector2f& size)
 {
-    m_bird.setTexture(&GameResources::getInstance().getBirdTexture(0));
+    m_bird.setTexture(&GameResources::getInstance().getBirdTexture(m_BirdType));
     m_bird.setRadius(size.x);
     m_bird.setOrigin(size.x, size.x);
     m_bird.setPosition(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE));

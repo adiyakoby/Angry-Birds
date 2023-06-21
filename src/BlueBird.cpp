@@ -1,20 +1,13 @@
 #include "BlueBird.h"
 
 
-BlueBird::BlueBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) :
-    Bird(world, position, size), m_world{ world}, isSplit{false}, m_state{normal} {
+BlueBird::BlueBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) 
+    : Bird(world, position, size, 2), m_world{ world}, isSplit{false}, m_state{normal} {
 	 
-	initGraphicBody(size);
 }
 
 
-void BlueBird::initGraphicBody(const sf::Vector2f& size ) {
 
-	m_bird.setTexture(&GameResources::getInstance().getBirdTexture(2));
-	m_bird.setRadius(size.x);
-	m_bird.setOrigin(size.x, size.x);
-	m_bird.setPosition(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE));
-}
 
 void BlueBird::objectUpdate() {
     
@@ -61,15 +54,12 @@ void BlueBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse) {
             force *= 3.f;
             sf::Vector2f location = this->getPosition();
             this->setBodySize();
-            int initialize{};
+
+            m_split[0] = std::make_unique<BlueBird>(m_world, sf::Vector2f(location.x, location.y - BLUE_BIRDS_DISTANCE), sf::Vector2f(15.f, 0.f));
+            m_split[1] = std::make_unique<BlueBird>(m_world, sf::Vector2f(location.x, location.y + BLUE_BIRDS_DISTANCE), sf::Vector2f(15.f, 0.f));
             for (auto& ea : m_split) {
-                if(initialize == 0)
-                    ea = std::make_unique<BlueBird>(m_world, sf::Vector2f(location.x,location.y - BLUE_BIRDS_DISTANCE), sf::Vector2f(15.f, 0.f));
-                else if(initialize == 1)
-                    ea = std::make_unique<BlueBird>(m_world, sf::Vector2f(location.x, location.y + BLUE_BIRDS_DISTANCE), sf::Vector2f(15.f, 0.f));
                 ea->setEnable();
                 ea->applyForce(sf::Vector2f(force.x, force.y));
-                initialize++;
             }
             this->applyForce(sf::Vector2f(force.x, force.y));
            
