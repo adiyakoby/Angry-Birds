@@ -12,6 +12,8 @@ public:
 	void processManeger()override;
 	void update()override;
 	void Draw()override;
+	void Resume()override {}
+	void Pause()override {}
 
 	helpScreenCommand handleClick(const sf::Vector2f& mouse_loc);
 	void helpManeger();

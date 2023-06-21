@@ -85,16 +85,20 @@ void PlayState::setNextBird(const bool& x)
 
 void PlayState::setUpForNextLevel()
 {
+    m_world->getWorld()->SetContactListener(nullptr);
     m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
     m_level++;
     m_levelData[static_cast<int>(GameData::LEVEL)].second.setString(std::to_string(m_level));
     setNextBird(false);
+    m_world->getWorld()->SetContactListener(m_contactListener.get());
 }
 
 void PlayState::setUpForGameOver()
 {
+    m_world->getWorld()->SetContactListener(nullptr);
     m_lvlsMngr.getSpecificLevel(m_level, m_birds, m_pigs, m_gameObjects);
     setNextBird(false);
+    m_world->getWorld()->SetContactListener(m_contactListener.get());
 }
 
 void PlayState::Draw()
@@ -103,6 +107,11 @@ void PlayState::Draw()
     drawGame();
     m_gameTools->m_window.getWindow().display();
     m_world->step(1.f / 60.f, 8, 3);
+}
+
+void PlayState::Resume()
+{
+    m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
 }
 
 void PlayState::deleteObj()
@@ -175,7 +184,7 @@ void PlayState::updateView()
 void PlayState::initilaize()
 { 
     //init background
-    m_background.setTexture(&GameResources::getInstance().getGroundTexture(0));
+    m_background.setTexture(&GameResources::getInstance().getTransitionScreens(2));
     m_background.setSize(sf::Vector2f(m_background.getTexture()->getSize().x * 3, m_background.getTexture()->getSize().y));
     m_background.setPosition(0, 0);
 

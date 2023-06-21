@@ -14,7 +14,8 @@ const float MAX_DISTANCE = 150.f;
 //enum classes
 enum class menuCommand { PLAY, HELP, EXIT, BACK, SOUND, MUTE, DEFAULT };
 enum class helpScreenCommand { BACK, SOUND, MUTE, DEFAULT };
-enum class GameData {LEVEL, SCORE}; //Game Data - (level num , Score)
+enum class GameData {LEVEL, SCORE}; //Game Data - (level num , Score) //maybe after creating the level state it will not needed any more 
+
 /* POSITIONS :*/
 const float ROGATKA_X{ 300.f };
 const float ROGATKA_Y{ 660.f };

@@ -16,6 +16,5 @@ public:
 	//void EndContact(b2Contact* contact);
 
 private:
-
 };
 

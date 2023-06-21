@@ -31,6 +31,8 @@ public:
 	void processManeger();
 	void update();
 	void Draw();
+	void Resume()override;
+	void Pause()override {}
 
 	//update func
 	void deleteObj();
