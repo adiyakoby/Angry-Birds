@@ -59,7 +59,7 @@ void LevelSelectState::levelRequest()
 	m_sharedData->levelToRead = m_requestedLevel + 1;
 	if (m_firstPlay)
 	{
-		m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools), false);
+		m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools, this ->m_sharedData), false);
 		m_firstPlay = false;
 	}
 	else

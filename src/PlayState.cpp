@@ -1,7 +1,9 @@
 #include "PlayState.h"
+#include "LevelSelectState.h"
 
-PlayState::PlayState(std::shared_ptr<GameTools> gameTools)
-    :m_gameTools(gameTools), m_contactListener(std::make_unique<MyContactListener>()), m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }, m_level{1}
+PlayState::PlayState(std::shared_ptr<GameTools> gameTools, std::shared_ptr<SharedData> sharedData)
+    :m_gameTools(gameTools),m_sharedData(sharedData) ,m_contactListener(std::make_unique<MyContactListener>()),
+     m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }, m_level{1}
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
 	initilaize();
@@ -46,20 +48,28 @@ void PlayState::processManeger()
 
 void PlayState::update()
 {
-    if (m_pigs.size() == 0)
-    {
-        setUpForNextLevel();
+    if (levelEnd())
         return;
-    }
-    else if (m_birds.size() == 0)
-    {
-        setUpForGameOver();
-        return;
-    }
+
     deleteObj();
     updateView();
     if (!(m_birds.back()->isOnRogatka()) && isFinishedMoving())
         setNextBird(true);
+}
+
+bool PlayState::levelEnd()
+{
+    if (m_pigs.size() == 0)
+    {
+        setUpForEndLevel("Pass");
+        return true;
+    }
+    else if (m_birds.size() == 0)
+    {
+        setUpForEndLevel("Failed");
+        return true;
+    }
+    return false;
 }
 
 bool PlayState::isFinishedMoving()
@@ -83,23 +93,40 @@ void PlayState::setNextBird(const bool& x)
     }
 }
 
-void PlayState::setUpForNextLevel()
+void PlayState::setUpForEndLevel(std::string status)
 {
     m_world->getWorld()->SetContactListener(nullptr);
-    m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
-    m_level++;
-    m_levelData[static_cast<int>(GameData::LEVEL)].second.setString(std::to_string(m_level));
+    m_sharedData->levelStatus = status;
+    std::string levelScore = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
+    m_sharedData->score = std::stoi(levelScore);
     setNextBird(false);
     m_world->getWorld()->SetContactListener(m_contactListener.get());
+    m_gameTools->m_gameStates.switchStates();
 }
 
-void PlayState::setUpForGameOver()
-{
-    m_world->getWorld()->SetContactListener(nullptr);
-    m_lvlsMngr.getSpecificLevel(m_level, m_birds, m_pigs, m_gameObjects);
-    setNextBird(false);
-    m_world->getWorld()->SetContactListener(m_contactListener.get());
-}
+//void PlayState::setUpForLevel()
+//{
+//    m_world->getWorld()->SetContactListener(nullptr);
+//    //m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
+//    //m_level++;
+//    //m_levelData[static_cast<int>(GameData::LEVEL)].second.setString(std::to_string(m_level));
+//    m_sharedData->levelStatus = "Pass";
+//    std::string levelScore = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
+//    m_sharedData->score = std::stoi(levelScore);
+//    setNextBird(false);
+//    m_world->getWorld()->SetContactListener(m_contactListener.get());
+//}
+//
+//void PlayState::setUpForGameOver()
+//{
+//    m_world->getWorld()->SetContactListener(nullptr);
+//    //m_lvlsMngr.getSpecificLevel(m_level, m_birds, m_pigs, m_gameObjects);
+//    m_sharedData->levelStatus = "Failed";
+//    std::string levelScore = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
+//    m_sharedData->score = std::stoi(levelScore);
+//    setNextBird(false);
+//    m_world->getWorld()->SetContactListener(m_contactListener.get());
+//}
 
 void PlayState::Draw()
 {
@@ -111,7 +138,8 @@ void PlayState::Draw()
 
 void PlayState::Resume()
 {
-    m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
+    m_lvlsMngr.getSpecificLevel(m_sharedData->levelToRead, m_birds, m_pigs, m_gameObjects);
+    m_levelData.at(static_cast<int>(GameData::LEVEL)).second = GameResources::getInstance().createText(std::to_string(m_sharedData->levelToRead), sf::Color::White, 1);
 }
 
 void PlayState::deleteObj()
@@ -211,7 +239,7 @@ void PlayState::createGroundAndRogatka()
 void PlayState::createLevelData()
 {
     m_levelData.emplace_back().first = GameResources::getInstance().createText("Level: ", sf::Color::White, 1);
-    m_levelData.back().second = GameResources::getInstance().createText(std::to_string(m_level), sf::Color::White, 1);
+    m_levelData.back().second = GameResources::getInstance().createText(std::to_string(m_sharedData->levelToRead), sf::Color::White, 1);
     m_levelData.emplace_back().first = GameResources::getInstance().createText("Score: ", sf::Color::White, 1);
     m_levelData.back().second = GameResources::getInstance().createText("0", sf::Color::White, 1);
     updateDataPosition();

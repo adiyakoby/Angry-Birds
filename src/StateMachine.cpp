@@ -1,7 +1,7 @@
 #include "StateMachine.h"
 
 StateMachine::StateMachine()
-	:m_adding(false), m_removing(false), m_replacing(false)
+	:m_adding(false), m_removing(false), m_replacing(false), m_switch(false)
 {}
 
 void StateMachine::addState(std::unique_ptr<State> newState, bool replacing)
@@ -41,6 +41,11 @@ void StateMachine::checkForUpdates()
 
 		m_removing = false;
 	}
+	if (m_switch)
+	{
+		Switch();
+		m_switch = false;
+	}
 }
 
 std::unique_ptr<State>& StateMachine::getCurrentState() 
@@ -49,6 +54,11 @@ std::unique_ptr<State>& StateMachine::getCurrentState()
 }
 
 void StateMachine::switchStates()
+{
+	m_switch = true; 
+}
+
+void StateMachine::Switch()
 {
 	//move the pointeres and clear stack
 	std::unique_ptr<State> wasTop = std::move(m_states.top());
