@@ -25,8 +25,11 @@ public:
 	void processManeger();
 	void update();
 	void Draw();
+	void Resume()override;
+	void Pause()override {}
 
-	void levelRequest(int);
+	void levelRequest(int);//set play data( e.g. which level to read)
+	void updateReturningValue();//get the returning value from play state
 	void drawLevelSelect();
 protected:
 	void initilaize();

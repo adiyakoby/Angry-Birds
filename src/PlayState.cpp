@@ -105,6 +105,11 @@ void PlayState::Draw()
     m_world->step(1.f / 60.f, 8, 3);
 }
 
+void PlayState::Resume()
+{
+    m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
+}
+
 void PlayState::deleteObj()
 {
     for (const auto& pig : m_pigs)

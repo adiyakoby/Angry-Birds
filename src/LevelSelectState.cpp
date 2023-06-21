@@ -43,6 +43,21 @@ void LevelSelectState::Draw()
 	m_gameTools->m_window.getWindow().display();
 }
 
+void LevelSelectState::Resume()
+{
+	updateReturningValue();
+}
+
+void LevelSelectState::levelRequest(int)
+{
+	;
+}
+
+void LevelSelectState::updateReturningValue()
+{
+	;
+}
+
 void LevelSelectState::drawLevelSelect()
 {
 	//m_gameTools->m_window.getWindow().draw(m_backGround);
@@ -60,23 +75,28 @@ void LevelSelectState::initilaize()
 	//m_backGround.setPosition(0, 0);
 
 	//levels fields
-	auto firstPos = sf::Vector2f(150.f, 300);
-	for (int level = 0; level < 6; level++)
+	auto firstPos = sf::Vector2f(300.f, 200.f);
+	for (int level = 0; level < 2; level++)
 	{
-		m_levelsFields.emplace_back();
-		m_levelsFields.back().setSize(sf::Vector2f(100.f, 200.f));
-		m_levelsFields.back().setOrigin(m_levelsFields.back().getSize() * 0.5f);
-		m_levelsFields.back().setPosition(sf::Vector2f(100.f, 200.f));
-		m_levelsFields.back().setFillColor(sf::Color::Yellow);
-		m_levelsFields.back().setOutlineColor(sf::Color::White);
-		m_levelsFields.back().setOutlineThickness(2);
-		
-		firstPos += sf::Vector2f(150.f, 300.f);
+		for (int level = 0; level < 3; level++)
+		{
+			m_levelsFields.emplace_back();
+			m_levelsFields.back().setSize(sf::Vector2f(250.f, 250.f));
+			m_levelsFields.back().setOrigin(m_levelsFields.back().getSize() * 0.5f);
+			m_levelsFields.back().setPosition(firstPos);
+			m_levelsFields.back().setFillColor(sf::Color::Yellow);
+			m_levelsFields.back().setOutlineColor(sf::Color::White);
+			m_levelsFields.back().setOutlineThickness(2);
+
+			firstPos.x += 400.f;
+		}
+		firstPos = sf::Vector2f(300.f, 500.f);
 	}
 
-	//back button
-	m_levelsFields.emplace_back();
-	m_levelsFields.back().setSize(sf::Vector2f(50.f, 50.f));
-	m_levelsFields.back().setOrigin(m_levelsFields.back().getSize() * 0.5f);
-	m_levelsFields.back().setPosition(sf::Vector2f(100.f, 200.f));
+
+	////back button
+	//m_levelsFields.emplace_back();
+	//m_levelsFields.back().setSize(sf::Vector2f(50.f, 50.f));
+	//m_levelsFields.back().setOrigin(m_levelsFields.back().getSize() * 0.5f);
+	//m_levelsFields.back().setPosition(sf::Vector2f(100.f, 200.f));
 }
