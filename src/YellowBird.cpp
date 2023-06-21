@@ -1,19 +1,11 @@
 
 #include "YellowBird.h"
 
-YellowBird::YellowBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) : Bird(world, position, size), m_secondclick{ false } {
+YellowBird::YellowBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) 
+    : Bird(world, position, size, 1), m_secondclick{ false } {
     
-    //initPhysicBody(world, position, size);
-    initGraphicBody(size);
 }
 
-
-void YellowBird::initGraphicBody(const sf::Vector2f& size) {
-    m_bird.setTexture(&GameResources::getInstance().getBirdTexture(1));
-    m_bird.setRadius(size.x);
-    m_bird.setOrigin(size.x, size.x);
-    m_bird.setPosition(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE));
-}
 
 
 void YellowBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)

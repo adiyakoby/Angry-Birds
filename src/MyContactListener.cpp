@@ -57,10 +57,11 @@ void woodBird(Objects& wood, Objects& bird) {
 
 void pigWood(Objects& pig, Objects& wood) {
 
-
-    pig.setDamage(wood.getBodyMass() * wood.getBodyVelocity().LengthSquared());
-    wood.setDamage(wood.getBodyMass() * wood.getBodyVelocity().LengthSquared());
-    static_cast<Pig&>(pig).hitState();
+    float dmg{ wood.getBodyMass() * wood.getBodyVelocity().LengthSquared() + pig.getBodyMass() * pig.getBodyVelocity().LengthSquared() };
+    pig.setDamage(dmg);
+    wood.setDamage(dmg);
+    if(pig.getHp() <= 15)
+        static_cast<Pig&>(pig).hitState();
 }
 
 void woodPig(Objects& wood, Objects& pig) {

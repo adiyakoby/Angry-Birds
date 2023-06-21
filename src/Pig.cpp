@@ -4,7 +4,7 @@ Pig::Pig(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::V
 {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
-    setHp(2);
+    //setHp(2);
     
 }
 

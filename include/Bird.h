@@ -9,7 +9,7 @@ class Bird: public Objects
     //public Objects
 public:
 
-	Bird(std::shared_ptr<World> world,const sf::Vector2f &position, const sf::Vector2f& size);
+	Bird(std::shared_ptr<World> world,const sf::Vector2f &position, const sf::Vector2f& size, const int& BirdType);
     virtual ~Bird() = default;
     
     virtual void objectUpdate();
@@ -32,7 +32,7 @@ protected:
     virtual void rotate(const int& x) {};
 
 private:
-
+    int m_BirdType;
     bool m_onRogatka;
     bool m_dragging;
     sf::Vector2f dragStartPosition;

@@ -1,6 +1,6 @@
 #include "Wood.h"
 
-Wood::Wood(std::shared_ptr<World> world, const sf::Vector2f position, const sf::Vector2f& size) : StaticObjects(world, 40, WOOD_SCORE) {
+Wood::Wood(std::shared_ptr<World> world, const sf::Vector2f position, const sf::Vector2f& size) : StaticObjects(world, 30, WOOD_SCORE) {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
 }
@@ -44,9 +44,9 @@ void Wood::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& posi
 void Wood::initGraphicBody(const sf::Vector2f& size) 
 {
     m_wood.setTexture(&GameResources::getInstance().getWoodsTexture(0));
-    m_wood.setSize(sf::Vector2f(size.x, size.y));
-    m_wood.setOrigin(size.x / 2, size.y / 2);
-    m_wood.setPosition(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE));
+    m_wood.setSize(size);
+    m_wood.setOrigin(size.x*0.5f , size.y * 0.5f);
+    m_wood.setPosition(std::move(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE)));
 }
 
 //to "register" the object in the Factory

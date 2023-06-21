@@ -1,20 +1,13 @@
 #include "BlueBird.h"
 
 
-BlueBird::BlueBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) :
-    Bird(world, position, size), m_world{ world}, isSplit{false}, m_state{normal} {
+BlueBird::BlueBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) 
+    : Bird(world, position, size, 2), m_world{ world}, isSplit{false}, m_state{normal} {
 	 
-	initGraphicBody(size);
 }
 
 
-void BlueBird::initGraphicBody(const sf::Vector2f& size ) {
 
-	m_bird.setTexture(&GameResources::getInstance().getBirdTexture(2));
-	m_bird.setRadius(size.x);
-	m_bird.setOrigin(size.x, size.x);
-	m_bird.setPosition(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE));
-}
 
 void BlueBird::objectUpdate() {
     

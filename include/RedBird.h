@@ -9,7 +9,6 @@ public:
 	virtual ~RedBird() = default;
 
 private:
-	void initGraphicBody(const sf::Vector2f& size = { 20.f, 0.f });
 };
 
 
