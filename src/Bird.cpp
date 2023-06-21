@@ -162,28 +162,3 @@ sf::Vector2f Bird::getPosition() const
     return m_bird.getPosition();
 }
 
-//to "register" the object in the Factory
-//static auto registerItBird = ObjectFactory<Bird>::instance().registerType(
-//    "Bird",
-//    [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<Bird>
-//    {
-//        return std::make_unique<Bird>(world, position, size);
-//    }
-//);
-
-
-//################################################
-/* OLDER SETRANGE
-
-void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w)
-{
-    sf::VertexArray line(sf::Lines, 2);
-    line[0] = sf::Vertex(dragStartPosition, sf::Color::Green);
-    line[1] = sf::Vertex(dragEndPosition, sf::Color::Green);
-    w.draw(line);
-    m_bird.setPosition(mouseLocation.x, mouseLocation.y);
-    m_body->SetTransform(b2Vec2(mouseLocation.x / SCALE, mouseLocation.y / SCALE),  (dragStartPosition.y-mouseLocation.y) / SCALE);
-    dragEndPosition.x = mouseLocation.x;
-    dragEndPosition.y = mouseLocation.y;
-}
-*/
