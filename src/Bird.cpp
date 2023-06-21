@@ -29,7 +29,7 @@ void Bird::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& posi
     fixtureDef.shape = &shape;
     fixtureDef.density = 0.5f;
     fixtureDef.friction = 0.3f;
-    fixtureDef.restitution = 0.4f;
+    fixtureDef.restitution = 0.3f;
     m_body->CreateFixture(&fixtureDef);
 
 

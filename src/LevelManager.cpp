@@ -7,6 +7,10 @@ LevelManager::LevelManager(std::shared_ptr<World> world) : m_lvlsFile(), m_world
 
 void LevelManager::getNextLevel(std::vector<std::unique_ptr<Bird>> &birdsVec, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>> &objVec)
 {
+	birdsVec.clear();
+	pigsVec.clear();
+	objVec.clear();
+
 	if (!m_lvlsFile.is_open() || !m_lvlsFile.good()) exit(0);  // <- EXIT GAME IF LVLS FINISHED / ENDED
 
 	std::deque<std::string> objDeq{ ReadBirds() };
@@ -86,7 +90,7 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 
 void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>>& objVec)
 {
-	int xPos = WINDOW_WIDTH * 0.7;
+	int xPos = WINDOW_WIDTH * 0.4;
 	int yPos = 740-75;
 	
 
@@ -119,7 +123,7 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 		}
 
 		yPos -= 85;
-		xPos = WINDOW_WIDTH * 0.7;
+		xPos = WINDOW_WIDTH * 0.4;
 		objDeq.pop_back();
 	}
 	

@@ -15,6 +15,8 @@
 #include "YellowBird.h"
 #include "BlueBird.h"
 
+
+
 void MyContactListener::BeginContact(b2Contact* contact)
 {
     b2Fixture* fixtureA = contact->GetFixtureA();
@@ -31,17 +33,32 @@ void MyContactListener::BeginContact(b2Contact* contact)
     Objects* first = reinterpret_cast<Objects*>(bodyA->GetUserData().pointer);
     Objects* second = reinterpret_cast<Objects*>(bodyB->GetUserData().pointer);
 
+
     handleCollision(*first, *second);
 }
 
 namespace {//begin namespace
 
 //-------------HIT FUNCTIONS-----------
+
+ void groundWood(Objects& ground, Objects& wood) {
+     wood.setDamage(wood.getBodyMass() * wood.getBodyVelocity().LengthSquared());
+}
+
+void woodGround(Objects& wood, Objects& ground) {
+    groundWood(ground, wood);
+}
+
+void woodWood(Objects& firstWood, Objects& SecondWood) {
+    firstWood.setDamage(SecondWood.getBodyMass() * SecondWood.getBodyVelocity().LengthSquared());
+    SecondWood.setDamage(firstWood.getBodyMass() * firstWood.getBodyVelocity().LengthSquared());
+}
+
 void birdPig(Objects& bird, Objects& pig) {
     float dmg{ bird.getBodyMass() * bird.getBodyVelocity().LengthSquared() };
     
     if (dynamic_cast<BlueBird*>(&bird))
-        dmg *= 1.5f;
+        dmg *= 2.f;
 
     pig.setDamage(dmg);
     if (pig.getHp() <= 10) 
@@ -55,10 +72,6 @@ void pigBird(Objects& pig, Objects& bird) {
 
 void birdWood(Objects& bird, Objects& wood) {
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
-    if (wood.getHp() <= 0)
-        static_cast<Bird&>(bird).applyForce(sf::Vector2f(bird.getBodyVelocity().LengthSquared(), bird.getBodyVelocity().LengthSquared()));
-
-
 }
 
 void woodBird(Objects& wood, Objects& bird) {
@@ -72,7 +85,6 @@ void pigWood(Objects& pig, Objects& wood) {
     wood.setDamage(dmg);
     if(pig.getHp() <= 10)
         static_cast<Pig&>(pig).hitState();
-    std::cout << pig.getHp() << std::endl;
 }
 
 void woodPig(Objects& wood, Objects& pig) {
@@ -89,6 +101,9 @@ using HitMap = std::map<Key, HitFunctionPtr>;
 HitMap initializeCollisionMap()
 {
     HitMap phm;
+
+
+    phm[Key(typeid(Wood), typeid(Wood))] = &woodWood;
 
     phm[Key(typeid(RedBird), typeid(Wood))] = &birdWood;
     phm[Key(typeid(Wood), typeid(RedBird))] = &woodBird;
@@ -110,6 +125,9 @@ HitMap initializeCollisionMap()
 
     phm[Key(typeid(BlueBird), typeid(Wood))] = &birdWood;
     phm[Key(typeid(Wood), typeid(BlueBird))] = &woodBird;
+
+    phm[Key(typeid(Ground), typeid(Wood))] = &groundWood;
+    phm[Key(typeid(Wood), typeid(Ground))] = &woodGround;
 
     //...
     return phm;
