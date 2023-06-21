@@ -120,21 +120,24 @@ void PlayState::deleteObj()
     {
         if (pig->getHp() <= 0) {
             setScore(pig->getScore());
-            drawDestroyedObj(pig->getPosition());
+            m_poofsContainer.push_back(pig->getPosition());
         }
     }
     std::erase_if(m_pigs, [](const auto& x) {return x->getHp() <= 0; });
 
     for (const auto& obj : m_gameObjects)
     {
-        if (obj->getHp() <= 0)
+        if (obj->getHp() <= 0) {
             setScore(obj->getScore());
+            m_poofsContainer.push_back(obj->getPosition());
+        }
     }
     std::erase_if(m_gameObjects, [](const auto& x) {return x->getHp() <= 0; });
 }
 
 void PlayState::drawGame()
 {
+
     m_gameTools->m_window.getWindow().draw(m_background);
     for (auto& ea : m_gameObjects) {
         ea->objectUpdate();
@@ -154,7 +157,8 @@ void PlayState::drawGame()
        
         
     m_worldObjects[1]->drawObject(m_gameTools->m_window.getWindow());
-
+    
+    drawDestroyedObj();
 }
 
 void PlayState::updateView()
@@ -232,24 +236,23 @@ void PlayState::setScore(int toAdd)
     m_levelData[static_cast<int>(GameData::SCORE)].second.setString(std::to_string(toSet));
 
 }
+void PlayState::drawDestroyedObj() {
+   
+    for (auto& poof : m_poofsContainer) {
+        float elapsedTime = poof.elapsedTime().asSeconds();
 
-void PlayState::drawDestroyedObj(const sf::Vector2f& pos) {
-    
-    sf::Clock clock;
-    //float delaySeconds = 0.1f;
-    sf::Time frameTime = sf::seconds(1.0f / 60.0f);
-    for (auto& poof : m_destroyAnimation) {
-        poof.setPosition(pos);
-        m_gameTools->m_window.getWindow().draw(poof);
-        m_gameTools->m_window.getWindow().display();
-
-        sf::Time elapsedTime = clock.restart();
-        sf::Time sleepTime = frameTime - elapsedTime;
-        if (sleepTime > sf::Time::Zero) {
-            sf::sleep(sleepTime);
+        if (elapsedTime >= 0.f && elapsedTime < 0.3) {
+            m_destroyAnimation[0].setPosition(poof.m_pos);
+            m_gameTools->m_window.getWindow().draw(m_destroyAnimation[0]);
         }
-       
-        clock.restart();
+        else if (elapsedTime >= 0.2f && elapsedTime < 0.6f) {
+            m_destroyAnimation[1].setPosition(poof.m_pos);
+            m_gameTools->m_window.getWindow().draw(m_destroyAnimation[1]);
+        }
+        else if (elapsedTime >= 0.6f && elapsedTime < 1.f) {
+            m_destroyAnimation[2].setPosition(poof.m_pos);
+            m_gameTools->m_window.getWindow().draw(m_destroyAnimation[2]);
+        }
     }
-
+    std::erase_if(m_poofsContainer, [](auto& p) {return p.elapsedTime().asSeconds() > 1.f; });
 }
