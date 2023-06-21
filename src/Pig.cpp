@@ -56,13 +56,10 @@ void Pig::drawObject(sf::RenderWindow& window)
 }
 
 void Pig::hitState() {
-    
-
-    if (this->getHp() <= 20 && !hit) {
+    if (!m_hit) {
         m_pig.setTexture(&GameResources::getInstance().getPigsTexture(1));
-        hit = true;
+        m_hit = true;
     }
-    //else if (this->getHp() <= 0)
 }
 
 //to "register" the object in the Factory

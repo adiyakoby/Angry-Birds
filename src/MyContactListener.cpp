@@ -38,10 +38,9 @@ namespace {//begin namespace
 //-------------HIT FUNCTIONS-----------
 void birdPig(Objects& bird, Objects& pig) {
     pig.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
-    //if (pig.getHp() <= 10) {
+    if (pig.getHp() <= 10) {
         static_cast<Pig&>(pig).hitState();
-        std::cout << "in damage state\n";
-    //}
+    }
 
     std::cout << pig.getHp()  <<std::endl;
 
