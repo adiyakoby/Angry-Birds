@@ -47,3 +47,19 @@ std::unique_ptr<State>& StateMachine::getCurrentState()
 {
 	return m_states.top();
 }
+
+void StateMachine::switchStates()
+{
+	//move the pointeres and clear stack
+	std::unique_ptr<State> wasTop = std::move(m_states.top());
+	m_states.pop();
+	std::unique_ptr<State> wasBack = std::move(m_states.top());
+	m_states.pop();
+
+	//insert in new order
+	m_states.push(std::move(wasBack));
+	m_states.push(std::move(wasTop));
+
+	//resume the operation the state which was in the back
+	m_states.top()->Resume();
+}
