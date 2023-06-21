@@ -7,6 +7,10 @@ LevelManager::LevelManager(std::shared_ptr<World> world) : m_lvlsFile(), m_world
 
 void LevelManager::getNextLevel(std::vector<std::unique_ptr<Bird>> &birdsVec, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>> &objVec)
 {
+	birdsVec.clear();
+	pigsVec.clear();
+	objVec.clear();
+
 	if (!m_lvlsFile.is_open() || !m_lvlsFile.good()) exit(0);  // <- EXIT GAME IF LVLS FINISHED / ENDED
 
 	std::deque<std::string> objDeq{ ReadBirds() };
@@ -86,7 +90,7 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 
 void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>>& objVec)
 {
-	int xPos = WINDOW_WIDTH * 0.7;
+	int xPos = WINDOW_WIDTH * 0.4;
 	int yPos = 740-75;
 	
 
@@ -94,6 +98,7 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 	{
 		bool insideLine{ false };
 		std::string line = objDeq.back();
+
 		for (size_t i = 0; i < line.size(); i++)
 		{
 			insideLine = true;
@@ -103,11 +108,11 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 			case ' ': if(insideLine) xPos += 30; break;
 			case '@': pigsVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f))));
-				xPos += 22;																							break;
+				xPos += 21;																							break;
 
 			case '!': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(150.f, 40.f))));
-				objVec.back()->rotate(90); xPos += 44;																break;
+				objVec.back()->rotate(90); xPos += 41;																break;
 
 			case '-': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
 						m_world, sf::Vector2f(xPos , yPos), sf::Vector2f(200.f, 20.f))));   
@@ -117,8 +122,8 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 			}	
 		}
 
-		yPos -= 86;
-		xPos = WINDOW_WIDTH * 0.7;
+		yPos -= 85;
+		xPos = WINDOW_WIDTH * 0.4;
 		objDeq.pop_back();
 	}
 	

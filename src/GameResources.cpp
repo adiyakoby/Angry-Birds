@@ -24,6 +24,10 @@ sf::Texture& GameResources::getMenuTexture(int index)
     return m_menuTexture.at(index);
 }
 
+sf::Texture& GameResources::getPoofTexture(int index)
+{
+    return m_poofTexture.at(index);
+}
 sf::Texture& GameResources::getHelpTexture(int index)
 {
     /* if (index < 9 && index >= 0)
@@ -137,6 +141,14 @@ void GameResources::initTextures()
         m_pigsTexture.back().loadFromFile("Angry-Birds.png", pigsLocation.at(i));
     }
 
+    std::array<sf::IntRect, 3> poofLocation{ sf::IntRect{40,715,126,120} , sf::IntRect{41,467,127,121} ,sf::IntRect{166,151,146,144} };
+    for (size_t i = 0; i < poofLocation.size(); i++)
+    {
+        m_poofTexture.emplace_back();
+        m_poofTexture.back().loadFromFile("Angry-Birds.png", poofLocation.at(i));
+    }
+
+
     std::array<sf::IntRect, 2> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{233,643,82,42} };
     for (size_t i = 0; i < WoodLocation.size(); i++)
     {
@@ -144,6 +156,7 @@ void GameResources::initTextures()
         m_woodsTexture.back().loadFromFile("StaticObjects.png", WoodLocation.at(i));
     }
 
+ 
     std::array<std::string, 1> rogatkaNames{ "rogatka.png" };
     for (size_t i = 0; i < rogatkaNames.size(); i++)
     {

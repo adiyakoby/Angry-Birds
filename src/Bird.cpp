@@ -29,7 +29,7 @@ void Bird::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& posi
     fixtureDef.shape = &shape;
     fixtureDef.density = 0.5f;
     fixtureDef.friction = 0.3f;
-    fixtureDef.restitution = 0.4f;
+    fixtureDef.restitution = 0.3f;
     m_body->CreateFixture(&fixtureDef);
 
 
@@ -65,20 +65,6 @@ void Bird::applyForce(const sf::Vector2f& force)
 
 }
 
-void Bird::createForce(const b2Vec2& force)
-{
-    m_onRogatka = false; //cannot fire again
-
-    m_body->SetEnabled(true);
-    // Apply impulse force to the Box2D body
-    b2Vec2 forceScaled{ force.x*3.f / SCALE, force.y*3.f / SCALE };
-    
-    m_body->SetLinearVelocity(forceScaled);
-    //m_body->ApplyLinearImpulseToCenter(forceScaled, true);
-    m_body->ApplyLinearImpulse(forceScaled, m_body->GetWorldCenter(), true);
-    //m_body->ApplyLinearImpulse(forceScaled, m_body->GetWorldCenter(), true);
-
-}
 
 
 void Bird::drawObject(sf::RenderWindow& window)
@@ -162,28 +148,3 @@ sf::Vector2f Bird::getPosition() const
     return m_bird.getPosition();
 }
 
-//to "register" the object in the Factory
-//static auto registerItBird = ObjectFactory<Bird>::instance().registerType(
-//    "Bird",
-//    [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<Bird>
-//    {
-//        return std::make_unique<Bird>(world, position, size);
-//    }
-//);
-
-
-//################################################
-/* OLDER SETRANGE
-
-void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w)
-{
-    sf::VertexArray line(sf::Lines, 2);
-    line[0] = sf::Vertex(dragStartPosition, sf::Color::Green);
-    line[1] = sf::Vertex(dragEndPosition, sf::Color::Green);
-    w.draw(line);
-    m_bird.setPosition(mouseLocation.x, mouseLocation.y);
-    m_body->SetTransform(b2Vec2(mouseLocation.x / SCALE, mouseLocation.y / SCALE),  (dragStartPosition.y-mouseLocation.y) / SCALE);
-    dragEndPosition.x = mouseLocation.x;
-    dragEndPosition.y = mouseLocation.y;
-}
-*/

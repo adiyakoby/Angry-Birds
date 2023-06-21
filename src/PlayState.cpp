@@ -85,16 +85,20 @@ void PlayState::setNextBird(const bool& x)
 
 void PlayState::setUpForNextLevel()
 {
+    m_world->getWorld()->SetContactListener(nullptr);
     m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
     m_level++;
     m_levelData[static_cast<int>(GameData::LEVEL)].second.setString(std::to_string(m_level));
     setNextBird(false);
+    m_world->getWorld()->SetContactListener(m_contactListener.get());
 }
 
 void PlayState::setUpForGameOver()
 {
+    m_world->getWorld()->SetContactListener(nullptr);
     m_lvlsMngr.getSpecificLevel(m_level, m_birds, m_pigs, m_gameObjects);
     setNextBird(false);
+    m_world->getWorld()->SetContactListener(m_contactListener.get());
 }
 
 void PlayState::Draw()
@@ -114,8 +118,10 @@ void PlayState::deleteObj()
 {
     for (const auto& pig : m_pigs)
     {
-        if (pig->getHp() <= 0)
+        if (pig->getHp() <= 0) {
             setScore(pig->getScore());
+            drawDestroyedObj(pig->getPosition());
+        }
     }
     std::erase_if(m_pigs, [](const auto& x) {return x->getHp() <= 0; });
 
@@ -185,6 +191,11 @@ void PlayState::initilaize()
     createGroundAndRogatka();
     m_lvlsMngr.getNextLevel(m_birds, m_pigs , m_gameObjects);
     setNextBird(false);
+    
+    for (size_t i{}; i < m_destroyAnimation.size(); ++i) {
+        m_destroyAnimation.at(i).setSize(sf::Vector2f(50.f, 50.f));
+        m_destroyAnimation.at(i).setTexture(&GameResources::getInstance().getPoofTexture(i));
+    }
 }
 
 void PlayState::createGroundAndRogatka()
@@ -219,5 +230,26 @@ void PlayState::setScore(int toAdd)
     auto toSet = std::stoi(temp);
     toSet += toAdd;
     m_levelData[static_cast<int>(GameData::SCORE)].second.setString(std::to_string(toSet));
+
+}
+
+void PlayState::drawDestroyedObj(const sf::Vector2f& pos) {
+    
+    sf::Clock clock;
+    //float delaySeconds = 0.1f;
+    sf::Time frameTime = sf::seconds(1.0f / 60.0f);
+    for (auto& poof : m_destroyAnimation) {
+        poof.setPosition(pos);
+        m_gameTools->m_window.getWindow().draw(poof);
+        m_gameTools->m_window.getWindow().display();
+
+        sf::Time elapsedTime = clock.restart();
+        sf::Time sleepTime = frameTime - elapsedTime;
+        if (sleepTime > sf::Time::Zero) {
+            sf::sleep(sleepTime);
+        }
+       
+        clock.restart();
+    }
 
 }

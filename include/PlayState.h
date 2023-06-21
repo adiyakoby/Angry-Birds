@@ -40,7 +40,7 @@ public:
 	
 protected:
 	void initilaize();
-
+	
 private:
 	std::shared_ptr<GameTools> m_gameTools;
 	std::vector<sf::RectangleShape> m_buttons;
@@ -59,11 +59,14 @@ private:
 	std::unique_ptr<MyContactListener> m_contactListener;
 	//std::vector<sf::Music> m_gameMusic;
 	
+
+	//destroy's animation array
+	std::array<sf::RectangleShape, 3> m_destroyAnimation;
 	//init functions
 	std::shared_ptr<World> m_world;
 
 	LevelManager m_lvlsMngr;
-	
+	void drawDestroyedObj(const sf::Vector2f& pos);
 
 	//init funcs
 	void createGroundAndRogatka();

@@ -13,6 +13,9 @@
 #include "World.h"
 #include "RedBird.h"
 #include "YellowBird.h"
+#include "BlueBird.h"
+
+
 
 void MyContactListener::BeginContact(b2Contact* contact)
 {
@@ -30,29 +33,53 @@ void MyContactListener::BeginContact(b2Contact* contact)
     Objects* first = reinterpret_cast<Objects*>(bodyA->GetUserData().pointer);
     Objects* second = reinterpret_cast<Objects*>(bodyB->GetUserData().pointer);
 
+
     handleCollision(*first, *second);
 }
 
 namespace {//begin namespace
 
 //-------------HIT FUNCTIONS-----------
+
+
+
+void pigGround(Objects& pig, Objects& ground) {
+    pig.setDamage(pig.getBodyMass() * pig.getBodyVelocity().LengthSquared());
+}
+void groundPig(Objects& ground, Objects& pig) {
+    pigGround(pig, ground);
+}
+
+ void groundWood(Objects& ground, Objects& wood) {
+     wood.setDamage(wood.getBodyMass() * wood.getBodyVelocity().LengthSquared());
+}
+
+void woodGround(Objects& wood, Objects& ground) {
+    groundWood(ground, wood);
+}
+
+void woodWood(Objects& firstWood, Objects& SecondWood) {
+    firstWood.setDamage(SecondWood.getBodyMass() * SecondWood.getBodyVelocity().LengthSquared());
+    SecondWood.setDamage(firstWood.getBodyMass() * firstWood.getBodyVelocity().LengthSquared());
+}
+
 void birdPig(Objects& bird, Objects& pig) {
-    pig.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
-    if (pig.getHp() <= 10)
+    float dmg{ bird.getBodyMass() * bird.getBodyVelocity().LengthSquared() };
+    
+    if (dynamic_cast<BlueBird*>(&bird))
+        dmg *= 2.f;
+
+    pig.setDamage(dmg);
+    if (pig.getHp() <= 10) 
         static_cast<Pig&>(pig).hitState();
-
-    std::cout << pig.getHp()  <<std::endl;
-
 }
 
 void pigBird(Objects& pig, Objects& bird) {
-
     birdPig(bird, pig);
 }
 
 void birdWood(Objects& bird, Objects& wood) {
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
-
 }
 
 void woodBird(Objects& wood, Objects& bird) {
@@ -66,7 +93,6 @@ void pigWood(Objects& pig, Objects& wood) {
     wood.setDamage(dmg);
     if(pig.getHp() <= 10)
         static_cast<Pig&>(pig).hitState();
-    std::cout << pig.getHp() << std::endl;
 }
 
 void woodPig(Objects& wood, Objects& pig) {
@@ -84,6 +110,9 @@ HitMap initializeCollisionMap()
 {
     HitMap phm;
 
+
+    phm[Key(typeid(Wood), typeid(Wood))] = &woodWood;
+
     phm[Key(typeid(RedBird), typeid(Wood))] = &birdWood;
     phm[Key(typeid(Wood), typeid(RedBird))] = &woodBird;
 
@@ -98,6 +127,18 @@ HitMap initializeCollisionMap()
 
     phm[Key(typeid(YellowBird), typeid(Wood))] = &birdWood;
     phm[Key(typeid(Wood), typeid(YellowBird))] = &woodBird;
+
+    phm[Key(typeid(BlueBird), typeid(Pig))] = &birdPig;
+    phm[Key(typeid(Pig), typeid(BlueBird))] = &pigBird;
+
+    phm[Key(typeid(BlueBird), typeid(Wood))] = &birdWood;
+    phm[Key(typeid(Wood), typeid(BlueBird))] = &woodBird;
+
+    phm[Key(typeid(Ground), typeid(Wood))] = &groundWood;
+    phm[Key(typeid(Wood), typeid(Ground))] = &woodGround;
+
+    phm[Key(typeid(Ground), typeid(Pig))] = &groundPig;
+    phm[Key(typeid(Pig), typeid(Ground))] = &pigGround;
 
     //...
     return phm;

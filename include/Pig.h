@@ -19,5 +19,6 @@ private:
 	sf::CircleShape m_pig;
 	void initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size)override;
 	void initGraphicBody(const sf::Vector2f& size = { 20.f, 0.f }) override;
+	bool m_hit;
 };
 
