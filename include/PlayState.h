@@ -14,6 +14,14 @@
 #include "LevelManager.h"
 #include "BlueBird.h"
 
+struct poof {
+
+	poof(const sf::Vector2f& pos) : m_pos{pos} { ; }
+	sf::Vector2f m_pos;
+	sf::Clock m_clock;
+	sf::Time elapsedTime() { return m_clock.getElapsedTime(); };
+};
+
 class PlayState :public State
 {
 public:
@@ -60,12 +68,12 @@ private:
 
 	//destroy's animation array
 	std::array<sf::RectangleShape, 3> m_destroyAnimation;
+	std::vector<poof>m_poofsContainer;
 	//init functions
 	std::shared_ptr<World> m_world;
 
 	LevelManager m_lvlsMngr;
-	void drawDestroyedObj(const sf::Vector2f& pos);
-
+	void drawDestroyedObj();
 	//init funcs
 	void createGroundAndRogatka();
 	void createGameObjs();

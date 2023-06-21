@@ -40,10 +40,9 @@ void birdPig(Objects& bird, Objects& pig) {
     pig.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
     //if (pig.getHp() <= 10) {
         static_cast<Pig&>(pig).hitState();
-        std::cout << "in damage state\n";
-    //}
+        
 
-    std::cout << pig.getHp()  <<std::endl;
+    
 
 }
 
@@ -68,7 +67,6 @@ void pigWood(Objects& pig, Objects& wood) {
     wood.setDamage(dmg);
     if(pig.getHp() <= 10)
         static_cast<Pig&>(pig).hitState();
-    std::cout << pig.getHp() << std::endl;
 }
 
 void woodPig(Objects& wood, Objects& pig) {
