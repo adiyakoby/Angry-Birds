@@ -74,7 +74,7 @@ void MainMenuState::initilaize()
 	//set music
 	m_music.setBuffer(GameResources::getInstance().Playaffect(0));
 	m_music.setLoop(true);
-	m_music.play();
+	//m_music.play();
 }
 
 menuCommand MainMenuState::handleClick(const sf::Vector2f& mouse_loc) // getStatus() == sf::Music::Paused

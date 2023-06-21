@@ -169,7 +169,7 @@ void PlayState::updateView()
 void PlayState::initilaize()
 { 
     //init background
-    m_background.setTexture(&GameResources::getInstance().getGroundTexture(0));
+    m_background.setTexture(&GameResources::getInstance().getTransitionScreens(2));
     m_background.setSize(sf::Vector2f(m_background.getTexture()->getSize().x * 3, m_background.getTexture()->getSize().y));
     m_background.setPosition(0, 0);
 
