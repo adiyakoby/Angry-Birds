@@ -22,6 +22,7 @@ public:
 	sf::Texture& getRogatkaTexture(int index);
 	sf::Texture& getGroundTexture(int index);
 	sf::Texture& getPigsTexture(int index);
+	sf::Texture& getPoofTexture(int index);
 
 	/*sf::Texture& getObjectTexture(int index);
 	sf::Texture& getDataButtuns(int index);*/
@@ -49,6 +50,7 @@ private:
 	std::vector<sf::Texture> m_rogatkaTexture;
 	std::vector<sf::Texture> m_groundTexture;
 	std::vector<sf::Texture> m_pigsTexture;
+	std::vector<sf::Texture> m_poofTexture;
 
 	std::vector <sf::Font> m_font;
 	std::vector <sf::SoundBuffer> m_affects;
