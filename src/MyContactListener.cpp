@@ -13,6 +13,7 @@
 #include "World.h"
 #include "RedBird.h"
 #include "YellowBird.h"
+#include "BlueBird.h"
 
 void MyContactListener::BeginContact(b2Contact* contact)
 {
@@ -37,13 +38,14 @@ namespace {//begin namespace
 
 //-------------HIT FUNCTIONS-----------
 void birdPig(Objects& bird, Objects& pig) {
-    pig.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
-    if (pig.getHp() <= 10) {
+    float dmg{ bird.getBodyMass() * bird.getBodyVelocity().LengthSquared() };
+    
+    if (dynamic_cast<BlueBird*>(&bird))
+        dmg *= 1.5f;
+
+    pig.setDamage(dmg);
+    if (pig.getHp() <= 10) 
         static_cast<Pig&>(pig).hitState();
-    }
-
-    std::cout << pig.getHp()  <<std::endl;
-
 }
 
 void pigBird(Objects& pig, Objects& bird) {
@@ -53,6 +55,9 @@ void pigBird(Objects& pig, Objects& bird) {
 
 void birdWood(Objects& bird, Objects& wood) {
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
+    if (wood.getHp() <= 0)
+        static_cast<Bird&>(bird).applyForce(sf::Vector2f(bird.getBodyVelocity().LengthSquared(), bird.getBodyVelocity().LengthSquared()));
+
 
 }
 
@@ -99,6 +104,12 @@ HitMap initializeCollisionMap()
 
     phm[Key(typeid(YellowBird), typeid(Wood))] = &birdWood;
     phm[Key(typeid(Wood), typeid(YellowBird))] = &woodBird;
+
+    phm[Key(typeid(BlueBird), typeid(Pig))] = &birdPig;
+    phm[Key(typeid(Pig), typeid(BlueBird))] = &pigBird;
+
+    phm[Key(typeid(BlueBird), typeid(Wood))] = &birdWood;
+    phm[Key(typeid(Wood), typeid(BlueBird))] = &woodBird;
 
     //...
     return phm;

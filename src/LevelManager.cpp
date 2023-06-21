@@ -94,6 +94,7 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 	{
 		bool insideLine{ false };
 		std::string line = objDeq.back();
+
 		for (size_t i = 0; i < line.size(); i++)
 		{
 			insideLine = true;
@@ -103,11 +104,11 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 			case ' ': if(insideLine) xPos += 30; break;
 			case '@': pigsVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f))));
-				xPos += 22;																							break;
+				xPos += 21;																							break;
 
 			case '!': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(150.f, 40.f))));
-				objVec.back()->rotate(90); xPos += 44;																break;
+				objVec.back()->rotate(90); xPos += 41;																break;
 
 			case '-': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
 						m_world, sf::Vector2f(xPos , yPos), sf::Vector2f(200.f, 20.f))));   
@@ -117,7 +118,7 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 			}	
 		}
 
-		yPos -= 86;
+		yPos -= 85;
 		xPos = WINDOW_WIDTH * 0.7;
 		objDeq.pop_back();
 	}

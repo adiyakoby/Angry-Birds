@@ -14,7 +14,6 @@ public:
     
     virtual void objectUpdate();
     void applyForce(const sf::Vector2f& force);
-    void createForce(const b2Vec2& force);
 
     virtual void drawObject(sf::RenderWindow& window);
     void handleThrow(const float x, const float y);

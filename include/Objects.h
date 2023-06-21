@@ -26,7 +26,7 @@ public:
 	virtual void rotate(const int& x) = 0;
 	void rotateBody() { m_body->SetTransform(m_body->GetPosition(), m_body->GetAngle() + b2_pi / 2.0f); };
 	const b2Vec2& getBodyVelocity() { return m_body->GetLinearVelocity(); };
-	float getBodyMass() const { return m_body->GetMass(); };
+	float getBodyMass() const { return m_body->GetMass(); m_body.get};
 	
 
 protected:
