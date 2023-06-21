@@ -38,6 +38,7 @@ void LevelSelectState::update()
 	if (m_event)
 		if (m_requestedLevel >= 0 && m_requestedLevel < m_levelData.size())
 			levelRequest();
+	m_event = false;
 }
 
 void LevelSelectState::Draw()
@@ -54,11 +55,14 @@ void LevelSelectState::Resume()
 
 void LevelSelectState::levelRequest()
 {
-	m_sharedData->levelToRead = m_requestedLevel + 1;
-	if (m_firstPlay)
-		m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools), false);
-	else
-		;// m_gameTools->m_gameStates.switchStates();
+	
+	std::cout << "requested level " << m_requestedLevel + 1 << std::endl;
+	//m_sharedData->levelToRead = m_requestedLevel + 1;
+	//if (m_firstPlay)
+	//	m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools), false);
+	//else
+	//	 m_gameTools->m_gameStates.switchStates();
+	
 }
 
 void LevelSelectState::updateReturningValue()
@@ -122,7 +126,8 @@ void LevelSelectState::initilaize()
 		}
 		firstPos = sf::Vector2f(300.f, 500.f);
 	}
-
+	for(int i = 0; i < 6; i++)
+		m_levelData.emplace_back();
 
 	////back button
 	//m_levelsFields.emplace_back();
