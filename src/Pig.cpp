@@ -1,6 +1,6 @@
 #include "Pig.h"
 
-Pig::Pig(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) : StaticObjects(world,20, PIG_SCORE)
+Pig::Pig(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) : StaticObjects(world,20, PIG_SCORE), hit{false}
 {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
@@ -57,8 +57,8 @@ void Pig::drawObject(sf::RenderWindow& window)
 
 void Pig::hitState() {
     
-    static bool hit{ false };
-    if (this->getHp() < 2 && !hit) {
+
+    if (this->getHp() <= 20 && !hit) {
         m_pig.setTexture(&GameResources::getInstance().getPigsTexture(1));
         hit = true;
     }
