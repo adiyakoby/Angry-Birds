@@ -67,9 +67,9 @@ void StateMachine::Switch()
 	m_states.pop();
 
 	//insert in new order
-	m_states.push(std::move(wasBack));
 	m_states.push(std::move(wasTop));
-
+	m_states.push(std::move(wasBack));
+	
 	//resume the operation the state which was in the back
 	m_states.top()->Resume();
 }

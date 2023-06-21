@@ -59,7 +59,7 @@ void LevelSelectState::levelRequest()
 	m_sharedData->levelToRead = m_requestedLevel + 1;
 	if (m_firstPlay)
 	{
-		m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools, this ->m_sharedData), false);
+	//	m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools, this ->m_sharedData), false);
 		m_firstPlay = false;
 	}
 	else
@@ -73,6 +73,8 @@ void LevelSelectState::updateReturningValue()
 		{
 			if (m_levelData.at(m_sharedData->levelToRead - 1).second < m_sharedData->score)
 				m_levelData.at(m_sharedData->levelToRead - 1).second = m_sharedData->score;
+			std::cout << "pass level: " << m_sharedData->levelToRead << std::endl;
+			std::cout << "level score:  " << m_sharedData->score << std::endl;
 			openNewLevel();
 		}
 			
@@ -83,6 +85,7 @@ void LevelSelectState::openNewLevel()
 	m_levelData.emplace_back();
 	m_levelData.back().first = "Level " + std::to_string(m_levelData.size());
 	//m_levelsFields.at(m_levelData.size() - 1).setTexture();
+	std::cout << "open new level " << std::endl;
 }
 
 void LevelSelectState::drawLevelSelect()
@@ -129,7 +132,7 @@ void LevelSelectState::initilaize()
 	}
 
 	//level 1 data
-	for(int i = 0; i < 6; i++)
+	for(int i = 0; i < 1; i++)
 		m_levelData.emplace_back();
 
 	////back button

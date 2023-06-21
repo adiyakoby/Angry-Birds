@@ -1,6 +1,6 @@
 #include "MainMenuState.h"
 #include "HelpScreenState.h"
-//#include "PlayState.h"
+#include "PlayState.h"
 
 MainMenuState::MainMenuState(std::shared_ptr<GameTools> gameTools)
 	:m_gameTools(gameTools)
@@ -92,7 +92,7 @@ void MainMenuState::menuManeger()
 {
 	switch (m_mode)
 	{
-	//case menuCommand::PLAY:     m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools), true);              break;
+	case menuCommand::PLAY:     m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools), true);              break;
 	case menuCommand::HELP:     m_gameTools->m_gameStates.addState(std::make_unique<HelpScreenState>(this->m_gameTools), false);       break;
 	case menuCommand::MUTE:;
 	case menuCommand::SOUND:    setSound(m_mode);                                                                                      break;
