@@ -1,7 +1,9 @@
 #include "LevelSelectState.h"
+#include "PlayState.h"
 
 LevelSelectState::LevelSelectState(std::shared_ptr<GameTools> gameTools)
-	:m_gameTools{ gameTools }, m_sharedData{ std::make_shared<SharedData>() }, m_event{false}
+	:m_gameTools{ gameTools }, m_sharedData{ std::make_shared<SharedData>() }, 
+	m_event{ false }, m_firstPlay{true}, m_requestedLevel{0}
 {
 	initilaize();
 }
@@ -22,7 +24,7 @@ void LevelSelectState::processManeger()
 			auto location = m_gameTools->m_window.getWindow().mapPixelToCoords(
 				{ event.mouseButton.x, event.mouseButton.y });
 
-			//m_mode = handleClick(location);
+			m_requestedLevel = handleClick(location);
 			m_event = true;
 			break;
 		}
@@ -33,7 +35,9 @@ void LevelSelectState::processManeger()
 
 void LevelSelectState::update()
 {
-	;
+	if (m_event)
+		if (m_requestedLevel >= 0 && m_requestedLevel < m_levelData.size())
+			levelRequest();
 }
 
 void LevelSelectState::Draw()
@@ -48,14 +52,32 @@ void LevelSelectState::Resume()
 	updateReturningValue();
 }
 
-void LevelSelectState::levelRequest(int)
+void LevelSelectState::levelRequest()
 {
-	;
+	m_sharedData->levelToRead = m_requestedLevel + 1;
+	if (m_firstPlay)
+		m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools), false);
+	else
+		;// m_gameTools->m_gameStates.switchStates();
 }
 
 void LevelSelectState::updateReturningValue()
 {
-	;
+	if (m_sharedData->levelStatus == "Pass")
+		if (m_sharedData->levelToRead < 6)
+		{
+			if (m_levelData.at(m_sharedData->levelToRead - 1).second < m_sharedData->score)
+				m_levelData.at(m_sharedData->levelToRead - 1).second = m_sharedData->score;
+			openNewLevel();
+		}
+			
+}
+
+void LevelSelectState::openNewLevel()
+{
+	m_levelData.emplace_back();
+	m_levelData.back().first = "Level " + std::to_string(m_levelData.size());
+	//m_levelsFields.at(m_levelData.size() - 1).setTexture();
 }
 
 void LevelSelectState::drawLevelSelect()
@@ -66,6 +88,14 @@ void LevelSelectState::drawLevelSelect()
 		m_gameTools->m_window.getWindow().draw(i);
 
 	m_gameTools->m_window.getWindow().draw(m_backButton);
+}
+
+int LevelSelectState::handleClick(sf::Vector2f mouse_loc)
+{
+	for (int i = 0; i < m_levelsFields.size(); i++)
+		if (m_levelsFields.at(i).getGlobalBounds().contains(mouse_loc))
+			return i;
+	return -1;
 }
 
 void LevelSelectState::initilaize()

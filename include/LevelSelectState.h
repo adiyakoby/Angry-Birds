@@ -14,7 +14,7 @@ struct SharedData
 {
 	int levelToRead;
 	int score;
-	GameStates currentState;
+	std::string levelStatus;
 };
 
 class LevelSelectState : public State
@@ -28,9 +28,11 @@ public:
 	void Resume()override;
 	void Pause()override {}
 
-	void levelRequest(int);//set play data( e.g. which level to read)
+	void levelRequest();//set play data( e.g. which level to read)
 	void updateReturningValue();//get the returning value from play state
+	void openNewLevel();
 	void drawLevelSelect();
+	int handleClick(sf::Vector2f);
 protected:
 	void initilaize();
 private:
@@ -40,7 +42,9 @@ private:
 	sf::RectangleShape m_backButton;
 	std::vector<std::pair<std::string, int>> m_levelData;
 	sf::RectangleShape m_backGround;
+	int m_requestedLevel;
 	bool m_event;
+	bool m_firstPlay;
 	sf::Sound m_music;
 };
 
