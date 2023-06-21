@@ -41,6 +41,15 @@ namespace {//begin namespace
 
 //-------------HIT FUNCTIONS-----------
 
+
+
+void pigGround(Objects& pig, Objects& ground) {
+    pig.setDamage(pig.getBodyMass() * pig.getBodyVelocity().LengthSquared());
+}
+void groundPig(Objects& ground, Objects& pig) {
+    pigGround(pig, ground);
+}
+
  void groundWood(Objects& ground, Objects& wood) {
      wood.setDamage(wood.getBodyMass() * wood.getBodyVelocity().LengthSquared());
 }
@@ -66,7 +75,6 @@ void birdPig(Objects& bird, Objects& pig) {
 }
 
 void pigBird(Objects& pig, Objects& bird) {
-
     birdPig(bird, pig);
 }
 
@@ -128,6 +136,9 @@ HitMap initializeCollisionMap()
 
     phm[Key(typeid(Ground), typeid(Wood))] = &groundWood;
     phm[Key(typeid(Wood), typeid(Ground))] = &woodGround;
+
+    phm[Key(typeid(Ground), typeid(Pig))] = &groundPig;
+    phm[Key(typeid(Pig), typeid(Ground))] = &pigGround;
 
     //...
     return phm;
