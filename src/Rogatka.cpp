@@ -1,6 +1,7 @@
 #include "Rogatka.h"
 
-Rogatka::Rogatka(std::shared_ptr<World> world,const sf::Vector2f& position, const sf::Vector2f& size ) : StaticObjects(world) {
+Rogatka::Rogatka(std::shared_ptr<World> world,const sf::Vector2f& position, const sf::Vector2f& size, const int& index) 
+    : StaticObjects(world), m_textureIndex{index} {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
     m_rogatkaSize = m_rogatka.getSize();
@@ -27,7 +28,7 @@ void Rogatka::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& p
 void Rogatka::initGraphicBody(const sf::Vector2f& size) {
     b2Vec2 position = m_body->GetPosition();
     float angle = m_body->GetAngle();
-    m_rogatka.setTexture(&GameResources::getInstance().getRogatkaTexture(0));
+    m_rogatka.setTexture(&GameResources::getInstance().getRogatkaTexture(m_textureIndex));
     m_rogatka.setSize(sf::Vector2f(size.x*8, size.y*2));
     m_rogatka.setOrigin(m_rogatka.getSize().x / 2.f, m_rogatka.getSize().y / 2.f);
     m_rogatka.setPosition(position.x * SCALE, position.y * SCALE);
@@ -50,8 +51,8 @@ void Rogatka::resetRogatka() {
 //to "register" the object in the Factory
 static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerType(
     "rogatka",
-    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index) -> std::unique_ptr<StaticObjects>
     {
-        return std::make_unique<Rogatka>(world, position, size);
+        return std::make_unique<Rogatka>(world, position, size, index);
     }
 );

@@ -9,7 +9,7 @@ class Bird: public Objects
     //public Objects
 public:
 
-	Bird(std::shared_ptr<World> world,const sf::Vector2f &position, const sf::Vector2f& size, const int& BirdType);
+	Bird(std::shared_ptr<World> world,const sf::Vector2f &position, const sf::Vector2f& size, const int& index);
     virtual ~Bird() = default;
     
     virtual void objectUpdate();

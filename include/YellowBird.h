@@ -3,7 +3,7 @@
 class YellowBird : public Bird
 {
 public:
-	YellowBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size);
+	YellowBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index = 1);
 	virtual ~YellowBird() = default;
     void handleEvent(sf::Event& event, const sf::Vector2f& mouse);
 

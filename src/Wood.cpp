@@ -1,7 +1,7 @@
 #include "Wood.h"
 
-Wood::Wood(std::shared_ptr<World> world, const sf::Vector2f position, const sf::Vector2f& size) : 
-    StaticObjects(world, WOOD_HP, WOOD_SCORE), m_hit{false} {
+Wood::Wood(std::shared_ptr<World> world, const sf::Vector2f position, const sf::Vector2f& size, const int& index) :
+    StaticObjects(world, WOOD_HP, WOOD_SCORE), m_hit{ false }, m_textureIndex{index} {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
 }
@@ -44,7 +44,7 @@ void Wood::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& posi
 
 void Wood::initGraphicBody(const sf::Vector2f& size) 
 {
-    m_wood.setTexture(&GameResources::getInstance().getWoodsTexture(0));
+    m_wood.setTexture(&GameResources::getInstance().getWoodsTexture(m_textureIndex));
     m_wood.setSize(size);
     m_wood.setOrigin(size.x*0.5f , size.y * 0.5f);
     m_wood.setPosition(std::move(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE)));
@@ -53,9 +53,9 @@ void Wood::initGraphicBody(const sf::Vector2f& size)
 //to "register" the object in the Factory
 static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerType(
     "wood",
-    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index) -> std::unique_ptr<StaticObjects>
     {
-        return std::make_unique<Wood>(world, position, size);
+        return std::make_unique<Wood>(world, position, size, index);
     }
 );
 

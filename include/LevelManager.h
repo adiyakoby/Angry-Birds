@@ -7,7 +7,7 @@
 #include "BlueBird.h"
 #include "World.h"
 #include "Macro.h"
-
+#include "BlackBird.h"
 #include <fstream>
 #include <vector>
 #include <deque>
@@ -15,7 +15,6 @@
 #include <unordered_map>
 #include <array>
 
-class Objects;
 
 class LevelManager
 {

@@ -80,7 +80,7 @@ void pigBird(Objects& pig, Objects& bird) {
 
 void birdWood(Objects& bird, Objects& wood) {
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
-    if (wood.getHp() <= 20)
+    if (wood.getHp() <= 15)
         static_cast<Wood&>(wood).hitState();
 }
 

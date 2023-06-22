@@ -21,6 +21,7 @@ const float ROGATKA_X{ 300.f };
 const float ROGATKA_Y{ 660.f };
 const float BLUE_BIRDS_DISTANCE = 100.f;
 const float BLUE_BIRD_SPLIT_RADIUS = 15.f;
+const float BOMB_SIZE = 15.f;
 
 
 // Game Score

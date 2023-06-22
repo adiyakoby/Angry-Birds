@@ -1,6 +1,7 @@
 #include "Pig.h"
 
-Pig::Pig(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) : StaticObjects(world, PIG_HP, PIG_SCORE), m_hit{false}
+Pig::Pig(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index)
+    : StaticObjects(world, PIG_HP, PIG_SCORE), m_hit{ false }, m_textuerIndex{index}
 {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
@@ -35,7 +36,7 @@ void Pig::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& posit
 void Pig::initGraphicBody(const sf::Vector2f& size)
 {
 
-    m_pig.setTexture(&GameResources::getInstance().getPigsTexture(0));
+    m_pig.setTexture(&GameResources::getInstance().getPigsTexture(m_textuerIndex));
     m_pig.setRadius(size.x);
     m_pig.setOrigin(size.x, size.x);
     m_pig.setPosition(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE));
@@ -65,8 +66,8 @@ void Pig::hitState() {
 //to "register" the object in the Factory
 static auto registerItPig = ObjectFactory<StaticObjects>::instance().registerType(
     "Pigs",
-    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index) -> std::unique_ptr<StaticObjects>
     {
-        return std::make_unique<Pig>(world, position, size);
+        return std::make_unique<Pig>(world, position, size, index);
     }
 );
