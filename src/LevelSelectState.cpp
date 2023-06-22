@@ -49,7 +49,7 @@ void LevelSelectState::update()
 
 void LevelSelectState::Draw()
 {
-	m_gameTools->m_window.getWindow().clear();
+	m_gameTools->m_window.getWindow().clear(sf::Color::Green);
 	drawLevelSelect();
 	m_gameTools->m_window.getWindow().display();
 }
@@ -73,6 +73,7 @@ void LevelSelectState::updateReturningValue()
 		{
 			if (m_levelData.at(m_sharedData->levelToRead - 1).second < m_sharedData->score)
 				m_levelData.at(m_sharedData->levelToRead - 1).second = m_sharedData->score;
+			m_levelsFields.at(m_sharedData->levelToRead - 1).second.setString(m_levelData.back().first + std::to_string(m_levelData.back().second));
 			std::cout << "pass level: " << m_sharedData->levelToRead << std::endl;
 			std::cout << "level score:  " << m_sharedData->score << std::endl;
 			openNewLevel();
@@ -83,8 +84,13 @@ void LevelSelectState::updateReturningValue()
 void LevelSelectState::openNewLevel()
 {
 	m_levelData.emplace_back();
-	m_levelData.back().first = "Level " + std::to_string(m_levelData.size());
-	//m_levelsFields.at(m_levelData.size() - 1).setTexture();
+	m_levelData.back().first = "Score: ";
+	m_levelData.back().second = 0;
+	int newLevel = m_levelData.size() - 1;
+	m_levelsFields.at(newLevel).first.setTexture(&GameResources::getInstance().getLevelsFields(newLevel), true);
+	m_levelsFields.at(newLevel).second = GameResources::getInstance().createText(m_levelData.at(newLevel).first + std::to_string(m_levelData.at(newLevel).second), sf::Color::White, 0);
+	m_levelsFields.at(newLevel).second.setPosition(m_levelsFields.at(newLevel).first.getPosition() + sf::Vector2f(0, 50));
+	m_levelsFields.at(newLevel).second.setCharacterSize(25);
 	std::cout << "open new level " << std::endl;
 }
 
@@ -93,7 +99,11 @@ void LevelSelectState::drawLevelSelect()
 	m_gameTools->m_window.getWindow().draw(m_backGround);
 
 	for (const auto& i : m_levelsFields)
+	{
 		m_gameTools->m_window.getWindow().draw(i.first);
+		m_gameTools->m_window.getWindow().draw(i.second);
+	}
+		
 
 	//m_gameTools->m_window.getWindow().draw(m_backButton);
 }
@@ -112,7 +122,7 @@ void LevelSelectState::initilaize()
 	m_backGround.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 	m_backGround.setPosition(0, 0);
 	m_backGround.setTexture(&GameResources::getInstance().getTransitionScreens(3));
-
+	
 	//levels fields
 	auto firstPos = sf::Vector2f(300.f, 200.f);
 	for (int level = 0; level < 2; level++)
@@ -123,18 +133,21 @@ void LevelSelectState::initilaize()
 			m_levelsFields.back().first.setSize(sf::Vector2f(200.f, 200.f));
 			m_levelsFields.back().first.setOrigin(m_levelsFields.back().first.getSize() * 0.5f);
 			m_levelsFields.back().first.setPosition(firstPos);
-
+			m_levelsFields.back().first.setTexture(&GameResources::getInstance().getLockTexture());
 			firstPos.x += 400.f;
 		}
 		firstPos = sf::Vector2f(300.f, 500.f);
 	}
 
-	for(int i = 0 ; i < 6 ; i++)
-		m_levelsFields.at(i).first.setTexture(&GameResources::getInstance().getLevelsFields(i));
-	//level 1 data
+	//give access to level 1
+	
 	m_levelData.emplace_back();
-	m_levelData.back().first = "Score ";
+	m_levelData.back().first = "Score: ";
 	m_levelData.back().second = 0;
+	m_levelsFields.at(0).first.setTexture(&GameResources::getInstance().getLevelsFields(0), true);
+	m_levelsFields.at(0).second = GameResources::getInstance().createText(m_levelData.at(0).first + std::to_string(m_levelData.at(0).second), sf::Color::White, 0);
+	m_levelsFields.at(0).second.setPosition(sf::Vector2f(300, 250));
+	m_levelsFields.at(0).second.setCharacterSize(25);
 
 	////back button
 	//m_levelsFields.emplace_back();

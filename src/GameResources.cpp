@@ -33,6 +33,10 @@ sf::Texture& GameResources::getPoofTexture(int index)
 {
     return m_poofTexture.at(index);
 }
+sf::Texture& GameResources::getLockTexture()
+{
+    return m_lockLevel;
+}
 sf::Texture& GameResources::getHelpTexture(int index)
 {
     /* if (index < 9 && index >= 0)
@@ -208,6 +212,11 @@ void GameResources::initTextures()
         m_levelsFields.emplace_back();
         m_levelsFields.back().loadFromFile("LevelSelectSpriteSheet.png", levelsLocation.at(i));
     }
+
+
+    //load textore for lock levels 
+    m_lockLevel.loadFromFile("SpritesForLevelSelect.png", sf::IntRect{5, 510, 90, 120});
+    
 }
 
 //load the fonts for the game

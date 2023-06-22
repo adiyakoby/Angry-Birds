@@ -33,6 +33,7 @@ public:
 	void openNewLevel();
 	void drawLevelSelect();
 	int handleClick(sf::Vector2f);
+
 protected:
 	void initilaize();
 private:
