@@ -176,8 +176,16 @@ void GameResources::initTextures()
     for (size_t i = 0; i < WoodLocation.size(); i++)
     {
         m_obstacles.emplace_back();
-        m_obstacles.back().loadFromFile("StaticObjects.png", WoodLocation.at(i));
+        m_obstacles.back().loadFromFile("StaticObjects.png", IceLocation.at(i));
     }
+                                        // Indexes: 8  ,  9  , 10   , 11
+    std::array<sf::IntRect, 4> IronLocation{ sf::IntRect{319,711,168,22} , sf::IntRect{319,778,168,22}, sf::IntRect{805,501,85,42}, sf::IntRect{234,859,85,42} };
+    for (size_t i = 0; i < WoodLocation.size(); i++)
+    {
+        m_obstacles.emplace_back();
+        m_obstacles.back().loadFromFile("StaticObjects.png", IronLocation.at(i));
+    }
+
 
  
     std::array<std::string, 1> rogatkaNames{ "rogatka.png" };

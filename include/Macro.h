@@ -34,7 +34,16 @@ const int Metal_SCORE = 15;
 const int PIG_SCORE = 20;
 
 // Obstacles HP :
-const int WOOD_HP = 40;
-const int IRON_HP = 60;
-const int ICE_HP = 20;
-const int PIG_HP = 20;
+const int IRON_HP = 400;
+const int WOOD_HP = 200;
+const int ICE_HP = 100;
+const int PIG_HP = 100;
+const int BIRD_HP = 10;
+
+
+// Obstacles Density :
+const int IRON_DENSITY = 5;
+const int WOOD_DENSITY = 2;
+const int ICE_DENSITY = 1;
+const int BIRD_DENSITY = 1;
+const int PIG_DENSITY = 1;

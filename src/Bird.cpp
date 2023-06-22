@@ -28,7 +28,7 @@ void Bird::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& posi
     // Create Box2D fixture definition
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
-    fixtureDef.density = 0.5f;
+    fixtureDef.density = (getHp()*0.05f);
     fixtureDef.friction = 0.3f;
     fixtureDef.restitution = 0.3f;
     m_body->CreateFixture(&fixtureDef);
@@ -59,7 +59,7 @@ void Bird::applyForce(const sf::Vector2f& force)
     m_onRogatka = false; //cannot fire again
 
     // Apply impulse force to the Box2D body
-    b2Vec2 forceScaled{ force.x / SCALE, force.y / SCALE };
+    b2Vec2 forceScaled{ force.x *5 / SCALE, force.y*5 / SCALE };
     //temp.Normalize();
     m_body->SetLinearVelocity(forceScaled);
     m_body->ApplyLinearImpulse(forceScaled , m_body->GetWorldCenter() , true);

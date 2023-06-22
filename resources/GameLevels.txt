@@ -1,11 +1,11 @@
 Level 1
-Birds: R B 
+Birds: R B Y
                  
-        ! @ ! 
-          -
+        | @ | 
+          ~
         !   !
           _     
-        # @ # 
+        | @ | 
 
 
 
