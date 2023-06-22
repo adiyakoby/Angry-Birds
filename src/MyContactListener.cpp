@@ -67,7 +67,7 @@ void birdPig(Objects& bird, Objects& pig) {
     float dmg{ bird.getBodyMass() * bird.getBodyVelocity().LengthSquared() };
     
     if (dynamic_cast<BlueBird*>(&bird))
-        dmg *= 2.f;
+        dmg *= 3.f;
 
     pig.setDamage(dmg);
     if (pig.getHp() <= 10) 
@@ -80,6 +80,9 @@ void pigBird(Objects& pig, Objects& bird) {
 
 void birdWood(Objects& bird, Objects& wood) {
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
+   //if (wood.getHp() <= 0)
+     //   static_cast<Bird&>(bird).applyForce(sf::Vector2f(bird.getBodyVelocity().x* bird.getBodyMass(), bird.getBodyVelocity().y* bird.getBodyMass()));
+    
 }
 
 void woodBird(Objects& wood, Objects& bird) {
