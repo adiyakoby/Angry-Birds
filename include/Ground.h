@@ -4,7 +4,7 @@
 class Ground : public StaticObjects
 {
 public:
-	Ground(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size = sf::Vector2f{WINDOW_WIDTH, WINDOW_HEIGHT});
+	Ground(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size = sf::Vector2f{WINDOW_WIDTH, WINDOW_HEIGHT}, const int& Index=0);
 	 ~Ground() = default;
 
 	void objectUpdate()override {}
@@ -14,10 +14,10 @@ public:
 	void hitState() override { ; };
 private:
 	sf::RectangleShape m_ground;
-
+	
 	//init functions
 	void initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size);
-	void initGraphicBody(const sf::Vector2f& size = {WINDOW_WIDTH, WINDOW_HEIGHT})override;
+	void initGraphicBody(const sf::Vector2f& size = { WINDOW_WIDTH, WINDOW_HEIGHT })override { ; };
 	
 };
 

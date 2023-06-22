@@ -2,7 +2,8 @@
 #include "Bird.h"
 #include <cmath>
 
-Bird::Bird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& BirdType) : Objects(world, 100), m_dragging{ false }, m_onRogatka{ false }, m_BirdType{BirdType}
+Bird::Bird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& BirdType) 
+    : Objects(world, 100), m_dragging{ false }, m_onRogatka{ false }, m_BirdType{BirdType}
 {
     initPhysicBody(world, position, size);
     initGraphicBody(size);   
@@ -82,6 +83,7 @@ void Bird::handleThrow(const float x, const float y)
         dragStartPosition = sf::Vector2f(x, y);
     }
 }
+
 void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w)
 {
     sf::VertexArray line(sf::Lines, 2);

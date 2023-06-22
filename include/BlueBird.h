@@ -11,7 +11,7 @@ enum BirdState {
 class BlueBird : public Bird
 {
 public:
-	BlueBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size);
+	BlueBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index = 2);
 	virtual ~BlueBird() = default;
 
 	void handleEvent(sf::Event& event, const sf::Vector2f& mouse);
@@ -22,6 +22,9 @@ private:
 	std::array<std::unique_ptr<BlueBird>,2> m_split;
 	std::shared_ptr<World> m_world;
 	bool isSplit;
+	
+
+
 	BirdState m_state;
 	void setBodySize();
 };

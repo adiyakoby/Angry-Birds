@@ -5,7 +5,7 @@
 #include "Bird.h"
 #include "Ground.h"
 #include "World.h"
-#include "Wood.h"
+//#include "Wood.h"
 #include "Rogatka.h"
 #include "MyContactListener.h"
 #include "Pig.h"
@@ -13,6 +13,7 @@
 #include "RedBird.h"
 #include "LevelManager.h"
 #include "BlueBird.h"
+#include "Obstacle.h"
 
 struct poof {
 

@@ -71,9 +71,9 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 		{
 			switch (line.at(line.size()-i-1))
 			{
-			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f))));     break;
-			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f))));  break;
-			case 'B': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("BlueBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f))));  break;
+			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f), 0)));     break;
+			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f), 1)));  break;
+			case 'B': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("BlueBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f), 2)));  break;
 
 
 			default: break;
@@ -110,15 +110,15 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 			case '/':  break;
 			case ' ': if(insideLine) xPos += 30; break;
 			case '@': pigsVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
-				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f))));
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f), 0)));
 				xPos += 21;																							break;
 
 			case '!': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
-				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(150.f, 40.f))));
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(150.f, 40.f), 0)));
 				objVec.back()->rotate(90); xPos += 41;																break;
 
 			case '-': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
-						m_world, sf::Vector2f(xPos , yPos), sf::Vector2f(200.f, 20.f))));   
+						m_world, sf::Vector2f(xPos , yPos), sf::Vector2f(200.f, 20.f), 2)));   
 				xPos += 202;																						break;
 
 			default: break;

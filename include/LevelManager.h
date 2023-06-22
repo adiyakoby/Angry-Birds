@@ -15,7 +15,6 @@
 #include <unordered_map>
 #include <array>
 
-class Objects;
 
 class LevelManager
 {

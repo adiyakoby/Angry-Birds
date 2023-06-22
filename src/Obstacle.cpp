@@ -1,7 +1,7 @@
 #include "Obstacle.h"
 
-Obstacle::Obstacle(std::shared_ptr<World> world, const sf::Vector2f position, const sf::Vector2f& size) :
-    StaticObjects(world, WOOD_HP, WOOD_SCORE), m_hit{ false } {
+Obstacle::Obstacle(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& textureIndex) 
+    : StaticObjects(world, WOOD_HP, WOOD_SCORE), m_hit{ false }, m_textureIndex{ textureIndex } {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
 }
@@ -44,7 +44,7 @@ void Obstacle::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& 
 
 void Obstacle::initGraphicBody(const sf::Vector2f& size)
 {
-    m_obstacle.setTexture(&GameResources::getInstance().getWoodsTexture(0));
+    m_obstacle.setTexture(&GameResources::getInstance().getWoodsTexture(m_textureIndex));
     m_obstacle.setSize(size);
     m_obstacle.setOrigin(size.x * 0.5f, size.y * 0.5f);
     m_obstacle.setPosition(std::move(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE)));
@@ -53,15 +53,15 @@ void Obstacle::initGraphicBody(const sf::Vector2f& size)
 //to "register" the object in the Factory
 static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerType(
     "Obstacle",
-    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<StaticObjects>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index) -> std::unique_ptr<StaticObjects>
     {
-        return std::make_unique<Obstacle>(world, position, size);
+        return std::make_unique<Obstacle>(world, position, size, index);
     }
 );
 
 void Obstacle::hitState()
 {
     if (m_hit) return;
-    m_obstacle.setTexture(&GameResources::getInstance().getWoodsTexture(2));
+    m_obstacle.setTexture(&GameResources::getInstance().getWoodsTexture(m_textureIndex + 1));
     m_hit = true;
 }
