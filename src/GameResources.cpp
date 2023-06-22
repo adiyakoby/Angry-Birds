@@ -227,10 +227,11 @@ void GameResources::initTextures()
         m_levelsFields.emplace_back();
         m_levelsFields.back().loadFromFile("LevelSelectSpriteSheet.png", levelsLocation.at(i));
     }
- 
-    m_lock.loadFromFile("SpritesForLevelSelect.png", sf::IntRect{5, 510, 90, 120});
     
 
+    //get the lock Texture for LevelSelectState(when the levels still unaccessable)
+    m_lock.loadFromFile("SpritesForLevelSelect.png", sf::IntRect{5, 510, 90, 120});
+    
     //load the transition screens for states(game over level pass)
     std::array<std::string, 2> TransitionState{ "failedLevel.png", "LevelPass.png" };
 
