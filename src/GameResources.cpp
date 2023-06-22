@@ -149,7 +149,7 @@ void GameResources::initTextures()
     }
 
 
-    std::array<sf::IntRect, 2> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{233,643,82,42} };
+    std::array<sf::IntRect, 3> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{233,643,82,42} , sf::IntRect{319,646,204,21}};
     for (size_t i = 0; i < WoodLocation.size(); i++)
     {
         m_woodsTexture.emplace_back();

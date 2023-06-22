@@ -13,7 +13,7 @@ public:
 	virtual void drawObject(sf::RenderWindow& window);
 	sf::Vector2f getPosition() const override { return m_rogatka.getPosition(); };
 	void rotate(const int& x) override { ; };
-
+	void hitState() override { ; };
 	void ignoreRogatka();
 	void resetRogatka();
 private:
