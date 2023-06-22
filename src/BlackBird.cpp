@@ -116,11 +116,7 @@ void BlackBird::PhysicBombBody(const int index, const sf::Vector2f& position) {
     fixtureDef.restitution = 0.f;
     m_bombs.at(index)->CreateFixture(&fixtureDef);
 }
-void BlackBird::setBombTexture()
-{
-    m_bombImage.at(0).setTexture(&GameResources::getInstance().getPoofTexture(3));
-    m_bombImage.at(1).setTexture(&GameResources::getInstance().getPoofTexture(4));
-}
+
 void BlackBird::explode()
 {
     m_exploded = true;
