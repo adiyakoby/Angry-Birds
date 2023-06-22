@@ -26,6 +26,7 @@ public:
     void setOnRogatka(const bool& is) { m_onRogatka = is; m_body->SetEnabled(true); };
     bool isOnRogatka() const { return m_onRogatka; };
 
+
 protected:
     sf::CircleShape m_bird;
     virtual void rotate(const int& x) {};

@@ -12,7 +12,7 @@
 //1)LevelSelectState 2)PlayState 3)TransnitionScreen
 struct SharedData
 {
-	int levelToRead;
+	int levelToRead = 0;
 	int score;
 	std::string levelStatus;
 };

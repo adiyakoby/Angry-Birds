@@ -59,7 +59,8 @@ std::deque<std::string> LevelManager::ReadBirds()
 
 std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::string>& objDeq)
 {
-	float deltaX{ 100.f };
+	float deltaX{ 200.f };
+	float deltaY{ ROGATKA_Y + 50.f };
 	std::vector<std::unique_ptr<Bird>> tempVec;
 
 	while (!objDeq.empty())
@@ -77,9 +78,11 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 
 			default: break;
 			}
-			deltaX += 50.f;
-
-
+			deltaX += 25.f;
+			if (deltaX == 300) {
+				deltaX = 200.f;
+				deltaY -= 25.f;
+			}
 		}
 
 		objDeq.pop_back();

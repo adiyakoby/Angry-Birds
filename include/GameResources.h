@@ -47,10 +47,10 @@ private:
 	std::vector <sf::Texture> m_helpTexture;
 	std::vector <sf::Texture> m_birdsTexture;
 	std::vector <sf::Texture> m_woodsTexture;
-	std::vector<sf::Texture> m_rogatkaTexture;
-	std::vector<sf::Texture> m_groundTexture;
-	std::vector<sf::Texture> m_pigsTexture;
-	std::vector<sf::Texture> m_poofTexture;
+	std::vector <sf::Texture> m_rogatkaTexture;
+	std::vector <sf::Texture> m_groundTexture;
+	std::vector <sf::Texture> m_pigsTexture;
+	std::vector <sf::Texture> m_poofTexture;
 
 	std::vector <sf::Font> m_font;
 	std::vector <sf::SoundBuffer> m_affects;

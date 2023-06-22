@@ -10,6 +10,12 @@ LevelSelectState::LevelSelectState(std::shared_ptr<GameTools> gameTools)
 
 void LevelSelectState::processManeger()
 {
+	if (m_firstPlay)
+	{
+		m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools, this->m_sharedData), false);
+		m_gameTools->m_gameStates.switchStates();
+		m_firstPlay = false;
+	}
 	if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event))
 	{
 		switch (event.type)
@@ -57,19 +63,13 @@ void LevelSelectState::levelRequest()
 {
 	std::cout << "requested level " << m_requestedLevel + 1 << std::endl;
 	m_sharedData->levelToRead = m_requestedLevel + 1;
-	if (m_firstPlay)
-	{
-	//	m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools, this ->m_sharedData), false);
-		m_firstPlay = false;
-	}
-	else
-		 m_gameTools->m_gameStates.switchStates();
+	m_gameTools->m_gameStates.switchStates();
 }
 
 void LevelSelectState::updateReturningValue()
 {
-	if (m_sharedData->levelStatus == "Pass")
-		if (m_sharedData->levelToRead < 6)
+	if (m_sharedData->levelStatus == "Pass" )
+		if (m_sharedData->levelToRead < 6 && m_sharedData->levelToRead >= m_levelData.size())
 		{
 			if (m_levelData.at(m_sharedData->levelToRead - 1).second < m_sharedData->score)
 				m_levelData.at(m_sharedData->levelToRead - 1).second = m_sharedData->score;

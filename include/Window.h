@@ -14,6 +14,7 @@ public:
 	~Window() = default;
 	sf::RenderWindow& getWindow();
 	void setView(float x, float y);
+	void resetView();
 private:
 	sf::RenderWindow m_window;
 

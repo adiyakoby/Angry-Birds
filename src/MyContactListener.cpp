@@ -67,7 +67,7 @@ void birdPig(Objects& bird, Objects& pig) {
     float dmg{ bird.getBodyMass() * bird.getBodyVelocity().LengthSquared() };
     
     if (dynamic_cast<BlueBird*>(&bird))
-        dmg *= 2.f;
+        dmg *= 4.f;
 
     pig.setDamage(dmg);
     if (pig.getHp() <= 10) 
@@ -80,6 +80,8 @@ void pigBird(Objects& pig, Objects& bird) {
 
 void birdWood(Objects& bird, Objects& wood) {
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
+    if (wood.getHp() <= 20)
+        static_cast<Wood&>(wood).hitState();
 }
 
 void woodBird(Objects& wood, Objects& bird) {
