@@ -14,24 +14,37 @@
 #include "LevelManager.h"
 #include "BlueBird.h"
 
+struct poof {
+
+	poof(const sf::Vector2f& pos) : m_pos{pos} { ; }
+	sf::Vector2f m_pos;
+	sf::Clock m_clock;
+	sf::Time elapsedTime() { return m_clock.getElapsedTime(); };
+};
+
+//struct SharedData; #level select
+
 class PlayState :public State
 {
 public:
-	PlayState(std::shared_ptr<GameTools>);
+	PlayState(std::shared_ptr<GameTools>/*, std::shared_ptr<SharedData>*/);
 	~PlayState() = default;
 
 	void processManeger();
 	void update();
 	void Draw();
+	void Resume()override;
+	void Pause()override {}
 
 	//update func
 	void deleteObj();
 	void drawGame();
 	void updateView();
 	void setNextBird(const bool &x);
+	//void setUpForEndLevel(std::string); #level select
 	void setUpForNextLevel();
 	void setUpForGameOver();
-
+	bool levelEnd();
 	bool isFinishedMoving();
 	void updateDataPosition();
 	void setScore(int);
@@ -60,12 +73,12 @@ private:
 
 	//destroy's animation array
 	std::array<sf::RectangleShape, 3> m_destroyAnimation;
+	std::vector<poof>m_poofsContainer;
 	//init functions
 	std::shared_ptr<World> m_world;
-
+	//std::shared_ptr<SharedData> m_sharedData; #level select
 	LevelManager m_lvlsMngr;
-	void drawDestroyedObj(const sf::Vector2f& pos);
-
+	void drawDestroyedObj();
 	//init funcs
 	void createGroundAndRogatka();
 	void createGameObjs();

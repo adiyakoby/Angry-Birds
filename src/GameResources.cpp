@@ -52,9 +52,9 @@ sf::Texture& GameResources::getRogatkaTexture(int index) {
     return m_rogatkaTexture.at(index);
 }
 
-sf::Texture& GameResources::getGroundTexture(int index) {
-    return m_groundTexture.at(index);
-}
+//sf::Texture& GameResources::getGroundTexture(int index) {
+//    return m_groundTexture.at(index);
+//}
 
 sf::Texture& GameResources::getPigsTexture(int index) {
     return m_pigsTexture.at(index);
@@ -164,18 +164,18 @@ void GameResources::initTextures()
         m_rogatkaTexture.back().loadFromFile(rogatkaNames.at(i));
     }
 
-    std::array<std::string, 1> groundNames{ "ground.png" };
-    for (size_t i = 0; i < groundNames.size(); i++)
-    {
-        m_groundTexture.emplace_back();
-        m_groundTexture.back().loadFromFile(groundNames.at(i));
-    }
+    //std::array<std::string, 1> groundNames{ "ground.png" };
+    //for (size_t i = 0; i < groundNames.size(); i++)
+    //{
+    //    m_groundTexture.emplace_back();
+    //    m_groundTexture.back().loadFromFile(groundNames.at(i));
+    //}
     
     //---------------------------screens textures-----------------------------
     //all the texture images names for transition screens
     //char screenTextureNames[4][30] = { "pacmanBackground.png", "GameOver.png", "NextLevel.png", "endGame.png" };
 
-    std::array<std::string, 2> screenTextureNames{"MenuBackground.png", "helpScreen.png"};
+    std::array<std::string, 3> screenTextureNames{"MenuBackground.png", "helpScreen.png", "LevelOne.png"};
     for (size_t i = 0; i < screenTextureNames.size(); i++)
     {
         m_transitionScreens.emplace_back();
