@@ -59,7 +59,8 @@ std::deque<std::string> LevelManager::ReadBirds()
 
 std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::string>& objDeq)
 {
-	float deltaX{ 100.f };
+	float deltaX{ 200.f };
+	float deltaY{ ROGATKA_Y + 50.f };
 	std::vector<std::unique_ptr<Bird>> tempVec;
 
 	while (!objDeq.empty())
@@ -70,16 +71,18 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 		{
 			switch (line.at(line.size()-i-1))
 			{
-			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, ROGATKA_Y - 100.f), sf::Vector2f(20.f, 0.f))));     break;
-			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, ROGATKA_Y - 100.f), sf::Vector2f(20.f, 0.f))));  break;
-			case 'B': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("BlueBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, ROGATKA_Y - 100.f), sf::Vector2f(20.f, 0.f))));  break;
+			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f))));     break;
+			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f))));  break;
+			case 'B': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("BlueBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f))));  break;
 
 
 			default: break;
 			}
-			deltaX += 50.f;
-
-
+			deltaX += 25.f;
+			if (deltaX == 300) {
+				deltaX = 200.f;
+				deltaY -= 25.f;
+			}
 		}
 
 		objDeq.pop_back();
