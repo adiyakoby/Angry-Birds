@@ -4,7 +4,7 @@
 class Ground : public StaticObjects
 {
 public:
-	Ground(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size = sf::Vector2f{WINDOW_WIDTH, WINDOW_HEIGHT}, const int& Index=0);
+	Ground(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size = sf::Vector2f{ WINDOW_WIDTH, WINDOW_HEIGHT }, arrData arr = {0,0,0});
 	 ~Ground() = default;
 
 	void objectUpdate()override {}

@@ -1,7 +1,8 @@
 #include "Ground.h"
 
 
-Ground::Ground(std::shared_ptr<World> world , const sf::Vector2f& position, const sf::Vector2f& size, const int& Index) : StaticObjects(world) {
+Ground::Ground(std::shared_ptr<World> world , const sf::Vector2f& position, const sf::Vector2f& size, arrData arr) 
+    : StaticObjects(world) {
     initPhysicBody(world, position, size);
     initGraphicBody();
 }
@@ -35,8 +36,8 @@ void Ground::drawObject(sf::RenderWindow &window)
 //to "register" the object in the Factory
 static auto registerItGround = ObjectFactory<StaticObjects>::instance().registerType(
     "ground",
-    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index) -> std::unique_ptr<StaticObjects>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr) -> std::unique_ptr<StaticObjects>
     {
-        return std::make_unique<Ground>(world, position, size, index);
+        return std::make_unique<Ground>(world, position, size, arr);
     }
 );

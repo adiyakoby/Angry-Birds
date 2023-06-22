@@ -1,8 +1,8 @@
 
 #include "YellowBird.h"
 
-YellowBird::YellowBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index)
-    : Bird(world, position, size, index), m_secondclick{ false } {
+YellowBird::YellowBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr)
+    : Bird(world, position, size, arr.at(0)), m_secondclick{ false } {
     
 }
 
@@ -44,8 +44,8 @@ void YellowBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
 //to "register" the object in the Factory
 static auto registerItYellowBird = ObjectFactory<Bird>::instance().registerType(
     "YellowBird",
-    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index) -> std::unique_ptr<Bird>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr) -> std::unique_ptr<Bird>
     {
-        return std::make_unique<YellowBird>(world, position, size, index);
+        return std::make_unique<YellowBird>(world, position, size, arr);
     }
 );

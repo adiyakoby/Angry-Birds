@@ -24,6 +24,11 @@ sf::Texture& GameResources::getMenuTexture(int index)
     return m_menuTexture.at(index);
 }
 
+sf::Texture& GameResources::getObstacleTexture(const int& index)
+{
+    return m_obstacles.at(index);
+}
+
 sf::Texture& GameResources::getPoofTexture(int index)
 {
     return m_poofTexture.at(index);
@@ -149,11 +154,11 @@ void GameResources::initTextures()
     }
 
 
-    std::array<sf::IntRect, 4> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{319,646,204,21}, sf::IntRect{233,643,82,42}, sf::IntRect{233,791,82,42} };
+    std::array<sf::IntRect, 4> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{319,647,205,21}, sf::IntRect{233,643,82,42}, sf::IntRect{233,772,83,41} };
     for (size_t i = 0; i < WoodLocation.size(); i++)
     {
-        m_woodsTexture.emplace_back();
-        m_woodsTexture.back().loadFromFile("StaticObjects.png", WoodLocation.at(i));
+        m_obstacles.emplace_back();
+        m_obstacles.back().loadFromFile("StaticObjects.png", WoodLocation.at(i));
     }
 
  

@@ -1,5 +1,8 @@
 #pragma once
+#include <array>
 
+//usings:
+using arrData = std::array<int, 3>;
 
 //Const variables for window size:
 
