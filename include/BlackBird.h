@@ -4,11 +4,8 @@
 class BlackBird : public Bird
 {
 public:
-    BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size);
-    virtual ~BlackBird() {
-       /* for (auto& ea : m_bombs)
-            m_world->getWorld()->DestroyBody(ea);*/
-    }
+    BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr = {3,BIRD_HP,0});
+    virtual ~BlackBird() = default;
     void handleEvent(sf::Event& event, const sf::Vector2f& mouse);
     void drawObject(sf::RenderWindow& w);
 private:

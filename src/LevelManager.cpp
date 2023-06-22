@@ -71,10 +71,10 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 		{
 			switch (line.at(line.size()-i-1))
 			{
-			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, ROGATKA_Y - 100.f), sf::Vector2f(20.f, 0.f))));     break;
-			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, ROGATKA_Y - 100.f), sf::Vector2f(20.f, 0.f))));  break;
-			case 'B': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("BlueBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, ROGATKA_Y - 100.f), sf::Vector2f(20.f, 0.f))));  break;
-			case 'E': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("BlackBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, ROGATKA_Y - 100.f), sf::Vector2f(20.f, 0.f))));  break;
+			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f), {0,BIRD_HP,0})));     break;
+			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f), {1,BIRD_HP,0})));  break;
+			case 'B': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("BlueBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f), {2,BIRD_HP,0})));  break;
+			case 'K': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("BlackBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f), {3,BIRD_HP,0})));  break;
 
 			default: break;
 			}
@@ -110,16 +110,32 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 			case '/':  break;
 			case ' ': if(insideLine) xPos += 30; break;
 			case '@': pigsVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
-				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f))));
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f), {0, PIG_HP, PIG_SCORE})));
 				xPos += 21;																							break;
 
-			case '!': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
-				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(150.f, 40.f))));
+			case '!': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Obstacle",
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(150.f, 40.f), {0, WOOD_HP, WOOD_SCORE})));
 				objVec.back()->rotate(90); xPos += 41;																break;
 
-			case '-': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("wood",
-						m_world, sf::Vector2f(xPos , yPos), sf::Vector2f(200.f, 20.f))));   
+			case '-': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Obstacle",
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(200.f, 20.f), {2, WOOD_HP, WOOD_SCORE})));
 				xPos += 202;																						break;
+
+			case '#': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Obstacle",
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(150.f, 40.f), { 4, ICE_HP, ICE_SCORE })));
+				objVec.back()->rotate(90); xPos += 41;																break;
+
+			case '_': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Obstacle",
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(200.f, 20.f), { 6, ICE_HP, ICE_SCORE })));
+				xPos += 202;																						break;
+
+			case '|': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Obstacle",
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(150.f, 40.f), { 8, IRON_HP, IRON_SCORE })));
+				objVec.back()->rotate(90); xPos += 41;																break;
+
+			case '~': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Obstacle",
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(200.f, 20.f), { 10, ICE_HP, IRON_SCORE })));
+				xPos += 202;
 
 			default: break;
 			}	

@@ -6,7 +6,7 @@
 class Rogatka:public StaticObjects
 {
 public:
-	Rogatka(std::shared_ptr<World> world,const sf::Vector2f &position, const sf::Vector2f& size = sf::Vector2f{ 10.f, 60.f });
+	Rogatka(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size = sf::Vector2f{ 10.f, 60.f }, arrData arr = {0,0,0});
 	virtual ~Rogatka() = default;
 
 	void objectUpdate()override {}
@@ -19,6 +19,7 @@ public:
 private:
 	sf::RectangleShape m_rogatka;
 	
+	int m_textureIndex;
 	//size of the rogatka;
 	sf::Vector2f m_rogatkaSize;
 

@@ -33,12 +33,13 @@ public:
 	void openNewLevel();
 	void drawLevelSelect();
 	int handleClick(sf::Vector2f);
+
 protected:
 	void initilaize();
 private:
 	std::shared_ptr<SharedData> m_sharedData;
 	std::shared_ptr<GameTools> m_gameTools;
-	std::vector<sf::RectangleShape> m_levelsFields;
+	std::vector<std::pair<sf::RectangleShape, sf::Text>> m_levelsFields;
 	sf::RectangleShape m_backButton;
 	std::vector<std::pair<std::string, int>> m_levelData;
 	sf::RectangleShape m_backGround;

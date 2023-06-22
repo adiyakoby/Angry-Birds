@@ -15,6 +15,8 @@
 #include "YellowBird.h"
 #include "BlueBird.h"
 
+#include "Obstacle.h"
+
 
 
 void MyContactListener::BeginContact(b2Contact* contact)
@@ -50,15 +52,15 @@ void groundPig(Objects& ground, Objects& pig) {
     pigGround(pig, ground);
 }
 
- void groundWood(Objects& ground, Objects& wood) {
+ void groundObstacle(Objects& ground, Objects& wood) {
      wood.setDamage(wood.getBodyMass() * wood.getBodyVelocity().LengthSquared());
 }
 
-void woodGround(Objects& wood, Objects& ground) {
-    groundWood(ground, wood);
+void ObstacleGround(Objects& wood, Objects& ground) {
+    groundObstacle(ground, wood);
 }
 
-void woodWood(Objects& firstWood, Objects& SecondWood) {
+void ObstacleObstacle(Objects& firstWood, Objects& SecondWood) {
     firstWood.setDamage(SecondWood.getBodyMass() * SecondWood.getBodyVelocity().LengthSquared());
     SecondWood.setDamage(firstWood.getBodyMass() * firstWood.getBodyVelocity().LengthSquared());
 }
@@ -78,17 +80,16 @@ void pigBird(Objects& pig, Objects& bird) {
     birdPig(bird, pig);
 }
 
-void birdWood(Objects& bird, Objects& wood) {
+void birdObstacle(Objects& bird, Objects& wood) {
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
-    if (wood.getHp() <= 20)
-        static_cast<Wood&>(wood).hitState();
+    static_cast<Obstacle&>(wood).hitState();
 }
 
-void woodBird(Objects& wood, Objects& bird) {
-    birdWood(bird, wood);
+void ObstacleBird(Objects& wood, Objects& bird) {
+    birdObstacle(bird, wood);
 }
 
-void pigWood(Objects& pig, Objects& wood) {
+void pigObstacle(Objects& pig, Objects& wood) {
 
     float dmg{ wood.getBodyMass() * wood.getBodyVelocity().LengthSquared() + pig.getBodyMass() * pig.getBodyVelocity().LengthSquared() };
     pig.setDamage(dmg);
@@ -97,8 +98,8 @@ void pigWood(Objects& pig, Objects& wood) {
         static_cast<Pig&>(pig).hitState();
 }
 
-void woodPig(Objects& wood, Objects& pig) {
-    pigWood(pig, wood);
+void ObstaclePig(Objects& wood, Objects& pig) {
+    pigObstacle(pig, wood);
 }
 //-----------END HIT FUNCTION------------
 
@@ -113,31 +114,31 @@ HitMap initializeCollisionMap()
     HitMap phm;
 
 
-    phm[Key(typeid(Wood), typeid(Wood))] = &woodWood;
+    phm[Key(typeid(Obstacle), typeid(Obstacle))] = &ObstacleObstacle;
 
-    phm[Key(typeid(RedBird), typeid(Wood))] = &birdWood;
-    phm[Key(typeid(Wood), typeid(RedBird))] = &woodBird;
+    phm[Key(typeid(RedBird), typeid(Obstacle))] = &birdObstacle;
+    phm[Key(typeid(Obstacle), typeid(RedBird))] = &ObstacleBird;
 
     phm[Key(typeid(RedBird), typeid(Pig))] = &birdPig;
     phm[Key(typeid(Pig), typeid(RedBird))] = &pigBird;
 
-    phm[Key(typeid(Pig), typeid(Wood))] = &pigWood;
-    phm[Key(typeid(Wood), typeid(Pig))] = &woodPig;
+    phm[Key(typeid(Pig), typeid(Obstacle))] = &pigObstacle;
+    phm[Key(typeid(Obstacle), typeid(Pig))] = &ObstaclePig;
 
     phm[Key(typeid(YellowBird), typeid(Pig))] = &birdPig;
     phm[Key(typeid(Pig), typeid(YellowBird))] = &pigBird;
 
-    phm[Key(typeid(YellowBird), typeid(Wood))] = &birdWood;
-    phm[Key(typeid(Wood), typeid(YellowBird))] = &woodBird;
+    phm[Key(typeid(YellowBird), typeid(Obstacle))] = &birdObstacle;
+    phm[Key(typeid(Obstacle), typeid(YellowBird))] = &ObstacleBird;
 
     phm[Key(typeid(BlueBird), typeid(Pig))] = &birdPig;
     phm[Key(typeid(Pig), typeid(BlueBird))] = &pigBird;
 
-    phm[Key(typeid(BlueBird), typeid(Wood))] = &birdWood;
-    phm[Key(typeid(Wood), typeid(BlueBird))] = &woodBird;
+    phm[Key(typeid(BlueBird), typeid(Obstacle))] = &birdObstacle;
+    phm[Key(typeid(Obstacle), typeid(BlueBird))] = &ObstacleBird;
 
-    phm[Key(typeid(Ground), typeid(Wood))] = &groundWood;
-    phm[Key(typeid(Wood), typeid(Ground))] = &woodGround;
+    phm[Key(typeid(Ground), typeid(Obstacle))] = &groundObstacle;
+    phm[Key(typeid(Obstacle), typeid(Ground))] = &ObstacleGround;
 
     phm[Key(typeid(Ground), typeid(Pig))] = &groundPig;
     phm[Key(typeid(Pig), typeid(Ground))] = &pigGround;
@@ -145,6 +146,8 @@ HitMap initializeCollisionMap()
     //...
     return phm;
 }
+
+
 HitFunctionPtr lookup(const std::type_index& class1, const std::type_index& class2)
 {
     static HitMap collisionMap = initializeCollisionMap();
@@ -155,8 +158,6 @@ HitFunctionPtr lookup(const std::type_index& class1, const std::type_index& clas
     }
     return mapEntry->second;
 }
-
-
 
 }//end namespace
 

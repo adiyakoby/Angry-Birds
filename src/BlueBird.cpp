@@ -1,8 +1,8 @@
 #include "BlueBird.h"
 
 
-BlueBird::BlueBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) 
-    : Bird(world, position, size, 2), m_world{ world}, isSplit{false}, m_state{normal} {
+BlueBird::BlueBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr)
+    : Bird(world, position, size, arr.at(0)), m_world{ world}, isSplit{false}, m_state{normal} {
 	 
 }
 
@@ -96,9 +96,9 @@ void BlueBird::setBodySize() {
 
 static auto registerItYBlueBird = ObjectFactory<Bird>::instance().registerType(
     "BlueBird",
-    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<Bird>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr) -> std::unique_ptr<Bird>
     {
-        return std::make_unique<BlueBird>(world, position, size);
+        return std::make_unique<BlueBird>(world, position, size, arr);
     }
 );
 
