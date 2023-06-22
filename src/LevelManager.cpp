@@ -141,7 +141,7 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 			}	
 		}
 
-		yPos -= 85;
+		yPos -= 88;
 		xPos = WINDOW_WIDTH * 0.4;
 		objDeq.pop_back();
 	}
