@@ -74,7 +74,7 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 			case 'R': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("RedBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f), 0)));     break;
 			case 'Y': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("YellowBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f), 1)));  break;
 			case 'B': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("BlueBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, deltaY), sf::Vector2f(20.f, 0.f), 2)));  break;
-			case 'E': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("BlackBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, ROGATKA_Y - 100.f), sf::Vector2f(20.f, 0.f))));  break;
+			case 'K': tempVec.emplace_back(std::move(ObjectFactory<Bird>::instance().create("BlackBird", m_world, sf::Vector2f(ROGATKA_X - deltaX, ROGATKA_Y - 100.f), sf::Vector2f(20.f, 0.f))));  break;
 
 			default: break;
 			}

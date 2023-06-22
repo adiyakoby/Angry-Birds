@@ -2,8 +2,8 @@
 
 
 
-BlackBird::BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size)
-    : Bird(world, position, size, 3), m_world{ world }, m_activated(false), m_explosionRadius(50.0f), m_explosionForce(100.0f)
+BlackBird::BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index)
+    : Bird(world, position, size, index), m_world{ world }, m_activated(false), m_explosionRadius(50.0f), m_explosionForce(100.0f)
 {
 }
 
@@ -115,8 +115,8 @@ void BlackBird::explode()
 //to "register" the object in the Factory
 static auto registerItBlackBird = ObjectFactory<Bird>::instance().registerType(
     "BlackBird",
-    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<Bird>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index) -> std::unique_ptr<Bird>
     {
-        return std::make_unique<BlackBird>(world, position, size);
+        return std::make_unique<BlackBird>(world, position, size, index);
     }
 );
