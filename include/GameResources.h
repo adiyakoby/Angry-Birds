@@ -26,6 +26,7 @@ public:
 
 	sf::Texture& getObstacleTexture(const int& index);
 
+	sf::Texture& getLevelsFields(int index);
 	/*sf::Texture& getObjectTexture(int index);
 	sf::Texture& getDataButtuns(int index);*/
 	sf::Texture& getTransitionScreens(int index);
@@ -57,6 +58,7 @@ private:
 
 	std::vector<sf::Texture> m_obstacles;
 
+	std::vector <sf::Texture> m_levelsFields;
 	std::vector <sf::Font> m_font;
 	std::vector <sf::SoundBuffer> m_affects;
 	sf::Sound m_gameMusic;

@@ -71,6 +71,13 @@ sf::Texture& GameResources::getTransitionScreens(int index)
     return m_transitionScreens.at(index);
 }
 
+//get the textures for the level state screens
+sf::Texture& GameResources::getLevelsFields(int index)
+{
+    return m_levelsFields.at(index);
+}
+
+
 //get font
 sf::Font& GameResources::getFont(int index)
 {
@@ -180,11 +187,18 @@ void GameResources::initTextures()
     //all the texture images names for transition screens
     //char screenTextureNames[4][30] = { "pacmanBackground.png", "GameOver.png", "NextLevel.png", "endGame.png" };
 
-    std::array<std::string, 3> screenTextureNames{"MenuBackground.png", "helpScreen.png", "LevelOne.png"};
+    std::array<std::string, 4> screenTextureNames{"MenuBackground.png", "helpScreen.png", "LevelOne.png", "LevelSelectBackGround.png"};
     for (size_t i = 0; i < screenTextureNames.size(); i++)
     {
         m_transitionScreens.emplace_back();
         m_transitionScreens.back().loadFromFile(screenTextureNames.at(i));
+    }
+
+    std::array<sf::IntRect, 1> levelsLocation{ sf::IntRect{171, 897, 60, 75}}; // 1 448
+    for (size_t i = 0; i < levelsLocation.size(); i++)
+    {
+        m_levelsFields.emplace_back();
+        m_levelsFields.back().loadFromFile("LevelSelectSpriteSheet.png", levelsLocation.at(i));
     }
 }
 
