@@ -93,7 +93,7 @@ void LevelSelectState::drawLevelSelect()
 	m_gameTools->m_window.getWindow().draw(m_backGround);
 
 	for (const auto& i : m_levelsFields)
-		m_gameTools->m_window.getWindow().draw(i);
+		m_gameTools->m_window.getWindow().draw(i.first);
 
 	//m_gameTools->m_window.getWindow().draw(m_backButton);
 }
@@ -101,7 +101,7 @@ void LevelSelectState::drawLevelSelect()
 int LevelSelectState::handleClick(sf::Vector2f mouse_loc)
 {
 	for (int i = 0; i < m_levelsFields.size(); i++)
-		if (m_levelsFields.at(i).getGlobalBounds().contains(mouse_loc))
+		if (m_levelsFields.at(i).first.getGlobalBounds().contains(mouse_loc))
 			return i;
 	return -1;
 }
@@ -120,9 +120,9 @@ void LevelSelectState::initilaize()
 		for (int level = 0; level < 3; level++)
 		{
 			m_levelsFields.emplace_back();
-			m_levelsFields.back().setSize(sf::Vector2f(200.f, 200.f));
-			m_levelsFields.back().setOrigin(m_levelsFields.back().getSize() * 0.5f);
-			m_levelsFields.back().setPosition(firstPos);
+			m_levelsFields.back().first.setSize(sf::Vector2f(200.f, 200.f));
+			m_levelsFields.back().first.setOrigin(m_levelsFields.back().first.getSize() * 0.5f);
+			m_levelsFields.back().first.setPosition(firstPos);
 
 			firstPos.x += 400.f;
 		}
@@ -130,10 +130,11 @@ void LevelSelectState::initilaize()
 	}
 
 	for(int i = 0 ; i < 6 ; i++)
-		m_levelsFields.at(i).setTexture(&GameResources::getInstance().getLevelsFields(i));
+		m_levelsFields.at(i).first.setTexture(&GameResources::getInstance().getLevelsFields(i));
 	//level 1 data
 	m_levelData.emplace_back();
-	m_levelData.back().first = "open";
+	m_levelData.back().first = "Score ";
+	m_levelData.back().second = 0;
 
 	////back button
 	//m_levelsFields.emplace_back();
