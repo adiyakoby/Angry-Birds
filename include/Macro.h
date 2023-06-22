@@ -30,7 +30,7 @@ const float BOMB_SIZE = 15.f;
 // Game Score
 const int WOOD_SCORE = 5;
 const int ICE_SCORE = 10;
-const int Metal_SCORE = 15;
+const int IRON_SCORE = 15;
 const int PIG_SCORE = 20;
 
 // Obstacles HP :
