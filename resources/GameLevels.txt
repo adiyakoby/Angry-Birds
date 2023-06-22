@@ -1,5 +1,5 @@
 Level 1
-Birds: B R 
+Birds: E R
                  
         ! @ ! 
           -
@@ -12,7 +12,7 @@ Birds: B R
  
 ===========================================================
 Level 2
-Birds: B Y B Y R
+Birds: B Y B Y R Y R
 
          ! ! @ !   ! @ ! 
              -  /////-
@@ -23,7 +23,7 @@ Birds: B Y B Y R
 
 ===========================================================
 Level 3
-Birds: B Y B Y R
+Birds: B Y B Y R Y Y R
 
           -/////-
          ! @ ! @ !

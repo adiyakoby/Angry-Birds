@@ -102,6 +102,7 @@ void PlayState::setUpForEndLevel(std::string status)
     m_sharedData->levelStatus = status;
     std::string levelScore = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
     m_sharedData->score = std::stoi(levelScore);
+    setScore(-(m_sharedData->score));//to reset score
     m_world->getWorld()->SetContactListener(m_contactListener.get());
     m_gameTools->m_gameStates.switchStates();
     m_gameTools->m_window.resetView();
@@ -242,7 +243,7 @@ void PlayState::createGroundAndRogatka()
 void PlayState::createLevelData()
 {
     m_levelData.emplace_back().first = GameResources::getInstance().createText("Level: ", sf::Color::White, 1);
-    m_levelData.back().second = GameResources::getInstance().createText(std::to_string(m_level/*m_sharedData->levelToRead*/), sf::Color::White, 1);
+    //m_levelData.back().second = GameResources::getInstance().createText(std::to_string(m_level/*m_sharedData->levelToRead*/), sf::Color::White, 1);
     m_levelData.emplace_back().first = GameResources::getInstance().createText("Score: ", sf::Color::White, 1);
     m_levelData.back().second = GameResources::getInstance().createText("0", sf::Color::White, 1);
     updateDataPosition();

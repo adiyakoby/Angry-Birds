@@ -14,6 +14,7 @@
 #include "LevelManager.h"
 #include "BlueBird.h"
 #include "Obstacle.h"
+#include "BlackBird.h"
 
 struct poof {
 
