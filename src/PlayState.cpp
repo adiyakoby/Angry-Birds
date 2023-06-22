@@ -102,7 +102,6 @@ void PlayState::setUpForEndLevel(std::string status)
     m_sharedData->levelStatus = status;
     std::string levelScore = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
     m_sharedData->score = std::stoi(levelScore);
-    setNextBird(false);
     m_world->getWorld()->SetContactListener(m_contactListener.get());
     m_gameTools->m_gameStates.switchStates();
 }
@@ -138,6 +137,7 @@ void PlayState::Resume()
 {
     //;
     m_lvlsMngr.getSpecificLevel(m_sharedData->levelToRead, m_birds, m_pigs, m_gameObjects);
+    setNextBird(false);
     m_levelData.at(static_cast<int>(GameData::LEVEL)).second = GameResources::getInstance().createText(std::to_string(m_sharedData->levelToRead), sf::Color::White, 1);
 }
 
@@ -220,8 +220,8 @@ void PlayState::initilaize()
 
     //init objects
     createGroundAndRogatka();
-    m_lvlsMngr.getNextLevel(m_birds, m_pigs , m_gameObjects);
-    setNextBird(false);
+   /* m_lvlsMngr.getNextLevel(m_birds, m_pigs , m_gameObjects);
+    setNextBird(false);*/
     
     for (size_t i{}; i < m_destroyAnimation.size(); ++i) {
         m_destroyAnimation.at(i).setSize(sf::Vector2f(50.f, 50.f));
