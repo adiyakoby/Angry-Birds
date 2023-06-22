@@ -1,7 +1,7 @@
 #include "Wood.h"
 
 Wood::Wood(std::shared_ptr<World> world, const sf::Vector2f position, const sf::Vector2f& size) : 
-    StaticObjects(world, 40, WOOD_SCORE), m_hit{false} {
+    StaticObjects(world, WOOD_HP, WOOD_SCORE), m_hit{false} {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
 }

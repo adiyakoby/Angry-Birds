@@ -31,3 +31,6 @@ const int PIG_SCORE = 20;
 
 // Obstacles HP :
 const int WOOD_HP = 40;
+const int IRON_HP = 60;
+const int ICE_HP = 20;
+const int PIG_HP = 20;
