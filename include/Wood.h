@@ -6,7 +6,7 @@
 class Wood:public StaticObjects
 {
 public:
-	Wood(std::shared_ptr<World> world, const sf::Vector2f position, const sf::Vector2f& size, const int& index=0);
+	Wood(std::shared_ptr<World> world, const sf::Vector2f position, const sf::Vector2f& size, arrData arr = {0,0,0});
 	virtual ~Wood() = default;
 	
 	void objectUpdate() override;

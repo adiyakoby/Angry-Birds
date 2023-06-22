@@ -6,7 +6,7 @@
 class Obstacle :public StaticObjects
 {
 public:
-	Obstacle(std::shared_ptr<World> world, const sf::Vector2f &position, const sf::Vector2f& size, const int& textureIndex);
+	Obstacle(std::shared_ptr<World> world, const sf::Vector2f &position, const sf::Vector2f& size, arrData arr);
 	virtual ~Obstacle() = default;
 
 	void objectUpdate() override;
@@ -21,7 +21,6 @@ private:
 
 	bool m_hit;
 	int m_textureIndex;
-	int m_hitTextureIndex;
 
 	// Private funcs:
 	void initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& postion, const sf::Vector2f& size)override;

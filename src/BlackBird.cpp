@@ -2,8 +2,8 @@
 
 
 
-BlackBird::BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index)
-    : Bird(world, position, size, index), m_world{ world }, m_activated(false), m_explosionRadius(50.0f), m_explosionForce(100.0f)
+BlackBird::BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr)
+    : Bird(world, position, size, arr.at(0)), m_world{ world }, m_activated(false), m_explosionRadius(50.0f), m_explosionForce(100.0f)
 {
 }
 
@@ -16,6 +16,7 @@ void BlackBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
         if (event.mouseButton.button == sf::Mouse::Left && m_activated) {
             setBombs();
             m_activated = false;
+            //m_body->ApplyForceToCenter(std::move(b2Vec2(100.f, 100.f)), true);
             explode();
 
         }
@@ -86,6 +87,7 @@ void BlackBird::PhysicBombBody(const int index, const sf::Vector2f& position) {
     fixtureDef.restitution = 0.3f;
     m_bombs.at(index)->CreateFixture(&fixtureDef);
 }
+
 void BlackBird::explode()
 {
     b2Vec2 force = m_body->GetLinearVelocity();
@@ -115,8 +117,8 @@ void BlackBird::explode()
 //to "register" the object in the Factory
 static auto registerItBlackBird = ObjectFactory<Bird>::instance().registerType(
     "BlackBird",
-    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index) -> std::unique_ptr<Bird>
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr) -> std::unique_ptr<Bird>
     {
-        return std::make_unique<BlackBird>(world, position, size, index);
+        return std::make_unique<BlackBird>(world, position, size, arr);
     }
 );

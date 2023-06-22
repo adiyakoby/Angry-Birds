@@ -6,7 +6,7 @@ class Pig : public StaticObjects
 {
 
 public:
-	Pig(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index=0);
+	Pig(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr = {0,0,0});
 	virtual ~Pig() = default;
 
 	void objectUpdate()override;

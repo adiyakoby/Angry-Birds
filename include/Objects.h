@@ -27,7 +27,16 @@ public:
 	void rotateBody() { m_body->SetTransform(m_body->GetPosition(), m_body->GetAngle() + b2_pi / 2.0f); };
 	const b2Vec2& getBodyVelocity() { return m_body->GetLinearVelocity(); };
 	float getBodyMass() const { return m_body->GetMass();  };
-	void contVelocity() { m_body->SetLinearVelocity(m_body->GetLinearVelocity()); };
+	void contVelocity() { 
+		//m_body->ApplyLinearImpulseToCenter(m_body->GetLinearVelocity(), true);
+		/*m_body->ApplyLinearImpulseToCenter(m_body->GetLinearVelocity(), true);*/ 
+	};
+
+	void ignoreObject() { 
+		b2Fixture* fixture = m_body->GetFixtureList();
+		fixture->SetRestitution(0.0f);
+	};
+	//void resetRogatka();
 
 	
 
