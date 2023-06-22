@@ -68,16 +68,18 @@ void LevelSelectState::levelRequest()
 
 void LevelSelectState::updateReturningValue()
 {
-	if (m_sharedData->levelStatus == "Pass" )
-		if (m_sharedData->levelToRead < 6 && m_sharedData->levelToRead >= m_levelData.size())
+	if (m_sharedData->levelStatus == "Pass" )	
+	{
+		if (m_levelData.at(m_sharedData->levelToRead - 1).second < m_sharedData->score)
 		{
-			if (m_levelData.at(m_sharedData->levelToRead - 1).second < m_sharedData->score)
-				m_levelData.at(m_sharedData->levelToRead - 1).second = m_sharedData->score;
-			m_levelsFields.at(m_sharedData->levelToRead - 1).second.setString(m_levelData.back().first + std::to_string(m_levelData.back().second));
-			std::cout << "pass level: " << m_sharedData->levelToRead << std::endl;
-			std::cout << "level score:  " << m_sharedData->score << std::endl;
-			openNewLevel();
+			m_levelData.at(m_sharedData->levelToRead - 1).second = m_sharedData->score;
+			m_levelsFields.at(m_sharedData->levelToRead - 1).second.setString(m_levelData.at(m_sharedData->levelToRead - 1).first + std::to_string(m_levelData.at(m_sharedData->levelToRead - 1).second));
 		}
+		std::cout << "pass level: " << m_sharedData->levelToRead << std::endl;
+		std::cout << "level score:  " << m_sharedData->score << std::endl;
+		if (m_sharedData->levelToRead == m_levelData.size())
+			openNewLevel();
+	}
 			
 }
 
