@@ -85,20 +85,16 @@ void PlayState::setNextBird(const bool& x)
 
 void PlayState::setUpForNextLevel()
 {
-    m_world->getWorld()->SetContactListener(nullptr);
     m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
     m_level++;
     m_levelData[static_cast<int>(GameData::LEVEL)].second.setString(std::to_string(m_level));
     setNextBird(false);
-    m_world->getWorld()->SetContactListener(m_contactListener.get());
 }
 
 void PlayState::setUpForGameOver()
 {
-    m_world->getWorld()->SetContactListener(nullptr);
     m_lvlsMngr.getSpecificLevel(m_level, m_birds, m_pigs, m_gameObjects);
     setNextBird(false);
-    m_world->getWorld()->SetContactListener(m_contactListener.get());
 }
 
 void PlayState::Draw()
