@@ -5,16 +5,21 @@ class BlackBird : public Bird
 {
 public:
     BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size);
-    virtual ~BlackBird() = default;
+    virtual ~BlackBird() {
+       /* for (auto& ea : m_bombs)
+            m_world->getWorld()->DestroyBody(ea);*/
+    }
     void handleEvent(sf::Event& event, const sf::Vector2f& mouse);
-
+    void drawObject(sf::RenderWindow& w);
 private:
     bool m_activated;
-    float m_explosionRadius;
-    float m_explosionForce;
+    bool m_exploded;
     std::shared_ptr<World> m_world;
-    std::array<b2Body*,4> m_bombs;
+    std::vector<b2Body*> m_bombs;
+    std::array<sf::RectangleShape, 2> m_bombImage;
+    void setBombTexture();
     void explode();
     void setBombs();
     void PhysicBombBody(const int index, const sf::Vector2f& position);
+    void destroyedBody();
 };
