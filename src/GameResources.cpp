@@ -160,8 +160,15 @@ void GameResources::initTextures()
         m_poofTexture.back().loadFromFile("Angry-Birds.png", poofLocation.at(i));
     }
 
-
+                                         // Indexes: 0  ,  1  , 2   , 3
     std::array<sf::IntRect, 4> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{319,647,205,21}, sf::IntRect{233,643,82,42}, sf::IntRect{233,772,83,41} };
+    for (size_t i = 0; i < WoodLocation.size(); i++)
+    {
+        m_obstacles.emplace_back();
+        m_obstacles.back().loadFromFile("StaticObjects.png", WoodLocation.at(i));
+    }
+                                        // Indexes: 4  ,  5  , 6   , 7
+    std::array<sf::IntRect, 4> IceLocation{ sf::IntRect{319,755,168,22} , sf::IntRect{319,821,168,22}, sf::IntRect{233,686,85,42}, sf::IntRect{233,815,85,42} };
     for (size_t i = 0; i < WoodLocation.size(); i++)
     {
         m_obstacles.emplace_back();
