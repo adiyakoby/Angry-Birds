@@ -4,7 +4,7 @@
 class BlackBird : public Bird
 {
 public:
-    BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size);
+    BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& index = 3);
     virtual ~BlackBird() = default;
     void handleEvent(sf::Event& event, const sf::Vector2f& mouse);
 
