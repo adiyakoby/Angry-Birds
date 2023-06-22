@@ -27,8 +27,6 @@ void StateMachine::checkForUpdates()
 				m_states.top().release();
 				m_states.pop();
 			}
-			else//pause the current state and add new state to run
-				;//m_states.top()->pause();
 		}
 		m_states.push(std::move(m_newGameState));
 		m_adding = false;
@@ -38,7 +36,7 @@ void StateMachine::checkForUpdates()
 	{
 		m_states.top().release();
 		m_states.pop();
-
+		m_states.top()->Resume();
 		m_removing = false;
 	}
 	if (m_switch)

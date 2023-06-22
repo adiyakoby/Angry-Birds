@@ -33,9 +33,9 @@ sf::Texture& GameResources::getPoofTexture(int index)
 {
     return m_poofTexture.at(index);
 }
-sf::Texture& GameResources::getLockTexture()
+sf::Texture& GameResources::getLockandBackTexture(int index)
 {
-    return m_lockLevel;
+    return  m_forLevelState.at(index);
 }
 sf::Texture& GameResources::getHelpTexture(int index)
 {
@@ -221,10 +221,14 @@ void GameResources::initTextures()
         m_levelsFields.back().loadFromFile("LevelSelectSpriteSheet.png", levelsLocation.at(i));
     }
 
-
-    //load textore for lock levels 
-    m_lockLevel.loadFromFile("SpritesForLevelSelect.png", sf::IntRect{5, 510, 90, 120});
-    
+    std::array<sf::IntRect, 2> forlevels{  sf::IntRect{5, 510, 90, 120}, sf::IntRect{214, 641, 53, 45}};
+       
+    for (size_t i = 0; i < forlevels.size(); i++)
+    {
+        m_forLevelState.emplace_back();
+        m_forLevelState.back().loadFromFile("SpritesForLevelSelect.png", forlevels.at(i));
+    }
+  
 }
 
 //load the fonts for the game
