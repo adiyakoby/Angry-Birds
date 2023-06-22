@@ -104,6 +104,7 @@ void PlayState::setUpForEndLevel(std::string status)
     m_sharedData->score = std::stoi(levelScore);
     m_world->getWorld()->SetContactListener(m_contactListener.get());
     m_gameTools->m_gameStates.switchStates();
+    m_gameTools->m_window.resetView();
 }
 
 //void PlayState::setUpForNextLevel()
@@ -135,10 +136,13 @@ void PlayState::Draw()
 // #level select
 void PlayState::Resume()
 {
-    //;
-    m_lvlsMngr.getSpecificLevel(m_sharedData->levelToRead, m_birds, m_pigs, m_gameObjects);
-    setNextBird(false);
-    m_levelData.at(static_cast<int>(GameData::LEVEL)).second = GameResources::getInstance().createText(std::to_string(m_sharedData->levelToRead), sf::Color::White, 1);
+    if (m_sharedData->levelToRead > 0)
+    {
+        m_lvlsMngr.getSpecificLevel(m_sharedData->levelToRead, m_birds, m_pigs, m_gameObjects);
+        setNextBird(false);
+        m_levelData.at(static_cast<int>(GameData::LEVEL)).second = GameResources::getInstance().createText(std::to_string(m_sharedData->levelToRead), sf::Color::White, 1);
+    }
+
 }
 
 void PlayState::deleteObj()
