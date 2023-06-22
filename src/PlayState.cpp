@@ -109,6 +109,7 @@ void PlayState::setNextBird(const bool& x)
 
 void PlayState::setUpForNextLevel()
 {
+    m_poofsContainer.clear();
     m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
     m_level++;
     m_levelData[static_cast<int>(GameData::LEVEL)].second.setString(std::to_string(m_level));
