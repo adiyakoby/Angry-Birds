@@ -132,8 +132,8 @@ void LevelSelectState::initilaize()
 	for(int i = 0 ; i < 6 ; i++)
 		m_levelsFields.at(i).setTexture(&GameResources::getInstance().getLevelsFields(i));
 	//level 1 data
-	for(int i = 0; i < 1; i++)
-		m_levelData.emplace_back();
+	m_levelData.emplace_back();
+	m_levelData.back().first = "open";
 
 	////back button
 	//m_levelsFields.emplace_back();
