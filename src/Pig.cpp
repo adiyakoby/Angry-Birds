@@ -27,7 +27,7 @@ void Pig::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& posit
     // Create Box2D fixture definition
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
-    fixtureDef.density = 0.9f;
+    fixtureDef.density = getHp()*0.05f;
     fixtureDef.friction = 0.3f;
     fixtureDef.restitution = 0.4f;
     m_body->CreateFixture(&fixtureDef);

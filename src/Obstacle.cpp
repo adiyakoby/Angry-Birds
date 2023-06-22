@@ -35,7 +35,7 @@ void Obstacle::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& 
     // Create Box2D fixture definition
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
-    fixtureDef.density = 1.f;
+    fixtureDef.density = m_halfHp*0.1f;
     fixtureDef.friction = 0.5f;
     fixtureDef.restitution = 0.3f;
     m_body->CreateFixture(&fixtureDef);
