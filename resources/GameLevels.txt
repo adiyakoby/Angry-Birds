@@ -1,5 +1,5 @@
 Level 1
-Birds: B R Y B R Y B R Y B R Y B R Y
+Birds: B R 
                  
         ! @ ! 
           -
