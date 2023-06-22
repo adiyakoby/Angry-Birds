@@ -123,16 +123,14 @@ void LevelSelectState::initilaize()
 			m_levelsFields.back().setSize(sf::Vector2f(200.f, 200.f));
 			m_levelsFields.back().setOrigin(m_levelsFields.back().getSize() * 0.5f);
 			m_levelsFields.back().setPosition(firstPos);
-			//m_levelsFields.back().setFillColor(sf::Color::Yellow);
-			//m_levelsFields.back().setOutlineColor(sf::Color::White);
-			//m_levelsFields.back().setOutlineThickness(2);
-			m_levelsFields.back().setTexture(&GameResources::getInstance().getLevelsFields(0));
 
 			firstPos.x += 400.f;
 		}
 		firstPos = sf::Vector2f(300.f, 500.f);
 	}
 
+	for(int i = 0 ; i < 6 ; i++)
+		m_levelsFields.at(i).setTexture(&GameResources::getInstance().getLevelsFields(i));
 	//level 1 data
 	for(int i = 0; i < 1; i++)
 		m_levelData.emplace_back();

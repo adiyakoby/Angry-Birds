@@ -189,7 +189,8 @@ void GameResources::initTextures()
         m_transitionScreens.back().loadFromFile(screenTextureNames.at(i));
     }
 
-    std::array<sf::IntRect, 1> levelsLocation{ sf::IntRect{171, 897, 60, 75}}; // 1 448
+    std::array<sf::IntRect, 6> levelsLocation{ sf::IntRect{50, 465, 175, 175}, sf::IntRect{250, 465, 175, 175}, sf::IntRect{450, 465, 175, 175},
+                                               sf::IntRect{820, 465, 175, 175}, sf::IntRect{1010, 465, 175, 175}, sf::IntRect{1200, 465, 175, 175}}; // 1 448
     for (size_t i = 0; i < levelsLocation.size(); i++)
     {
         m_levelsFields.emplace_back();
