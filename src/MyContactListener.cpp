@@ -82,6 +82,13 @@ void birdWood(Objects& bird, Objects& wood) {
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
     if (wood.getHp() <= 15)
         static_cast<Wood&>(wood).hitState();
+    if (wood.getHp() <= 0)
+    {
+        ;
+        //wood.ignoreObject();
+        //bird.contVelocity();
+    }
+    
 }
 
 void woodBird(Objects& wood, Objects& bird) {
@@ -145,6 +152,8 @@ HitMap initializeCollisionMap()
     //...
     return phm;
 }
+
+
 HitFunctionPtr lookup(const std::type_index& class1, const std::type_index& class2)
 {
     static HitMap collisionMap = initializeCollisionMap();
@@ -155,8 +164,6 @@ HitFunctionPtr lookup(const std::type_index& class1, const std::type_index& clas
     }
     return mapEntry->second;
 }
-
-
 
 }//end namespace
 

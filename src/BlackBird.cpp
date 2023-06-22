@@ -16,6 +16,7 @@ void BlackBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
         if (event.mouseButton.button == sf::Mouse::Left && m_activated) {
             setBombs();
             m_activated = false;
+            //m_body->ApplyForceToCenter(std::move(b2Vec2(100.f, 100.f)), true);
             explode();
 
         }
@@ -86,6 +87,7 @@ void BlackBird::PhysicBombBody(const int index, const sf::Vector2f& position) {
     fixtureDef.restitution = 0.3f;
     m_bombs.at(index)->CreateFixture(&fixtureDef);
 }
+
 void BlackBird::explode()
 {
     b2Vec2 force = m_body->GetLinearVelocity();
