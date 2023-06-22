@@ -23,7 +23,7 @@ public:
 	sf::Texture& getGroundTexture(int index);
 	sf::Texture& getPigsTexture(int index);
 	sf::Texture& getPoofTexture(int index);
-	sf::Texture& getLockTexture();
+	sf::Texture& getLockandBackTexture(int index);
 
 	sf::Texture& getObstacleTexture(const int& index);
 
@@ -55,7 +55,7 @@ private:
 	std::vector <sf::Texture> m_groundTexture;
 	std::vector <sf::Texture> m_pigsTexture;
 	std::vector <sf::Texture> m_poofTexture;
-	sf::Texture m_lockLevel;
+	std::vector <sf::Texture> m_forLevelState;
 	
 
 	std::vector<sf::Texture> m_obstacles;

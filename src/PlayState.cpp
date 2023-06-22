@@ -61,14 +61,12 @@ bool PlayState::levelEnd()
 {
     if (m_pigs.size() == 0)
     {
-        setUpForEndLevel("Pass");// #level select
-        //setUpForNextLevel();
+        setUpForEndLevel("Pass");
         return true;
     }
     else if (m_birds.size() == 0)
     {
-        setUpForEndLevel("Failed"); //#level select
-        //setUpForGameOver();
+        setUpForEndLevel("Failed");
         return true;
     }
     return false;
@@ -108,23 +106,6 @@ void PlayState::setUpForEndLevel(std::string status)
     m_gameTools->m_window.resetView();
 }
 
-//void PlayState::setUpForNextLevel()
-//{
-//    m_world->getWorld()->SetContactListener(nullptr);
-//    m_lvlsMngr.getNextLevel(m_birds, m_pigs, m_gameObjects);
-//    m_level++;
-//    m_levelData[static_cast<int>(GameData::LEVEL)].second.setString(std::to_string(m_level));
-//    setNextBird(false);
-//    m_world->getWorld()->SetContactListener(m_contactListener.get());
-//}
-//
-//void PlayState::setUpForGameOver()
-//{
-//    m_world->getWorld()->SetContactListener(nullptr);
-//    m_lvlsMngr.getSpecificLevel(m_level, m_birds, m_pigs, m_gameObjects);
-//    setNextBird(false);
-//    m_world->getWorld()->SetContactListener(m_contactListener.get());
-//}
 
 void PlayState::Draw()
 {
@@ -225,8 +206,6 @@ void PlayState::initilaize()
 
     //init objects
     createGroundAndRogatka();
-   /* m_lvlsMngr.getNextLevel(m_birds, m_pigs , m_gameObjects);
-    setNextBird(false);*/
     
     for (size_t i{}; i < m_destroyAnimation.size(); ++i) {
         m_destroyAnimation.at(i).setSize(sf::Vector2f(50.f, 50.f));
@@ -236,14 +215,13 @@ void PlayState::initilaize()
 
 void PlayState::createGroundAndRogatka()
 {
-    m_worldObjects[0] = std::make_unique<Ground>(m_world, sf::Vector2f(0, 0), m_background.getSize());//ground
-    m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));//rogatka
+    m_worldObjects[0] = std::make_unique<Ground>(m_world, sf::Vector2f(0, 0), m_background.getSize()); //ground
+    m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));      //rogatka
 }
 
 void PlayState::createLevelData()
 {
     m_levelData.emplace_back().first = GameResources::getInstance().createText("Level: ", sf::Color::White, 1);
-    //m_levelData.back().second = GameResources::getInstance().createText(std::to_string(m_level/*m_sharedData->levelToRead*/), sf::Color::White, 1);
     m_levelData.emplace_back().first = GameResources::getInstance().createText("Score: ", sf::Color::White, 1);
     m_levelData.back().second = GameResources::getInstance().createText("0", sf::Color::White, 1);
     updateDataPosition();

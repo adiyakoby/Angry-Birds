@@ -1,5 +1,6 @@
 #include "LevelSelectState.h"
 #include "PlayState.h"
+#include "MainMenuState.h"
 
 LevelSelectState::LevelSelectState(std::shared_ptr<GameTools> gameTools)
 	:m_gameTools{ gameTools }, m_sharedData{ std::make_shared<SharedData>() }, 
@@ -44,6 +45,8 @@ void LevelSelectState::update()
 	if (m_event)
 		if (m_requestedLevel >= 0 && m_requestedLevel < m_levelData.size())
 			levelRequest();
+		else if (m_requestedLevel == 7)
+			m_gameTools->m_gameStates.addState(std::make_unique<MainMenuState>(this->m_gameTools, false), false);
 	m_event = false;
 }
 
@@ -68,16 +71,18 @@ void LevelSelectState::levelRequest()
 
 void LevelSelectState::updateReturningValue()
 {
-	if (m_sharedData->levelStatus == "Pass" )
-		if (m_sharedData->levelToRead < 6 && m_sharedData->levelToRead >= m_levelData.size())
+	if (m_sharedData->levelStatus == "Pass" )	
+	{
+		if (m_levelData.at(m_sharedData->levelToRead - 1).second < m_sharedData->score)
 		{
-			if (m_levelData.at(m_sharedData->levelToRead - 1).second < m_sharedData->score)
-				m_levelData.at(m_sharedData->levelToRead - 1).second = m_sharedData->score;
-			m_levelsFields.at(m_sharedData->levelToRead - 1).second.setString(m_levelData.back().first + std::to_string(m_levelData.back().second));
-			std::cout << "pass level: " << m_sharedData->levelToRead << std::endl;
-			std::cout << "level score:  " << m_sharedData->score << std::endl;
-			openNewLevel();
+			m_levelData.at(m_sharedData->levelToRead - 1).second = m_sharedData->score;
+			m_levelsFields.at(m_sharedData->levelToRead - 1).second.setString(m_levelData.at(m_sharedData->levelToRead - 1).first + std::to_string(m_levelData.at(m_sharedData->levelToRead - 1).second));
 		}
+		std::cout << "pass level: " << m_sharedData->levelToRead << std::endl;
+		std::cout << "level score:  " << m_sharedData->score << std::endl;
+		if (m_sharedData->levelToRead == m_levelData.size())
+			openNewLevel();
+	}
 			
 }
 
@@ -104,8 +109,7 @@ void LevelSelectState::drawLevelSelect()
 		m_gameTools->m_window.getWindow().draw(i.second);
 	}
 		
-
-	//m_gameTools->m_window.getWindow().draw(m_backButton);
+	m_gameTools->m_window.getWindow().draw(m_backButton);
 }
 
 int LevelSelectState::handleClick(sf::Vector2f mouse_loc)
@@ -113,6 +117,8 @@ int LevelSelectState::handleClick(sf::Vector2f mouse_loc)
 	for (int i = 0; i < m_levelsFields.size(); i++)
 		if (m_levelsFields.at(i).first.getGlobalBounds().contains(mouse_loc))
 			return i;
+	if (m_backButton.getGlobalBounds().contains(mouse_loc))
+		return 7;
 	return -1;
 }
 
@@ -133,7 +139,7 @@ void LevelSelectState::initilaize()
 			m_levelsFields.back().first.setSize(sf::Vector2f(200.f, 200.f));
 			m_levelsFields.back().first.setOrigin(m_levelsFields.back().first.getSize() * 0.5f);
 			m_levelsFields.back().first.setPosition(firstPos);
-			m_levelsFields.back().first.setTexture(&GameResources::getInstance().getLockTexture());
+			m_levelsFields.back().first.setTexture(&GameResources::getInstance().getLockandBackTexture(0));
 			firstPos.x += 400.f;
 		}
 		firstPos = sf::Vector2f(300.f, 500.f);
@@ -150,8 +156,9 @@ void LevelSelectState::initilaize()
 	m_levelsFields.at(0).second.setCharacterSize(25);
 
 	////back button
-	//m_levelsFields.emplace_back();
-	//m_levelsFields.back().setSize(sf::Vector2f(50.f, 50.f));
-	//m_levelsFields.back().setOrigin(m_levelsFields.back().getSize() * 0.5f);
-	//m_levelsFields.back().setPosition(sf::Vector2f(100.f, 200.f));
+	m_backButton.setSize(sf::Vector2f(150.f, 100.f));
+	m_backButton.setOrigin(m_backButton.getSize() * 0.5f);
+	m_backButton.setPosition(sf::Vector2f(100.f, WINDOW_HEIGHT - 100));
+	m_backButton.setTexture(&GameResources::getInstance().getLockandBackTexture(1));
+	//m_backButton.setFillColor(sf::Color::Black);
 }
