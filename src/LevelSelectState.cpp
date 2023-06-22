@@ -68,8 +68,8 @@ void LevelSelectState::levelRequest()
 
 void LevelSelectState::updateReturningValue()
 {
-	if (m_sharedData->levelStatus == "Pass")
-		if (m_sharedData->levelToRead < 6)
+	if (m_sharedData->levelStatus == "Pass" )
+		if (m_sharedData->levelToRead < 6 && m_sharedData->levelToRead >= m_levelData.size())
 		{
 			if (m_levelData.at(m_sharedData->levelToRead - 1).second < m_sharedData->score)
 				m_levelData.at(m_sharedData->levelToRead - 1).second = m_sharedData->score;
