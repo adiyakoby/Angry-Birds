@@ -172,7 +172,7 @@ void GameResources::initTextures()
     for (size_t i = 0; i < WoodLocation.size(); i++)
     {
         m_obstacles.emplace_back();
-        m_obstacles.back().loadFromFile("StaticObjects.png", WoodLocation.at(i));
+        m_obstacles.back().loadFromFile("StaticObjects.png", IceLocation.at(i));
     }
 
  
