@@ -60,7 +60,7 @@ std::deque<std::string> LevelManager::ReadBirds()
 std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::string>& objDeq)
 {
 	float deltaX{ 200.f };
-	float deltaY{ ROGATKA_Y + 50.f };
+	float deltaY{ ROGATKA_Y + 70.f };
 	std::vector<std::unique_ptr<Bird>> tempVec;
 
 	while (!objDeq.empty())
@@ -93,7 +93,7 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 
 void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>>& objVec)
 {
-	int xPos = WINDOW_WIDTH * 0.4;
+	int xPos = WINDOW_WIDTH * 0.6;
 	int yPos = 740-75;
 	
 
@@ -104,11 +104,11 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 
 		for (size_t i = 0; i < line.size(); i++)
 		{
-			insideLine = true;
+			//insideLine = true;
 			switch (line.at(i))
 			{
-			case '/':  break;
-			case ' ': if(insideLine) xPos += 30; break;
+			case '/':  if (!insideLine) insideLine = true;															break;
+			case ' ': if(insideLine) xPos += 30;																	break;
 			case '@': pigsVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f), {0, PIG_HP, PIG_SCORE})));
 				xPos += 21;																							break;
@@ -141,8 +141,8 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 			}	
 		}
 
-		yPos -= 85;
-		xPos = WINDOW_WIDTH * 0.4;
+		yPos -= 88;
+		xPos = WINDOW_WIDTH * 0.6;
 		objDeq.pop_back();
 	}
 	
