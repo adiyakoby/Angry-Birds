@@ -11,6 +11,7 @@ public:
 	void drawObject(sf::RenderWindow& window) override;
 	sf::Vector2f getPosition() const override{ return m_ground.getPosition(); };
 	void rotate(const int& x) override { ; };
+	void hitState() override { ; };
 private:
 	sf::RectangleShape m_ground;
 

@@ -1,6 +1,7 @@
 #include "Wood.h"
 
-Wood::Wood(std::shared_ptr<World> world, const sf::Vector2f position, const sf::Vector2f& size) : StaticObjects(world, 40, WOOD_SCORE) {
+Wood::Wood(std::shared_ptr<World> world, const sf::Vector2f position, const sf::Vector2f& size) : 
+    StaticObjects(world, WOOD_HP, WOOD_SCORE), m_hit{false} {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
 }
@@ -57,3 +58,10 @@ static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerTy
         return std::make_unique<Wood>(world, position, size);
     }
 );
+
+void Wood::hitState()
+{
+    if (m_hit) return;
+    m_wood.setTexture(&GameResources::getInstance().getWoodsTexture(2));
+    m_hit = true;
+}

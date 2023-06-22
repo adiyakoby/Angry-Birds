@@ -13,9 +13,12 @@ public:
 	void drawObject(sf::RenderWindow& window) override;
 	sf::Vector2f getPosition() const override { return m_wood.getPosition(); }
 	void rotate(const int& x) override {  this->rotateBody(); };
+	
+	void hitState() override;
 
 private:
 	sf::RectangleShape m_wood;
+	bool m_hit;
 	void initPhysicBody(std::shared_ptr<World> world,const sf::Vector2f& postion, const sf::Vector2f& size)override;
 	void initGraphicBody(const sf::Vector2f& size)override;
 };

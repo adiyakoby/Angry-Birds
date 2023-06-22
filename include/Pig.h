@@ -14,7 +14,7 @@ public:
 	sf::Vector2f getPosition() const override { return m_pig.getPosition(); }
 	void rotate(const int& x) override { ; };
 
-	void hitState();
+	virtual void hitState() override;
 private:
 	sf::CircleShape m_pig;
 	void initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size)override;
