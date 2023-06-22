@@ -6,8 +6,8 @@
 Game::Game()
 	:m_gameTools(std::make_shared<GameTools>())
 {
-	//m_gameTools->m_gameStates.addState(std::make_unique<MainMenuState>(this -> m_gameTools), true); //create the first state of the game - the menu
-	m_gameTools->m_gameStates.addState(std::make_unique<LevelSelectState>(this->m_gameTools), true);
+	m_gameTools->m_gameStates.addState(std::make_unique<MainMenuState>(this -> m_gameTools), true); //create the first state of the game - the menu
+	//m_gameTools->m_gameStates.addState(std::make_unique<LevelSelectState>(this->m_gameTools), true);
 }
 
 void Game::runGame()
