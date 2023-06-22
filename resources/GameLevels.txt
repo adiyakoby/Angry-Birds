@@ -1,5 +1,5 @@
 Level 1
-Birds: R B
+Birds: R B 
                
        /   ! @ ! 
        /     -
@@ -12,7 +12,7 @@ Birds: R B
  
 ===========================================================
 Level 2
-Birds: B B R B B
+Birds: B B R B B 
 
    /                _    
    /              # @ #   
