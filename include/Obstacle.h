@@ -19,8 +19,11 @@ public:
 private:
 	sf::RectangleShape m_obstacle;
 
+
 	bool m_hit;
 	int m_textureIndex;
+	int m_halfHp;
+	
 
 	// Private funcs:
 	void initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& postion, const sf::Vector2f& size)override;

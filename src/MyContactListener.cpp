@@ -82,15 +82,7 @@ void pigBird(Objects& pig, Objects& bird) {
 
 void birdObstacle(Objects& bird, Objects& wood) {
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
-    if (wood.getHp() <= WOOD_HP/2)
-        static_cast<Obstacle&>(wood).hitState();
-    if (wood.getHp() <= 0)
-    {
-        ;
-        //wood.ignoreObject();
-        //bird.contVelocity();
-    }
-    
+    static_cast<Obstacle&>(wood).hitState();
 }
 
 void ObstacleBird(Objects& wood, Objects& bird) {
