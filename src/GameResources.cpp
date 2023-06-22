@@ -33,9 +33,9 @@ sf::Texture& GameResources::getPoofTexture(int index)
 {
     return m_poofTexture.at(index);
 }
-sf::Texture& GameResources::getLockandBackTexture(int index)
+sf::Texture& GameResources::getLock()
 {
-    return  m_forLevelState.at(index);
+    return  m_lock;
 }
 sf::Texture& GameResources::getHelpTexture(int index)
 {
@@ -69,10 +69,16 @@ sf::Texture& GameResources::getPigsTexture(int index) {
     return m_pigsTexture.at(index);
 }
 
-//get the textures for the transitions screens
+//need to be changed to background
 sf::Texture& GameResources::getTransitionScreens(int index)
 {
     return m_transitionScreens.at(index);
+}
+
+//this is for the Transition screens state 
+sf::Texture& GameResources::getTransitionScreensState(int index)
+{
+    return m_transitionScreensState.at(index);
 }
 
 //get the textures for the level state screens
@@ -221,13 +227,17 @@ void GameResources::initTextures()
         m_levelsFields.emplace_back();
         m_levelsFields.back().loadFromFile("LevelSelectSpriteSheet.png", levelsLocation.at(i));
     }
+ 
+    m_lock.loadFromFile("SpritesForLevelSelect.png", sf::IntRect{5, 510, 90, 120});
+    
 
-    std::array<sf::IntRect, 2> forlevels{  sf::IntRect{5, 510, 90, 120}, sf::IntRect{214, 641, 53, 45}};
-       
-    for (size_t i = 0; i < forlevels.size(); i++)
+    //load the transition screens for states(game over level pass)
+    std::array<std::string, 2> TransitionState{ "failedLevel.png", "LevelPass.png" };
+
+    for (size_t i = 0; i < TransitionState.size(); i++)
     {
-        m_forLevelState.emplace_back();
-        m_forLevelState.back().loadFromFile("SpritesForLevelSelect.png", forlevels.at(i));
+        m_transitionScreensState.emplace_back();
+        m_transitionScreensState.back().loadFromFile(TransitionState.at(i));
     }
   
 }

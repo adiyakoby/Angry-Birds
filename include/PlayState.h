@@ -32,9 +32,9 @@ public:
 	PlayState(std::shared_ptr<GameTools>, std::shared_ptr<SharedData>);
 	~PlayState() = default;
 
-	void processManeger();
-	void update();
-	void Draw();
+	void processManeger()override;
+	void update()override;
+	void Draw()override;
 	void Resume()override;
 	void Pause()override {}
 
@@ -43,7 +43,7 @@ public:
 	void drawGame();
 	void updateView();
 	void setNextBird(const bool &x);
-	void setUpForEndLevel(std::string);
+	void setUpForEndLevel(std::string, int);
 	bool levelEnd();
 	bool isFinishedMoving();
 	void updateDataPosition();

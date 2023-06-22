@@ -1,5 +1,6 @@
 #include "PlayState.h"
 #include "LevelSelectState.h"
+#include "TransitionScreensState.h"
 
 PlayState::PlayState(std::shared_ptr<GameTools> gameTools, std::shared_ptr<SharedData> sharedData)
     :m_gameTools(gameTools),m_sharedData(sharedData),m_contactListener(std::make_unique<MyContactListener>()),
@@ -61,12 +62,12 @@ bool PlayState::levelEnd()
 {
     if (m_pigs.size() == 0)
     {
-        setUpForEndLevel("Pass");
+        setUpForEndLevel("Pass", 1);
         return true;
     }
     else if (m_birds.size() == 0)
     {
-        setUpForEndLevel("Failed");
+        setUpForEndLevel("Failed", 0);
         return true;
     }
     return false;
@@ -94,7 +95,7 @@ void PlayState::setNextBird(const bool& x)
 }
 
 //#level select
-void PlayState::setUpForEndLevel(std::string status)
+void PlayState::setUpForEndLevel(std::string status, int transitionScreen)
 {
     m_world->getWorld()->SetContactListener(nullptr);
     m_sharedData->levelStatus = status;
@@ -102,7 +103,7 @@ void PlayState::setUpForEndLevel(std::string status)
     m_sharedData->score = std::stoi(levelScore);
     setScore(-(m_sharedData->score));//to reset score
     m_world->getWorld()->SetContactListener(m_contactListener.get());
-    m_gameTools->m_gameStates.switchStates();
+    m_gameTools->m_gameStates.addState(std::make_unique<TransitionScreens>(this ->m_gameTools, transitionScreen), false);
     m_gameTools->m_window.resetView();
 }
 

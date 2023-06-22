@@ -139,7 +139,7 @@ void LevelSelectState::initilaize()
 			m_levelsFields.back().first.setSize(sf::Vector2f(200.f, 200.f));
 			m_levelsFields.back().first.setOrigin(m_levelsFields.back().first.getSize() * 0.5f);
 			m_levelsFields.back().first.setPosition(firstPos);
-			m_levelsFields.back().first.setTexture(&GameResources::getInstance().getLockandBackTexture(0));
+			m_levelsFields.back().first.setTexture(&GameResources::getInstance().getLock());
 			firstPos.x += 400.f;
 		}
 		firstPos = sf::Vector2f(300.f, 500.f);
@@ -159,6 +159,6 @@ void LevelSelectState::initilaize()
 	m_backButton.setSize(sf::Vector2f(150.f, 100.f));
 	m_backButton.setOrigin(m_backButton.getSize() * 0.5f);
 	m_backButton.setPosition(sf::Vector2f(100.f, WINDOW_HEIGHT - 100));
-	m_backButton.setTexture(&GameResources::getInstance().getLockandBackTexture(1));
-	//m_backButton.setFillColor(sf::Color::Black);
+	//m_backButton.setTexture(&GameResources::getInstance().getLockandBackTexture(1));
+	m_backButton.setFillColor(sf::Color::Black);
 }
