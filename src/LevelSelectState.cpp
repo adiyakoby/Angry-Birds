@@ -10,6 +10,12 @@ LevelSelectState::LevelSelectState(std::shared_ptr<GameTools> gameTools)
 
 void LevelSelectState::processManeger()
 {
+	if (m_firstPlay)
+	{
+		m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools, this->m_sharedData), false);
+		m_gameTools->m_gameStates.switchStates();
+		m_firstPlay = false;
+	}
 	if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event))
 	{
 		switch (event.type)
@@ -57,12 +63,12 @@ void LevelSelectState::levelRequest()
 {
 	std::cout << "requested level " << m_requestedLevel + 1 << std::endl;
 	m_sharedData->levelToRead = m_requestedLevel + 1;
-	if (m_firstPlay)
-	{
-	//	m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools, this ->m_sharedData), false);
-		m_firstPlay = false;
-	}
-	else
+	//if (m_firstPlay)
+	//{
+	////	m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools, this ->m_sharedData), false);
+	//	m_firstPlay = false;
+	//}
+	//else
 		 m_gameTools->m_gameStates.switchStates();
 }
 
