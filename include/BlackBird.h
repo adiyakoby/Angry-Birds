@@ -13,7 +13,7 @@ private:
     bool m_exploded;
     std::shared_ptr<World> m_world;
     std::vector<b2Body*> m_bombs;
-    std::array<sf::RectangleShape, 2> m_bombImage;
+    std::array<sf::CircleShape, 2> m_bombImage;
     void setBombTexture();
     void explode();
     void setBombs();

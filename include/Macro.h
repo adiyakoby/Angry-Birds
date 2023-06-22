@@ -25,12 +25,12 @@ const float ROGATKA_Y{ 660.f };
 const float BLUE_BIRDS_DISTANCE = 100.f;
 const float BLUE_BIRD_SPLIT_RADIUS = 15.f;
 const float BOMB_SIZE = 15.f;
-const float BOMB_DISTANCE = 100.f;
+const float BOMB_DISTANCE = 300.f;
 
 // Game Score
 const int ICE_SCORE = 5;
 const int WOOD_SCORE = 10;
-const int Metal_SCORE = 15;
+const int IRON_SCORE = 15;
 const int PIG_SCORE = 20;
 
 // Obstacles HP :

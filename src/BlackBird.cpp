@@ -5,8 +5,11 @@ float calculateDistance(const sf::Vector2f& pos1, const sf::Vector2f& pos2) {
     float deltaX = pos2.x - pos1.x;
     float deltaY = pos2.y - pos1.y;
 
+    float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
+    return distance;
+}
 BlackBird::BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr)
-    : Bird(world, position, size, arr.at(0)), m_world{ world }, m_activated(false), m_explosionRadius(50.0f), m_explosionForce(100.0f)
+    : Bird(world, position, size, arr.at(0)), m_world{ world }, m_activated(false),m_exploded{false}
 {
     m_bombs.resize(4);
 }
@@ -46,8 +49,8 @@ void BlackBird::drawObject(sf::RenderWindow& w)
 {
     if(!m_exploded)
         Bird::drawObject(w);
-    std::cout << m_bird.getPosition().y << std::endl;
     if (m_exploded) {
+
         static sf::Clock clock;
         for (int i{}; i < m_bombs.size(); i++) {
             if (calculateDistance(sf::Vector2f(m_bombs.at(i)->GetPosition().x * SCALE,
@@ -59,6 +62,9 @@ void BlackBird::drawObject(sf::RenderWindow& w)
         }
         if(clock.getElapsedTime().asSeconds() > 3.f)
             m_body->SetLinearVelocity(b2Vec2(0.f, 0.f));
+        else if (clock.getElapsedTime().asSeconds() > 1.f) {
+            m_bird.setTexture(&GameResources::getInstance().getPoofTexture(4));
+        }
         w.draw(m_bird);
     }
 }
@@ -105,14 +111,15 @@ void BlackBird::PhysicBombBody(const int index, const sf::Vector2f& position) {
     // Create Box2D fixture definition
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
-    fixtureDef.density = 1.f;
+    fixtureDef.density = 9.f;
     fixtureDef.friction = 0.f;
     fixtureDef.restitution = 0.f;
     m_bombs.at(index)->CreateFixture(&fixtureDef);
 }
 void BlackBird::setBombTexture()
 {
-    ;
+    m_bombImage.at(0).setTexture(&GameResources::getInstance().getPoofTexture(3));
+    m_bombImage.at(1).setTexture(&GameResources::getInstance().getPoofTexture(4));
 }
 void BlackBird::explode()
 {
@@ -141,7 +148,10 @@ void BlackBird::explode()
 }
 
 void BlackBird::destroyedBody() {
+    m_bird.setRadius(50.f);
     m_body->SetEnabled(false);
+    m_bird.setTexture(&GameResources::getInstance().getPoofTexture(3));
+   // m_bird.setOrigin(m_bird.getRadius(), m_bird.getRadius());
 }
 //to "register" the object in the Factory
 static auto registerItBlackBird = ObjectFactory<Bird>::instance().registerType(

@@ -157,7 +157,8 @@ void GameResources::initTextures()
         m_pigsTexture.back().loadFromFile("Angry-Birds.png", pigsLocation.at(i));
     }
 
-    std::array<sf::IntRect, 3> poofLocation{ sf::IntRect{40,715,126,120} , sf::IntRect{41,467,127,121} ,sf::IntRect{166,151,146,144}};
+    std::array<sf::IntRect, 5> poofLocation{ sf::IntRect{40,715,126,120} , sf::IntRect{41,467,127,121} ,sf::IntRect{166,151,146,144},
+    sf::IntRect{482,393,91,91}  , sf::IntRect{312,157,131,122} };
     for (size_t i = 0; i < poofLocation.size(); i++)
     {
         m_poofTexture.emplace_back();
