@@ -24,7 +24,7 @@ struct poof {
 	sf::Time elapsedTime() { return m_clock.getElapsedTime(); };
 };
 
-struct SharedData; //#level select
+struct SharedData; 
 
 class PlayState :public State
 {
@@ -43,9 +43,7 @@ public:
 	void drawGame();
 	void updateView();
 	void setNextBird(const bool &x);
-	void setUpForEndLevel(std::string);// #level select
-	//void setUpForNextLevel();
-	//void setUpForGameOver();
+	void setUpForEndLevel(std::string);
 	bool levelEnd();
 	bool isFinishedMoving();
 	void updateDataPosition();
