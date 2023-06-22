@@ -121,6 +121,14 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(200.f, 20.f), {2, WOOD_HP, WOOD_SCORE})));
 				xPos += 202;																						break;
 
+			case '#': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Obstacle",
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(150.f, 40.f), { 4, ICE_HP, ICE_SCORE })));
+				objVec.back()->rotate(90); xPos += 41;																break;
+
+			case '_': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Obstacle",
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(200.f, 20.f), { 6, ICE_HP, ICE_SCORE })));
+				xPos += 202;																						break;
+
 			default: break;
 			}	
 		}

@@ -1,7 +1,7 @@
 #include "Obstacle.h"
 
 Obstacle::Obstacle(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr)
-    : StaticObjects(world, arr.at(1), arr.at(2)), m_hit{ false }, m_textureIndex{ arr.at(0) } {
+    : StaticObjects(world, arr.at(1), arr.at(2)), m_hit{ false }, m_textureIndex{ arr.at(0) }, m_halfHp{arr.at(1)/2} {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
 }
@@ -61,7 +61,7 @@ static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerTy
 
 void Obstacle::hitState()
 {
-    if (m_hit ) return;
+    if (m_hit && getHp() > m_halfHp) return;
     m_obstacle.setTexture(&GameResources::getInstance().getObstacleTexture(m_textureIndex + 1));
     m_hit = true;
 }
