@@ -22,10 +22,12 @@ struct poof {
 	sf::Time elapsedTime() { return m_clock.getElapsedTime(); };
 };
 
+//struct SharedData; #level select
+
 class PlayState :public State
 {
 public:
-	PlayState(std::shared_ptr<GameTools>);
+	PlayState(std::shared_ptr<GameTools>/*, std::shared_ptr<SharedData>*/);
 	~PlayState() = default;
 
 	void processManeger();
@@ -39,9 +41,10 @@ public:
 	void drawGame();
 	void updateView();
 	void setNextBird(const bool &x);
+	//void setUpForEndLevel(std::string); #level select
 	void setUpForNextLevel();
 	void setUpForGameOver();
-
+	bool levelEnd();
 	bool isFinishedMoving();
 	void updateDataPosition();
 	void setScore(int);
@@ -73,7 +76,7 @@ private:
 	std::vector<poof>m_poofsContainer;
 	//init functions
 	std::shared_ptr<World> m_world;
-
+	//std::shared_ptr<SharedData> m_sharedData; #level select
 	LevelManager m_lvlsMngr;
 	void drawDestroyedObj();
 	//init funcs
