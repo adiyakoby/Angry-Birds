@@ -13,6 +13,7 @@
 #include "RedBird.h"
 #include "LevelManager.h"
 #include "BlueBird.h"
+#include "BlackBird.h"
 
 struct poof {
 

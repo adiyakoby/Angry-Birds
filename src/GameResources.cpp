@@ -125,7 +125,7 @@ void GameResources::initTextures()
         m_soundTexture.back().loadFromFile(soundButton.at(i));
     }
     //vector string for the bird's names
-    std::array<sf::IntRect, 3> birdLocation{ sf::IntRect{915, 867, 50, 50}, sf::IntRect{551, 658, 65, 55}, sf::IntRect{0 ,448,35,35} }; // 1 448
+    std::array<sf::IntRect, 4> birdLocation{ sf::IntRect{915, 867, 50, 50}, sf::IntRect{551, 658, 65, 55}, sf::IntRect{0 ,448,35,35} ,sf::IntRect{948,572,67,61} }; // 1 448
     for (size_t i = 0; i < birdLocation.size(); i++)
     {
         m_birdsTexture.emplace_back();
@@ -141,7 +141,7 @@ void GameResources::initTextures()
         m_pigsTexture.back().loadFromFile("Angry-Birds.png", pigsLocation.at(i));
     }
 
-    std::array<sf::IntRect, 3> poofLocation{ sf::IntRect{40,715,126,120} , sf::IntRect{41,467,127,121} ,sf::IntRect{166,151,146,144} };
+    std::array<sf::IntRect, 3> poofLocation{ sf::IntRect{40,715,126,120} , sf::IntRect{41,467,127,121} ,sf::IntRect{166,151,146,144}};
     for (size_t i = 0; i < poofLocation.size(); i++)
     {
         m_poofTexture.emplace_back();

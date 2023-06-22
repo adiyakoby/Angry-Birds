@@ -7,7 +7,7 @@
 #include "BlueBird.h"
 #include "World.h"
 #include "Macro.h"
-
+#include "BlackBird.h"
 #include <fstream>
 #include <vector>
 #include <deque>
