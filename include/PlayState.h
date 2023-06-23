@@ -49,6 +49,7 @@ public:
 	void updateDataPosition();
 	void setScore(int);
 	void checkIfRestartPressed(const sf::Event&,const sf::Vector2f&);
+	void levelIntroduction();
 protected:
 	void initilaize();
 	
@@ -81,6 +82,8 @@ private:
 	void createGroundAndRogatka();
 	void createGameObjs();
 	void createLevelData();
+
+	bool m_levelIntroduction;
 };
 
 

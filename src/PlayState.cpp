@@ -4,7 +4,8 @@
 
 PlayState::PlayState(std::shared_ptr<GameTools> gameTools, std::shared_ptr<SharedData> sharedData)
     :m_gameTools(gameTools),m_sharedData(sharedData),m_contactListener(std::make_unique<MyContactListener>()),
-     m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }
+    m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }, m_levelIntroduction{ true }
+
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
 	initilaize();
@@ -13,9 +14,14 @@ PlayState::PlayState(std::shared_ptr<GameTools> gameTools, std::shared_ptr<Share
 
 void PlayState::processManeger()
 {
+    if (m_levelIntroduction)
+    {
+        levelIntroduction();
+        return;
+    }
+
     if (m_birds.size() == 0)
         return;
-    
 
     if (m_birds.back()->isDragged()) {
         sf::Vector2i mouseLocation = sf::Mouse::getPosition(m_gameTools->m_window.getWindow());
@@ -51,13 +57,16 @@ void PlayState::processManeger()
 
 void PlayState::update()
 {
-    if (levelEnd())
-        return;
+    if (!m_levelIntroduction)
+    {
+        if (levelEnd())
+            return;
 
-    deleteObj();
-    updateView();
-    if (!(m_birds.back()->isOnRogatka()) && isFinishedMoving())
-        setNextBird(true);
+        deleteObj();
+        updateView();
+        if (!(m_birds.back()->isOnRogatka()) && isFinishedMoving())
+            setNextBird(true);
+    }
 }
 
 bool PlayState::levelEnd()
@@ -274,6 +283,32 @@ void PlayState::checkIfRestartPressed(const sf::Event& event, const sf::Vector2f
         }
             
 
+}
+void PlayState::levelIntroduction()
+{
+    static int counter = 0;
+    if (counter == 0)
+    {
+        auto view = m_gameTools->m_window.getWindow().getView();
+        view.zoom(1.5f);
+        m_gameTools->m_window.getWindow().setView(view);
+        counter++;
+    }
+       
+    if (m_backGround.getSize().x - m_gameTools->m_window.getWindow().getView().getCenter().x > WINDOW_WIDTH /2)
+    {
+        m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getCenter().x + 3, WINDOW_HEIGHT / 2);
+        updateDataPosition();
+    }
+    else
+    {
+        m_levelIntroduction = false;
+        m_gameTools->m_window.resetView();
+        auto view = m_gameTools->m_window.getWindow().getView();
+        view.zoom(1);
+        m_gameTools->m_window.getWindow().setView(view);
+    }
+    
 }
 void PlayState::drawDestroyedObj() {
    
