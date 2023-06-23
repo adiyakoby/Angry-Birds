@@ -25,10 +25,8 @@ public:
 	sf::Texture& getLock();
 	sf::Texture& getTransitionScreensState(int index);
 	sf::Texture& getObstacleTexture(const int& index);
-
+	sf::Texture& getButtons(int index);
 	sf::Texture& getLevelsFields(int index);
-	/*sf::Texture& getObjectTexture(int index);
-	sf::Texture& getDataButtuns(int index);*/
 	sf::Texture& getBackGroundScreens(int index);
 	sf::SoundBuffer& Playaffect(int index);
 	sf::Font& getFont(int index);
@@ -56,6 +54,7 @@ private:
 	std::vector <sf::Texture> m_poofTexture;
 	sf::Texture m_lock;
 	std::vector <sf::Texture> m_transitionScreensState;
+	std::vector <sf::Texture> m_buttons;
 
 	std::vector<sf::Texture> m_obstacles;
 

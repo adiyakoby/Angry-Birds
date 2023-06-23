@@ -61,9 +61,6 @@ sf::Texture& GameResources::getRogatkaTexture(int index) {
     return m_rogatkaTexture.at(index);
 }
 
-//sf::Texture& GameResources::getGroundTexture(int index) {
-//    return m_groundTexture.at(index);
-//}
 
 sf::Texture& GameResources::getPigsTexture(int index) {
     return m_pigsTexture.at(index);
@@ -87,6 +84,11 @@ sf::Texture& GameResources::getLevelsFields(int index)
     return m_levelsFields.at(index);
 }
 
+//get buttons 
+sf::Texture& GameResources::getButtons(int index)
+{
+    return m_buttons.at(index);
+}
 
 //get font
 sf::Font& GameResources::getFont(int index)
@@ -202,12 +204,6 @@ void GameResources::initTextures()
         m_rogatkaTexture.back().loadFromFile(rogatkaNames.at(i));
     }
 
-    //std::array<std::string, 1> groundNames{ "ground.png" };
-    //for (size_t i = 0; i < groundNames.size(); i++)
-    //{
-    //    m_groundTexture.emplace_back();
-    //    m_groundTexture.back().loadFromFile(groundNames.at(i));
-    //}
     
     //---------------------------screens textures-----------------------------
     //all the texture images names for transition screens
@@ -240,7 +236,14 @@ void GameResources::initTextures()
         m_transitionScreensState.emplace_back();
         m_transitionScreensState.back().loadFromFile(TransitionState.at(i));
     }
-  
+
+    //get buttons texture
+    std::array<sf::IntRect, 2> buttonsPosition{ sf::IntRect{95, 275, 200, 200}, sf::IntRect{100, 955, 200, 200} };
+    for (size_t i = 0; i < buttonsPosition.size(); i++)
+    {
+        m_buttons.emplace_back();
+        m_buttons.back().loadFromFile("buttons.png",buttonsPosition.at(i));
+    }
 }
 
 //load the fonts for the game

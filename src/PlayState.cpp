@@ -4,7 +4,7 @@
 
 PlayState::PlayState(std::shared_ptr<GameTools> gameTools, std::shared_ptr<SharedData> sharedData)
     :m_gameTools(gameTools),m_sharedData(sharedData),m_contactListener(std::make_unique<MyContactListener>()),
-     m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }, m_level{1}
+     m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
 	initilaize();
@@ -43,6 +43,8 @@ void PlayState::processManeger()
             { event.mouseButton.x, event.mouseButton.y }, m_gameTools->m_window.getWindow().getView());
 
         m_birds.back()->handleEvent(event, location);
+        checkIfRestartPressed(event, location);
+        
     }
 
 }
@@ -152,7 +154,8 @@ void PlayState::deleteObj()
 void PlayState::drawGame()
 {
 
-    m_gameTools->m_window.getWindow().draw(m_background);
+    m_gameTools->m_window.getWindow().draw(m_backGround);
+    m_gameTools->m_window.getWindow().draw(m_restart);
     for (auto& ea : m_gameObjects) {
         ea->objectUpdate();
         ea->drawObject(m_gameTools->m_window.getWindow());
@@ -183,9 +186,9 @@ void PlayState::updateView()
         m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getSize().x / 2.f, m_gameTools->m_window.getWindow().getView().getSize().y / 2.f);
         updateDataPosition();
     }
-    else if (m_birds.back()->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_background.getSize().x)
+    else if (m_birds.back()->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_backGround.getSize().x)
     {
-        m_gameTools->m_window.setView(m_background.getSize().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2, WINDOW_HEIGHT / 2);
+        m_gameTools->m_window.setView(m_backGround.getSize().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2, WINDOW_HEIGHT / 2);
         updateDataPosition();
     }
     else
@@ -198,9 +201,15 @@ void PlayState::updateView()
 void PlayState::initilaize()
 { 
     //init background
-    m_background.setTexture(&GameResources::getInstance().getBackGroundScreens(2));
-    m_background.setSize(sf::Vector2f(m_background.getTexture()->getSize().x * 3, m_background.getTexture()->getSize().y));
-    m_background.setPosition(0, 0);
+    m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(2));
+    m_backGround.setSize(sf::Vector2f(m_backGround.getTexture()->getSize().x * 3, m_backGround.getTexture()->getSize().y));
+    m_backGround.setPosition(0, 0);
+
+    //create the restart button
+    m_restart.setRadius(30.f);
+    m_restart.setOrigin(m_restart.getRadius(), m_restart.getRadius());
+    m_restart.setTexture(&GameResources::getInstance().getButtons(1));
+    //m_restart.setFillColor(sf::Color::Black);
 
     //init Text Data
     createLevelData();
@@ -212,11 +221,13 @@ void PlayState::initilaize()
         m_destroyAnimation.at(i).setSize(sf::Vector2f(50.f, 50.f));
         m_destroyAnimation.at(i).setTexture(&GameResources::getInstance().getPoofTexture(i));
     }
+
+
 }
 
 void PlayState::createGroundAndRogatka()
 {
-    m_worldObjects[0] = std::make_unique<Ground>(m_world, sf::Vector2f(0, 0), m_background.getSize()); //ground
+    m_worldObjects[0] = std::make_unique<Ground>(m_world, sf::Vector2f(0, 0), m_backGround.getSize()); //ground
     m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));      //rogatka
 }
 
@@ -237,6 +248,8 @@ void PlayState::updateDataPosition()
         string.second.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x+ WINDOW_WIDTH/2 - 65, yPos));
         yPos += 50.f;
     }
+    yPos = 50.f;
+    m_restart.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x - WINDOW_WIDTH / 2 + yPos, yPos));//update restart button position
 }
 
 void PlayState::setScore(int toAdd)
@@ -245,6 +258,21 @@ void PlayState::setScore(int toAdd)
     auto toSet = std::stoi(temp);
     toSet += toAdd;
     m_levelData[static_cast<int>(GameData::SCORE)].second.setString(std::to_string(toSet));
+
+}
+void PlayState::checkIfRestartPressed(const sf::Event& event, const sf::Vector2f& loc)
+{
+    if (event.type == sf::Event::MouseButtonReleased)
+        if (m_restart.getGlobalBounds().contains(loc))
+        {
+            m_birds.clear();
+            m_pigs.clear();
+            m_gameObjects.clear();
+            std::string levelScore = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
+            setScore(-(std::stoi(levelScore)));//to reset score
+            Resume();//this function alredy used to read the level after the switch between the states, so it can be reuse.
+        }
+            
 
 }
 void PlayState::drawDestroyedObj() {
