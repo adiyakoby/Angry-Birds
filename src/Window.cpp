@@ -12,6 +12,12 @@ sf::RenderWindow& Window::getWindow()
 {
 	return m_window;
 }
+void Window::setZoom(float zoom)
+{
+	auto view = m_window.getView();
+	view.zoom(zoom);
+	m_window.setView(view);
+}
 
 void Window::setView(float x, float y)
 {

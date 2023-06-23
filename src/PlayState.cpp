@@ -287,13 +287,13 @@ void PlayState::checkIfRestartPressed(const sf::Event& event, const sf::Vector2f
 }
 void PlayState::levelIntroduction()
 {
-    if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event));
+    if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event));//to prevent any event while the introuduction.
+
+    //to make the zoom out only once
     static bool first = true;
     if (first)
     {
-        auto view = m_gameTools->m_window.getWindow().getView();
-        view.zoom(1.5f);
-        m_gameTools->m_window.getWindow().setView(view);
+        m_gameTools->m_window.setZoom(1.5f);
         first = false;
     }
        
@@ -306,16 +306,15 @@ void PlayState::levelIntroduction()
     {
         m_levelIntroduction = false;
         m_gameTools->m_window.resetView();
-        auto view = m_gameTools->m_window.getWindow().getView();
-        view.zoom(1);
-        m_gameTools->m_window.getWindow().setView(view);
+        m_gameTools->m_window.setZoom(1);
         first = true;
     }
     
 }
 void PlayState::drawDestroyedObj() {
    
-    for (auto& poof : m_poofsContainer) {
+    for (auto& poof : m_poofsContainer)
+    {
         float elapsedTime = poof.elapsedTime().asSeconds();
 
         if (elapsedTime >= 0.f && elapsedTime < 0.3) {
