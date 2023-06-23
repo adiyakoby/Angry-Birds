@@ -40,7 +40,7 @@ private:
 	std::shared_ptr<SharedData> m_sharedData;
 	std::shared_ptr<GameTools> m_gameTools;
 	std::vector<std::pair<sf::RectangleShape, sf::Text>> m_levelsFields;
-	sf::RectangleShape m_backButton;
+	sf::CircleShape m_backButton;
 	std::vector<std::pair<std::string, int>> m_levelData;
 	sf::RectangleShape m_backGround;
 	int m_requestedLevel;

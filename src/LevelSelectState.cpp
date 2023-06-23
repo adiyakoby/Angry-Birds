@@ -156,8 +156,8 @@ void LevelSelectState::initilaize()
 	m_levelsFields.at(0).second.setCharacterSize(25);
 
 	////back button
-	m_backButton.setSize(sf::Vector2f(150.f, 100.f));
-	m_backButton.setOrigin(m_backButton.getSize() * 0.5f);
+	m_backButton.setRadius(40.f);
+	m_backButton.setOrigin(m_backButton.getRadius(),m_backButton.getRadius());
 	m_backButton.setPosition(sf::Vector2f(100.f, WINDOW_HEIGHT - 100));
 	//m_backButton.setTexture(&GameResources::getInstance().getLockandBackTexture(1));
 	m_backButton.setFillColor(sf::Color::Black);
