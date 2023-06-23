@@ -47,7 +47,7 @@ void MainMenuState::Draw()
 
 void MainMenuState::initilaize()
 {
-	m_backGround.setTexture(&GameResources::getInstance().getTransitionScreens(0));
+	m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(0));
 	m_backGround.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 	m_backGround.setPosition(0, 0);
 

@@ -127,7 +127,7 @@ void LevelSelectState::initilaize()
 	
 	m_backGround.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 	m_backGround.setPosition(0, 0);
-	m_backGround.setTexture(&GameResources::getInstance().getTransitionScreens(3));
+	m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(3));
 	
 	//levels fields
 	auto firstPos = sf::Vector2f(300.f, 200.f);

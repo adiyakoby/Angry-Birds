@@ -46,7 +46,7 @@ void HelpScreenState::Draw()
 
 void HelpScreenState::initilaize()
 {
-	m_backGround.setTexture(&GameResources::getInstance().getTransitionScreens(1));
+	m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(1));
 	m_backGround.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 	m_backGround.setPosition(0, 0);
 

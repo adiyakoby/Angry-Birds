@@ -70,9 +70,9 @@ sf::Texture& GameResources::getPigsTexture(int index) {
 }
 
 //need to be changed to background
-sf::Texture& GameResources::getTransitionScreens(int index)
+sf::Texture& GameResources::getBackGroundScreens(int index)
 {
-    return m_transitionScreens.at(index);
+    return m_backGround.at(index);
 }
 
 //this is for the Transition screens state 
@@ -213,11 +213,11 @@ void GameResources::initTextures()
     //all the texture images names for transition screens
     //char screenTextureNames[4][30] = { "pacmanBackground.png", "GameOver.png", "NextLevel.png", "endGame.png" };
 
-    std::array<std::string, 4> screenTextureNames{"MenuBackground.png", "helpScreen.png", "LevelOne.png", "LevelSelectBackGround.png"};
-    for (size_t i = 0; i < screenTextureNames.size(); i++)
+    std::array<std::string, 4> backGroundTextureNames{"MenuBackground.png", "helpScreen.png", "LevelOne.png", "LevelSelectBackGround.png"};
+    for (size_t i = 0; i < backGroundTextureNames.size(); i++)
     {
-        m_transitionScreens.emplace_back();
-        m_transitionScreens.back().loadFromFile(screenTextureNames.at(i));
+        m_backGround.emplace_back();
+        m_backGround.back().loadFromFile(backGroundTextureNames.at(i));
     }
 
     std::array<sf::IntRect, 6> levelsLocation{ sf::IntRect{50, 465, 175, 175}, sf::IntRect{250, 465, 175, 175}, sf::IntRect{450, 465, 175, 175},

@@ -20,7 +20,6 @@ public:
 	sf::Texture& getBirdTexture(int index);
 	sf::Texture& getWoodsTexture(int index);
 	sf::Texture& getRogatkaTexture(int index);
-	sf::Texture& getGroundTexture(int index);
 	sf::Texture& getPigsTexture(int index);
 	sf::Texture& getPoofTexture(int index);
 	sf::Texture& getLock();
@@ -30,7 +29,7 @@ public:
 	sf::Texture& getLevelsFields(int index);
 	/*sf::Texture& getObjectTexture(int index);
 	sf::Texture& getDataButtuns(int index);*/
-	sf::Texture& getTransitionScreens(int index);
+	sf::Texture& getBackGroundScreens(int index);
 	sf::SoundBuffer& Playaffect(int index);
 	sf::Font& getFont(int index);
 	sf::Text& createText(std::string, sf::Color, int);
@@ -46,7 +45,7 @@ private:
 	std::vector <sf::Texture> m_helpScreenTexture;//for state
 	std::vector <sf::Texture> m_soundTexture;//for state
 	std::vector <sf::Texture> m_objectTexture;
-	std::vector <sf::Texture> m_transitionScreens;
+	std::vector <sf::Texture> m_backGround;
 	std::vector <sf::Texture> m_databuttons;
 	std::vector <sf::Texture> m_helpTexture;
 	std::vector <sf::Texture> m_birdsTexture;
