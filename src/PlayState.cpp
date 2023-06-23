@@ -116,6 +116,7 @@ void PlayState::setUpForEndLevel(std::string status, int transitionScreen)
     m_world->getWorld()->SetContactListener(m_contactListener.get());
     m_gameTools->m_gameStates.addState(std::make_unique<TransitionScreens>(this ->m_gameTools, transitionScreen), false);
     m_gameTools->m_window.resetView();
+    m_levelIntroduction = true;
 }
 
 
@@ -286,13 +287,14 @@ void PlayState::checkIfRestartPressed(const sf::Event& event, const sf::Vector2f
 }
 void PlayState::levelIntroduction()
 {
-    static int counter = 0;
-    if (counter == 0)
+    if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event));
+    static bool first = true;
+    if (first)
     {
         auto view = m_gameTools->m_window.getWindow().getView();
         view.zoom(1.5f);
         m_gameTools->m_window.getWindow().setView(view);
-        counter++;
+        first = false;
     }
        
     if (m_backGround.getSize().x - m_gameTools->m_window.getWindow().getView().getCenter().x > WINDOW_WIDTH /2)
@@ -307,6 +309,7 @@ void PlayState::levelIntroduction()
         auto view = m_gameTools->m_window.getWindow().getView();
         view.zoom(1);
         m_gameTools->m_window.getWindow().setView(view);
+        first = true;
     }
     
 }
