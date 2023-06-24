@@ -48,7 +48,7 @@ void BlueBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse) {
 
     case sf::Event::MouseButtonPressed:
 
-        if (event.mouseButton.button == sf::Mouse::Left && isSplit) {
+        if (!isHit() && event.mouseButton.button == sf::Mouse::Left && isSplit) {
 
             b2Vec2 force{ m_body->GetLinearVelocity() };
             force *= 4.f;

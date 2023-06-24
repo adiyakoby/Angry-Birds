@@ -76,11 +76,14 @@ private:
 	//destroy's animation array
 	std::array<sf::RectangleShape, 3> m_destroyAnimation;
 	std::vector<poof>m_poofsContainer;
+
 	//init functions
 	std::shared_ptr<World> m_world;
 	std::shared_ptr<SharedData> m_sharedData;// #level select
 	LevelManager m_lvlsMngr;
+
 	void drawDestroyedObj();
+
 	//init funcs
 	void createGroundAndRogatka();
 	void createGameObjs();

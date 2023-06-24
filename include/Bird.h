@@ -26,6 +26,10 @@ public:
     void setOnRogatka(const bool& is) { m_onRogatka = is; m_body->SetEnabled(true); };
     bool isOnRogatka() const { return m_onRogatka; };
 
+    void gotHit() { m_hit = true; };
+    bool isHit() const { return m_hit; };
+    
+
 
 protected:
     sf::CircleShape m_bird;
@@ -35,6 +39,7 @@ private:
     int m_BirdType;
     bool m_onRogatka;
     bool m_dragging;
+    bool m_hit;
     sf::Vector2f dragStartPosition;
     sf::Vector2f dragEndPosition;
      

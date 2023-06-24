@@ -3,7 +3,7 @@
 #include <cmath>
 
 Bird::Bird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const int& BirdType) 
-    : Objects(world, 100), m_dragging{ false }, m_onRogatka{ false }, m_BirdType{BirdType}
+    : Objects(world, 100), m_dragging{ false }, m_onRogatka{ false }, m_BirdType{ BirdType }, m_hit{false}
 {
     initPhysicBody(world, position, size);
     initGraphicBody(size);   
@@ -60,7 +60,7 @@ void Bird::applyForce(const sf::Vector2f& force)
 
     // Apply impulse force to the Box2D body
     b2Vec2 forceScaled{ force.x *5 / SCALE, force.y*5 / SCALE };
-    //temp.Normalize();
+
     m_body->SetLinearVelocity(forceScaled);
     m_body->ApplyLinearImpulse(forceScaled , m_body->GetWorldCenter() , true);
 
@@ -138,10 +138,7 @@ void Bird::handleEvent(sf::Event& event,const sf::Vector2f & mouse)
             sf::Vector2f force = this->calculateThrow();
             this->applyForce(force);
         }
-
         break;
-
-
     }
 }
 

@@ -53,7 +53,7 @@ void groundPig(Objects& ground, Objects& pig) {
 }
 
  void groundObstacle(Objects& ground, Objects& wood) {
-     wood.setDamage(wood.getBodyMass() * wood.getBodyVelocity().LengthSquared());
+     wood.setDamage(wood.getBodyMass()/2.f * wood.getBodyVelocity().LengthSquared());
 }
 
 void ObstacleGround(Objects& wood, Objects& ground) {
@@ -66,6 +66,9 @@ void ObstacleObstacle(Objects& firstWood, Objects& SecondWood) {
 }
 
 void birdPig(Objects& bird, Objects& pig) {
+
+    static_cast<Bird&>(bird).gotHit();
+
     float dmg{ bird.getBodyMass() * bird.getBodyVelocity().LengthSquared() };
     
     if (dynamic_cast<BlueBird*>(&bird))
@@ -81,6 +84,7 @@ void pigBird(Objects& pig, Objects& bird) {
 }
 
 void birdObstacle(Objects& bird, Objects& wood) {
+    static_cast<Bird&>(bird).gotHit();
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
     static_cast<Obstacle&>(wood).hitState();
 }

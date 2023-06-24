@@ -14,7 +14,7 @@ void YellowBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
        
     case sf::Event::MouseButtonPressed:
 
-        if (event.mouseButton.button == sf::Mouse::Left && m_secondclick && !isDragged()) {
+        if (!isHit() && event.mouseButton.button == sf::Mouse::Left && m_secondclick && !isDragged()) {
           
             b2Vec2 force{m_body->GetLinearVelocity()};
             force.Normalize();

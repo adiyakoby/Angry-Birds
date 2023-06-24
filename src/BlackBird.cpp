@@ -2,12 +2,14 @@
 
 
 float calculateDistance(const sf::Vector2f& pos1, const sf::Vector2f& pos2) {
+    
     float deltaX = pos2.x - pos1.x;
     float deltaY = pos2.y - pos1.y;
 
     float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
     return distance;
 }
+
 BlackBird::BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr)
     : Bird(world, position, size, arr.at(0)), m_world{ world }, m_activated(false),m_exploded{false}
 {
@@ -21,7 +23,7 @@ void BlackBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
 
     case sf::Event::MouseButtonPressed:
 
-        if (event.mouseButton.button == sf::Mouse::Left && m_activated) {
+        if (!isHit() && event.mouseButton.button == sf::Mouse::Left && m_activated) {
             setBombs();
             m_activated = false;
             //m_body->ApplyForceToCenter(std::move(b2Vec2(100.f, 100.f)), true);
