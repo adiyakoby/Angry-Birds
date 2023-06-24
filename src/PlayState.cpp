@@ -231,8 +231,6 @@ void PlayState::initilaize()
         m_destroyAnimation.at(i).setSize(sf::Vector2f(50.f, 50.f));
         m_destroyAnimation.at(i).setTexture(&GameResources::getInstance().getPoofTexture(i));
     }
-
-
 }
 
 void PlayState::createGroundAndRogatka()
@@ -287,30 +285,38 @@ void PlayState::checkIfRestartPressed(const sf::Event& event, const sf::Vector2f
 }
 void PlayState::levelIntroduction()
 {
-    if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event));//to prevent any event while the introuduction.
-
     //to make the zoom out only once
     static bool first = true;
+    bool stop{ false };
+
     if (first)
     {
         m_gameTools->m_window.setZoom(1.5f);
         first = false;
     }
-       
-    if (m_backGround.getSize().x - m_gameTools->m_window.getWindow().getView().getCenter().x > WINDOW_WIDTH /2)
+
+
+    if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event))
+    {
+        if (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::KeyPressed)
+            stop = true;
+    }
+        
+    
+    if (!stop && m_backGround.getSize().x - m_gameTools->m_window.getWindow().getView().getCenter().x > WINDOW_WIDTH /2)
     {
         m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getCenter().x + 3, WINDOW_HEIGHT / 2);
         updateDataPosition();
+        return;
     }
-    else
-    {
-        m_levelIntroduction = false;
-        m_gameTools->m_window.resetView();
-        m_gameTools->m_window.setZoom(1);
-        first = true;
-    }
-    
+
+    m_levelIntroduction = false;
+    m_gameTools->m_window.resetView();
+    m_gameTools->m_window.setZoom(1);
+    first = true; 
 }
+
+
 void PlayState::drawDestroyedObj() {
    
     for (auto& poof : m_poofsContainer)
