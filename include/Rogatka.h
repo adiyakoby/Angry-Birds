@@ -18,13 +18,8 @@ public:
 	void resetRogatka();
 private:
 	sf::RectangleShape m_rogatka;
-	
 	int m_textureIndex;
-	//size of the rogatka;
-	sf::Vector2f m_rogatkaSize;
-
-	//void initPhysicRogatka(b2World& world,  const sf::Vector2f& position);
-	//void initGraphicRogatka();
+	sf::Vector2f m_rogatkaSize; //size of the rogatka;
 
 	virtual void initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) ;
 	virtual void initGraphicBody(const sf::Vector2f& size) ;

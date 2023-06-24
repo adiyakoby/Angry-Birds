@@ -7,14 +7,12 @@
 #include <typeindex>
 
 #include "Ground.h"
-#include "Wood.h"
 #include "Rogatka.h"
 #include "Pig.h"
 #include "World.h"
 #include "RedBird.h"
 #include "YellowBird.h"
 #include "BlueBird.h"
-
 #include "Obstacle.h"
 
 
