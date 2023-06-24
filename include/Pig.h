@@ -13,8 +13,8 @@ public:
 	void drawObject(sf::RenderWindow& window)override;
 	sf::Vector2f getPosition() const override { return m_pig.getPosition(); }
 	void rotate(const int& x) override { ; };
-
 	virtual void hitState() override;
+
 private:
 	sf::CircleShape m_pig;
 

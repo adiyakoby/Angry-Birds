@@ -1,19 +1,20 @@
 #pragma once
 
-
-#include "StaticObjects.h"
-#include "RedBird.h"
-#include "YellowBird.h"
-#include "BlueBird.h"
-#include "World.h"
-#include "Macro.h"
-#include "BlackBird.h"
 #include <fstream>
 #include <vector>
 #include <deque>
 #include <algorithm>
 #include <unordered_map>
 #include <array>
+
+#include "Macro.h"
+#include "StaticObjects.h"
+#include "RedBird.h"
+#include "YellowBird.h"
+#include "BlueBird.h"
+#include "BlackBird.h"
+#include "World.h"
+
 
 
 class LevelManager

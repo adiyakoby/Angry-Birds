@@ -33,6 +33,7 @@ void Pig::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& posit
     m_body->CreateFixture(&fixtureDef);
 
 }
+
 void Pig::initGraphicBody(const sf::Vector2f& size)
 {
 

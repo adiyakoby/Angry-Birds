@@ -14,6 +14,7 @@
 #include "YellowBird.h"
 #include "BlueBird.h"
 #include "Obstacle.h"
+#include "CircularObstacle.h"
 
 
 
@@ -115,26 +116,29 @@ HitMap initializeCollisionMap()
 {
     HitMap phm;
 
+    phm[Key(typeid(Ground), typeid(Pig))] = &groundPig;
+    phm[Key(typeid(Pig), typeid(Ground))] = &pigGround;
+
+    phm[Key(typeid(YellowBird), typeid(Pig))] = &birdPig;
+    phm[Key(typeid(Pig), typeid(YellowBird))] = &pigBird;
+
+    phm[Key(typeid(RedBird), typeid(Pig))] = &birdPig;
+    phm[Key(typeid(Pig), typeid(RedBird))] = &pigBird;
+
+    phm[Key(typeid(BlueBird), typeid(Pig))] = &birdPig;
+    phm[Key(typeid(Pig), typeid(BlueBird))] = &pigBird;
+
+    phm[Key(typeid(Pig), typeid(Obstacle))] = &pigObstacle;
+    phm[Key(typeid(Obstacle), typeid(Pig))] = &ObstaclePig;
 
     phm[Key(typeid(Obstacle), typeid(Obstacle))] = &ObstacleObstacle;
 
     phm[Key(typeid(RedBird), typeid(Obstacle))] = &birdObstacle;
     phm[Key(typeid(Obstacle), typeid(RedBird))] = &ObstacleBird;
 
-    phm[Key(typeid(RedBird), typeid(Pig))] = &birdPig;
-    phm[Key(typeid(Pig), typeid(RedBird))] = &pigBird;
-
-    phm[Key(typeid(Pig), typeid(Obstacle))] = &pigObstacle;
-    phm[Key(typeid(Obstacle), typeid(Pig))] = &ObstaclePig;
-
-    phm[Key(typeid(YellowBird), typeid(Pig))] = &birdPig;
-    phm[Key(typeid(Pig), typeid(YellowBird))] = &pigBird;
-
     phm[Key(typeid(YellowBird), typeid(Obstacle))] = &birdObstacle;
     phm[Key(typeid(Obstacle), typeid(YellowBird))] = &ObstacleBird;
 
-    phm[Key(typeid(BlueBird), typeid(Pig))] = &birdPig;
-    phm[Key(typeid(Pig), typeid(BlueBird))] = &pigBird;
 
     phm[Key(typeid(BlueBird), typeid(Obstacle))] = &birdObstacle;
     phm[Key(typeid(Obstacle), typeid(BlueBird))] = &ObstacleBird;
@@ -142,8 +146,29 @@ HitMap initializeCollisionMap()
     phm[Key(typeid(Ground), typeid(Obstacle))] = &groundObstacle;
     phm[Key(typeid(Obstacle), typeid(Ground))] = &ObstacleGround;
 
-    phm[Key(typeid(Ground), typeid(Pig))] = &groundPig;
-    phm[Key(typeid(Pig), typeid(Ground))] = &pigGround;
+    // Circular Obstacle
+    phm[Key(typeid(CircularObstacle), typeid(CircularObstacle))] = &ObstacleObstacle;
+    phm[Key(typeid(CircularObstacle), typeid(Obstacle))] = &ObstacleObstacle;
+
+    phm[Key(typeid(Pig), typeid(CircularObstacle))] = &pigObstacle;
+    phm[Key(typeid(CircularObstacle), typeid(Pig))] = &ObstaclePig;
+
+    phm[Key(typeid(CircularObstacle), typeid(CircularObstacle))] = &ObstacleObstacle;
+
+    phm[Key(typeid(RedBird), typeid(CircularObstacle))] = &birdObstacle;
+    phm[Key(typeid(CircularObstacle), typeid(RedBird))] = &ObstacleBird;
+
+    phm[Key(typeid(YellowBird), typeid(CircularObstacle))] = &birdObstacle;
+    phm[Key(typeid(CircularObstacle), typeid(YellowBird))] = &ObstacleBird;
+
+
+    phm[Key(typeid(BlueBird), typeid(CircularObstacle))] = &birdObstacle;
+    phm[Key(typeid(CircularObstacle), typeid(BlueBird))] = &ObstacleBird;
+
+    phm[Key(typeid(Ground), typeid(CircularObstacle))] = &groundObstacle;
+    phm[Key(typeid(CircularObstacle), typeid(Ground))] = &ObstacleGround;
+
+    
 
     //...
     return phm;

@@ -11,3 +11,7 @@
 # ~ = laying iron
 
 # @ = pig
+
+# * = wood ball
+# . = iron ball
+# , = ice ball

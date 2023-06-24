@@ -173,6 +173,8 @@ void GameResources::initTextures()
         m_poofTexture.back().loadFromFile("Angry-Birds.png", poofLocation.at(i));
     }
 
+    //--------------------------- Loading Obstacles -----------------------------//
+    
                                          // Indexes: 0  ,  1  , 2   , 3
     std::array<sf::IntRect, 4> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{319,647,205,21}, sf::IntRect{233,643,82,42}, sf::IntRect{233,772,83,41} };
     for (size_t i = 0; i < WoodLocation.size(); i++)
@@ -182,21 +184,31 @@ void GameResources::initTextures()
     }
                                         // Indexes: 4  ,  5  , 6   , 7
     std::array<sf::IntRect, 4> IceLocation{ sf::IntRect{319,755,168,22} , sf::IntRect{319,821,168,22}, sf::IntRect{233,686,85,42}, sf::IntRect{233,815,85,42} };
-    for (size_t i = 0; i < WoodLocation.size(); i++)
+    for (size_t i = 0; i < IceLocation.size(); i++)
     {
         m_obstacles.emplace_back();
         m_obstacles.back().loadFromFile("StaticObjects.png", IceLocation.at(i));
     }
                                         // Indexes: 8  ,  9  , 10   , 11
     std::array<sf::IntRect, 4> IronLocation{ sf::IntRect{319,711,168,22} , sf::IntRect{319,778,168,22}, sf::IntRect{805,501,85,42}, sf::IntRect{234,859,85,42} };
-    for (size_t i = 0; i < WoodLocation.size(); i++)
+    for (size_t i = 0; i < IronLocation.size(); i++)
     {
         m_obstacles.emplace_back();
         m_obstacles.back().loadFromFile("StaticObjects.png", IronLocation.at(i));
     }
 
+                                    // Indexes: 12  ,  13  , 14  , 15 ,  16 , 17 (wood - ice - iron)
+    std::array<sf::IntRect, 6> BallsLocation{ sf::IntRect{392,121,75,75} , sf::IntRect{85,440,168,22},
+                                              sf::IntRect{85,824,75,75}, sf::IntRect{85,748,75,75}, 
+                                              sf::IntRect{162,364,75,75}, sf::IntRect{397,364,75,75} };
+    for (size_t i = 0; i < BallsLocation.size(); i++)
+    {
+        m_obstacles.emplace_back();
+        m_obstacles.back().loadFromFile("StaticObjects.png", BallsLocation.at(i));
+    }
 
- 
+
+    
     std::array<std::string, 1> rogatkaNames{ "rogatka.png" };
     for (size_t i = 0; i < rogatkaNames.size(); i++)
     {
