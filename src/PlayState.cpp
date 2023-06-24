@@ -190,6 +190,8 @@ void PlayState::drawGame()
 
 void PlayState::updateView()
 {
+    if (m_birds.back()->isHit())
+        return;
 
     if (m_birds.back()->getPosition().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2 <= 0)
     {
