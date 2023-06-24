@@ -37,7 +37,7 @@ Birds: B Y B Y R Y Y R
 
 ===========================================================
 Level 4
-Birds: B Y K B Y K B Y K
+Birds: Y K B Y K B Y K B
 
                 
         / |  | @ |   | @ | 

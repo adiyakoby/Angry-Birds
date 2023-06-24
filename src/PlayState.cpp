@@ -302,6 +302,8 @@ void PlayState::levelIntroduction()
     {
         if (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::KeyPressed)
             stop = true;
+        if (event.type == sf::Event::Closed)
+            m_gameTools->m_window.getWindow().close();
     }
         
     
