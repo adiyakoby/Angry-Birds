@@ -93,7 +93,7 @@ std::vector<std::unique_ptr<Bird>> LevelManager::CreateBirds(std::deque<std::str
 
 void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>>& objVec)
 {
-	int xPos = WINDOW_WIDTH * 0.8;
+	int xPos = WINDOW_WIDTH ;
 	int yPos = 740-75;
 	
 
@@ -154,7 +154,7 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 		}
 
 		yPos -= 88;
-		xPos = WINDOW_WIDTH * 0.8;
+		xPos = WINDOW_WIDTH;
 		objDeq.pop_back();
 	}
 	

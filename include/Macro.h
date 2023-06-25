@@ -38,7 +38,7 @@ const int IRON_HP = 400;
 const int WOOD_HP = 200;
 const int ICE_HP = 100;
 const int PIG_HP = 100;
-const int BIRD_HP = 10;
+const int BIRD_HP = 20;
 
 
 // Obstacles Density :

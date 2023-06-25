@@ -13,6 +13,7 @@
 #include "RedBird.h"
 #include "YellowBird.h"
 #include "BlueBird.h"
+#include "BlackBird.h"
 #include "Obstacle.h"
 #include "CircularObstacle.h"
 
@@ -104,6 +105,14 @@ void pigObstacle(Objects& pig, Objects& wood) {
 void ObstaclePig(Objects& wood, Objects& pig) {
     pigObstacle(pig, wood);
 }
+
+void BirdGround(Objects& bird, Objects& ground) {
+    static_cast<Bird&>(bird).gotHit();
+}
+
+void GroundBird(Objects& ground, Objects& bird) {
+    BirdGround(bird, ground);
+}
 //-----------END HIT FUNCTION------------
 
 using HitFunctionPtr = std::function<void(Objects&, Objects&)>;
@@ -115,6 +124,17 @@ using HitMap = std::map<Key, HitFunctionPtr>;
 HitMap initializeCollisionMap()
 {
     HitMap phm;
+    phm[Key(typeid(Ground), typeid(RedBird))] = &GroundBird;
+    phm[Key(typeid(RedBird), typeid(Ground))] = &BirdGround;
+
+    phm[Key(typeid(Ground), typeid(BlueBird))] = &GroundBird;
+    phm[Key(typeid(BlueBird), typeid(Ground))] = &BirdGround;
+
+    phm[Key(typeid(Ground), typeid(YellowBird))] = &GroundBird;
+    phm[Key(typeid(YellowBird), typeid(Ground))] = &BirdGround;
+
+    phm[Key(typeid(Ground), typeid(BlackBird))] = &GroundBird;
+    phm[Key(typeid(BlackBird), typeid(Ground))] = &BirdGround;
 
     phm[Key(typeid(Ground), typeid(Pig))] = &groundPig;
     phm[Key(typeid(Pig), typeid(Ground))] = &pigGround;
