@@ -16,12 +16,14 @@ public:
 	void hitState() override { ; };
 	void ignoreRogatka();
 	void resetRogatka();
+	void drawSit(sf::RenderWindow& w, const sf::Vector2f& begin , const sf::Vector2f& pos, const float& angle);
 private:
 	sf::RectangleShape m_rogatka;
 	int m_textureIndex;
 	sf::Vector2f m_rogatkaSize; //size of the rogatka;
-
+	sf::RectangleShape m_sit;
 	virtual void initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) ;
 	virtual void initGraphicBody(const sf::Vector2f& size) ;
+	void setObjOnRogatka(const sf::Vector2f& pos, const float& angle);
 };
 

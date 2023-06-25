@@ -183,7 +183,13 @@ void PlayState::drawGame()
         ea->objectUpdate();
         ea->drawObject(m_gameTools->m_window.getWindow());
     }
-    std::for_each(m_birds.begin(), m_birds.end(), [this](auto& bird) {bird->drawObject(m_gameTools->m_window.getWindow()); });
+    std::for_each(m_birds.begin(), m_birds.end(), [this](auto& bird) {
+        bird->drawObject(m_gameTools->m_window.getWindow()); 
+        if (bird->isDragged()) {
+            static_cast<Rogatka*>(m_worldObjects[1].get())->drawSit(m_gameTools->m_window.getWindow(),
+                bird->getBeginPosition(), bird->getPosition(), bird->getBirdAngle());
+        }
+        });
     
     for (auto& string : m_levelData)
     {

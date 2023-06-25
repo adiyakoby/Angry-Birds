@@ -222,7 +222,7 @@ void GameResources::initTextures()
 
 
     
-    std::array<std::string, 1> rogatkaNames{ "rogatka.png" };
+    std::array<std::string, 2> rogatkaNames{ "rogatka.png", "rogsit.png"};
     for (size_t i = 0; i < rogatkaNames.size(); i++)
     {
         m_rogatkaTexture.emplace_back();
