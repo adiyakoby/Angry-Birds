@@ -13,8 +13,9 @@ class GameResources
 {
 public:
 	static GameResources& getInstance();
-	GameResources(const GameResources&) = delete;//disable copy constructor
-	GameResources operator=(const GameResources&) = delete;//disable assimenget operator
+	GameResources(const GameResources&) = delete; //disable copy constructor
+	GameResources operator=(const GameResources&) = delete; //disable assimenget operator
+
 	sf::Texture& getMenuTexture(int index);
 	sf::Texture& getHelpTexture(int index);//state
 	sf::Texture& getSoundTexture(int index);//state

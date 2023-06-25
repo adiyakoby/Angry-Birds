@@ -21,8 +21,10 @@ public:
     bool isDragged() { return m_dragging; };
     void setPosition(const sf::Vector2f& pos);
     virtual void handleEvent(sf::Event& event, const sf::Vector2f& mouse);
+
     sf::Vector2f getPosition() const override;
     sf::Vector2f calculateThrow();
+
     void setOnRogatka(const bool& is) { m_onRogatka = is; m_body->SetEnabled(true); };
     bool isOnRogatka() const { return m_onRogatka; };
 

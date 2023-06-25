@@ -1,11 +1,12 @@
 #pragma once
+
 #include <memory>
 #include <array>
 #include <box2d/box2d.h>
 
 
 #include "Macro.h"
-#include"GameResources.h"
+#include "GameResources.h"
 
 enum  Position { Left, Right };
 

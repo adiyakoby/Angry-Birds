@@ -5,7 +5,6 @@
 PlayState::PlayState(std::shared_ptr<GameTools> gameTools, std::shared_ptr<SharedData> sharedData)
     :m_gameTools(gameTools),m_sharedData(sharedData),m_contactListener(std::make_unique<MyContactListener>()),
     m_world{ std::make_shared<World>() }, m_lvlsMngr{ m_world }, m_levelIntroduction{ true }
-
 {
     m_world->getWorld()->SetContactListener(m_contactListener.get());
 	initilaize();
@@ -31,10 +30,16 @@ void PlayState::processManeger()
 
         m_birds.back().get()->setRangeVector(mouseLocation, m_gameTools->m_window.getWindow());
         static_cast<Rogatka*>(m_worldObjects[1].get())->ignoreRogatka();
-    }
+        GuideLine::getInstance().setPosition(m_birds.back()->getPosition());
+       
 
-    if(m_birds.back()->isOnRogatka() && !m_birds.back()->isDragged())
+    }
+    if (m_birds.back()->isOnRogatka() && !m_birds.back()->isDragged())
+    {
         static_cast<Rogatka*>(m_worldObjects[1].get())->resetRogatka();
+        GuideLine::getInstance().reset();
+    }
+        
 
 
     if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event))
@@ -166,6 +171,10 @@ void PlayState::drawGame()
 
     m_gameTools->m_window.getWindow().draw(m_backGround);
     m_gameTools->m_window.getWindow().draw(m_restart);
+
+    if (m_birds.back()->isDragged())
+        GuideLine::getInstance().drawGuideLine(m_gameTools->m_window.getWindow());
+
     for (auto& ea : m_gameObjects) {
         ea->objectUpdate();
         ea->drawObject(m_gameTools->m_window.getWindow());
@@ -185,6 +194,7 @@ void PlayState::drawGame()
         
     m_worldObjects[1]->drawObject(m_gameTools->m_window.getWindow());
     
+
     drawDestroyedObj();
 }
 
@@ -233,6 +243,8 @@ void PlayState::initilaize()
     //init objects
     createGroundAndRogatka();
     
+    GuideLine::getInstance().setWorld(m_world);
+
     for (size_t i{}; i < m_destroyAnimation.size(); ++i) {
         m_destroyAnimation.at(i).setSize(sf::Vector2f(50.f, 50.f));
         m_destroyAnimation.at(i).setTexture(&GameResources::getInstance().getPoofTexture(i));
@@ -241,7 +253,7 @@ void PlayState::initilaize()
 
 void PlayState::createGroundAndRogatka()
 {
-    m_worldObjects[0] = std::make_unique<Ground>(m_world, sf::Vector2f(0, 0), m_backGround.getSize()); //ground
+    m_worldObjects[0] = std::make_unique <Ground>(m_world, sf::Vector2f(0, 0), m_backGround.getSize()); //ground
     m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));      //rogatka
 }
 
