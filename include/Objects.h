@@ -17,26 +17,21 @@ public:
 		if(m_body)
 			m_world->getWorld()->DestroyBody(m_body); };
 
+	//virtual funcs
 	virtual void objectUpdate() = 0;
 	virtual void drawObject(sf::RenderWindow& window) = 0;
 	virtual sf::Vector2f getPosition() const = 0;
+	virtual void rotate(const int& x) = 0;
+
+	//getters
 	int getHp() const { return m_hp; }
+	const b2Vec2& getBodyVelocity() const { return m_body->GetLinearVelocity(); };
+	float getBodyMass() const { return m_body->GetMass(); };
+
+	//setters
 	void setDamage(const int &damage) { m_hp -= damage; }
 	void setHp(int hp) { m_hp = hp; };
-	virtual void rotate(const int& x) = 0;
 	void rotateBody() { m_body->SetTransform(m_body->GetPosition(), m_body->GetAngle() + b2_pi / 2.0f); };
-	const b2Vec2& getBodyVelocity() { return m_body->GetLinearVelocity(); };
-	float getBodyMass() const { return m_body->GetMass();  };
-	void contVelocity() { 
-		//m_body->ApplyLinearImpulseToCenter(m_body->GetLinearVelocity(), true);
-		/*m_body->ApplyLinearImpulseToCenter(m_body->GetLinearVelocity(), true);*/ 
-	};
-
-	void ignoreObject() { 
-		b2Fixture* fixture = m_body->GetFixtureList();
-		fixture->SetRestitution(0.0f);
-	};
-	//void resetRogatka();
 
 	
 
