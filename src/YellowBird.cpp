@@ -1,19 +1,11 @@
 
 #include "YellowBird.h"
 
-YellowBird::YellowBird(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) : Bird(world, position, size), m_secondclick{ false } {
+YellowBird::YellowBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr)
+    : Bird(world, position, size, arr.at(0)), m_secondclick{ false } {
     
-    //initPhysicBody(world, position, size);
-    initGraphicBody(size);
 }
 
-
-void YellowBird::initGraphicBody(const sf::Vector2f& size) {
-    m_bird.setTexture(&GameResources::getInstance().getBirdTexture(1));
-    m_bird.setRadius(size.x);
-    m_bird.setOrigin(size.x, size.x);
-    m_bird.setPosition(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE));
-}
 
 
 void YellowBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
@@ -22,7 +14,7 @@ void YellowBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
        
     case sf::Event::MouseButtonPressed:
 
-        if (event.mouseButton.button == sf::Mouse::Left && m_secondclick && !isDragged()) {
+        if (!isHit() && event.mouseButton.button == sf::Mouse::Left && m_secondclick && !isDragged()) {
           
             b2Vec2 force{m_body->GetLinearVelocity()};
             force.Normalize();
@@ -48,33 +40,12 @@ void YellowBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
     }
 }
 
-//void YellowBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
-//{
-//    switch (event.type) {
-//
-//    case sf::Event::MouseButtonPressed:
-//
-//        /*if (event.mouseButton.button == sf::Mouse::Left&& m_secondclick && !isDragged()) {
-//
-//            sf::Vector2f force{ this->getPosition() };
-//            this->applyForce(force);
-//            m_secondclick = false;
-//        }*/
-//        if (event.mouseButton.button == sf::Mouse::Left && !m_secondclick) {
-//            this->handleThrow(mouse.x, mouse.y);
-//            m_secondclick = true;
-//            break;
-//
-//        }
-//
-//    case sf::Event::MouseButtonReleased:
-//        if (event.mouseButton.button == sf::Mouse::Left && isDragged()) {
-//            sf::Vector2f force = this->calculateThrow();
-//            this->applyForce(force);
-//        }
-//
-//        break;
-//
-//
-//    }
-//}
+
+//to "register" the object in the Factory
+static auto registerItYellowBird = ObjectFactory<Bird>::instance().registerType(
+    "YellowBird",
+    [](std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr) -> std::unique_ptr<Bird>
+    {
+        return std::make_unique<YellowBird>(world, position, size, arr);
+    }
+);

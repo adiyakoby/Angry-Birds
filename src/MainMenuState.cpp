@@ -1,9 +1,9 @@
 #include "MainMenuState.h"
 #include "HelpScreenState.h"
-#include "PlayState.h"
+#include "LevelSelectState.h"
 
-MainMenuState::MainMenuState(std::shared_ptr<GameTools> gameTools)
-	:m_gameTools(gameTools)
+MainMenuState::MainMenuState(std::shared_ptr<GameTools> gameTools, bool newAloc)
+	:m_gameTools(gameTools), m_newAlloc(newAloc)
 {
 	initilaize();
 }
@@ -47,7 +47,7 @@ void MainMenuState::Draw()
 
 void MainMenuState::initilaize()
 {
-	m_backGround.setTexture(&GameResources::getInstance().getTransitionScreens(0));
+	m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(0));
 	m_backGround.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 	m_backGround.setPosition(0, 0);
 
@@ -74,7 +74,7 @@ void MainMenuState::initilaize()
 	//set music
 	m_music.setBuffer(GameResources::getInstance().Playaffect(0));
 	m_music.setLoop(true);
-	m_music.play();
+	//m_music.play();
 }
 
 menuCommand MainMenuState::handleClick(const sf::Vector2f& mouse_loc) // getStatus() == sf::Music::Paused
@@ -92,12 +92,13 @@ void MainMenuState::menuManeger()
 {
 	switch (m_mode)
 	{
-	case menuCommand::PLAY:     m_gameTools->m_gameStates.addState(std::make_unique<PlayState>(this->m_gameTools), true);              break;
-	case menuCommand::HELP:     m_gameTools->m_gameStates.addState(std::make_unique<HelpScreenState>(this->m_gameTools), false);       break;
+	case menuCommand::PLAY:     if (m_newAlloc)m_gameTools->m_gameStates.addState(std::make_unique<LevelSelectState>(this->m_gameTools), true);
+								else m_gameTools->m_gameStates.removeState();                                                                   break;
+	case menuCommand::HELP:     m_gameTools->m_gameStates.addState(std::make_unique<HelpScreenState>(this->m_gameTools), false);                break;
 	case menuCommand::MUTE:;
-	case menuCommand::SOUND:    setSound(m_mode);                                                                                      break;
-	case menuCommand::EXIT:     m_gameTools->m_window.getWindow().close();                                                             break;
-	default:																													       break;
+	case menuCommand::SOUND:    setSound(m_mode);                                                                                               break;
+	case menuCommand::EXIT:     m_gameTools->m_window.getWindow().close();																	    break;
+	default:																																	break;
 	}
 	m_event = false;
 }

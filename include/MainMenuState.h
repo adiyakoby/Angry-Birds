@@ -14,12 +14,14 @@
 class MainMenuState : public State
 {
 public:
-	MainMenuState(std::shared_ptr<GameTools>);
+	MainMenuState(std::shared_ptr<GameTools>, bool);
 	~MainMenuState() = default;
 
 	void processManeger();
 	void update();
 	void Draw();
+	void Resume()override {}
+	void Pause()override {}
 
 	menuCommand handleClick(const sf::Vector2f& mouse_loc);
 	void menuManeger();
@@ -36,4 +38,5 @@ private:
 	menuCommand m_mode;
 	bool m_event;
 	sf::Sound m_music;
+	bool m_newAlloc; //give instraction if we need to allocate new level select state or not
 };

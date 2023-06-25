@@ -1,7 +1,7 @@
 #include "StateMachine.h"
 
 StateMachine::StateMachine()
-	:m_adding(false), m_removing(false), m_replacing(false)
+	:m_adding(false), m_removing(false), m_replacing(false), m_switch(false)
 {}
 
 void StateMachine::addState(std::unique_ptr<State> newState, bool replacing)
@@ -27,8 +27,6 @@ void StateMachine::checkForUpdates()
 				m_states.top().release();
 				m_states.pop();
 			}
-			else//pause the current state and add new state to run
-				;//m_states.top()->pause();
 		}
 		m_states.push(std::move(m_newGameState));
 		m_adding = false;
@@ -38,12 +36,38 @@ void StateMachine::checkForUpdates()
 	{
 		m_states.top().release();
 		m_states.pop();
-
+		m_states.top()->Resume();
 		m_removing = false;
+	}
+	if (m_switch)
+	{
+		Switch();
+		m_switch = false;
 	}
 }
 
 std::unique_ptr<State>& StateMachine::getCurrentState() 
 {
 	return m_states.top();
+}
+
+void StateMachine::switchStates()
+{
+	m_switch = true; 
+}
+
+void StateMachine::Switch()
+{
+	//move the pointeres and clear stack
+	std::unique_ptr<State> wasTop = std::move(m_states.top());
+	m_states.pop();
+	std::unique_ptr<State> wasBack = std::move(m_states.top());
+	m_states.pop();
+
+	//insert in new order
+	m_states.push(std::move(wasTop));
+	m_states.push(std::move(wasBack));
+	
+	//resume the operation the state which was in the back
+	m_states.top()->Resume();
 }

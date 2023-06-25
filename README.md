@@ -3,8 +3,15 @@
 # Instructions for Game Levels txt file:
 # ! = straight wood
 # - = laying wood
+
 # # = straight ice
 # _ = laying ice
-# & = straight iron
-# | = laying iron
+
+# | = straight iron
+# ~ = laying iron
+
 # @ = pig
+
+# * = wood ball
+# . = iron ball
+# , = ice ball

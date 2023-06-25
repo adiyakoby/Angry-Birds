@@ -4,8 +4,8 @@
 GameResources::GameResources()
 {
    initTextures();
-  //  initFonts();
-    initSounds();
+   initFonts();
+   initSounds();
 }
 
 //static func - singelton class
@@ -24,6 +24,19 @@ sf::Texture& GameResources::getMenuTexture(int index)
     return m_menuTexture.at(index);
 }
 
+sf::Texture& GameResources::getObstacleTexture(const int& index)
+{
+    return m_obstacles.at(index);
+}
+
+sf::Texture& GameResources::getPoofTexture(int index)
+{
+    return m_poofTexture.at(index);
+}
+sf::Texture& GameResources::getLock()
+{
+    return  m_lock;
+}
 sf::Texture& GameResources::getHelpTexture(int index)
 {
     /* if (index < 9 && index >= 0)
@@ -48,61 +61,62 @@ sf::Texture& GameResources::getRogatkaTexture(int index) {
     return m_rogatkaTexture.at(index);
 }
 
-sf::Texture& GameResources::getGroundTexture(int index) {
-    return m_groundTexture.at(index);
-}
 
 sf::Texture& GameResources::getPigsTexture(int index) {
     return m_pigsTexture.at(index);
 }
-////get the textures for the game objects
-//sf::Texture& GameResources::getObjectTexture(int index)
-//{
-//   /* if (index < 19 && index >= 0)
-//        return m_objectTexture[index];*/
-//}
-//
-////get the textures for the data board buttons
-//sf::Texture& GameResources::getDataButtuns(int index)
-//{
-//   /* if (index < 3 && index >= 0)
-//        return m_databuttons[index];*/
-//}
-//
-//get the textures for the transitions screens
-sf::Texture& GameResources::getTransitionScreens(int index)
+
+//need to be changed to background
+sf::Texture& GameResources::getBackGroundScreens(int index)
 {
-    return m_transitionScreens.at(index);
+    return m_backGround.at(index);
 }
 
-////get font
-//sf::Font& GameResources::getFont(int index)
-//{
-//    //if (index < 2 && index >= 0)
-//    //    return m_font[index];
-//}
-//
-////play a wanted affect
+//this is for the Transition screens state 
+sf::Texture& GameResources::getTransitionScreensState(int index)
+{
+    return m_transitionScreensState.at(index);
+}
+
+//get the textures for the level state screens
+sf::Texture& GameResources::getLevelsFields(int index)
+{
+    return m_levelsFields.at(index);
+}
+
+//get buttons 
+sf::Texture& GameResources::getButtons(int index)
+{
+    return m_buttons.at(index);
+}
+
+//get font
+sf::Font& GameResources::getFont(int index)
+{
+    if (index < 2 && index >= 0)
+        return m_font[index];
+}
+
+//play a wanted affect
 sf::SoundBuffer& GameResources::Playaffect(int index)
 {
     return m_affects.at(index);
 }
 
 
-//
-////create the text 
-//sf::Text& GameResources::createText(std::string dataName, sf::Vector2f position, sf::Color color, int font)
-//{
-//    //m_text.setString(dataName);
-//    //m_text.setFont(getFont(font));
-//    //m_text.setPosition(position);
-//    //const auto rect = m_text.getLocalBounds();
-//    //m_text.setOrigin(rect.width / 2, rect.height / 2);
-//    //m_text.setCharacterSize(30);
-//    //m_text.setFillColor(color);
-//    //m_text.setStyle(sf::Text::Bold);
-//    //return m_text;
-//}
+
+//create the text 
+sf::Text& GameResources::createText(std::string dataName, sf::Color color, int font)
+{
+    m_text.setString(dataName);
+    m_text.setFont(getFont(font));
+    const auto rect = m_text.getLocalBounds();
+    m_text.setOrigin(rect.width / 2, rect.height / 2);
+    m_text.setCharacterSize(30);
+    m_text.setFillColor(color);
+    m_text.setStyle(sf::Text::Bold);
+    return m_text;
+}
 
 
 
@@ -113,13 +127,6 @@ void GameResources::initTextures()
 
     //---------------------------menu textures-----------------------------
     //all the texture images names for menu
-
-    //std::array<std::string, 6> menuTextureNames{ "play.png", "help.png", "exit.png", "back.png", "sound.png", "mute.png" };
-    //for (size_t i = 0; i < menuTextureNames.size(); i++)
-    //{
-    //    m_menuTexture.emplace_back();
-    //    m_menuTexture.back().loadFromFile(menuTextureNames.at(i));
-    //}
 
     std::array<std::string, 3> menuTextureNames{ "play.png", "help.png", "exit.png" };
     for (size_t i = 0; i < menuTextureNames.size(); i++)
@@ -142,7 +149,7 @@ void GameResources::initTextures()
         m_soundTexture.back().loadFromFile(soundButton.at(i));
     }
     //vector string for the bird's names
-    std::array<sf::IntRect, 2> birdLocation{ sf::IntRect{915,867,50,50}, sf::IntRect{551,665,50,50} };
+    std::array<sf::IntRect, 4> birdLocation{ sf::IntRect{915, 867, 50, 50}, sf::IntRect{551, 658, 65, 55}, sf::IntRect{0 ,448,35,35} ,sf::IntRect{948,572,67,61} }; // 1 448
     for (size_t i = 0; i < birdLocation.size(); i++)
     {
         m_birdsTexture.emplace_back();
@@ -158,13 +165,50 @@ void GameResources::initTextures()
         m_pigsTexture.back().loadFromFile("Angry-Birds.png", pigsLocation.at(i));
     }
 
-    std::array<sf::IntRect, 2> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{233,643,82,42} };
-    for (size_t i = 0; i < WoodLocation.size(); i++)
+    std::array<sf::IntRect, 5> poofLocation{ sf::IntRect{40,715,126,120} , sf::IntRect{41,467,127,121} ,sf::IntRect{166,151,146,144},
+    sf::IntRect{482,393,91,91}  , sf::IntRect{312,157,131,122} };
+    for (size_t i = 0; i < poofLocation.size(); i++)
     {
-        m_woodsTexture.emplace_back();
-        m_woodsTexture.back().loadFromFile("StaticObjects.png", WoodLocation.at(i));
+        m_poofTexture.emplace_back();
+        m_poofTexture.back().loadFromFile("Angry-Birds.png", poofLocation.at(i));
     }
 
+    //--------------------------- Loading Obstacles -----------------------------//
+    
+                                         // Indexes: 0  ,  1  , 2   , 3
+    std::array<sf::IntRect, 4> WoodLocation{ sf::IntRect{319,624,205,22} , sf::IntRect{319,647,205,21}, sf::IntRect{233,643,82,42}, sf::IntRect{233,772,83,41} };
+    for (size_t i = 0; i < WoodLocation.size(); i++)
+    {
+        m_obstacles.emplace_back();
+        m_obstacles.back().loadFromFile("StaticObjects.png", WoodLocation.at(i));
+    }
+                                        // Indexes: 4  ,  5  , 6   , 7
+    std::array<sf::IntRect, 4> IceLocation{ sf::IntRect{319,755,168,22} , sf::IntRect{319,821,168,22}, sf::IntRect{233,686,85,42}, sf::IntRect{233,815,85,42} };
+    for (size_t i = 0; i < IceLocation.size(); i++)
+    {
+        m_obstacles.emplace_back();
+        m_obstacles.back().loadFromFile("StaticObjects.png", IceLocation.at(i));
+    }
+                                        // Indexes: 8  ,  9  , 10   , 11
+    std::array<sf::IntRect, 4> IronLocation{ sf::IntRect{319,711,168,22} , sf::IntRect{319,778,168,22}, sf::IntRect{805,501,85,42}, sf::IntRect{234,859,85,42} };
+    for (size_t i = 0; i < IronLocation.size(); i++)
+    {
+        m_obstacles.emplace_back();
+        m_obstacles.back().loadFromFile("StaticObjects.png", IronLocation.at(i));
+    }
+
+                                    // Indexes: 12  ,  13  , 14  , 15 ,  16 , 17 (wood - ice - iron)
+    std::array<sf::IntRect, 6> BallsLocation{ sf::IntRect{392,121,75,75} , sf::IntRect{85,440,168,22},
+                                              sf::IntRect{85,824,75,75}, sf::IntRect{85,748,75,75}, 
+                                              sf::IntRect{162,364,75,75}, sf::IntRect{397,364,75,75} };
+    for (size_t i = 0; i < BallsLocation.size(); i++)
+    {
+        m_obstacles.emplace_back();
+        m_obstacles.back().loadFromFile("StaticObjects.png", BallsLocation.at(i));
+    }
+
+
+    
     std::array<std::string, 1> rogatkaNames{ "rogatka.png" };
     for (size_t i = 0; i < rogatkaNames.size(); i++)
     {
@@ -172,83 +216,60 @@ void GameResources::initTextures()
         m_rogatkaTexture.back().loadFromFile(rogatkaNames.at(i));
     }
 
-    std::array<std::string, 1> groundNames{ "ground.png" };
-    for (size_t i = 0; i < groundNames.size(); i++)
-    {
-        m_groundTexture.emplace_back();
-        m_groundTexture.back().loadFromFile(groundNames.at(i));
-    }
-    //init texture vector for menu
-    //for (int i = 0; i < 9; i++)
-    //{
-    //    sf::Texture name;
-    //    name.loadFromFile(menuTextureNames[i]);
-    //    m_menuTexture.push_back(name);
-    //}
-    //---------------------------gameObject textures-----------------------------
-    //all the texture images names for game objects
- /*   char objectTextureNames[12][30] = { "pacman.png", "ghost.png", "wall.png", "key.png", "door.png",
-                                        "gift.png", "cookie.png", "Life.png", "freeze.png", "time.png", "superPacman.png","smartDemon.png" };*/
-    
-    std::array<std::string, 6> objectTextureNames{};
-  
-
-    //init texture vector for menu
-    //for (int i = 0; i < 12; i++)
-    //{
-    //    sf::Texture name;
-    //    name.loadFromFile(objectTextureNames[i]);
-    //    m_objectTexture.push_back(name);
-    //}
-    
-
     
     //---------------------------screens textures-----------------------------
     //all the texture images names for transition screens
     //char screenTextureNames[4][30] = { "pacmanBackground.png", "GameOver.png", "NextLevel.png", "endGame.png" };
 
-    std::array<std::string, 2> screenTextureNames{"MenuBackground.png", "helpScreen.png"};
-    for (size_t i = 0; i < screenTextureNames.size(); i++)
+    std::array<std::string, 4> backGroundTextureNames{"MenuBackground.png", "helpScreen.png", "LevelOne.png", "LevelSelectBackGround.png"};
+    for (size_t i = 0; i < backGroundTextureNames.size(); i++)
     {
-        m_transitionScreens.emplace_back();
-        m_transitionScreens.back().loadFromFile(screenTextureNames.at(i));
+        m_backGround.emplace_back();
+        m_backGround.back().loadFromFile(backGroundTextureNames.at(i));
     }
 
+    std::array<sf::IntRect, 6> levelsLocation{ sf::IntRect{50, 465, 175, 175}, sf::IntRect{250, 465, 175, 175}, sf::IntRect{450, 465, 175, 175},
+                                               sf::IntRect{820, 465, 175, 175}, sf::IntRect{1010, 465, 175, 175}, sf::IntRect{1200, 465, 175, 175}}; // 1 448
+    for (size_t i = 0; i < levelsLocation.size(); i++)
+    {
+        m_levelsFields.emplace_back();
+        m_levelsFields.back().loadFromFile("LevelSelectSpriteSheet.png", levelsLocation.at(i));
+    }
     
-    //init texture vector for menu
-    //for (int i = 0; i < 4; i++)
-    //{
-    //    sf::Texture name;
-    //    name.loadFromFile(screenTextureNames[i]);
-    //    m_transitionScreens.push_back(name);
-    //}
-    //---------------------------dataButtuns textures-----------------------------
-    //all the texture images names for game objects
-    //char dataButtunsNames[3][30] = { "backToMenu.png" ,"restartButtun.png" ,"exitFromLevel.png" };
 
-    std::array<std::string, 10> dataButtonsNames;
+    //get the lock Texture for LevelSelectState(when the levels still unaccessable)
+    m_lock.loadFromFile("SpritesForLevelSelect.png", sf::IntRect{5, 510, 90, 120});
+    
+    //load the transition screens for states(game over level pass)
+    std::array<std::string, 2> TransitionState{ "failedLevel.png", "LevelPass.png" };
 
-    //init texture vector for menu
-    //for (int i = 0; i < 3; i++)
-    //{
-    //    sf::Texture name;
-    //    name.loadFromFile(dataButtunsNames[i]);
-    //    m_databuttons.push_back(name);
-    //}
+    for (size_t i = 0; i < TransitionState.size(); i++)
+    {
+        m_transitionScreensState.emplace_back();
+        m_transitionScreensState.back().loadFromFile(TransitionState.at(i));
+    }
+
+    //get buttons texture
+    std::array<sf::IntRect, 2> buttonsPosition{ sf::IntRect{95, 275, 200, 200}, sf::IntRect{100, 955, 200, 200} };
+    for (size_t i = 0; i < buttonsPosition.size(); i++)
+    {
+        m_buttons.emplace_back();
+        m_buttons.back().loadFromFile("buttons.png",buttonsPosition.at(i));
+    }
 }
 
-////load the fonts for the game
-//void GameResources::initFonts()
-//{
-//    //char fontsPath[2][50] = { "C:/Windows/Fonts/Arial.ttf" ,"C:/Windows/Fonts/Ravie.ttf" };
-//    //for (int i = 0; i < 2; i++)
-//    //{
-//    //    sf::Font temp;
-//    //    temp.loadFromFile(fontsPath[i]);
-//    //    m_font.push_back(temp);
-//    //}
-//}
-//
+//load the fonts for the game
+void GameResources::initFonts()
+{
+    std::array<std::string,2> fontsPath = { "C:/Windows/Fonts/Arial.ttf" ,"C:/Windows/Fonts/Ravie.ttf" };
+    for (int i = 0; i < 2; i++)
+    {
+        sf::Font temp;
+        temp.loadFromFile(fontsPath[i]);
+        m_font.push_back(temp);
+    }
+}
+
 ////load the sounds for the game
 void GameResources::initSounds()
 {

@@ -9,6 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>
+#include <string>
 #include <box2d/box2d.h>
 #include <array>
 #include <algorithm>

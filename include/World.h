@@ -1,14 +1,18 @@
 #pragma once
 #include <memory>
+#include <array>
 #include <box2d/box2d.h>
+
+
 #include "Macro.h"
-#include <vector>
-#include "Objects.h"
+#include"GameResources.h"
+
 enum  Position { Left, Top, Right };
+
 class World 
 {
 public:
-	World(/*const b2Vec2 graviry*/);
+	World();
 	~World() = default;
 
 	b2World* getWorld(){ return m_world.get();}
@@ -16,7 +20,7 @@ public:
 
 private:
 	//set the world frame
-	std::vector<b2Body*> m_worldFrame;
+	std::array<b2Body*, 3> m_worldFrame;
 
 	std::unique_ptr <b2World> m_world;
 

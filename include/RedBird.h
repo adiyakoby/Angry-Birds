@@ -5,18 +5,10 @@
 class RedBird: public Bird
 {
 public:
-	RedBird(b2World& world, const sf::Vector2f& position, const sf::Vector2f& size);
+	RedBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr = {0,BIRD_HP,0});
 	virtual ~RedBird() = default;
 
 private:
-	void initGraphicBody(const sf::Vector2f& size = { 20.f, 0.f });
 };
 
 
-static auto registerItRedBird = ObjectFactory<RedBird>::instance().registerType(
-    "RedBird",
-    [](b2World& world, const sf::Vector2f& position, const sf::Vector2f& size) -> std::unique_ptr<RedBird>
-    {
-        return std::make_unique<RedBird>(world, position, size);
-    }
-);
