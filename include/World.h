@@ -7,7 +7,7 @@
 #include "Macro.h"
 #include"GameResources.h"
 
-enum  Position { Left, Top, Right };
+enum  Position { Left, Right };
 
 class World 
 {

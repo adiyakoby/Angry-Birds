@@ -26,7 +26,6 @@ void BlackBird::handleEvent(sf::Event& event, const sf::Vector2f& mouse)
         if (!isHit() && event.mouseButton.button == sf::Mouse::Left && m_activated) {
             setBombs();
             m_activated = false;
-            //m_body->ApplyForceToCenter(std::move(b2Vec2(100.f, 100.f)), true);
             explode();
         }
 
@@ -149,7 +148,6 @@ void BlackBird::destroyedBody() {
     m_bird.setRadius(50.f);
     m_body->SetEnabled(false);
     m_bird.setTexture(&GameResources::getInstance().getPoofTexture(3));
-   // m_bird.setOrigin(m_bird.getRadius(), m_bird.getRadius());
 }
 //to "register" the object in the Factory
 static auto registerItBlackBird = ObjectFactory<Bird>::instance().registerType(
