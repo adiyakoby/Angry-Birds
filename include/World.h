@@ -7,7 +7,7 @@
 #include "Macro.h"
 #include"GameResources.h"
 
-enum  Position { Left, Top, Right };
+enum  Position { Left, Right };
 
 class World 
 {
@@ -20,7 +20,7 @@ public:
 
 private:
 	//set the world frame
-	std::array<b2Body*, 3> m_worldFrame;
+	std::array<b2Body*, 2> m_worldFrame;
 
 	std::unique_ptr <b2World> m_world;
 
