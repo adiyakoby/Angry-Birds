@@ -172,7 +172,7 @@ void PlayState::drawGame()
     m_gameTools->m_window.getWindow().draw(m_backGround);
     m_gameTools->m_window.getWindow().draw(m_restart);
 
-    if (m_birds.back()->isDragged())
+    if (!m_birds.empty() && m_birds.back()->isDragged()  )
         GuideLine::getInstance().drawGuideLine(m_gameTools->m_window.getWindow());
 
     for (auto& ea : m_gameObjects) {
