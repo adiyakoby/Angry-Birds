@@ -299,7 +299,6 @@ void PlayState::checkIfRestartPressed(const sf::Event& event, const sf::Vector2f
             Resume();//this function alredy used to read the level after the switch between the states, so it can be reuse.
         }
             
-
 }
 void PlayState::levelIntroduction()
 {
@@ -325,7 +324,7 @@ void PlayState::levelIntroduction()
     
     if (!stop && m_backGround.getSize().x - m_gameTools->m_window.getWindow().getView().getCenter().x > WINDOW_WIDTH /2)
     {
-        m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getCenter().x + 3, WINDOW_HEIGHT / 2);
+        m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getCenter().x + 4, WINDOW_HEIGHT / 2);
         updateDataPosition();
         return;
     }
