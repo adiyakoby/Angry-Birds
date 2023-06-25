@@ -90,6 +90,18 @@ sf::Texture& GameResources::getButtons(int index)
     return m_buttons.at(index);
 }
 
+musicCommand GameResources::getMusicStatus() const
+{
+    return m_gameMusic.getStatus() == sf::Music::Playing ? musicCommand::PLAY : musicCommand::PAUSE;
+}
+void GameResources::playBackGroundMusic()
+{
+    if (m_gameMusic.getStatus() == sf::Music::Playing)
+        m_gameMusic.pause();
+    else
+        m_gameMusic.play();
+}
+
 //get font
 sf::Font& GameResources::getFont(int index)
 {
@@ -98,9 +110,10 @@ sf::Font& GameResources::getFont(int index)
 }
 
 //play a wanted affect
-sf::SoundBuffer& GameResources::Playaffect(int index)
+void GameResources::PlayAffect(const gameSounds& affect)
 {
-    return m_affects.at(index);
+    m_affect.setBuffer(m_gameSounds[static_cast<int>(affect)]);
+    m_affect.play();
 }
 
 
@@ -273,7 +286,13 @@ void GameResources::initFonts()
 ////load the sounds for the game
 void GameResources::initSounds()
 {
+    //load the music
     std::array<std::string, 1> music { "menuThemeSong.opus" };
-    m_affects.emplace_back();
-    m_affects.back().loadFromFile(music.at(0));
+    m_gameSounds.emplace_back();
+    m_gameSounds.back().loadFromFile(music.at(0));
+
+    //init background music
+    m_gameMusic.setBuffer(m_gameSounds[static_cast<int>(gameSounds::BACKGROUND)]);
+    m_gameMusic.setLoop(true);
+    m_gameMusic.play();
 }

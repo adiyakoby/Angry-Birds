@@ -17,7 +17,7 @@ public:
 
 	helpScreenCommand handleClick(const sf::Vector2f& mouse_loc);
 	void helpManeger();
-	void setSound(const menuCommand& cmd);
+	void setSound(const helpScreenCommand& cmd);
 	void drawHelpScreen();
 
 protected:
