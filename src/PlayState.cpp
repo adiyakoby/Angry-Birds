@@ -193,14 +193,10 @@ void PlayState::updateView()
     if (m_birds.back()->isHit())
         return;
 
+    sf::Vector2f tempView{ m_gameTools->m_window.getWindow().getView().getSize() };
     if (m_birds.back()->getPosition().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2 <= 0)
     {
-        m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getSize().x / 2.f, m_gameTools->m_window.getWindow().getView().getSize().y / 2.f);
-        updateDataPosition();
-    }
-    else if (m_birds.back()->getPosition().x + m_gameTools->m_window.getWindow().getView().getSize().x / 2 >= m_backGround.getSize().x)
-    {
-        m_gameTools->m_window.setView(m_backGround.getSize().x - m_gameTools->m_window.getWindow().getView().getSize().x / 2, WINDOW_HEIGHT / 2);
+        m_gameTools->m_window.setView(tempView.x / 2.f, tempView.y / 2.f);
         updateDataPosition();
     }
     else
@@ -208,6 +204,14 @@ void PlayState::updateView()
         m_gameTools->m_window.setView(m_birds.back()->getPosition().x, WINDOW_HEIGHT / 2);
         updateDataPosition();
     }
+
+    if (m_birds.back()->getPosition().x + tempView.x / 2 >= m_backGround.getSize().x)
+    {
+        m_gameTools->m_window.setView(m_backGround.getSize().x - tempView.x / 2, WINDOW_HEIGHT / 2);
+        updateDataPosition();
+    }
+  
+
 }
 
 void PlayState::initilaize()
