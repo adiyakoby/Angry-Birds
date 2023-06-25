@@ -65,6 +65,7 @@ void BlackBird::drawObject(sf::RenderWindow& w)
             m_body->SetLinearVelocity(b2Vec2(0.f, 0.f));
         else if (clock.getElapsedTime().asSeconds() > 1.f) {
             m_bird.setTexture(nullptr);
+            m_bird.setFillColor(sf::Color::Transparent);
         }
         w.draw(m_bird);
     }
