@@ -88,6 +88,8 @@ void LevelSelectState::updateReturningValue()
 
 void LevelSelectState::openNewLevel()
 {
+	if (m_sharedData->levelToRead == MAX_LEVEL)
+		return;
 	m_levelData.emplace_back();
 	m_levelData.back().first = "Score: ";
 	m_levelData.back().second = 0;
@@ -146,6 +148,11 @@ void LevelSelectState::initilaize()
 	}
 
 	//give access to level 1
+	for (size_t i = 0; i < 6; i++)
+	{
+		m_levelData.emplace_back();
+	}
+	return;
 
 	m_levelData.emplace_back();
 	m_levelData.back().first = "Score: ";
