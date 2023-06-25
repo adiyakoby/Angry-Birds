@@ -16,7 +16,6 @@
 #include "BlackBird.h"
 #include "Obstacle.h"
 #include "CircularObstacle.h"
-#include "BlackBird.h"
 
 
 void MyContactListener::BeginContact(b2Contact* contact)
