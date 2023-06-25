@@ -22,10 +22,11 @@ public:
     void setPosition(const sf::Vector2f& pos);
     virtual void handleEvent(sf::Event& event, const sf::Vector2f& mouse);
     sf::Vector2f getPosition() const override;
+    sf::Vector2f getBeginPosition() const { return dragStartPosition; };
     sf::Vector2f calculateThrow();
     void setOnRogatka(const bool& is) { m_onRogatka = is; m_body->SetEnabled(true); };
     bool isOnRogatka() const { return m_onRogatka; };
-
+    float getBirdAngle() { return m_bird.getRotation(); };
     void gotHit() { m_hit = true; };
     bool isHit() const { return m_hit; };
     
