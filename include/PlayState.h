@@ -7,7 +7,6 @@
 #include "Bird.h"
 #include "Ground.h"
 #include "World.h"
-//#include "Wood.h"
 
 #include "Rogatka.h"
 #include "MyContactListener.h"
@@ -18,6 +17,8 @@
 #include "BlueBird.h"
 #include "Obstacle.h"
 #include "BlackBird.h"
+
+#include "GuideLine.h"
 
 struct poof {
 
@@ -86,7 +87,6 @@ private:
 
 	//init funcs
 	void createGroundAndRogatka();
-	void createGameObjs();
 	void createLevelData();
 
 	bool m_levelIntroduction;
