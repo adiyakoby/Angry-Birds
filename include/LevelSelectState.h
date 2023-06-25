@@ -33,7 +33,7 @@ public:
 	void openNewLevel();
 	void drawLevelSelect();
 	int handleClick(sf::Vector2f);
-
+	void setSound();
 protected:
 	void initilaize();
 private:

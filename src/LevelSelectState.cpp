@@ -47,6 +47,8 @@ void LevelSelectState::update()
 			levelRequest();
 		else if (m_requestedLevel == 7)
 			m_gameTools->m_gameStates.addState(std::make_unique<MainMenuState>(this->m_gameTools, false), false);
+		else if (m_requestedLevel == 8)
+			setSound();
 	m_event = false;
 }
 
@@ -126,7 +128,23 @@ int LevelSelectState::handleClick(sf::Vector2f mouse_loc)
 			return i;
 	if (m_Buttons.at(0).getGlobalBounds().contains(mouse_loc))
 		return 7;
+	else if (m_Buttons.at(1).getGlobalBounds().contains(mouse_loc))
+		return 8;
 	return -1;
+}
+
+void LevelSelectState::setSound()
+{
+	if (GameResources::getInstance().getMusicStatus() == musicCommand::PAUSE)
+	{
+		GameResources::getInstance().playBackGroundMusic();
+		m_Buttons.at(1).setTexture(&GameResources::getInstance().getSoundTexture(static_cast<int>(musicCommand::PLAY)), true);
+	}
+	else
+	{
+		GameResources::getInstance().playBackGroundMusic();
+		m_Buttons.at(1).setTexture(&GameResources::getInstance().getSoundTexture(static_cast<int>(musicCommand::PAUSE)), true);
+	}
 }
 
 void LevelSelectState::initilaize()
@@ -184,7 +202,5 @@ void LevelSelectState::initilaize()
 			m_Buttons.at(1).setTexture(&GameResources::getInstance().getSoundTexture(static_cast<int>(musicCommand::PAUSE)));
 		else
 			m_Buttons.at(1).setTexture(&GameResources::getInstance().getSoundTexture(static_cast<int>(musicCommand::PLAY)));
-	//music Button
-
 	
 }
