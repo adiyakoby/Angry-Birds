@@ -65,7 +65,7 @@ void BlackBird::drawObject(sf::RenderWindow& w)
         if(clock.getElapsedTime().asSeconds() > 3.f)
             m_body->SetLinearVelocity(b2Vec2(0.f, 0.f));
         else if (clock.getElapsedTime().asSeconds() > 1.f) {
-            m_bird.setTexture(&GameResources::getInstance().getPoofTexture(4));
+            m_bird.setTexture(nullptr);
         }
         w.draw(m_bird);
     }
@@ -113,7 +113,7 @@ void BlackBird::PhysicBombBody(const int index, const sf::Vector2f& position) {
     // Create Box2D fixture definition
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
-    fixtureDef.density = 9.f;
+    fixtureDef.density = 25.f;
     fixtureDef.friction = 0.f;
     fixtureDef.restitution = 0.f;
     m_bombs.at(index)->CreateFixture(&fixtureDef);
