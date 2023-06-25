@@ -6,6 +6,9 @@ using arrData = std::array<int, 3>;
 
 //Const variables for window size:
 
+
+const int MAX_LEVEL = 6;
+
 //original is 1400 800
 const unsigned int WINDOW_WIDTH = 1400;
 const unsigned int WINDOW_HEIGHT = 800;
@@ -40,10 +43,3 @@ const int ICE_HP = 100;
 const int PIG_HP = 100;
 const int BIRD_HP = 20;
 
-
-// Obstacles Density :
-const int IRON_DENSITY = 5;
-const int WOOD_DENSITY = 2;
-const int ICE_DENSITY = 1;
-const int BIRD_DENSITY = 1;
-const int PIG_DENSITY = 1;
