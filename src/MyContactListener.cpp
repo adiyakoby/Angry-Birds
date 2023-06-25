@@ -15,7 +15,7 @@
 #include "BlueBird.h"
 #include "Obstacle.h"
 #include "CircularObstacle.h"
-
+#include "BlackBird.h"
 
 
 void MyContactListener::BeginContact(b2Contact* contact)
@@ -128,6 +128,9 @@ HitMap initializeCollisionMap()
     phm[Key(typeid(BlueBird), typeid(Pig))] = &birdPig;
     phm[Key(typeid(Pig), typeid(BlueBird))] = &pigBird;
 
+    phm[Key(typeid(BlackBird), typeid(Pig))] = &birdPig;
+    phm[Key(typeid(Pig), typeid(BlackBird))] = &pigBird;
+
     phm[Key(typeid(Pig), typeid(Obstacle))] = &pigObstacle;
     phm[Key(typeid(Obstacle), typeid(Pig))] = &ObstaclePig;
 
@@ -142,6 +145,10 @@ HitMap initializeCollisionMap()
 
     phm[Key(typeid(BlueBird), typeid(Obstacle))] = &birdObstacle;
     phm[Key(typeid(Obstacle), typeid(BlueBird))] = &ObstacleBird;
+
+
+    phm[Key(typeid(BlackBird), typeid(Obstacle))] = &birdObstacle;
+    phm[Key(typeid(Obstacle), typeid(BlackBird))] = &ObstacleBird;
 
     phm[Key(typeid(Ground), typeid(Obstacle))] = &groundObstacle;
     phm[Key(typeid(Obstacle), typeid(Ground))] = &ObstacleGround;
@@ -164,6 +171,9 @@ HitMap initializeCollisionMap()
 
     phm[Key(typeid(BlueBird), typeid(CircularObstacle))] = &birdObstacle;
     phm[Key(typeid(CircularObstacle), typeid(BlueBird))] = &ObstacleBird;
+
+    phm[Key(typeid(BlackBird), typeid(CircularObstacle))] = &birdObstacle;
+    phm[Key(typeid(CircularObstacle), typeid(BlackBird))] = &ObstacleBird;
 
     phm[Key(typeid(Ground), typeid(CircularObstacle))] = &groundObstacle;
     phm[Key(typeid(CircularObstacle), typeid(Ground))] = &ObstacleGround;
