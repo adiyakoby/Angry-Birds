@@ -36,25 +36,27 @@ public:
 	PlayState(std::shared_ptr<GameTools>, std::shared_ptr<SharedData>);
 	~PlayState() = default;
 
-	void processManeger()override;
-	void update()override;
-	void Draw()override;
-	void Resume()override;
+	//virtual funcs
+	virtual void processManeger()override;
+	virtual void update()override;
+	virtual void Draw()override;
+	virtual void Resume()override;
 
 	//update func
 	void deleteObj();
 	void drawGame();
 	void updateView();
 	void setNextBird(const bool &x);
-	void setUpForEndLevel(std::string, int);
+	void setUpForEndLevel(const std::string& , const int& );
 	bool levelEnd();
 	bool isFinishedMoving();
 	void updateDataPosition();
-	void setScore(int);
+	void setScore(const int&);
 	void checkIfButtonPressed(const sf::Event&,const sf::Vector2f&);
 	void Restart();
 	void Back();
 	void levelIntroduction();
+
 protected:
 	void initilaize();
 	

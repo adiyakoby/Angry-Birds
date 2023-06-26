@@ -111,7 +111,7 @@ void PlayState::setNextBird(const bool& x)
 }
 
 //#level select
-void PlayState::setUpForEndLevel(std::string status, int transitionScreen)
+void PlayState::setUpForEndLevel(const std::string &status,const int &transitionScreen)
 {
     m_world->getWorld()->SetContactListener(nullptr);
     m_sharedData->levelStatus = status;
@@ -299,7 +299,7 @@ void PlayState::updateDataPosition()
   
 }
 
-void PlayState::setScore(int toAdd)
+void PlayState::setScore(const int &toAdd)
 {
     std::string temp = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
     auto toSet = std::stoi(temp);
