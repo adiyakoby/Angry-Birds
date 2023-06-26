@@ -20,7 +20,8 @@ protected:
 
 private:
 	sf::Clock m_stateClock;
-	
+	float m_stateTimeLimit;
+
 	std::shared_ptr<GameTools> m_gameTools;
 	sf::RectangleShape m_TransitionScreen;
 	TransitionScreen m_texture;

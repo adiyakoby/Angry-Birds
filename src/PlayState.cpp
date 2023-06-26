@@ -111,7 +111,7 @@ void PlayState::setNextBird(const bool& x)
 }
 
 //#level select
-void PlayState::setUpForEndLevel(std::string status, TransitionScreen transitionScreen)
+void PlayState::setUpForEndLevel(std::string status,const TransitionScreen& transitionScreen)
 {
     m_world->getWorld()->SetContactListener(nullptr);
     m_sharedData->levelStatus = status;
