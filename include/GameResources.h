@@ -16,25 +16,24 @@ public:
 	GameResources(const GameResources&) = delete; //disable copy constructor
 	GameResources operator=(const GameResources&) = delete; //disable assimenget operator
 
-	sf::Texture& getMenuTexture(int index);
-	sf::Texture& getHelpTexture(int index);
-	sf::Texture& getBirdTexture(int index);
-	sf::Texture& getWoodsTexture(int index);
-	sf::Texture& getRogatkaTexture(int index);
-	sf::Texture& getPigsTexture(int index);
-	sf::Texture& getPoofTexture(int index);
+	sf::Texture& getMenuTexture(const int& index);
+	sf::Texture& getHelpTexture(const int& index);
+	sf::Texture& getBirdTexture(const int& index);
+	sf::Texture& getRogatkaTexture(const int& index);
+	sf::Texture& getPigsTexture(const int& index);
+	sf::Texture& getPoofTexture(const int& index);
 	sf::Texture& getLock();
 	sf::Texture& getTransitionScreensState(const TransitionScreen&);
 	sf::Texture& getObstacleTexture(const int& index);
-	sf::Texture& getButtons(int index);
-	sf::Texture& getLevelsFields(int index);
+	sf::Texture& getButtons(const int& index);
+	sf::Texture& getLevelsFields(const int& index);
 	sf::Texture& getBackGroundScreens(const backGrounds&);
 
 	void playBackGroundMusic();
 
 	musicCommand getMusicStatus() const;
-	sf::Font& getFont(int index);
-	sf::Text& createText(std::string, sf::Color, int);
+	sf::Font& getFont(const int& index);
+	sf::Text& createText(const std::string &, const sf::Color &, const int&);
 
 private:
 	//constructor/ distructor
@@ -50,6 +49,7 @@ private:
 	std::vector <sf::Texture> m_soundTexture;//for state
 	std::vector <sf::Texture> m_objectTexture;
 	std::vector <sf::Texture> m_backGround;
+
 	std::vector <sf::Texture> m_databuttons;
 	std::vector <sf::Texture> m_helpTexture;
 	std::vector <sf::Texture> m_birdsTexture;
