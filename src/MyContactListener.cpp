@@ -106,7 +106,8 @@ void ObstaclePig(Objects& wood, Objects& pig) {
 }
 
 void BirdGround(Objects& bird, Objects& ground) {
-    static_cast<Bird&>(bird).gotHit();
+    if(!static_cast<Bird&>(bird).isOnRogatka())
+        static_cast<Bird&>(bird).gotHit();
 }
 
 void GroundBird(Objects& ground, Objects& bird) {
