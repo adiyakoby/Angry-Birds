@@ -197,8 +197,7 @@ void GameResources::initTextures()
         m_obstacles.back().loadFromFile("StaticObjects.png", BallsLocation.at(i));
     }
 
-
-    
+    //rogatka texture
     std::array<std::string, 2> rogatkaNames{ "rogatka.png", "rogsit.png"};
     for (size_t i = 0; i < rogatkaNames.size(); i++)
     {
@@ -206,24 +205,21 @@ void GameResources::initTextures()
         m_rogatkaTexture.back().loadFromFile(rogatkaNames.at(i));
     }
 
-    
-    //---------------------------screens textures-----------------------------
-    //all the texture images names for transition screens
-    //char screenTextureNames[4][30] = { "pacmanBackground.png", "GameOver.png", "NextLevel.png", "endGame.png" };
-
+    //get backgrounds
     std::array<std::string, 3> backGroundTextureNames{"MenuBackground.png", "LevelOne.png", "LevelSelectBackGround.png"};
     for (size_t i = 0; i < backGroundTextureNames.size(); i++)
     {
         m_backGround.emplace_back();
         m_backGround.back().loadFromFile(backGroundTextureNames.at(i));
     }
-
-    std::array<sf::IntRect, 6> levelsLocation{ sf::IntRect{50, 465, 175, 175}, sf::IntRect{250, 465, 175, 175}, sf::IntRect{450, 465, 175, 175},
+    
+    //levels icons on level select state
+    std::array<sf::IntRect, 6> levelFields{ sf::IntRect{50, 465, 175, 175}, sf::IntRect{250, 465, 175, 175}, sf::IntRect{450, 465, 175, 175},
                                                sf::IntRect{820, 465, 175, 175}, sf::IntRect{1010, 465, 175, 175}, sf::IntRect{1200, 465, 175, 175}}; // 1 448
-    for (size_t i = 0; i < levelsLocation.size(); i++)
+    for (size_t i = 0; i < levelFields.size(); i++)
     {
         m_levelsFields.emplace_back();
-        m_levelsFields.back().loadFromFile("LevelSelectSpriteSheet.png", levelsLocation.at(i));
+        m_levelsFields.back().loadFromFile("LevelSelectSpriteSheet.png", levelFields.at(i));
     }
     
 
@@ -232,7 +228,6 @@ void GameResources::initTextures()
     
     //load the transition screens for states(game over level pass)
     std::array<std::string, 2> TransitionState{ "failedLevel.png", "LevelPass.png" };
-
     for (size_t i = 0; i < TransitionState.size(); i++)
     {
         m_transitionScreensState.emplace_back();
@@ -264,11 +259,8 @@ void GameResources::initFonts()
 ////load the sounds for the game
 void GameResources::initSounds()
 {
-
     //load the music
-    //std::array<std::string, 4> music{ "menuThemeSong.opus","IronSound.wav", "WoodSound.wav", "IceSound.wav"  };
     m_BackGroundBuffer.loadFromFile("menuThemeSong.opus");
-
 
     //init background music
     m_BackGroundSound.setBuffer(m_BackGroundBuffer);

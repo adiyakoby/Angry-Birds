@@ -42,7 +42,6 @@ private:
 	~GameResources() = default;
 
 	//members
-	sf::Texture m_spriteSheet;
 	std::vector <sf::Texture> m_menuTexture;
 	std::vector <sf::Texture> m_helpScreenTexture;//for state
 	std::vector <sf::Texture> m_soundTexture;//for state
@@ -52,7 +51,7 @@ private:
 	std::vector <sf::Texture> m_helpTexture;
 	std::vector <sf::Texture> m_birdsTexture;
 	std::vector <sf::Texture> m_woodsTexture;
-	std::vector <sf::Texture> m_rogatkaTexture;
+	std::array <sf::Texture,2> m_rogatkaTexture;
 	std::vector <sf::Texture> m_groundTexture;
 	std::vector <sf::Texture> m_pigsTexture;
 	std::vector <sf::Texture> m_poofTexture;
