@@ -1,6 +1,6 @@
 #include "CircularObstacle.h"
 
-CircularObstacle::CircularObstacle(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const arrData&)
+CircularObstacle::CircularObstacle(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const arrData&arr)
     : StaticObjects(world, arr.at(1), arr.at(2)), m_hit{ false }, m_textureIndex{ arr.at(0) }, m_halfHp{ arr.at(1) / 2 } {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
