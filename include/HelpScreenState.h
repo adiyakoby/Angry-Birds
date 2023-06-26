@@ -26,6 +26,7 @@ protected:
 private:
 	std::shared_ptr<GameTools> m_gameTools;
 	std::vector<sf::RectangleShape> m_buttons;
+	sf::CircleShape m_soundButton;
 	sf::RectangleShape m_backGround;
 	helpScreenCommand m_mode;
 	bool m_event;

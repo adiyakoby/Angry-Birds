@@ -47,10 +47,7 @@ void MainMenuState::Draw()
 
 void MainMenuState::Resume()
 {
-	if (GameResources::getInstance().getMusicStatus() == musicCommand::PAUSE)
-		m_buttons.back().setTexture(&GameResources::getInstance().getSoundTexture(static_cast<int>(musicCommand::PAUSE)));
-	else
-		m_buttons.back().setTexture(&GameResources::getInstance().getSoundTexture(static_cast<int>(musicCommand::PLAY)));
+	setSoundTexture(m_soundButton);
 }
 
 void MainMenuState::initilaize()
@@ -73,19 +70,16 @@ void MainMenuState::initilaize()
 	}
 
 	//sound buttun
-	m_buttons.emplace_back();
-	if(GameResources::getInstance().getMusicStatus() == musicCommand::PAUSE)
-		m_buttons.back().setTexture(&GameResources::getInstance().getSoundTexture(static_cast<int>(musicCommand::PAUSE)));
-	else
-		m_buttons.back().setTexture(&GameResources::getInstance().getSoundTexture(static_cast<int>(musicCommand::PLAY)));
-	m_buttons.back().setSize(m_backGround.getSize() * 0.12f);
-	m_buttons.back().setOrigin(m_buttons.back().getSize() * 0.5f);
-	m_buttons.back().setPosition(WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100);
+
+	m_soundButton.setRadius(50.f);
+	m_soundButton.setOrigin(m_soundButton.getRadius(),m_soundButton.getRadius());
+	m_soundButton.setPosition(WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100);
+	setSoundTexture(m_soundButton);
 }
 
-menuCommand MainMenuState::handleClick(const sf::Vector2f& mouse_loc) // getStatus() == sf::Music::Paused
+menuCommand MainMenuState::handleClick(const sf::Vector2f& mouse_loc) 
 {
-	if (m_buttons.at(3).getGlobalBounds().contains(mouse_loc)) 
+	if (m_soundButton.getGlobalBounds().contains(mouse_loc)) 
 		return (GameResources::getInstance().getMusicStatus() == musicCommand::PAUSE ? menuCommand::SOUND : menuCommand::MUTE);
 
 	for (size_t i = 0; i < m_buttons.size(); i++)
@@ -103,26 +97,11 @@ void MainMenuState::menuManeger()
 								else m_gameTools->m_gameStates.removeState();                                                                   break;
 	case menuCommand::HELP:     m_gameTools->m_gameStates.addState(std::make_unique<HelpScreenState>(this->m_gameTools), false);                break;
 	case menuCommand::MUTE:;
-	case menuCommand::SOUND:    setSound(m_mode);                                                                                               break;
+	case menuCommand::SOUND:    soundButtonClicked(m_soundButton);                                                                                               break;
 	case menuCommand::EXIT:     m_gameTools->m_window.getWindow().close();																	    break;
 	default:																																	break;
 	}
 	m_event = false;
-}
-
-void MainMenuState::setSound(const menuCommand& cmd)
-{
-	if (cmd == menuCommand::MUTE)
-	{
-		GameResources::getInstance().playBackGroundMusic();
-		m_buttons.at(3).setTexture(&GameResources::getInstance().getSoundTexture(static_cast<int>(musicCommand::PAUSE)));
-	}
-	else
-	{
-		GameResources::getInstance().playBackGroundMusic();
-		m_buttons.at(3).setTexture(&GameResources::getInstance().getSoundTexture(static_cast<int>(musicCommand::PLAY)));
-	}
-	
 }
 
 void MainMenuState::drawMenu()
@@ -130,4 +109,5 @@ void MainMenuState::drawMenu()
 	m_gameTools->m_window.getWindow().draw(m_backGround);
 	for (size_t i = 0; i < m_buttons.size(); i++)
 		m_gameTools->m_window.getWindow().draw(m_buttons.at(i));
+	m_gameTools->m_window.getWindow().draw(m_soundButton);
 }
