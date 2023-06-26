@@ -44,25 +44,18 @@ private:
 	sf::Texture m_spriteSheet;
 	sf::Texture m_lock;
 
-	std::vector <sf::Texture> m_menuTexture;
-	std::vector <sf::Texture> m_helpScreenTexture;//for state
-	std::vector <sf::Texture> m_soundTexture;//for state
-	std::vector <sf::Texture> m_objectTexture;
-	std::vector <sf::Texture> m_backGround;
-
-	std::vector <sf::Texture> m_databuttons;
-	std::vector <sf::Texture> m_helpTexture;
-	std::vector <sf::Texture> m_birdsTexture;
-	std::vector <sf::Texture> m_woodsTexture;
+	std::array <sf::Texture, 3> m_menuTexture;
+	std::array <sf::Texture, 4> m_helpScreenTexture;//for state
+	std::array <sf::Texture,3> m_backGround;
+	std::array <sf::Texture,4> m_birdsTexture;
 	std::array <sf::Texture,2> m_rogatkaTexture;
-	std::vector <sf::Texture> m_groundTexture;
-	std::vector <sf::Texture> m_pigsTexture;
-	std::vector <sf::Texture> m_poofTexture;
-	std::vector <sf::Texture> m_transitionScreensState;
-	std::vector <sf::Texture> m_buttons;
-	std::vector <sf::Texture> m_obstacles;
-	std::vector <sf::Texture> m_levelsFields;
-	std::vector <sf::Font> m_font;
+	std::array <sf::Texture, 2> m_pigsTexture;
+	std::array <sf::Texture, 5> m_poofTexture;
+	std::array <sf::Texture, 2> m_transitionScreensState;
+	std::array <sf::Texture, 5> m_buttons;
+	std::array <sf::Texture, 18> m_obstacles;
+	std::array <sf::Texture, 6> m_levelsFields;
+	std::array <sf::Font, 2> m_font;
 
 	sf::SoundBuffer m_BackGroundBuffer;
 	sf::Sound m_BackGroundSound;

@@ -124,10 +124,8 @@ void GameResources::initTextures()
 
     std::array<std::string, 3> menuTextureNames{ "play.png", "help.png", "exit.png" };
     for (size_t i = 0; i < menuTextureNames.size(); i++)
-    {
-        m_menuTexture.emplace_back();
-        m_menuTexture.back().loadFromFile(menuTextureNames.at(i));
-    }
+        m_menuTexture[i].loadFromFile(menuTextureNames.at(i));
+    
 
     std::array<std::string, 4> helpScreen {  "instruction1.png", "instruction2.png", "instruction3.png", "back.png" };
     for (size_t i = 0; i < helpScreen.size(); i++)
@@ -162,12 +160,13 @@ void GameResources::initTextures()
     
                                         // Indexes: 4  ,  5  , 6   , 7
     std::array<sf::IntRect, 4> IceLocation{ sf::IntRect{319,755,168,22} , sf::IntRect{319,821,168,22}, sf::IntRect{233,686,85,42}, sf::IntRect{233,815,85,42} };
-        m_obstacles[i].loadFromFile("StaticObjects.png", IceLocation.at(i));
+    for (size_t i = 0; i < IceLocation.size(); i++)
+        m_obstacles[i + 4].loadFromFile("StaticObjects.png", IceLocation.at(i));
    
                                         // Indexes: 8  ,  9  , 10   , 11
     std::array<sf::IntRect, 4> IronLocation{ sf::IntRect{319,711,168,22} , sf::IntRect{319,778,168,22}, sf::IntRect{805,501,85,42}, sf::IntRect{234,859,85,42} };
     for (size_t i = 0; i < IronLocation.size(); i++)
-        m_obstacles[i].loadFromFile("StaticObjects.png", IronLocation.at(i));
+        m_obstacles[i + 8].loadFromFile("StaticObjects.png", IronLocation.at(i));
     
 
                                     // Indexes: 12  ,  13  , 14  , 15 ,  16 , 17 (wood - ice - iron)
@@ -175,20 +174,19 @@ void GameResources::initTextures()
                                               sf::IntRect{85,824,75,75}, sf::IntRect{85,748,75,75}, 
                                               sf::IntRect{162,364,75,75}, sf::IntRect{397,364,75,75} };
     for (size_t i = 0; i < BallsLocation.size(); i++)
-        m_obstacles[i].loadFromFile("StaticObjects.png", BallsLocation.at(i));
+        m_obstacles[i + 12].loadFromFile("StaticObjects.png", BallsLocation.at(i));
     
 
     //rogatka texture
     std::array<std::string, 2> rogatkaNames{ "rogatka.png", "rogsit.png"};
     for (size_t i = 0; i < rogatkaNames.size(); i++)
-    {
         m_rogatkaTexture[i].loadFromFile(rogatkaNames.at(i));
-    }
+    
 
     //get backgrounds
     std::array<std::string, 3> backGroundTextureNames{"MenuBackground.png", "LevelOne.png", "LevelSelectBackGround.png"};
     for (size_t i = 0; i < backGroundTextureNames.size(); i++)
-        m_backGround[0].loadFromFile(backGroundTextureNames.at(i));
+        m_backGround[i].loadFromFile(backGroundTextureNames.at(i));
     
     
     //levels icons on level select state
@@ -196,11 +194,7 @@ void GameResources::initTextures()
                                                sf::IntRect{820, 465, 175, 175}, sf::IntRect{1010, 465, 175, 175}, sf::IntRect{1200, 465, 175, 175}}; // 1 448
     for (size_t i = 0; i < levelFields.size(); i++)
         m_levelsFields[i].loadFromFile("LevelSelectSpriteSheet.png", levelFields.at(i));
-    
-    
-
-    //get the lock Texture for LevelSelectState(when the levels still unaccessable)
-    m_lock.loadFromFile("SpritesForLevelSelect.png", sf::IntRect{5, 510, 90, 120});
+   
     
     //load the transition screens for states(game over level pass)
     std::array<std::string, 2> TransitionState{ "failedLevel.png", "LevelPass.png" };
@@ -214,6 +208,8 @@ void GameResources::initTextures()
     for (size_t i = 0; i < buttonsPosition.size(); i++)
         m_buttons[i].loadFromFile("buttons.png", buttonsPosition.at(i));
     
+    //get the lock Texture for LevelSelectState(when the levels still unaccessable)
+    m_lock.loadFromFile("SpritesForLevelSelect.png", sf::IntRect{ 5, 510, 90, 120 });
 }
 
 //load the fonts for the game
