@@ -85,15 +85,15 @@ sf::Texture& GameResources::getButtons(int index)
 
 musicCommand GameResources::getMusicStatus() const
 {
-    return m_gameMusic.getStatus() == sf::Music::Playing ? musicCommand::PLAY : musicCommand::PAUSE;
+    return m_soundVec[0].getStatus() == sf::Music::Playing ? musicCommand::PLAY : musicCommand::PAUSE;
 }
 
 void GameResources::playBackGroundMusic()
 {
-    if (m_gameMusic.getStatus() == sf::Music::Playing)
-        m_gameMusic.pause();
+    if (m_soundVec[0].getStatus() == sf::Music::Playing)
+        m_soundVec[0].pause();
     else
-        m_gameMusic.play();
+        m_soundVec[0].play();
 }
 
 //get font
@@ -106,8 +106,7 @@ sf::Font& GameResources::getFont(int index)
 //play a wanted affect
 void GameResources::PlayAffect(const gameSounds& affect)
 {
-    m_affect.setBuffer(m_gameSounds[static_cast<int>(affect)]);
-    m_affect.play();
+    m_soundVec[static_cast<int>(affect)].play();
 }
 
 
@@ -277,12 +276,16 @@ void GameResources::initFonts()
 void GameResources::initSounds()
 {
     //load the music
-    std::array<std::string, 1> music { "menuThemeSong.opus" };
-    m_gameSounds.emplace_back();
-    m_gameSounds.back().loadFromFile(music.at(0));
+    std::array<std::string, 4> music { "menuThemeSong.opus","IronSound.wmp, WoodSound.wmp, IceSound.wmv"  };
+    for (size_t i = 0; i < music.size() ; i++)
+    {
+        m_gameSounds.emplace_back();
+        m_gameSounds.back().loadFromFile(music[i]);
+        m_soundVec[i].setBuffer(m_gameSounds[i]);
+    }
+
 
     //init background music
-    m_gameMusic.setBuffer(m_gameSounds[static_cast<int>(gameSounds::BACKGROUND)]);
-    m_gameMusic.setLoop(true);
-    m_gameMusic.play();
+    m_soundVec[0].setLoop(true);
+    m_soundVec[0].play();
 }

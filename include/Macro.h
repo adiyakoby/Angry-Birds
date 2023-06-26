@@ -22,7 +22,8 @@ enum class menuCommand { PLAY, HELP, EXIT, BACK, SOUND, MUTE, DEFAULT };
 enum class helpScreenCommand { BACK, SOUND, MUTE, DEFAULT };
 enum class GameData {LEVEL, SCORE}; //Game Data - (level num , Score) //maybe after creating the level state it will not needed any more 
 enum class musicCommand {PLAY,PAUSE};
-enum class gameSounds {BACKGROUND,WOOD_CRASH,IRON_CRASH,ICE_CRASH,PIG_CRASH};
+enum class gameSounds {BACKGROUND,IRON_CRASH,WOOD_CRASH,ICE_CRASH,PIG_CRASH};
+
 /* POSITIONS :*/
 const float ROGATKA_X{ 300.f };
 const float ROGATKA_Y{ 630.f };

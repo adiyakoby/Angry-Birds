@@ -29,8 +29,10 @@ public:
 	sf::Texture& getButtons(int index);
 	sf::Texture& getLevelsFields(int index);
 	sf::Texture& getBackGroundScreens(int index);
+
 	void PlayAffect(const gameSounds&);
 	void playBackGroundMusic();
+
 	musicCommand getMusicStatus() const;
 	sf::Font& getFont(int index);
 	sf::Text& createText(std::string, sf::Color, int);
@@ -63,9 +65,11 @@ private:
 
 	std::vector <sf::Texture> m_levelsFields;
 	std::vector <sf::Font> m_font;
-	std::vector <sf::SoundBuffer> m_gameSounds;
-	sf::Sound m_gameMusic;
-	sf::Sound m_affect;
+
+	std::vector <sf::SoundBuffer> m_gameSounds;  
+	std::array<sf::Sound, 4> m_soundVec;
+
+
 	sf::Text m_text;
 	
 	//func
