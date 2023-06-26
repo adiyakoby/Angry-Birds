@@ -104,7 +104,7 @@ void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w
 
 }
 
-sf::Vector2f Bird::calculateThrow()
+sf::Vector2f Bird::calculateThrow() const
 {
     return sf::Vector2f(dragStartPosition - dragEndPosition) * 1.3f;
 }
