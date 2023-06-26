@@ -44,13 +44,6 @@ sf::Texture& GameResources::getHelpTexture(int index)
     return m_helpScreenTexture.at(index);
 }
 
-sf::Texture& GameResources::getSoundTexture(int index)
-{
-    /* if (index < 9 && index >= 0)
-         return m_menuTexture[index];*/
-    return m_soundTexture.at(index);
-}
-
 sf::Texture& GameResources::getBirdTexture(int index) {
     return m_birdsTexture.at(index);
 }
@@ -94,6 +87,7 @@ musicCommand GameResources::getMusicStatus() const
 {
     return m_gameMusic.getStatus() == sf::Music::Playing ? musicCommand::PLAY : musicCommand::PAUSE;
 }
+
 void GameResources::playBackGroundMusic()
 {
     if (m_gameMusic.getStatus() == sf::Music::Playing)
@@ -155,12 +149,7 @@ void GameResources::initTextures()
         m_helpScreenTexture.back().loadFromFile(helpScreen.at(i));
     }
 
-    std::array<std::string, 2> soundButton{ "sound.png", "mute.png" };
-    for (size_t i = 0; i < soundButton.size(); i++)
-    {
-        m_soundTexture.emplace_back();
-        m_soundTexture.back().loadFromFile(soundButton.at(i));
-    }
+
     //vector string for the bird's names
     std::array<sf::IntRect, 4> birdLocation{ sf::IntRect{915, 867, 50, 50}, sf::IntRect{551, 658, 65, 55}, sf::IntRect{0 ,448,35,35} ,sf::IntRect{948,572,67,61} }; // 1 448
     for (size_t i = 0; i < birdLocation.size(); i++)
@@ -262,8 +251,9 @@ void GameResources::initTextures()
         m_transitionScreensState.back().loadFromFile(TransitionState.at(i));
     }
 
-    //get buttons texture
-    std::array<sf::IntRect, 2> buttonsPosition{ sf::IntRect{95, 275, 200, 200}, sf::IntRect{100, 955, 200, 200} };
+    //get buttons texture - 1)restart 2)sound 3)mute 4)forward 5)backward
+    std::array<sf::IntRect, 5> buttonsPosition{ sf::IntRect{270,170,185, 185}, sf::IntRect{730, 170, 185, 185} , 
+                                                sf::IntRect{965, 170, 185, 185}, sf::IntRect{50, 620, 185, 185},sf::IntRect{280, 620, 185, 185}};
     for (size_t i = 0; i < buttonsPosition.size(); i++)
     {
         m_buttons.emplace_back();

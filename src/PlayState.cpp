@@ -240,7 +240,7 @@ void PlayState::initilaize()
     //create the restart button
     m_restart.setRadius(30.f);
     m_restart.setOrigin(m_restart.getRadius(), m_restart.getRadius());
-    m_restart.setTexture(&GameResources::getInstance().getButtons(1));
+    m_restart.setTexture(&GameResources::getInstance().getButtons(0));
     //m_restart.setFillColor(sf::Color::Black);
 
     //init Text Data

@@ -18,7 +18,6 @@ public:
 
 	sf::Texture& getMenuTexture(int index);
 	sf::Texture& getHelpTexture(int index);//state
-	sf::Texture& getSoundTexture(int index);//state
 	sf::Texture& getBirdTexture(int index);
 	sf::Texture& getWoodsTexture(int index);
 	sf::Texture& getRogatkaTexture(int index);
