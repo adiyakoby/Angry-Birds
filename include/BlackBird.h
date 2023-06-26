@@ -18,6 +18,8 @@ private:
     bool m_exploded;
     std::shared_ptr<World> m_world;
     std::vector<b2Body*> m_bombs;
+    sf::Clock m_clock;
+
     void explode();
     void setBombs();
     void PhysicBombBody(const int index, const sf::Vector2f& position);

@@ -3,7 +3,7 @@
 Window::Window() 
 	: m_window{sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Angry Birds"}
 {
-	m_window.setFramerateLimit(60);
+	m_window.setFramerateLimit(90);
 	resetView();
 }
 
