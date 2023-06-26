@@ -9,26 +9,31 @@ public:
 	HelpScreenState(std::shared_ptr<GameTools> gameTools);
 	virtual ~HelpScreenState() = default;
 
-	void processManeger()override;
-	void update()override;
-	void Draw()override;
-	void Resume()override {}
-	void Pause()override {}
+	//virtual funcs
+	virtual void processManeger()override;
+	virtual void update()override;
+	virtual void Draw()override;
+	virtual void Resume()override {}
 
+	//setters
 	helpScreenCommand handleClick(const sf::Vector2f& mouse_loc);
 	void helpManeger();
 	void drawHelpScreen();
 	void moveBetweenPages();
+
 protected:
 	void initilaize()override;
 
 private:
+
 	std::shared_ptr<GameTools> m_gameTools;
 	sf::RectangleShape m_backButton;
 	std::vector<sf::CircleShape> m_Buttons;
 	sf::RectangleShape m_backGround;
-	int m_currentInstructionPage;
+
 	helpScreenCommand m_direction;
 	helpScreenCommand m_mode;
+
+	int m_currentInstructionPage;
 	bool m_event;
 };

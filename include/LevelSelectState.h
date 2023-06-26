@@ -26,7 +26,6 @@ public:
 	void update();
 	void Draw();
 	void Resume()override;
-	void Pause()override {}
 
 	void levelRequest();//set play data( e.g. which level to read)
 	void updateReturningValue();//get the returning value from play state

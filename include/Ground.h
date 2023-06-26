@@ -10,7 +10,7 @@ public:
 	//virtual funcs
 	virtual void objectUpdate()override {}
 	virtual void drawObject(sf::RenderWindow& window) override;
-	virtual sf::Vector2f getPosition() const override{ return m_ground.getPosition(); };
+	virtual inline sf::Vector2f getPosition() const override{ return m_ground.getPosition(); };
 	virtual void rotate(const int& x) override { ; };
 	virtual void hitState() override { ; };
 

@@ -20,7 +20,7 @@ public:
 	virtual void drawObject(sf::RenderWindow& window)override;
 
 	//setters
-	void setEnable() { m_body->SetEnabled(true); };
+	inline void setEnable() { m_body->SetEnabled(true); };
 
 private:
 	std::array<std::unique_ptr<BlueBird>,2> m_split;

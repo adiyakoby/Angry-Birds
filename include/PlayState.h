@@ -40,7 +40,6 @@ public:
 	void update()override;
 	void Draw()override;
 	void Resume()override;
-	void Pause()override {}
 
 	//update func
 	void deleteObj();

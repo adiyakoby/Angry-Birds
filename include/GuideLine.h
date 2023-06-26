@@ -11,6 +11,7 @@ public:
 	GuideLine(const GuideLine&) = delete; //disable copy constructor
 	GuideLine operator=(const GuideLine&) = delete; //disable assimenget operator
 
+	//setters
 	void setWorld(std::shared_ptr<World> world);
 	void drawGuideLine(sf::RenderWindow& window);
 	void reset();
@@ -25,16 +26,16 @@ private:
 	std::vector<b2Body*> m_bodies;
 	std::vector<sf::CircleShape> m_guideline;
 
-	std::shared_ptr<World> m_world;
+	//for guideline indication
 	sf::Clock m_timer;
-
 	sf::Vector2f m_birdPos;
 	bool m_engage;
 
+	std::shared_ptr<World> m_world;
+	
 
 	//private funcs
 	void initPhysicBody();
 	void initGraphicBody();
-
 };
 

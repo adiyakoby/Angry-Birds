@@ -21,7 +21,6 @@ public:
 	void update();
 	void Draw();
 	void Resume()override;
-	void Pause()override {}
 
 	menuCommand handleClick(const sf::Vector2f& mouse_loc);
 	void menuManeger();
