@@ -44,6 +44,7 @@ void GuideLine::setWorld(std::shared_ptr<World> world)
 
 void GuideLine::drawGuideLine(sf::RenderWindow& window)
 {
+    if (m_timer.getElapsedTime() <= sf::seconds(0.1f)) return;
     for (size_t i = 0; i < m_bodies.size() ; i++)
     {
         m_guideline.at(i).setPosition(m_bodies.at(i)->GetPosition().x * SCALE, m_bodies.at(i)->GetPosition().y * SCALE);
