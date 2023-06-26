@@ -45,6 +45,7 @@ public:
 	//update func
 	void deleteObj();
 	void drawGame();
+	void drawDestroyedObj();
 	void updateView();
 	void setNextBird(const bool &x);
 	void setUpForEndLevel(std::string,const TransitionScreen&);
@@ -80,8 +81,6 @@ private:
 	std::shared_ptr<World> m_world;
 	std::shared_ptr<SharedData> m_sharedData;//shared data with other states
 	LevelManager m_lvlsMngr;
-
-	void drawDestroyedObj();
 
 	//init funcs
 	void createGroundAndRogatka();

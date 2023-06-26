@@ -26,7 +26,6 @@ public:
 	//getters
 	menuCommand handleClick(const sf::Vector2f& mouse_loc);
 	void menuManeger();
-	//void setSound(const menuCommand& cmd);
 	void drawMenu();
 
 protected:
@@ -38,7 +37,6 @@ private:
 
 	sf::CircleShape m_soundButton;
 	sf::RectangleShape m_backGround;
-	sf::Sound m_music;
 
 	menuCommand m_mode;
 	bool m_event;
