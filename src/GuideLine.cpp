@@ -6,11 +6,6 @@ GuideLine& GuideLine::getInstance()
 	return guideline;
 }
 
-GuideLine::GuideLine()
-{ 
-    ;
-}
-
 
 void GuideLine::initPhysicBody()
 {
@@ -39,12 +34,12 @@ void GuideLine::initGraphicBody()
     m_guideline.back().setFillColor(sf::Color::Black);
     m_guideline.back().setRadius(5.f);
     m_guideline.back().setOrigin(2.5f, 2.5f);
+ 
 }
 
 void GuideLine::setWorld(std::shared_ptr<World> world)
 {
     m_world = world;
-
 }
 
 void GuideLine::drawGuideLine(sf::RenderWindow& window)
@@ -56,9 +51,34 @@ void GuideLine::drawGuideLine(sf::RenderWindow& window)
     }
 }
 
+void GuideLine::reset()
+{
+    for (auto& ea : m_bodies)
+        m_world->getWorld()->DestroyBody(ea);
+    
+    m_bodies.clear();
+    m_guideline.clear();
+    m_timer.restart();
+    m_engage = false;
+    
+}
+
 void GuideLine::setPosition(const sf::Vector2f& pos)
 {
-    
+    if (!m_engage) // first pos aiming
+    {
+        m_engage = true;
+        m_birdPos = pos;
+        m_timer.restart();
+    }
+
+    if (pos != m_birdPos) // if bird moved we reset
+    {
+        reset();
+        return;
+    }
+       
+
     b2Vec2 dir{ (ROGATKA_X - pos.x) * 20.f / SCALE, (ROGATKA_Y - 50.f - pos.y) * 20.f / SCALE };
 
     initPhysicBody();
@@ -67,5 +87,7 @@ void GuideLine::setPosition(const sf::Vector2f& pos)
     m_bodies.back()->SetTransform({ pos.x / SCALE, pos.y / SCALE }, 0);
     m_bodies.back()->SetLinearVelocity(dir);
 
-    
+    if (m_bodies.size() >= 40 && m_timer.getElapsedTime() >= sf::seconds(1.5f)) 
+        reset();
+
 }
