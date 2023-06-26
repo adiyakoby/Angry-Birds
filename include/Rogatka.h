@@ -6,7 +6,7 @@
 class Rogatka:public StaticObjects
 {
 public:
-	Rogatka(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size = sf::Vector2f{ 15.f, 80.f }, arrData arr = {0,0,0});
+	Rogatka(std::shared_ptr<World> world, const sf::Vector2f& position = {ROGATKA_X, ROGATKA_Y}, const sf::Vector2f& size = sf::Vector2f{ 15.f, 80.f }, arrData arr = { 1,0,0 });
 	virtual ~Rogatka() = default;
 
 	void objectUpdate()override {}

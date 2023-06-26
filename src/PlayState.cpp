@@ -241,7 +241,6 @@ void PlayState::initilaize()
     m_restart.setRadius(30.f);
     m_restart.setOrigin(m_restart.getRadius(), m_restart.getRadius());
     m_restart.setTexture(&GameResources::getInstance().getButtons(1));
-    //m_restart.setFillColor(sf::Color::Black);
 
     //init Text Data
     createLevelData();
@@ -259,8 +258,8 @@ void PlayState::initilaize()
 
 void PlayState::createGroundAndRogatka()
 {
-    m_worldObjects[0] = std::make_unique <Ground>(m_world, sf::Vector2f(0, 0), m_backGround.getSize()); //ground
-    m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));      //rogatka
+    m_worldObjects[0] = std::move(ObjectFactory<StaticObjects>::instance().create("ground", m_world, sf::Vector2f(0, 0), m_backGround.getSize(), { 0,0,0 }));
+    m_worldObjects[1] = std::move(ObjectFactory<StaticObjects>::instance().create("rogatka", m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y), sf::Vector2f{ 15.f, 80.f }, {0,0,0}));
 }
 
 void PlayState::createLevelData()

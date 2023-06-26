@@ -93,7 +93,6 @@ void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w
         sf::Vector2f direction = mouseLastLocation - dragStartPosition;
         direction /= distance;
         dragEndPosition = dragStartPosition + direction * MAX_DISTANCE;
-        //m_bird.setPosition(dragEndPosition);
         m_body->SetTransform(b2Vec2(dragEndPosition.x / SCALE, dragEndPosition.y / SCALE), (dragStartPosition.y - dragEndPosition.y) / SCALE);
     }
     else {
