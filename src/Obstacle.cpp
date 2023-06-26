@@ -1,7 +1,7 @@
 #include "Obstacle.h"
 
 Obstacle::Obstacle(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr)
-    : StaticObjects(world, arr.at(1), arr.at(2)), m_hit{ false }, m_textureIndex{ arr.at(0) }, m_halfHp{arr.at(1)/2} {
+    : StaticObjects(world, arr.at(1), arr.at(2)), m_hit{ false }, m_GameIndex{ arr.at(0) }, m_halfHp{arr.at(1)/2} {
     initPhysicBody(world, position, size);
     initGraphicBody(size);
 }
@@ -44,7 +44,7 @@ void Obstacle::initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& 
 
 void Obstacle::initGraphicBody(const sf::Vector2f& size)
 {
-    m_obstacle.setTexture(&GameResources::getInstance().getObstacleTexture(m_textureIndex));
+    m_obstacle.setTexture(&GameResources::getInstance().getObstacleTexture(m_GameIndex));
     m_obstacle.setSize(size);
     m_obstacle.setOrigin(size.x * 0.5f, size.y * 0.5f);
     m_obstacle.setPosition(std::move(sf::Vector2f(m_body->GetPosition().x * SCALE, m_body->GetPosition().y * SCALE)));
@@ -62,6 +62,16 @@ static auto registerItWood = ObjectFactory<StaticObjects>::instance().registerTy
 void Obstacle::hitState()
 {
     if (m_hit && getHp() > m_halfHp) return;
-    m_obstacle.setTexture(&GameResources::getInstance().getObstacleTexture(m_textureIndex + 1));
+    m_obstacle.setTexture(&GameResources::getInstance().getObstacleTexture(m_GameIndex + 1));
     m_hit = true;
+}
+
+void Obstacle::playSound() const
+{
+    int index{};
+    if (m_GameIndex <= 2 || m_GameIndex == 14) index = 1;
+    if (m_GameIndex <= 4 || m_GameIndex == 15) index = 2;
+    if (m_GameIndex <= 6 || m_GameIndex == 16) index = 3;
+
+    GameResources::getInstance().PlayAffect(static_cast<gameSounds>(index));
 }

@@ -53,6 +53,7 @@ void groundPig(Objects& ground, Objects& pig) {
 
  void groundObstacle(Objects& ground, Objects& wood) {
      wood.setDamage(wood.getBodyMass()/2.f * wood.getBodyVelocity().LengthSquared());
+     static_cast<Obstacle&>(wood).playSound();
 }
 
 void ObstacleGround(Objects& wood, Objects& ground) {
@@ -62,6 +63,8 @@ void ObstacleGround(Objects& wood, Objects& ground) {
 void ObstacleObstacle(Objects& firstWood, Objects& SecondWood) {
     firstWood.setDamage(SecondWood.getBodyMass() * SecondWood.getBodyVelocity().LengthSquared());
     SecondWood.setDamage(firstWood.getBodyMass() * firstWood.getBodyVelocity().LengthSquared());
+    static_cast<Obstacle&>(firstWood).playSound();
+    static_cast<Obstacle&>(SecondWood).playSound();
 }
 
 void birdPig(Objects& bird, Objects& pig) {
@@ -86,6 +89,7 @@ void birdObstacle(Objects& bird, Objects& wood) {
     static_cast<Bird&>(bird).gotHit();
     wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
     static_cast<Obstacle&>(wood).hitState();
+    static_cast<Obstacle&>(wood).playSound(); 
 }
 
 void ObstacleBird(Objects& wood, Objects& bird) {

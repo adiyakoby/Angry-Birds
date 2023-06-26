@@ -276,7 +276,7 @@ void GameResources::initFonts()
 void GameResources::initSounds()
 {
     //load the music
-    std::array<std::string, 4> music { "menuThemeSong.opus","IronSound.wmp, WoodSound.wmp, IceSound.wmv"  };
+    std::array<std::string, 4> music{ "menuThemeSong.opus","IronSound.wav", "WoodSound.wav", "IceSound.wav"  };
     for (size_t i = 0; i < music.size() ; i++)
     {
         m_gameSounds.emplace_back();
