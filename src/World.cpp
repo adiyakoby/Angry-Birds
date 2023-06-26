@@ -7,7 +7,7 @@ World::World() : m_world{ std::make_unique<b2World>(b2Vec2(0.f, 10.8f)) } {
 }
 
 
-void World::step(const float timestep,const int32 velocity,const int32 positionIteration) {
+void World::step(const float& timestep,const int32& velocity,const int32& positionIteration) {
 	m_world->Step(timestep, velocity, positionIteration);
 }
 

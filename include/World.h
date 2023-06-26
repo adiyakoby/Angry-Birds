@@ -16,8 +16,9 @@ public:
 	World();
 	~World() = default;
 
+	//getters
 	b2World* getWorld(){ return m_world.get();}
-	void step(const float timestep,const int32 velocity,const int32 positionIteration);
+	void step(const float& timestep,const int32& velocity,const int32& positionIteration);
 
 private:
 	//set the world frame

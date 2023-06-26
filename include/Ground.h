@@ -4,14 +4,16 @@
 class Ground : public StaticObjects
 {
 public:
-	Ground(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size = sf::Vector2f{ WINDOW_WIDTH, WINDOW_HEIGHT }, arrData arr = {0,0,0});
+	Ground(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size = sf::Vector2f{ WINDOW_WIDTH, WINDOW_HEIGHT }, const arrData& arr = {0,0,0});
 	 ~Ground() = default;
 
-	void objectUpdate()override {}
-	void drawObject(sf::RenderWindow& window) override;
-	sf::Vector2f getPosition() const override{ return m_ground.getPosition(); };
-	void rotate(const int& x) override { ; };
-	void hitState() override { ; };
+	//virtual funcs
+	virtual void objectUpdate()override {}
+	virtual void drawObject(sf::RenderWindow& window) override;
+	virtual inline sf::Vector2f getPosition() const override{ return m_ground.getPosition(); };
+	virtual void rotate(const int& x) override { ; };
+	virtual void hitState() override { ; };
+
 private:
 	sf::RectangleShape m_ground;
 	

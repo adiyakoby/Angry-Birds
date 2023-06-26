@@ -42,6 +42,9 @@ private:
 	~GameResources() = default;
 
 	//members
+	sf::Texture m_spriteSheet;
+	sf::Texture m_lock;
+
 	std::vector <sf::Texture> m_menuTexture;
 	std::vector <sf::Texture> m_helpScreenTexture;//for state
 	std::vector <sf::Texture> m_soundTexture;//for state
@@ -55,12 +58,9 @@ private:
 	std::vector <sf::Texture> m_groundTexture;
 	std::vector <sf::Texture> m_pigsTexture;
 	std::vector <sf::Texture> m_poofTexture;
-	sf::Texture m_lock;
 	std::vector <sf::Texture> m_transitionScreensState;
 	std::vector <sf::Texture> m_buttons;
-
-	std::vector<sf::Texture> m_obstacles;
-
+	std::vector <sf::Texture> m_obstacles;
 	std::vector <sf::Texture> m_levelsFields;
 	std::vector <sf::Font> m_font;
 

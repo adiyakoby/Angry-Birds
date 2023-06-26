@@ -12,10 +12,15 @@ class Window
 public:
 	Window();
 	~Window() = default;
+
+	//getters
 	sf::RenderWindow& getWindow();
-	void setZoom(float zoom);
-	void setView(float x, float y);
+
+	//setters
+	void setZoom(const float& zoom);
+	void setView(const float& x, const float& y);
 	void resetView();
+
 private:
 	sf::RenderWindow m_window;
 

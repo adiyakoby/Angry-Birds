@@ -299,7 +299,7 @@ void PlayState::updateDataPosition()
   
 }
 
-void PlayState::setScore(int toAdd)
+void PlayState::setScore(const int &toAdd)
 {
     std::string temp = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
     auto toSet = std::stoi(temp);

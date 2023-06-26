@@ -10,10 +10,20 @@ float calculateDistance(const sf::Vector2f& pos1, const sf::Vector2f& pos2) {
     return distance;
 }
 
-BlackBird::BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr)
+BlackBird::BlackBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const arrData& arr)
     : Bird(world, position, size, arr.at(0)), m_world{ world }, m_activated(false),m_exploded{false}
 {
-    m_bombs.resize(4);//four directions body impulse
+    m_bombs.resize(4); //four directions body impulse
+}
+
+BlackBird::~BlackBird()
+{
+    for (auto& bomb : m_bombs) {
+        if (bomb != nullptr)
+            m_world->getWorld()->DestroyBody(bomb);
+    }
+
+    m_bombs.clear(); 
 }
 
 
@@ -95,7 +105,7 @@ void BlackBird::setBombs() {
         PhysicBombBody(i, pos);
     }
 }
-void BlackBird::PhysicBombBody(const int index, const sf::Vector2f& position) {
+void BlackBird::PhysicBombBody(const int & index, const sf::Vector2f& position) {
 
     // Create Box2D body definition
     b2BodyDef bodyDef;
@@ -149,6 +159,7 @@ void BlackBird::destroyedBody() {
     m_bird.setRadius(50.f);
     m_bird.setOrigin(25.f, 25.f);
 }
+
 //to "register" the object in the Factory
 static auto registerItBlackBird = ObjectFactory<Bird>::instance().registerType(
     "BlackBird",

@@ -13,8 +13,8 @@ class Objects
 {
 public:
 	Objects(std::shared_ptr<World> world, const int& hp = 100) : m_hp{ hp }, m_body{ nullptr }, m_world{world} {}
-	virtual ~Objects() 
-	{
+
+	virtual ~Objects() {
 		if(m_body)
 			m_world->getWorld()->DestroyBody(m_body); 
 	};
@@ -39,13 +39,14 @@ public:
 
 protected:
 	b2Body* m_body;
+
+	//protected funcs
 	virtual void initPhysicBody(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size) = 0;
 	virtual void initGraphicBody(const sf::Vector2f& size) = 0;
 
 private:
 	int m_hp;
 	std::shared_ptr<World> m_world;
-
 
 };
 

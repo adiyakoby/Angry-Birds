@@ -5,7 +5,6 @@
 #include "Window.h"
 #include "GameResources.h"
 
-
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <vector>
@@ -26,7 +25,9 @@ class Game
 public:
 	Game();
 	~Game() = default;
-	void runGame();
+	
+	void runGame(); //main func
+
 private:
 	std::shared_ptr<GameTools> m_gameTools;
 
