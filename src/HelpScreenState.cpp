@@ -56,7 +56,7 @@ void HelpScreenState::initilaize()
 	m_backButton.setOrigin(m_backButton.getSize() * 0.5f);
 	m_backButton.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 100);
 
-	//sound buttun
+	//sound button 
 	m_Buttons.emplace_back();
 	m_Buttons.back().setRadius(50.f);
 	m_Buttons.back().setOrigin(m_Buttons.back().getRadius(), m_Buttons.back().getRadius());
@@ -76,7 +76,7 @@ void HelpScreenState::initilaize()
 	}
 }
 
-helpScreenCommand HelpScreenState::handleClick(const sf::Vector2f& mouse_loc) // getStatus() == sf::Music::Paused
+helpScreenCommand HelpScreenState::handleClick(const sf::Vector2f& mouse_loc)
 {
 	if (m_Buttons.at(0).getGlobalBounds().contains(mouse_loc))
 		return (GameResources::getInstance().getMusicStatus() == musicCommand::PAUSE ? helpScreenCommand::SOUND : helpScreenCommand::MUTE);

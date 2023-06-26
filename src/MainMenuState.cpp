@@ -94,12 +94,12 @@ void MainMenuState::menuManeger()
 	switch (m_mode)
 	{
 	case menuCommand::PLAY:     if (m_newAlloc)m_gameTools->m_gameStates.addState(std::make_unique<LevelSelectState>(this->m_gameTools), true);
-								else m_gameTools->m_gameStates.removeState();                                                                   break;
-	case menuCommand::HELP:     m_gameTools->m_gameStates.addState(std::make_unique<HelpScreenState>(this->m_gameTools), false);                break;
+								else m_gameTools->m_gameStates.removeState();																		break;
+	case menuCommand::HELP:     m_gameTools->m_gameStates.addState(std::make_unique<HelpScreenState>(this->m_gameTools), false);				    break;
 	case menuCommand::MUTE:;
-	case menuCommand::SOUND:    soundButtonClicked(m_soundButton);                                                                                               break;
-	case menuCommand::EXIT:     m_gameTools->m_window.getWindow().close();																	    break;
-	default:																																	break;
+	case menuCommand::SOUND:    soundButtonClicked(m_soundButton);                                                                                  break;
+	case menuCommand::EXIT:     m_gameTools->m_window.getWindow().close();																			break;
+	default:																																		break;
 	}
 	m_event = false;
 }

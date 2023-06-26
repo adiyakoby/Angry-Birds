@@ -67,7 +67,6 @@ void LevelSelectState::Resume()
 
 void LevelSelectState::levelRequest()
 {
-	std::cout << "requested level " << m_requestedLevel + 1 << std::endl;
 	m_sharedData->levelToRead = m_requestedLevel + 1;
 	m_gameTools->m_gameStates.switchStates();
 }
@@ -81,8 +80,6 @@ void LevelSelectState::updateReturningValue()
 			m_levelData.at(m_sharedData->levelToRead - 1).second = m_sharedData->score;
 			m_levelsFields.at(m_sharedData->levelToRead - 1).second.setString(m_levelData.at(m_sharedData->levelToRead - 1).first + std::to_string(m_levelData.at(m_sharedData->levelToRead - 1).second));
 		}
-		std::cout << "pass level: " << m_sharedData->levelToRead << std::endl;
-		std::cout << "level score:  " << m_sharedData->score << std::endl;
 		if (m_sharedData->levelToRead == m_levelData.size())
 			openNewLevel();
 	}
@@ -101,7 +98,6 @@ void LevelSelectState::openNewLevel()
 	m_levelsFields.at(newLevel).second = GameResources::getInstance().createText(m_levelData.at(newLevel).first + std::to_string(m_levelData.at(newLevel).second), sf::Color::White, 0);
 	m_levelsFields.at(newLevel).second.setPosition(m_levelsFields.at(newLevel).first.getPosition() + sf::Vector2f(0, 50));
 	m_levelsFields.at(newLevel).second.setCharacterSize(25);
-	std::cout << "open new level " << std::endl;
 }
 
 void LevelSelectState::drawLevelSelect()

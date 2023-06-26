@@ -133,7 +133,6 @@ void PlayState::Draw()
     m_world->step(1.f / 60.f, 8, 3);
 }
 
-// #level select
 void PlayState::Resume()
 {
     if (m_sharedData->levelToRead > 0)
@@ -177,14 +176,18 @@ void PlayState::drawGame()
     if (!m_birds.empty() && m_birds.back()->isDragged()  )
         GuideLine::getInstance().drawGuideLine(m_gameTools->m_window.getWindow());
 
-    for (auto& ea : m_gameObjects) {
+    for (auto& ea : m_gameObjects) 
+    {
         ea->objectUpdate();
         ea->drawObject(m_gameTools->m_window.getWindow());
     }
-    for (auto& ea : m_pigs) {
+
+    for (auto& ea : m_pigs)
+    {
         ea->objectUpdate();
         ea->drawObject(m_gameTools->m_window.getWindow());
     }
+
     std::for_each(m_birds.begin(), m_birds.end(), [this](auto& bird) {
         bird->drawObject(m_gameTools->m_window.getWindow()); 
         if (bird->isDragged()) {
@@ -295,8 +298,6 @@ void PlayState::updateDataPosition()
         button.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x - WINDOW_WIDTH / 2 + xPos, yPos));
         xPos += 75.f;
     }
-       
-  
 }
 
 void PlayState::setScore(const int &toAdd)
@@ -307,6 +308,7 @@ void PlayState::setScore(const int &toAdd)
     m_levelData[static_cast<int>(GameData::SCORE)].second.setString(std::to_string(toSet));
 
 }
+
 void PlayState::checkIfButtonPressed(const sf::Event& event, const sf::Vector2f& loc)
 {
     if (event.type == sf::Event::MouseButtonReleased)
@@ -317,6 +319,7 @@ void PlayState::checkIfButtonPressed(const sf::Event& event, const sf::Vector2f&
         else if (m_buttons.at(2).getGlobalBounds().contains(loc))
             Back();
 }
+
 void PlayState::Restart()
 {
     m_birds.clear();
@@ -328,6 +331,7 @@ void PlayState::Restart()
     setNextBird(false);
     m_levelData.at(static_cast<int>(GameData::LEVEL)).second = GameResources::getInstance().createText(std::to_string(m_sharedData->levelToRead), sf::Color::White, 1);
 }
+
 void PlayState::Back()
 {
     m_birds.clear();
@@ -339,6 +343,7 @@ void PlayState::Back()
     m_levelIntroduction = true;
     m_gameTools->m_gameStates.switchStates();
 }
+
 void PlayState::levelIntroduction()
 {
     //to make the zoom out only once
