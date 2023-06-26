@@ -66,12 +66,3 @@ void Obstacle::hitState()
     m_hit = true;
 }
 
-void Obstacle::playSound() const
-{
-    int index{};
-    if (m_GameIndex <= 2 || m_GameIndex == 14) index = 1;
-    if (m_GameIndex <= 4 || m_GameIndex == 15) index = 2;
-    if (m_GameIndex <= 6 || m_GameIndex == 16) index = 3;
-
-    GameResources::getInstance().PlayAffect(static_cast<gameSounds>(index));
-}

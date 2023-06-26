@@ -14,7 +14,6 @@ public:
 	sf::Vector2f getPosition() const override { return m_obstacle.getPosition(); }
 	void rotate(const int& x) override { this->rotateBody(); };
 	void hitState() override;
-	void playSound() const;
 
 private:
 	sf::RectangleShape m_obstacle;

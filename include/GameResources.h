@@ -30,7 +30,6 @@ public:
 	sf::Texture& getLevelsFields(int index);
 	sf::Texture& getBackGroundScreens(int index);
 
-	void PlayAffect(const gameSounds&);
 	void playBackGroundMusic();
 
 	musicCommand getMusicStatus() const;
@@ -66,8 +65,8 @@ private:
 	std::vector <sf::Texture> m_levelsFields;
 	std::vector <sf::Font> m_font;
 
-	std::array <sf::SoundBuffer, 4> m_gameSounds;  
-	std::array<sf::Sound, 4> m_soundVec;
+	sf::SoundBuffer m_BackGroundBuffer;
+	sf::Sound m_BackGroundSound;
 
 
 	sf::Text m_text;
