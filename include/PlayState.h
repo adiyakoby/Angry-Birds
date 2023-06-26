@@ -52,14 +52,16 @@ public:
 	bool isFinishedMoving();
 	void updateDataPosition();
 	void setScore(int);
-	void checkIfRestartPressed(const sf::Event&,const sf::Vector2f&);
+	void checkIfButtonPressed(const sf::Event&,const sf::Vector2f&);
+	void Restart();
+	void Back();
 	void levelIntroduction();
 protected:
 	void initilaize();
 	
 private:
 	std::shared_ptr<GameTools> m_gameTools;
-	std::vector<sf::RectangleShape> m_buttons;
+	//std::vector<sf::RectangleShape> m_buttons;
 	sf::RectangleShape m_backGround;
 	sf::Sound m_music;
 
@@ -69,10 +71,8 @@ private:
 	std::vector<std::unique_ptr<StaticObjects>> m_pigs;
 	std::vector<std::unique_ptr<StaticObjects>> m_gameObjects;
 	std::vector<std::pair<sf::Text, sf::Text>> m_levelData;
-	//sf::RectangleShape m_background;
 	std::unique_ptr<MyContactListener> m_contactListener;
-	//std::vector<sf::Music> m_gameMusic;
-	sf::CircleShape m_restart;
+	std::vector<sf::CircleShape> m_buttons;
 
 	//destroy's animation array
 	std::array<sf::RectangleShape, 3> m_destroyAnimation;
