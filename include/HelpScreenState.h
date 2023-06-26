@@ -17,17 +17,18 @@ public:
 
 	helpScreenCommand handleClick(const sf::Vector2f& mouse_loc);
 	void helpManeger();
-	void setSound(const helpScreenCommand& cmd);
 	void drawHelpScreen();
-
+	void moveBetweenPages();
 protected:
 	void initilaize()override;
 
 private:
 	std::shared_ptr<GameTools> m_gameTools;
-	std::vector<sf::RectangleShape> m_buttons;
-	sf::CircleShape m_soundButton;
+	sf::RectangleShape m_backButton;
+	std::vector<sf::CircleShape> m_Buttons;
 	sf::RectangleShape m_backGround;
+	int m_currentInstructionPage;
+	helpScreenCommand m_direction;
 	helpScreenCommand m_mode;
 	bool m_event;
 };

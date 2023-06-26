@@ -142,7 +142,7 @@ void PlayState::Resume()
         setNextBird(false);
         m_levelData.at(static_cast<int>(GameData::LEVEL)).second = GameResources::getInstance().createText(std::to_string(m_sharedData->levelToRead), sf::Color::White, 1);
     }
-
+    setSoundTexture(m_buttons.at(1));
 }
 
 void PlayState::deleteObj()
@@ -235,7 +235,7 @@ void PlayState::updateView()
 void PlayState::initilaize()
 { 
     //init background
-    m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(2));
+    m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(1));
     m_backGround.setSize(sf::Vector2f(m_backGround.getTexture()->getSize().x * 3, m_backGround.getTexture()->getSize().y));
     m_backGround.setPosition(0, 0);
 
@@ -248,7 +248,7 @@ void PlayState::initilaize()
     }
     m_buttons.at(0).setTexture(&GameResources::getInstance().getButtons(0));//restart
     m_buttons.at(1).setTexture(&GameResources::getInstance().getButtons(1));//sound
-    m_buttons.at(2).setTexture(&GameResources::getInstance().getButtons(4));//back
+    m_buttons.at(2).setTexture(&GameResources::getInstance().getButtons(3));//back
 
 
     //init Text Data
@@ -324,7 +324,9 @@ void PlayState::Restart()
     m_gameObjects.clear();
     std::string levelScore = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
     setScore(-(std::stoi(levelScore)));//to reset score
-    Resume();//this function alredy used to read the level after the switch between the states, so it can be reuse.
+    m_lvlsMngr.getSpecificLevel(m_sharedData->levelToRead, m_birds, m_pigs, m_gameObjects);
+    setNextBird(false);
+    m_levelData.at(static_cast<int>(GameData::LEVEL)).second = GameResources::getInstance().createText(std::to_string(m_sharedData->levelToRead), sf::Color::White, 1);
 }
 void PlayState::Back()
 {
@@ -336,7 +338,6 @@ void PlayState::Back()
     m_gameTools->m_window.resetView();
     m_levelIntroduction = true;
     m_gameTools->m_gameStates.switchStates();
-
 }
 void PlayState::levelIntroduction()
 {

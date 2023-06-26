@@ -134,7 +134,7 @@ void LevelSelectState::initilaize()
 	
 	m_backGround.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 	m_backGround.setPosition(0, 0);
-	m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(3));
+	m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(2));
 	
 	//levels fields
 	auto firstPos = sf::Vector2f(300.f, 200.f);
@@ -179,6 +179,6 @@ void LevelSelectState::initilaize()
 	}
 
 	//set buttuns texture
-		m_Buttons.at(0).setTexture(&GameResources::getInstance().getButtons(4));
+		m_Buttons.at(0).setTexture(&GameResources::getInstance().getButtons(3));
 		setSoundTexture(m_Buttons.at(1));
 }

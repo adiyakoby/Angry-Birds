@@ -5,13 +5,13 @@
 using arrData = std::array<int, 3>;
 
 //Const variables for window size:
-
-
-const int MAX_LEVEL = 6;
-
-//original is 1400 800
 const unsigned int WINDOW_WIDTH = 1400;
 const unsigned int WINDOW_HEIGHT = 800;
+
+//amount of levels and instruction pages
+const int MAX_LEVEL = 6;
+const int MAX_INSRUCTION_PAGES = 3;
+
 
 const float SCALE = 100.0f; // Scale factor between Box2D and SFML
 const float MAX_DISTANCE = 150.f;
@@ -19,7 +19,7 @@ const float MAX_DISTANCE = 150.f;
 
 //enum classes
 enum class menuCommand { PLAY, HELP, EXIT, BACK, SOUND, MUTE, DEFAULT };
-enum class helpScreenCommand { BACK, SOUND, MUTE, DEFAULT };
+enum class helpScreenCommand { BACK, SOUND, MUTE, INSTRUCTION,BACKWARD,FORWARD, DEFAULT };
 enum class GameData {LEVEL, SCORE}; //Game Data - (level num , Score) //maybe after creating the level state it will not needed any more 
 enum class musicCommand {PLAY,PAUSE};
 enum class gameSounds {BACKGROUND,WOOD_CRASH,IRON_CRASH,ICE_CRASH,PIG_CRASH};
