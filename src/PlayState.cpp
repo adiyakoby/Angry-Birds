@@ -342,6 +342,7 @@ void PlayState::Back()
     m_gameTools->m_window.resetView();
     m_levelIntroduction = true;
     m_gameTools->m_gameStates.switchStates();
+    m_sharedData->levelStatus = "None";
 }
 
 void PlayState::levelIntroduction()
