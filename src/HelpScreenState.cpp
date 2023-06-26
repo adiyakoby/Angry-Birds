@@ -64,7 +64,7 @@ void HelpScreenState::initilaize()
 	setSoundTexture(m_Buttons.back());
 
 	//forward/backward buttons
-	auto xPos = 100.f;
+	auto xPos = 50.f;
 	for (int i = 1; i < 3; i++)
 	{
 		m_Buttons.emplace_back();
@@ -72,7 +72,7 @@ void HelpScreenState::initilaize()
 		m_Buttons.back().setOrigin(m_Buttons.back().getRadius(), m_Buttons.back().getRadius());
 		m_Buttons.back().setPosition(xPos, WINDOW_HEIGHT/2);
 		m_Buttons.back().setTexture(&GameResources::getInstance().getButtons(i + 2));
-		xPos += WINDOW_WIDTH - 200;
+		xPos += WINDOW_WIDTH - 100;
 	}
 }
 
@@ -120,6 +120,7 @@ void HelpScreenState::drawHelpScreen()
 
 void HelpScreenState::moveBetweenPages()
 {
+
 	if (m_direction == helpScreenCommand::FORWARD && m_currentInstructionPage + 1 < MAX_INSRUCTION_PAGES)
 	{
 		m_backGround.setTexture(&GameResources::getInstance().getHelpTexture(m_currentInstructionPage + 1), true);

@@ -22,8 +22,12 @@ enum class menuCommand { PLAY, HELP, EXIT, BACK, SOUND, MUTE, DEFAULT };
 enum class helpScreenCommand { BACK, SOUND, MUTE, INSTRUCTION,BACKWARD,FORWARD, DEFAULT };
 enum class GameData {LEVEL, SCORE}; //Game Data - (level num , Score) //maybe after creating the level state it will not needed any more 
 enum class musicCommand {PLAY,PAUSE};
-enum class gameSounds {BACKGROUND,IRON_CRASH,WOOD_CRASH,ICE_CRASH,PIG_CRASH};
-
+enum class gameSounds { BACKGROUND, IRON_CRASH, WOOD_CRASH, ICE_CRASH, PIG_CRASH };
+//ebum class for textures
+enum class backGrounds { MENU, LEVEL, SELECT_LEVEL };
+enum class buttonType {RESTART,SOUND,MUTE, BACKWARD, FORWARD};
+enum class helpScreen {INSTRUCTION,BACK = 3};
+enum class TransitionScreen {PASS, FAILED};
 /* POSITIONS :*/
 const float ROGATKA_X{ 300.f };
 const float ROGATKA_Y{ 630.f };

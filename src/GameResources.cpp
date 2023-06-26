@@ -250,7 +250,7 @@ void GameResources::initTextures()
         m_transitionScreensState.back().loadFromFile(TransitionState.at(i));
     }
 
-    //get buttons texture - 1)restart 2)sound 3)mute 4)forward 5)backward
+    //get buttons texture - 1)restart 2)sound 3)mute 4)backward 5)forward
     std::array<sf::IntRect, 5> buttonsPosition{ sf::IntRect{270,170,185, 185}, sf::IntRect{730, 170, 185, 185} , 
                                                 sf::IntRect{965, 170, 185, 185},  sf::IntRect{280, 620, 185, 185}, sf::IntRect{50, 620, 185, 185}};
     for (size_t i = 0; i < buttonsPosition.size(); i++)
