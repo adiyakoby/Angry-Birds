@@ -35,8 +35,8 @@ void Rogatka::initGraphicBody(const sf::Vector2f& size) {
     m_rogatka.setRotation(angle * size.y*3 / b2_pi);
 
     m_sit.setTexture(&GameResources::getInstance().getRogatkaTexture(1));
-    m_sit.setSize(sf::Vector2f(50.f , 50.f));
-    m_sit.setOrigin(m_sit.getSize().x / 2.f, m_sit.getSize().y / 2.f);
+    m_sit.setSize(sf::Vector2f(30.f , 50.f));
+    m_sit.setOrigin(m_sit.getSize().x / 2.f , m_sit.getSize().y / 2.f);
     
 }
 
@@ -65,15 +65,14 @@ void Rogatka::drawSit(sf::RenderWindow& w, const sf::Vector2f& begin, const sf::
     w.draw(m_sit);
 
     sf::VertexArray bottom(sf::Lines, 2);
-    bottom[0] = sf::Vertex(begin + m_sit.getSize(), sf::Color::Green);
-    bottom[1] = sf::Vertex(m_sit.getPosition() + sf::Vector2f(m_sit.getSize() / 2.f), sf::Color::Green);
+    bottom[0] = sf::Vertex(begin + sf::Vector2f(m_sit.getSize().x - 15.f , m_sit.getSize().y -45.f) , sf::Color::Black);
+    bottom[1] = sf::Vertex(m_sit.getPosition(), sf::Color::Black);
     w.draw(bottom);
     sf::VertexArray top(sf::Lines, 2);
-    top[0] = sf::Vertex(begin , sf::Color::Black);
-    top[1] = sf::Vertex(m_sit.getPosition() + sf::Vector2f(m_sit.getSize().x / 2.f, -m_sit.getSize().y / 2.f), sf::Color::Black);
+    top[0] = sf::Vertex(begin + sf::Vector2f(-50.f,0.f), sf::Color::Black);
+    top[1] = sf::Vertex(m_sit.getPosition() , sf::Color::Black);
     w.draw(top);
-    //+ sf::Vector2f(m_sit.getSize() / 2.f)
-    //+ sf::Vector2f(m_sit.getSize().x / 2.f, -m_sit.getSize().y / 2.f)
+  
 }
 
 //to "register" the object in the Factory
