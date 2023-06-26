@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include "Macro.h"
 
 class GameResources
 {
@@ -17,7 +18,6 @@ public:
 
 	sf::Texture& getMenuTexture(int index);
 	sf::Texture& getHelpTexture(int index);//state
-	sf::Texture& getSoundTexture(int index);//state
 	sf::Texture& getBirdTexture(int index);
 	sf::Texture& getWoodsTexture(int index);
 	sf::Texture& getRogatkaTexture(int index);
@@ -29,7 +29,9 @@ public:
 	sf::Texture& getButtons(int index);
 	sf::Texture& getLevelsFields(int index);
 	sf::Texture& getBackGroundScreens(int index);
-	sf::SoundBuffer& Playaffect(int index);
+	void PlayAffect(const gameSounds&);
+	void playBackGroundMusic();
+	musicCommand getMusicStatus() const;
 	sf::Font& getFont(int index);
 	sf::Text& createText(std::string, sf::Color, int);
 
@@ -61,7 +63,7 @@ private:
 
 	std::vector <sf::Texture> m_levelsFields;
 	std::vector <sf::Font> m_font;
-	std::vector <sf::SoundBuffer> m_affects;
+	std::vector <sf::SoundBuffer> m_gameSounds;
 	sf::Sound m_gameMusic;
 	sf::Sound m_affect;
 	sf::Text m_text;

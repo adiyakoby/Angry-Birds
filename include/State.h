@@ -1,5 +1,8 @@
 # pragma once
 
+#include <SFML/Graphics.hpp>
+#include "GameResources.h"
+
 class State
 {
 public:
@@ -10,6 +13,8 @@ public:
 	virtual void Draw() = 0;
 	virtual void Resume() = 0;
 	virtual void Pause() = 0;
+	void soundButtonClicked(sf::CircleShape&);
+	void setSoundTexture(sf::CircleShape&);
 protected:
 	virtual void initilaize() = 0;
 private:

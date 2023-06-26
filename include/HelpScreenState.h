@@ -17,7 +17,7 @@ public:
 
 	helpScreenCommand handleClick(const sf::Vector2f& mouse_loc);
 	void helpManeger();
-	void setSound(const menuCommand& cmd);
+	void setSound(const helpScreenCommand& cmd);
 	void drawHelpScreen();
 
 protected:
@@ -26,6 +26,7 @@ protected:
 private:
 	std::shared_ptr<GameTools> m_gameTools;
 	std::vector<sf::RectangleShape> m_buttons;
+	sf::CircleShape m_soundButton;
 	sf::RectangleShape m_backGround;
 	helpScreenCommand m_mode;
 	bool m_event;

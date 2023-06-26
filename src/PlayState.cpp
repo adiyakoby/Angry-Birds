@@ -54,7 +54,7 @@ void PlayState::processManeger()
             { event.mouseButton.x, event.mouseButton.y }, m_gameTools->m_window.getWindow().getView());
 
         m_birds.back()->handleEvent(event, location);
-        checkIfRestartPressed(event, location);
+        checkIfButtonPressed(event, location);
         
     }
 
@@ -170,9 +170,11 @@ void PlayState::drawGame()
 {
 
     m_gameTools->m_window.getWindow().draw(m_backGround);
-    m_gameTools->m_window.getWindow().draw(m_restart);
 
-    if (m_birds.back()->isDragged())
+    for(auto& button: m_buttons)
+        m_gameTools->m_window.getWindow().draw(button);
+
+    if (!m_birds.empty() && m_birds.back()->isDragged()  )
         GuideLine::getInstance().drawGuideLine(m_gameTools->m_window.getWindow());
 
     for (auto& ea : m_gameObjects) {
@@ -183,7 +185,13 @@ void PlayState::drawGame()
         ea->objectUpdate();
         ea->drawObject(m_gameTools->m_window.getWindow());
     }
-    std::for_each(m_birds.begin(), m_birds.end(), [this](auto& bird) {bird->drawObject(m_gameTools->m_window.getWindow()); });
+    std::for_each(m_birds.begin(), m_birds.end(), [this](auto& bird) {
+        bird->drawObject(m_gameTools->m_window.getWindow()); 
+        if (bird->isDragged()) {
+            static_cast<Rogatka*>(m_worldObjects[1].get())->drawSit(m_gameTools->m_window.getWindow(),
+                bird->getBeginPosition(), bird->getPosition(), bird->getBirdAngle());
+        }
+        });
     
     for (auto& string : m_levelData)
     {
@@ -232,10 +240,16 @@ void PlayState::initilaize()
     m_backGround.setPosition(0, 0);
 
     //create the restart button
-    m_restart.setRadius(30.f);
-    m_restart.setOrigin(m_restart.getRadius(), m_restart.getRadius());
-    m_restart.setTexture(&GameResources::getInstance().getButtons(1));
-    //m_restart.setFillColor(sf::Color::Black);
+    for (int i = 0; i < 3; i++)
+    {
+        m_buttons.emplace_back();
+        m_buttons.back().setRadius(30.f);
+        m_buttons.back().setOrigin(m_buttons.back().getRadius(), m_buttons.back().getRadius());
+    }
+    m_buttons.at(0).setTexture(&GameResources::getInstance().getButtons(0));//restart
+    m_buttons.at(1).setTexture(&GameResources::getInstance().getButtons(1));//sound
+    m_buttons.at(2).setTexture(&GameResources::getInstance().getButtons(4));//back
+
 
     //init Text Data
     createLevelData();
@@ -253,8 +267,8 @@ void PlayState::initilaize()
 
 void PlayState::createGroundAndRogatka()
 {
-    m_worldObjects[0] = std::make_unique <Ground>(m_world, sf::Vector2f(0, 0), m_backGround.getSize()); //ground
-    m_worldObjects[1] = std::make_unique <Rogatka>(m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y));      //rogatka
+    m_worldObjects[0] = std::move(ObjectFactory<StaticObjects>::instance().create("ground", m_world, sf::Vector2f(0, 0), m_backGround.getSize(), { 0,0,0 }));
+    m_worldObjects[1] = std::move(ObjectFactory<StaticObjects>::instance().create("rogatka", m_world, sf::Vector2f(ROGATKA_X, ROGATKA_Y), sf::Vector2f{ 15.f, 80.f }, {0,0,0}));
 }
 
 void PlayState::createLevelData()
@@ -275,7 +289,14 @@ void PlayState::updateDataPosition()
         yPos += 50.f;
     }
     yPos = 50.f;
-    m_restart.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x - WINDOW_WIDTH / 2 + yPos, yPos));//update restart button position
+    auto xPos = 50.f;
+    for (auto& button : m_buttons)
+    {
+        button.setPosition(sf::Vector2f(m_gameTools->m_window.getWindow().getView().getCenter().x - WINDOW_WIDTH / 2 + xPos, yPos));
+        xPos += 75.f;
+    }
+       
+  
 }
 
 void PlayState::setScore(int toAdd)
@@ -286,19 +307,35 @@ void PlayState::setScore(int toAdd)
     m_levelData[static_cast<int>(GameData::SCORE)].second.setString(std::to_string(toSet));
 
 }
-void PlayState::checkIfRestartPressed(const sf::Event& event, const sf::Vector2f& loc)
+void PlayState::checkIfButtonPressed(const sf::Event& event, const sf::Vector2f& loc)
 {
     if (event.type == sf::Event::MouseButtonReleased)
-        if (m_restart.getGlobalBounds().contains(loc))
-        {
-            m_birds.clear();
-            m_pigs.clear();
-            m_gameObjects.clear();
-            std::string levelScore = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
-            setScore(-(std::stoi(levelScore)));//to reset score
-            Resume();//this function alredy used to read the level after the switch between the states, so it can be reuse.
-        }
-            
+        if (m_buttons.at(0).getGlobalBounds().contains(loc))
+            Restart();
+        else if (m_buttons.at(1).getGlobalBounds().contains(loc))
+            soundButtonClicked(m_buttons.at(1));
+        else if (m_buttons.at(2).getGlobalBounds().contains(loc))
+            Back();
+}
+void PlayState::Restart()
+{
+    m_birds.clear();
+    m_pigs.clear();
+    m_gameObjects.clear();
+    std::string levelScore = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
+    setScore(-(std::stoi(levelScore)));//to reset score
+    Resume();//this function alredy used to read the level after the switch between the states, so it can be reuse.
+}
+void PlayState::Back()
+{
+    m_birds.clear();
+    m_pigs.clear();
+    m_gameObjects.clear();
+    std::string levelScore = m_levelData[static_cast<int>(GameData::SCORE)].second.getString();
+    setScore(-(std::stoi(levelScore)));//to reset score
+    m_gameTools->m_window.resetView();
+    m_levelIntroduction = true;
+    m_gameTools->m_gameStates.switchStates();
 
 }
 void PlayState::levelIntroduction()
@@ -325,7 +362,7 @@ void PlayState::levelIntroduction()
     
     if (!stop && m_backGround.getSize().x - m_gameTools->m_window.getWindow().getView().getCenter().x > WINDOW_WIDTH /2)
     {
-        m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getCenter().x + 3, WINDOW_HEIGHT / 2);
+        m_gameTools->m_window.setView(m_gameTools->m_window.getWindow().getView().getCenter().x + 4, WINDOW_HEIGHT / 2);
         updateDataPosition();
         return;
     }
