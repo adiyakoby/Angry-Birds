@@ -55,7 +55,6 @@ sf::Texture& GameResources::getPigsTexture(int index) {
     return m_pigsTexture.at(index);
 }
 
-//need to be changed to background
 sf::Texture& GameResources::getBackGroundScreens(const backGrounds& background)
 {
     auto index = static_cast<int>(background);
@@ -81,6 +80,7 @@ sf::Texture& GameResources::getButtons(int index)
     return m_buttons.at(index);
 }
 
+
 musicCommand GameResources::getMusicStatus() const
 {
     return m_BackGroundSound.getStatus() == sf::Music::Playing ? musicCommand::PLAY : musicCommand::PAUSE;
@@ -102,7 +102,6 @@ sf::Font& GameResources::getFont(int index)
 }
 
 
-
 //create the text 
 sf::Text& GameResources::createText(std::string dataName, sf::Color color, int font)
 {
@@ -117,11 +116,9 @@ sf::Text& GameResources::createText(std::string dataName, sf::Color color, int f
 }
 
 
-
 //load the texture for the game
 void GameResources::initTextures()
 {
-    //m_spriteSheet.loadFromFile("Angry-Birds.png");
 
     //---------------------------menu textures-----------------------------
     //all the texture images names for menu

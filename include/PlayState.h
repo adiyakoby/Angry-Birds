@@ -61,11 +61,8 @@ protected:
 	
 private:
 	std::shared_ptr<GameTools> m_gameTools;
-	//std::vector<sf::RectangleShape> m_buttons;
 	sf::RectangleShape m_backGround;
-	sf::Sound m_music;
 
-	//LevelManeger m_lvlmng;
 	std::array<std::unique_ptr<StaticObjects>, 2> m_worldObjects;
 	std::vector<std::unique_ptr<Bird>> m_birds;
 	std::vector<std::unique_ptr<StaticObjects>> m_pigs;
@@ -80,7 +77,7 @@ private:
 
 	//init functions
 	std::shared_ptr<World> m_world;
-	std::shared_ptr<SharedData> m_sharedData;// #level select
+	std::shared_ptr<SharedData> m_sharedData;//shared data with other states
 	LevelManager m_lvlsMngr;
 
 	void drawDestroyedObj();

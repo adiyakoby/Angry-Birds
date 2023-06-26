@@ -25,7 +25,6 @@ enum class musicCommand {PLAY,PAUSE};
 enum class gameSounds { BACKGROUND, IRON_CRASH, WOOD_CRASH, ICE_CRASH, PIG_CRASH };
 
 //ebum class for textures
-//enum class menuButtons {PLAY,HELP,EXIT};
 enum class backGrounds { MENU, LEVEL, SELECT_LEVEL };
 enum class buttonType {RESTART,SOUND,MUTE, BACKWARD, FORWARD};
 enum class helpScreen {INSTRUCTION,BACK_BUTTON = 3};
