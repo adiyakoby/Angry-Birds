@@ -80,7 +80,7 @@ void GuideLine::setPosition(const sf::Vector2f& pos)
     }
        
 
-    b2Vec2 dir{ (ROGATKA_X - pos.x) * 20.f / SCALE, (ROGATKA_Y - 50.f - pos.y) * 20.f / SCALE };
+    b2Vec2 dir{ (ROGATKA_X - pos.x) * 25.f / SCALE, (ROGATKA_Y - 50.f - pos.y) * 25.f / SCALE };
 
     initPhysicBody();
     initGraphicBody();
