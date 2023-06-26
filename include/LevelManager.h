@@ -23,6 +23,7 @@ public:
 	LevelManager(std::shared_ptr<World> world);
 	~LevelManager() = default;
 
+	//getters
 	void getNextLevel(std::vector<std::unique_ptr<Bird>>& birdsVec, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>> &objVec);
 	void getSpecificLevel(const int &lvl, std::vector<std::unique_ptr<Bird>>& birdsVec, std::vector<std::unique_ptr<StaticObjects>>& pigsVec, std::vector<std::unique_ptr<StaticObjects>>& objVec);
 
