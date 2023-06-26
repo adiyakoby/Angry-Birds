@@ -279,11 +279,9 @@ void GameResources::initSounds()
     std::array<std::string, 4> music{ "menuThemeSong.opus","IronSound.wav", "WoodSound.wav", "IceSound.wav"  };
     for (size_t i = 0; i < music.size() ; i++)
     {
-        m_gameSounds.emplace_back();
-        m_gameSounds.back().loadFromFile(music[i]);
+        m_gameSounds.at(i).loadFromFile(music[i]);
         m_soundVec[i].setBuffer(m_gameSounds[i]);
     }
-
 
     //init background music
     m_soundVec[0].setLoop(true);

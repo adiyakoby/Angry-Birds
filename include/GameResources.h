@@ -66,7 +66,7 @@ private:
 	std::vector <sf::Texture> m_levelsFields;
 	std::vector <sf::Font> m_font;
 
-	std::vector <sf::SoundBuffer> m_gameSounds;  
+	std::array <sf::SoundBuffer, 4> m_gameSounds;  
 	std::array<sf::Sound, 4> m_soundVec;
 
 
