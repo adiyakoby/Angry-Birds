@@ -34,7 +34,7 @@ b2Body* World::setCorner(Position position) {
         boxshape.SetAsBox(width / SCALE, WINDOW_HEIGHT / SCALE);
         break;
     case Right:
-        bodyDef.position.Set((GameResources::getInstance().getBackGroundScreens(1).getSize().x*3 + width) / SCALE, (WINDOW_HEIGHT) / 2.f / SCALE);
+        bodyDef.position.Set((GameResources::getInstance().getBackGroundScreens(backGrounds::LEVEL).getSize().x*3 + width) / SCALE, (WINDOW_HEIGHT) / 2.f / SCALE);
         boxshape.SetAsBox(width / SCALE, WINDOW_HEIGHT *4.f / SCALE);
         break;
     default:

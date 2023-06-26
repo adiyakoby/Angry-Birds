@@ -19,8 +19,6 @@ GameResources& GameResources::getInstance()
 //get the textures for the menu window
 sf::Texture& GameResources::getMenuTexture(int index)
 {
-   /* if (index < 9 && index >= 0)
-        return m_menuTexture[index];*/
     return m_menuTexture.at(index);
 }
 
@@ -39,8 +37,6 @@ sf::Texture& GameResources::getLock()
 }
 sf::Texture& GameResources::getHelpTexture(int index)
 {
-    /* if (index < 9 && index >= 0)
-         return m_menuTexture[index];*/
     return m_helpScreenTexture.at(index);
 }
 
@@ -60,14 +56,16 @@ sf::Texture& GameResources::getPigsTexture(int index) {
 }
 
 //need to be changed to background
-sf::Texture& GameResources::getBackGroundScreens(int index)
+sf::Texture& GameResources::getBackGroundScreens(const backGrounds& background)
 {
+    auto index = static_cast<int>(background);
     return m_backGround.at(index);
 }
 
 //this is for the Transition screens state 
-sf::Texture& GameResources::getTransitionScreensState(int index)
+sf::Texture& GameResources::getTransitionScreensState(const TransitionScreen& screen)
 {
+    auto index = static_cast<int>(screen);
     return m_transitionScreensState.at(index);
 }
 

@@ -6,7 +6,7 @@
 class TransitionScreens : public State
 {
 public:
-	TransitionScreens(std::shared_ptr<GameTools>, const int&);
+	TransitionScreens(std::shared_ptr<GameTools>, const TransitionScreen&);
 	~TransitionScreens() = default;
 	void processManeger()override;
 	void update()override;
@@ -20,6 +20,6 @@ private:
 	float m_stateTimeLimit;
 	std::shared_ptr<GameTools> m_gameTools;
 	sf::RectangleShape m_TransitionScreen;
-	int m_texture;
+	TransitionScreen m_texture;
 };
 

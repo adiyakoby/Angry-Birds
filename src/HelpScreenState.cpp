@@ -46,12 +46,12 @@ void HelpScreenState::Draw()
 
 void HelpScreenState::initilaize()
 {
-	m_backGround.setTexture(&GameResources::getInstance().getHelpTexture(0));
+	m_backGround.setTexture(&GameResources::getInstance().getHelpTexture(static_cast<int>(helpScreen::INSTRUCTION)));
 	m_backGround.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 	m_backGround.setPosition(0, 0);
 
 	//back to menu buttun
-	m_backButton.setTexture(&GameResources::getInstance().getHelpTexture(3));
+	m_backButton.setTexture(&GameResources::getInstance().getHelpTexture(static_cast<int>(helpScreen::BACK_BUTTON)));
 	m_backButton.setSize(m_backGround.getSize() * 0.2f);
 	m_backButton.setOrigin(m_backButton.getSize() * 0.5f);
 	m_backButton.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 100);

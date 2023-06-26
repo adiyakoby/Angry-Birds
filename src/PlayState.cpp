@@ -78,12 +78,12 @@ bool PlayState::levelEnd()
 {
     if (m_pigs.size() == 0)
     {
-        setUpForEndLevel("Pass", 1);
+        setUpForEndLevel("Pass", TransitionScreen::PASS);
         return true;
     }
     else if (m_birds.size() == 0)
     {
-        setUpForEndLevel("Failed", 0);
+        setUpForEndLevel("Failed", TransitionScreen::FAILED);
         return true;
     }
     return false;
@@ -111,7 +111,7 @@ void PlayState::setNextBird(const bool& x)
 }
 
 //#level select
-void PlayState::setUpForEndLevel(std::string status, int transitionScreen)
+void PlayState::setUpForEndLevel(std::string status, TransitionScreen transitionScreen)
 {
     m_world->getWorld()->SetContactListener(nullptr);
     m_sharedData->levelStatus = status;
@@ -235,7 +235,7 @@ void PlayState::updateView()
 void PlayState::initilaize()
 { 
     //init background
-    m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(1));
+    m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(backGrounds::LEVEL));
     m_backGround.setSize(sf::Vector2f(m_backGround.getTexture()->getSize().x * 3, m_backGround.getTexture()->getSize().y));
     m_backGround.setPosition(0, 0);
 
@@ -246,9 +246,9 @@ void PlayState::initilaize()
         m_buttons.back().setRadius(30.f);
         m_buttons.back().setOrigin(m_buttons.back().getRadius(), m_buttons.back().getRadius());
     }
-    m_buttons.at(0).setTexture(&GameResources::getInstance().getButtons(0));//restart
-    m_buttons.at(1).setTexture(&GameResources::getInstance().getButtons(1));//sound
-    m_buttons.at(2).setTexture(&GameResources::getInstance().getButtons(3));//back
+    m_buttons.at(0).setTexture(&GameResources::getInstance().getButtons(static_cast<int>(buttonType::RESTART)));//restart
+    m_buttons.at(1).setTexture(&GameResources::getInstance().getButtons(static_cast<int>(buttonType::SOUND)));//sound
+    m_buttons.at(2).setTexture(&GameResources::getInstance().getButtons(static_cast<int>(buttonType::BACKWARD)));//back
 
 
     //init Text Data

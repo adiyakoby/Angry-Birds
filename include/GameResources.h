@@ -17,18 +17,18 @@ public:
 	GameResources operator=(const GameResources&) = delete; //disable assimenget operator
 
 	sf::Texture& getMenuTexture(int index);
-	sf::Texture& getHelpTexture(int index);//state
+	sf::Texture& getHelpTexture(int index);
 	sf::Texture& getBirdTexture(int index);
 	sf::Texture& getWoodsTexture(int index);
 	sf::Texture& getRogatkaTexture(int index);
 	sf::Texture& getPigsTexture(int index);
 	sf::Texture& getPoofTexture(int index);
 	sf::Texture& getLock();
-	sf::Texture& getTransitionScreensState(int index);
+	sf::Texture& getTransitionScreensState(const TransitionScreen&);
 	sf::Texture& getObstacleTexture(const int& index);
 	sf::Texture& getButtons(int index);
 	sf::Texture& getLevelsFields(int index);
-	sf::Texture& getBackGroundScreens(int index);
+	sf::Texture& getBackGroundScreens(const backGrounds&);
 
 	void playBackGroundMusic();
 

@@ -1,6 +1,6 @@
 #include "TransitionScreensState.h"
 
-TransitionScreens::TransitionScreens(std::shared_ptr<GameTools> gameTools, const int& texture)
+TransitionScreens::TransitionScreens(std::shared_ptr<GameTools> gameTools, const TransitionScreen& texture)
 	:m_gameTools(gameTools), m_stateTimeLimit(3), m_texture(texture)
 {
 	initilaize();

@@ -47,7 +47,7 @@ public:
 	void drawGame();
 	void updateView();
 	void setNextBird(const bool &x);
-	void setUpForEndLevel(std::string, int);
+	void setUpForEndLevel(std::string, TransitionScreen);
 	bool levelEnd();
 	bool isFinishedMoving();
 	void updateDataPosition();
