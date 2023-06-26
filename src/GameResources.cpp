@@ -141,7 +141,7 @@ void GameResources::initTextures()
         m_menuTexture.back().loadFromFile(menuTextureNames.at(i));
     }
 
-    std::array<std::string, 1> helpScreen { "back.png" };
+    std::array<std::string, 4> helpScreen {  "instruction1.png", "instruction2.png", "instruction3.png", "back.png" };
     for (size_t i = 0; i < helpScreen.size(); i++)
     {
         m_helpScreenTexture.emplace_back();
@@ -222,7 +222,7 @@ void GameResources::initTextures()
     //all the texture images names for transition screens
     //char screenTextureNames[4][30] = { "pacmanBackground.png", "GameOver.png", "NextLevel.png", "endGame.png" };
 
-    std::array<std::string, 4> backGroundTextureNames{"MenuBackground.png", "helpScreen.png", "LevelOne.png", "LevelSelectBackGround.png"};
+    std::array<std::string, 3> backGroundTextureNames{"MenuBackground.png", "LevelOne.png", "LevelSelectBackGround.png"};
     for (size_t i = 0; i < backGroundTextureNames.size(); i++)
     {
         m_backGround.emplace_back();
@@ -252,7 +252,7 @@ void GameResources::initTextures()
 
     //get buttons texture - 1)restart 2)sound 3)mute 4)forward 5)backward
     std::array<sf::IntRect, 5> buttonsPosition{ sf::IntRect{270,170,185, 185}, sf::IntRect{730, 170, 185, 185} , 
-                                                sf::IntRect{965, 170, 185, 185}, sf::IntRect{50, 620, 185, 185},sf::IntRect{280, 620, 185, 185}};
+                                                sf::IntRect{965, 170, 185, 185},  sf::IntRect{280, 620, 185, 185}, sf::IntRect{50, 620, 185, 185}};
     for (size_t i = 0; i < buttonsPosition.size(); i++)
     {
         m_buttons.emplace_back();
