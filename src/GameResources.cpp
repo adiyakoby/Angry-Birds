@@ -50,9 +50,6 @@ sf::Texture& GameResources::getRogatkaTexture(const int& index) {
 }
 
 
-sf::Texture& GameResources::getPigsTexture(const int& index) {
-    return m_pigsTexture.at(index);
-}
 
 sf::Texture& GameResources::getBackGroundScreens(const backGrounds& background)
 {
@@ -139,12 +136,6 @@ void GameResources::initTextures()
         m_birdsTexture[i].loadFromFile("Angry-Birds.png", birdLocation.at(i));
     
 
-    //vector string for the pig's names
-    std::array<sf::IntRect, 2> pigsLocation{ sf::IntRect{549,924,50,50},sf::IntRect{549,825,50,50} };
-    for (size_t i = 0; i < pigsLocation.size(); i++)
-        m_pigsTexture[i].loadFromFile("Angry-Birds.png", pigsLocation.at(i));
-
-
     std::array<sf::IntRect, 5> poofLocation{ sf::IntRect{40,715,126,120} , sf::IntRect{41,467,127,121} ,sf::IntRect{166,151,146,144},
     sf::IntRect{482,393,91,91}  , sf::IntRect{312,157,131,122} };
     for (size_t i = 0; i < poofLocation.size(); i++)
@@ -176,6 +167,10 @@ void GameResources::initTextures()
     for (size_t i = 0; i < BallsLocation.size(); i++)
         m_obstacles[i + 12].loadFromFile("StaticObjects.png", BallsLocation.at(i));
     
+    //vector string for the pig's names  // Indexes: 18  ,  19
+    std::array<sf::IntRect, 2> pigsLocation{ sf::IntRect{549,924,50,50},sf::IntRect{549,825,50,50} };
+    for (size_t i = 0; i < pigsLocation.size(); i++)
+        m_obstacles[i + 18].loadFromFile("Angry-Birds.png", pigsLocation.at(i));
 
     //rogatka texture
     std::array<std::string, 2> rogatkaNames{ "rogatka.png", "rogsit.png"};
