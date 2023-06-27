@@ -20,7 +20,7 @@ public:
 	sf::Texture& getHelpTexture(const int& index);
 	sf::Texture& getBirdTexture(const int& index);
 	sf::Texture& getRogatkaTexture(const int& index);
-	sf::Texture& getPigsTexture(const int& index);
+	//sf::Texture& getPigsTexture(const int& index);
 	sf::Texture& getPoofTexture(const int& index);
 	sf::Texture& getLock();
 	sf::Texture& getTransitionScreensState(const TransitionScreen&);
@@ -49,11 +49,10 @@ private:
 	std::array <sf::Texture,3> m_backGround;
 	std::array <sf::Texture,4> m_birdsTexture;
 	std::array <sf::Texture,2> m_rogatkaTexture;
-	std::array <sf::Texture, 2> m_pigsTexture;
 	std::array <sf::Texture, 5> m_poofTexture;
 	std::array <sf::Texture, 2> m_transitionScreensState;
 	std::array <sf::Texture, 5> m_buttons;
-	std::array <sf::Texture, 18> m_obstacles;
+	std::array <sf::Texture, 20> m_obstacles;
 	std::array <sf::Texture, 6> m_levelsFields;
 	std::array <sf::Font, 2> m_font;
 
