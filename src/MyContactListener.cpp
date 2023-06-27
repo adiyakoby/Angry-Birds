@@ -125,7 +125,7 @@ HitMap initializeCollisionMap()
     phm[Key(typeid(Obstacle), typeid(Ground))] = &ObstacleGround;
 
     // Circular Obstacle
-    phm[Key(typeid(CircularObstacle), typeid(CircularObstacle))] = &ObstacleObstacle;
+    phm[Key(typeid(Obstacle), typeid(CircularObstacle))] = &ObstacleObstacle;
     phm[Key(typeid(CircularObstacle), typeid(Obstacle))] = &ObstacleObstacle;
 
     phm[Key(typeid(CircularObstacle), typeid(CircularObstacle))] = &ObstacleObstacle;
