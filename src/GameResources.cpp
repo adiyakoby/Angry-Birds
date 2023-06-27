@@ -139,7 +139,7 @@ void GameResources::initTextures()
         m_birdsTexture[i].loadFromFile("Angry-Birds.png", birdLocation.at(i));
     
 
-    //vector string for the pig's names
+    //vector string for the pig's names()
     std::array<sf::IntRect, 2> pigsLocation{ sf::IntRect{549,924,50,50},sf::IntRect{549,825,50,50} };
     for (size_t i = 0; i < pigsLocation.size(); i++)
         m_pigsTexture[i].loadFromFile("Angry-Birds.png", pigsLocation.at(i));
