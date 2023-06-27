@@ -7,8 +7,6 @@ BlueBird::BlueBird(std::shared_ptr<World> world, const sf::Vector2f& position, c
 }
 
 
-
-
 void BlueBird::objectUpdate() {
     
    
@@ -24,6 +22,8 @@ void BlueBird::objectUpdate() {
     }
 
 }
+
+
 void BlueBird::drawObject(sf::RenderWindow& w) {
     
     if (m_state == normal)

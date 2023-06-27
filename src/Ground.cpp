@@ -1,7 +1,7 @@
 #include "Ground.h"
 
 
-Ground::Ground(std::shared_ptr<World> world , const sf::Vector2f& position, const sf::Vector2f& size, arrData arr) 
+Ground::Ground(std::shared_ptr<World> world , const sf::Vector2f& position, const sf::Vector2f& size, const arrData& arr)
     : StaticObjects(world) {
     initPhysicBody(world, position, size);
     initGraphicBody();

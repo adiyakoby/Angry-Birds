@@ -85,12 +85,7 @@ void Bird::handleThrow(const float x, const float y)
 }
 
 void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w)
-{
-    sf::VertexArray line(sf::Lines, 2);
-    line[0] = sf::Vertex(dragStartPosition, sf::Color::Green);
-    line[1] = sf::Vertex(dragEndPosition, sf::Color::Green);
-    w.draw(line);
-    
+{   
     sf::Vector2f mouseLastLocation(mouseLocation.x, mouseLocation.y);
     float distance = std::sqrt(std::pow(dragStartPosition.x - mouseLastLocation.x, 2) + std::pow(dragStartPosition.y - mouseLastLocation.y, 2));
 
@@ -98,7 +93,6 @@ void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w
         sf::Vector2f direction = mouseLastLocation - dragStartPosition;
         direction /= distance;
         dragEndPosition = dragStartPosition + direction * MAX_DISTANCE;
-        //m_bird.setPosition(dragEndPosition);
         m_body->SetTransform(b2Vec2(dragEndPosition.x / SCALE, dragEndPosition.y / SCALE), (dragStartPosition.y - dragEndPosition.y) / SCALE);
     }
     else {
@@ -110,7 +104,7 @@ void Bird::setRangeVector(const sf::Vector2i& mouseLocation, sf::RenderWindow& w
 
 }
 
-sf::Vector2f Bird::calculateThrow()
+sf::Vector2f Bird::calculateThrow() const
 {
     return sf::Vector2f(dragStartPosition - dragEndPosition) * 1.3f;
 }

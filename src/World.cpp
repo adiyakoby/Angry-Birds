@@ -7,16 +7,13 @@ World::World() : m_world{ std::make_unique<b2World>(b2Vec2(0.f, 10.8f)) } {
 }
 
 
-void World::step(const float timestep,const int32 velocity,const int32 positionIteration) {
+void World::step(const float& timestep,const int32& velocity,const int32& positionIteration) {
 	m_world->Step(timestep, velocity, positionIteration);
 }
 
 void World::setFrame() {
     m_worldFrame[0] = setCorner(Left);
-    m_worldFrame[1] = setCorner(Top);
-    m_worldFrame[2] = setCorner(Right);
-
-	
+    m_worldFrame[1] = setCorner(Right);
 }
 
 b2Body* World::setCorner(Position position) {
@@ -34,15 +31,11 @@ b2Body* World::setCorner(Position position) {
     switch (position) {
     case Left :
         bodyDef.position.Set(-width / SCALE, (WINDOW_HEIGHT) / SCALE);
-        boxshape.SetAsBox(width / 2.f / SCALE, WINDOW_HEIGHT / SCALE);
-        break;
-    case Top:
-        bodyDef.position.Set(WINDOW_WIDTH / 2.f / SCALE, -height / SCALE);
-        boxshape.SetAsBox(WINDOW_WIDTH / 2.f / SCALE, height / SCALE);
+        boxshape.SetAsBox(width / SCALE, WINDOW_HEIGHT / SCALE);
         break;
     case Right:
-        bodyDef.position.Set((GameResources::getInstance().getBackGroundScreens(2).getSize().x*3 + width) / SCALE, (WINDOW_HEIGHT) / 2.f / SCALE);
-        boxshape.SetAsBox(width / 2 / SCALE, WINDOW_HEIGHT / SCALE);
+        bodyDef.position.Set((GameResources::getInstance().getBackGroundScreens(backGrounds::LEVEL).getSize().x*3 + width) / SCALE, (WINDOW_HEIGHT) / 2.f / SCALE);
+        boxshape.SetAsBox(width / SCALE, WINDOW_HEIGHT *4.f / SCALE);
         break;
     default:
         // Code for default case (if index does not match any of the above cases)

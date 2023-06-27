@@ -1,6 +1,6 @@
 #include "TransitionScreensState.h"
 
-TransitionScreens::TransitionScreens(std::shared_ptr<GameTools> gameTools, const int& texture)
+TransitionScreens::TransitionScreens(std::shared_ptr<GameTools> gameTools, const TransitionScreen& texture)
 	:m_gameTools(gameTools), m_stateTimeLimit(3), m_texture(texture)
 {
 	initilaize();
@@ -8,6 +8,12 @@ TransitionScreens::TransitionScreens(std::shared_ptr<GameTools> gameTools, const
 
 void TransitionScreens::processManeger()
 {
+	if (auto event = sf::Event{}; m_gameTools->m_window.getWindow().pollEvent(event))
+	{
+		if(event.type == sf::Event::Closed)
+			m_gameTools->m_window.getWindow().close();
+	}
+
 	sf::Time elapsed = m_stateClock.restart();
 	m_stateTimeLimit -= (elapsed.asSeconds() / 1.5);
 }

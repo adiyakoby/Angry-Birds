@@ -47,6 +47,8 @@ void LevelSelectState::update()
 			levelRequest();
 		else if (m_requestedLevel == 7)
 			m_gameTools->m_gameStates.addState(std::make_unique<MainMenuState>(this->m_gameTools, false), false);
+		else if (m_requestedLevel == 8)
+			soundButtonClicked(m_Buttons.at(1));
 	m_event = false;
 }
 
@@ -59,12 +61,12 @@ void LevelSelectState::Draw()
 
 void LevelSelectState::Resume()
 {
+	setSoundTexture(m_Buttons.at(1));
 	updateReturningValue();
 }
 
 void LevelSelectState::levelRequest()
 {
-	std::cout << "requested level " << m_requestedLevel + 1 << std::endl;
 	m_sharedData->levelToRead = m_requestedLevel + 1;
 	m_gameTools->m_gameStates.switchStates();
 }
@@ -78,8 +80,6 @@ void LevelSelectState::updateReturningValue()
 			m_levelData.at(m_sharedData->levelToRead - 1).second = m_sharedData->score;
 			m_levelsFields.at(m_sharedData->levelToRead - 1).second.setString(m_levelData.at(m_sharedData->levelToRead - 1).first + std::to_string(m_levelData.at(m_sharedData->levelToRead - 1).second));
 		}
-		std::cout << "pass level: " << m_sharedData->levelToRead << std::endl;
-		std::cout << "level score:  " << m_sharedData->score << std::endl;
 		if (m_sharedData->levelToRead == m_levelData.size())
 			openNewLevel();
 	}
@@ -88,6 +88,8 @@ void LevelSelectState::updateReturningValue()
 
 void LevelSelectState::openNewLevel()
 {
+	if (m_sharedData->levelToRead == MAX_LEVEL)
+		return;
 	m_levelData.emplace_back();
 	m_levelData.back().first = "Score: ";
 	m_levelData.back().second = 0;
@@ -96,7 +98,6 @@ void LevelSelectState::openNewLevel()
 	m_levelsFields.at(newLevel).second = GameResources::getInstance().createText(m_levelData.at(newLevel).first + std::to_string(m_levelData.at(newLevel).second), sf::Color::White, 0);
 	m_levelsFields.at(newLevel).second.setPosition(m_levelsFields.at(newLevel).first.getPosition() + sf::Vector2f(0, 50));
 	m_levelsFields.at(newLevel).second.setCharacterSize(25);
-	std::cout << "open new level " << std::endl;
 }
 
 void LevelSelectState::drawLevelSelect()
@@ -108,8 +109,8 @@ void LevelSelectState::drawLevelSelect()
 		m_gameTools->m_window.getWindow().draw(i.first);
 		m_gameTools->m_window.getWindow().draw(i.second);
 	}
-		
-	m_gameTools->m_window.getWindow().draw(m_backButton);
+	for(auto& button : m_Buttons)
+		m_gameTools->m_window.getWindow().draw(button);
 }
 
 int LevelSelectState::handleClick(sf::Vector2f mouse_loc)
@@ -117,8 +118,10 @@ int LevelSelectState::handleClick(sf::Vector2f mouse_loc)
 	for (int i = 0; i < m_levelsFields.size(); i++)
 		if (m_levelsFields.at(i).first.getGlobalBounds().contains(mouse_loc))
 			return i;
-	if (m_backButton.getGlobalBounds().contains(mouse_loc))
+	if (m_Buttons.at(0).getGlobalBounds().contains(mouse_loc))
 		return 7;
+	else if (m_Buttons.at(1).getGlobalBounds().contains(mouse_loc))
+		return 8;
 	return -1;
 }
 
@@ -127,7 +130,7 @@ void LevelSelectState::initilaize()
 	
 	m_backGround.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
 	m_backGround.setPosition(0, 0);
-	m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(3));
+	m_backGround.setTexture(&GameResources::getInstance().getBackGroundScreens(backGrounds::SELECT_LEVEL));
 	
 	//levels fields
 	auto firstPos = sf::Vector2f(300.f, 200.f);
@@ -146,7 +149,6 @@ void LevelSelectState::initilaize()
 	}
 
 	//give access to level 1
-
 	m_levelData.emplace_back();
 	m_levelData.back().first = "Score: ";
 	m_levelData.back().second = 0;
@@ -155,10 +157,18 @@ void LevelSelectState::initilaize()
 	m_levelsFields.at(0).second.setPosition(sf::Vector2f(300, 250));
 	m_levelsFields.at(0).second.setCharacterSize(25);
 
-	////back button
-	m_backButton.setRadius(50.f);
-	m_backButton.setOrigin(m_backButton.getRadius(),m_backButton.getRadius());
-	m_backButton.setPosition(sf::Vector2f(100.f, WINDOW_HEIGHT - 100));
-	m_backButton.setTexture(&GameResources::getInstance().getButtons(0));
-	
+	////back button + music button
+	firstPos = sf::Vector2f(100.f, WINDOW_HEIGHT - 100);
+	for (int i = 0; i < 2; i++)
+	{
+		m_Buttons.emplace_back();
+		m_Buttons.back().setRadius(50.f);
+		m_Buttons.back().setOrigin(m_Buttons.back().getRadius(), m_Buttons.back().getRadius());
+		m_Buttons.back().setPosition(firstPos);
+		firstPos.x += WINDOW_WIDTH - 200;
+	}
+
+	//set buttuns texture
+	m_Buttons.at(0).setTexture(&GameResources::getInstance().getButtons(static_cast<int>(buttonType::BACKWARD)));
+	setSoundTexture(m_Buttons.at(1));
 }

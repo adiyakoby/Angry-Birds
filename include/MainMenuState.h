@@ -17,15 +17,15 @@ public:
 	MainMenuState(std::shared_ptr<GameTools>, bool);
 	~MainMenuState() = default;
 
-	void processManeger();
-	void update();
-	void Draw();
-	void Resume()override {}
-	void Pause()override {}
+	//virtual funcs
+	virtual void processManeger();
+	virtual void update();
+	virtual void Draw();
+	virtual void Resume()override;
 
+	//getters
 	menuCommand handleClick(const sf::Vector2f& mouse_loc);
 	void menuManeger();
-	void setSound(const menuCommand& cmd);
 	void drawMenu();
 
 protected:
@@ -34,9 +34,11 @@ protected:
 private:
 	std::shared_ptr<GameTools> m_gameTools;
 	std::vector<sf::RectangleShape> m_buttons;
+
+	sf::CircleShape m_soundButton;
 	sf::RectangleShape m_backGround;
+
 	menuCommand m_mode;
 	bool m_event;
-	sf::Sound m_music;
 	bool m_newAlloc; //give instraction if we need to allocate new level select state or not
 };

@@ -1,7 +1,7 @@
 
 #include "YellowBird.h"
 
-YellowBird::YellowBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, arrData arr)
+YellowBird::YellowBird(std::shared_ptr<World> world, const sf::Vector2f& position, const sf::Vector2f& size, const arrData& arr)
     : Bird(world, position, size, arr.at(0)), m_secondclick{ false } {
     
 }

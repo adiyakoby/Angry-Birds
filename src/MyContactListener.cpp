@@ -8,7 +8,6 @@
 
 #include "Ground.h"
 #include "Rogatka.h"
-#include "Pig.h"
 #include "World.h"
 #include "RedBird.h"
 #include "YellowBird.h"
@@ -42,15 +41,6 @@ namespace {//begin namespace
 
 //-------------HIT FUNCTIONS-----------
 
-
-
-void pigGround(Objects& pig, Objects& ground) {
-    pig.setDamage(pig.getBodyMass() * pig.getBodyVelocity().LengthSquared());
-}
-void groundPig(Objects& ground, Objects& pig) {
-    pigGround(pig, ground);
-}
-
  void groundObstacle(Objects& ground, Objects& wood) {
      wood.setDamage(wood.getBodyMass()/2.f * wood.getBodyVelocity().LengthSquared());
 }
@@ -64,49 +54,29 @@ void ObstacleObstacle(Objects& firstWood, Objects& SecondWood) {
     SecondWood.setDamage(firstWood.getBodyMass() * firstWood.getBodyVelocity().LengthSquared());
 }
 
-void birdPig(Objects& bird, Objects& pig) {
-
+void birdObstacle(Objects& bird, Objects& obstacle) {
     static_cast<Bird&>(bird).gotHit();
-
-    float dmg{ bird.getBodyMass() * bird.getBodyVelocity().LengthSquared() };
-    
-    if (dynamic_cast<BlueBird*>(&bird))
-        dmg *= 4.f;
-
-    pig.setDamage(dmg);
-    if (pig.getHp() <= 10) 
-        static_cast<Pig&>(pig).hitState();
-}
-
-void pigBird(Objects& pig, Objects& bird) {
-    birdPig(bird, pig);
-}
-
-void birdObstacle(Objects& bird, Objects& wood) {
-    static_cast<Bird&>(bird).gotHit();
-    wood.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
-    static_cast<Obstacle&>(wood).hitState();
+    obstacle.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
+    static_cast<Obstacle&>(obstacle).hitState();
 }
 
 void ObstacleBird(Objects& wood, Objects& bird) {
     birdObstacle(bird, wood);
 }
 
-void pigObstacle(Objects& pig, Objects& wood) {
-
-    float dmg{ wood.getBodyMass() * wood.getBodyVelocity().LengthSquared() + pig.getBodyMass() * pig.getBodyVelocity().LengthSquared() };
-    pig.setDamage(dmg);
-    wood.setDamage(dmg);
-    if(pig.getHp() <= 10)
-        static_cast<Pig&>(pig).hitState();
+void birdCircularObstacle(Objects& bird, Objects& obstacle) {
+    static_cast<Bird&>(bird).gotHit();
+    obstacle.setDamage(bird.getBodyMass() * bird.getBodyVelocity().LengthSquared());
+    static_cast<CircularObstacle&>(obstacle).hitState();
 }
 
-void ObstaclePig(Objects& wood, Objects& pig) {
-    pigObstacle(pig, wood);
+void CircularObstacleBird(Objects& obstacle, Objects& bird) {
+    birdObstacle(bird, obstacle);
 }
 
 void BirdGround(Objects& bird, Objects& ground) {
-    static_cast<Bird&>(bird).gotHit();
+    if(!static_cast<Bird&>(bird).isOnRogatka())
+        static_cast<Bird&>(bird).gotHit();
 }
 
 void GroundBird(Objects& ground, Objects& bird) {
@@ -135,71 +105,47 @@ HitMap initializeCollisionMap()
     phm[Key(typeid(Ground), typeid(BlackBird))] = &GroundBird;
     phm[Key(typeid(BlackBird), typeid(Ground))] = &BirdGround;
 
-    phm[Key(typeid(Ground), typeid(Pig))] = &groundPig;
-    phm[Key(typeid(Pig), typeid(Ground))] = &pigGround;
-
-    phm[Key(typeid(YellowBird), typeid(Pig))] = &birdPig;
-    phm[Key(typeid(Pig), typeid(YellowBird))] = &pigBird;
-
-    phm[Key(typeid(RedBird), typeid(Pig))] = &birdPig;
-    phm[Key(typeid(Pig), typeid(RedBird))] = &pigBird;
-
-    phm[Key(typeid(BlueBird), typeid(Pig))] = &birdPig;
-    phm[Key(typeid(Pig), typeid(BlueBird))] = &pigBird;
-
-    phm[Key(typeid(BlackBird), typeid(Pig))] = &birdPig;
-    phm[Key(typeid(Pig), typeid(BlackBird))] = &pigBird;
-
-    phm[Key(typeid(Pig), typeid(Obstacle))] = &pigObstacle;
-    phm[Key(typeid(Obstacle), typeid(Pig))] = &ObstaclePig;
-
     phm[Key(typeid(Obstacle), typeid(Obstacle))] = &ObstacleObstacle;
 
     phm[Key(typeid(RedBird), typeid(Obstacle))] = &birdObstacle;
-    phm[Key(typeid(Obstacle), typeid(RedBird))] = &ObstacleBird;
+    phm[Key(typeid(Obstacle), typeid(RedBird))] = &CircularObstacleBird;
 
     phm[Key(typeid(YellowBird), typeid(Obstacle))] = &birdObstacle;
-    phm[Key(typeid(Obstacle), typeid(YellowBird))] = &ObstacleBird;
+    phm[Key(typeid(Obstacle), typeid(YellowBird))] = &CircularObstacleBird;
 
 
     phm[Key(typeid(BlueBird), typeid(Obstacle))] = &birdObstacle;
-    phm[Key(typeid(Obstacle), typeid(BlueBird))] = &ObstacleBird;
+    phm[Key(typeid(Obstacle), typeid(BlueBird))] = &CircularObstacleBird;
 
 
     phm[Key(typeid(BlackBird), typeid(Obstacle))] = &birdObstacle;
-    phm[Key(typeid(Obstacle), typeid(BlackBird))] = &ObstacleBird;
+    phm[Key(typeid(Obstacle), typeid(BlackBird))] = &CircularObstacleBird;
 
     phm[Key(typeid(Ground), typeid(Obstacle))] = &groundObstacle;
     phm[Key(typeid(Obstacle), typeid(Ground))] = &ObstacleGround;
 
     // Circular Obstacle
-    phm[Key(typeid(CircularObstacle), typeid(CircularObstacle))] = &ObstacleObstacle;
+    phm[Key(typeid(Obstacle), typeid(CircularObstacle))] = &ObstacleObstacle;
     phm[Key(typeid(CircularObstacle), typeid(Obstacle))] = &ObstacleObstacle;
 
-    phm[Key(typeid(Pig), typeid(CircularObstacle))] = &pigObstacle;
-    phm[Key(typeid(CircularObstacle), typeid(Pig))] = &ObstaclePig;
-
     phm[Key(typeid(CircularObstacle), typeid(CircularObstacle))] = &ObstacleObstacle;
 
-    phm[Key(typeid(RedBird), typeid(CircularObstacle))] = &birdObstacle;
+    phm[Key(typeid(RedBird), typeid(CircularObstacle))] = &birdCircularObstacle;
     phm[Key(typeid(CircularObstacle), typeid(RedBird))] = &ObstacleBird;
 
-    phm[Key(typeid(YellowBird), typeid(CircularObstacle))] = &birdObstacle;
+    phm[Key(typeid(YellowBird), typeid(CircularObstacle))] = &birdCircularObstacle;
     phm[Key(typeid(CircularObstacle), typeid(YellowBird))] = &ObstacleBird;
 
 
-    phm[Key(typeid(BlueBird), typeid(CircularObstacle))] = &birdObstacle;
+    phm[Key(typeid(BlueBird), typeid(CircularObstacle))] = &birdCircularObstacle;
     phm[Key(typeid(CircularObstacle), typeid(BlueBird))] = &ObstacleBird;
 
-    phm[Key(typeid(BlackBird), typeid(CircularObstacle))] = &birdObstacle;
+    phm[Key(typeid(BlackBird), typeid(CircularObstacle))] = &birdCircularObstacle;
     phm[Key(typeid(CircularObstacle), typeid(BlackBird))] = &ObstacleBird;
 
     phm[Key(typeid(Ground), typeid(CircularObstacle))] = &groundObstacle;
     phm[Key(typeid(CircularObstacle), typeid(Ground))] = &ObstacleGround;
 
-    
-
-    //...
     return phm;
 }
 

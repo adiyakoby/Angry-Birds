@@ -109,9 +109,6 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 			{
 			case '/':  if (!insideLine) insideLine = true;															break;
 			case ' ': if(insideLine) xPos += 30;																	break;
-			case '@': pigsVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Pigs",
-				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f), {0, PIG_HP, PIG_SCORE})));
-				xPos += 21;																							break;
 
 			case '!': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("Obstacle",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(150.f, 40.f), {0, WOOD_HP, WOOD_SCORE})));
@@ -139,15 +136,19 @@ void LevelManager::CreateObj(std::deque<std::string> & objDeq, std::vector<std::
 
 			case '*': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("CircularObstacle",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(30.f, 0.f), { 12, WOOD_HP, WOOD_SCORE })));
-				xPos += 21;																						break;
+				xPos += 21;																							break;
 
 			case '.': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("CircularObstacle",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(30.f, 0.f), { 14, IRON_HP, IRON_SCORE })));
-				xPos += 21;																						break;
+				xPos += 21;																							break;
 
 			case ',': objVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("CircularObstacle",
 				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(30.f, 0.f), { 16, ICE_HP, ICE_HP })));
-				xPos += 21;																						break;
+				xPos += 21;																							break;
+
+			case '@': pigsVec.emplace_back(std::move(ObjectFactory<StaticObjects>::instance().create("CircularObstacle",
+				m_world, sf::Vector2f(xPos, yPos), sf::Vector2f(20.f, 0.f), { 18, PIG_HP, PIG_SCORE })));
+				xPos += 21;																							break;
 
 			default: break;
 			}	
