@@ -15,8 +15,8 @@ This project was developed during the second year of my B.Sc. in Computer Scienc
 ![Photo 2](https://github.com/adiyakoby/Angry-Birds/blob/master/angrybirds2.png)
 ![Photo 3](https://github.com/adiyakoby/Angry-Birds/blob/master/angrybird3.png)
 
-### Video
-[Watch the video on YouTube](https://www.youtube.com/watch?v=V4DrVV0S9NE)
+### Video (YouTube)
+[![Watch the video](https://img.youtube.com/vi/V4DrVV0S9NE/maxresdefault.jpg)](https://www.youtube.com/watch?v=V4DrVV0S9NE)
 
 ## Game Description
 In this game, the player controls a flock of colorful birds trying to retrieve their eggs, which have been stolen by a group of hungry green pigs. At each stage, the pigs are protected by buildings made of different materials (such as wood, glass, or rocks). The goal is to eliminate all the pigs. Using a slingshot, the player launches a limited group of birds to hit the pigs directly or damage the buildings around them, causing structures to collapse and crush the pigs. Each bird type has unique abilities, and each level starts with a predetermined set of birds.
