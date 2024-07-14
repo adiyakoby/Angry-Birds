@@ -32,6 +32,34 @@ In this game, the player controls a flock of colorful birds trying to retrieve t
   - Graphics are implemented using the SFML library.
   - Physics are handled using the BOX2D library.
 
+## Installation
+
+1. **Install SFML (version 2.5.1):**
+    - Download SFML 2.5.1 from the [official website](https://www.sfml-dev.org/download.php).
+    - Follow the installation instructions for your operating system.
+
+2. **Update CMakeLists.txt:**
+    - Open the `CMakeLists.txt` file.
+    - Update the SFML path to match your installation location:
+        ```cmake
+        set(SFML_DIR "path_to_your_SFML_2.5.1_installation")
+        find_package(SFML 2.5.1 COMPONENTS system window graphics network audio REQUIRED)
+        ```
+
+3. **Clone the repository:**
+    ```sh
+    git clone https://github.com/yourusername/Angry-Birds.git
+    ```
+
+4. **Build the project:**
+    ```sh
+    cd Angry-Birds
+    mkdir build
+    cd build
+    cmake ..
+    make
+    ```
+
 ## Classes and Design
 ### States
 - **State:** Abstract base class for all state classes in the game.
