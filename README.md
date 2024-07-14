@@ -8,6 +8,16 @@
 ## Project Overview
 This project was developed during the second year of my B.Sc. in Computer Science. It demonstrates the application of STL and advanced C++ techniques that I learned independently outside my degree curriculum. The game is a replica of the classic Angry Birds, where players use a slingshot to launch birds at pigs sheltered by various structures, aiming to eliminate all the pigs to advance through the levels.
 
+## Media
+
+### Photos
+![Photo 1](https://ibb.co/4T8D63y)
+![Photo 2](https://ibb.co/HtFznKC)
+![Photo 3](https://ibb.co/VmZVXcj)
+
+### Video
+[Watch the video on YouTube](https://www.youtube.com/watch?v=V4DrVV0S9NE)
+
 ## Game Description
 In this game, the player controls a flock of colorful birds trying to retrieve their eggs, which have been stolen by a group of hungry green pigs. At each stage, the pigs are protected by buildings made of different materials (such as wood, glass, or rocks). The goal is to eliminate all the pigs. Using a slingshot, the player launches a limited group of birds to hit the pigs directly or damage the buildings around them, causing structures to collapse and crush the pigs. Each bird type has unique abilities, and each level starts with a predetermined set of birds.
 
