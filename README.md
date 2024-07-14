@@ -12,8 +12,8 @@ This project was developed during the second year of my B.Sc. in Computer Scienc
 
 ### Photos
 ![Photo 1](https://github.com/adiyakoby/Angry-Birds/blob/master/angrybirds.png)
-![Photo 2]([https://ibb.co/HtFznKC](https://github.com/adiyakoby/Angry-Birds/blob/master/angrybirds2.png))
-![Photo 3]([https://ibb.co/VmZVXcj](https://github.com/adiyakoby/Angry-Birds/blob/master/angrybirds3.png))
+![Photo 2](https://github.com/adiyakoby/Angry-Birds/blob/master/angrybirds2.png)
+![Photo 3](https://github.com/adiyakoby/Angry-Birds/blob/master/angrybirds3.png)
 
 ### Video
 [Watch the video on YouTube](https://www.youtube.com/watch?v=V4DrVV0S9NE)
